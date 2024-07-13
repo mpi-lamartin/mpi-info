@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmpi_info=self.webpackChunkmpi_info||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"Cahier de texte","items":[{"title":"Rentr\xe9e 2024","permalink":"/mpi-info/rentree","unlisted":false}]}')}}]);
