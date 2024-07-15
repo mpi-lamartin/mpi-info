@@ -5,9 +5,9 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'MPI Informatique au lycée la Martinière Monplaisir',
+  title: 'Informatique en MPI/MPI* au lycée la Martinière Monplaisir',
   // tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.png',
 
   // Set the production url of your site here
   url: 'https://fortierq.github.io',
@@ -44,8 +44,7 @@ const config: Config = {
           blogSidebarTitle: 'Cahier de texte',
           showReadingTime: true,
           routeBasePath: '/',
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          blogTitle: 'Cahier de texte',
         },
 
         theme: {
@@ -57,14 +56,15 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    // image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'MPI Informatique',
+      title: 'MPI/MPI* Informatique',
       logo: {
         alt: 'MPI Informatique',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       items: [
+        {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
         {
           type: "doc",
           docId: "programmation/rappels_programmation",
