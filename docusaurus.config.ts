@@ -42,7 +42,7 @@ const config: Config = {
         },
         blog: {
           blogSidebarTitle: 'Cahier de texte',
-          showReadingTime: true,
+          showReadingTime: false,
           routeBasePath: '/',
           blogTitle: 'Cahier de texte',
         },
@@ -58,7 +58,7 @@ const config: Config = {
     // Replace with your project's social card
     // image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'MPI/MPI* Informatique',
+      title: 'MPI Informatique',
       logo: {
         alt: 'MPI Informatique',
         src: 'img/logo.png',
@@ -67,10 +67,10 @@ const config: Config = {
         {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
         {
           type: "doc",
-          docId: "programmation/rappels_programmation",
+          docId: "concurrence/concurrence",
           position: "left",
-          label: "Programmation",
-          sidebarId: "rappels_programmation",
+          label: "Concurrence",
+          sidebarId: "concurrence",
         },
         {to: '/', label: 'Cahier de texte', position: 'right'},
         {
