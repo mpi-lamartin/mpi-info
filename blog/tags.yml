@@ -1,8 +1,9 @@
 devoir:
   label: Devoir
-  permalink: /devoir
   description: Devoir
 colle:
   label: Colle
-  permalink: /colle
   description: Programme de colle
+leetcode:
+  label: LeetCode
+  description: LeetCode
