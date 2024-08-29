@@ -68,14 +68,18 @@ const config: Config = {
         {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
         {
           type: "doc",
-          docId: "concurrence/concurrence",
+          docId: "concurrence/Concurrence/concurrence",
           position: "left",
           label: "Concurrence",
-          sidebarId: "concurrence",
         },
         {
           href: 'https://mpi-lamartin.github.io',
-          label: 'Site de la classe',
+          label: 'Classe',
+          position: 'right',
+        },
+        {
+          href: 'https://mp2i-info.github.io',
+          label: 'MP2I',
           position: 'right',
         },
         {
@@ -88,6 +92,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+      additionalLanguages: ['ocaml'],
     },
   } satisfies Preset.ThemeConfig,
 };
