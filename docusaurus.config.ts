@@ -64,6 +64,7 @@ const config: Config = {
         src: 'img/logo.png',
       },
       items: [
+        // {to: '/', label: 'Cahier de texte'},
         {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
         {
           type: "doc",
@@ -72,7 +73,11 @@ const config: Config = {
           label: "Concurrence",
           sidebarId: "concurrence",
         },
-        {to: '/', label: 'Cahier de texte', position: 'right'},
+        {
+          href: 'https://mpi-lamartin.github.io',
+          label: 'Site de la classe',
+          position: 'right',
+        },
         {
           href: 'https://github.com/fortierq/mpi-info',
           label: 'GitHub',
