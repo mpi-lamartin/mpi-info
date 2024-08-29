@@ -1,7 +1,7 @@
 ---
 hide_table_of_contents: true
 hide_title: true
-title: Erreurs classiques
+title: Rappels de programmation
 ---
 
 <div class="container4x3">
