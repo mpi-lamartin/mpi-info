@@ -1,4 +1,4 @@
-# Environnements de développement en concours
+# TP à l'oral des concours
 
 Certains concours font des TP d'informatique et mettent à disposition leurs environnements de programmation sous forme d'image virtuelle. Vous pouvez les utiliser avec, par exemple, [Virtual Box](https://www.virtualbox.org).
 
