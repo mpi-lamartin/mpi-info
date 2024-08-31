@@ -96,20 +96,28 @@ int main(void){
 <TabItem value="OCaml" label="OCaml">
 
 ```ocaml
-let counter = ref 0
+open Printf
 
-let increment n =
-  for i = 0 to n - 1 do
-    counter := !counter + 1;
+let n = 10_000_000
+let p = 3
+let nb_fils = 3
+
+let f index =
+  printf "Le fil %d a démarré\n" index;
+  for i = 1 to n * p do
+    if i mod n = 0 then (
+      printf "Le fil %d a atteint %d.\n" index i
+    )
   done
 
 let main () =
-  let n = 1_000_000 in
-  let t0 = Thread.create increment n in
-  let t1 = Thread.create increment n in
-  Thread.join t0;
-  Thread.join t1;
-  Printf.printf "counter = %d\n" !counter
+  printf "Avant\n";
+  let fils = Array.init nb_fils (fun i -> Thread.create f i) in
+  printf "Pendant\n";
+  for i = 0 to nb_fils - 1 do
+    Thread.join fils.(i)
+  done;
+  printf "Après\n"
 
 let () = main ()
 ```
