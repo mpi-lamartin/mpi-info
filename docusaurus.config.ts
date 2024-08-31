@@ -10,14 +10,14 @@ const config: Config = {
   favicon: 'img/logo.png',
 
   // Set the production url of your site here
-  url: 'https://fortierq.github.io',
+  url: 'https://mpi-lamartin.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/mpi-info/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'fortierq', // Usually your GitHub org/user name.
+  organizationName: 'mpi-lamartin', // Usually your GitHub org/user name.
   projectName: 'mpi-info', // Usually your repo name.
   
   onBrokenLinks: 'throw',
@@ -37,14 +37,14 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl:
-            'https://github.com/fortierq/mpi-info',
+          editUrl: 'https://github.com/mpi-lamartin/mpi-info',
         },
         blog: {
           blogSidebarTitle: 'Cahier de texte',
           showReadingTime: false,
           routeBasePath: '/',
           blogTitle: 'Cahier de texte',
+          editUrl: 'https://github.com/mpi-lamartin/mpi-info',
         },
 
         theme: {
@@ -83,7 +83,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/fortierq/mpi-info',
+          href: 'https://github.com/mpi-lamartin/mpi-info',
           label: 'GitHub',
           position: 'right',
         },
