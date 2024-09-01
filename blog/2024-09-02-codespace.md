@@ -11,6 +11,4 @@ Pour pouvoir utiliser un environnement de développement en ligne avec Visual Co
 - Les fichiers sont normalement sauvegardés en ligne... Vous pouvez quand même télécharger (dans "fichier") des fichiers importants pour être sûr de ne pas les perdre.
 - Par défaut vous avez le droit à 120h/mois d'utilisation, ce qui devrait être suffisant. Vous pouvez demander un compte étudiant pour avoir 180h/mois : https://github.com/education/students.
 
-<div class="container16x9">
-<iframe src="https://youtu.be/l68fIQEvgHE" class="responsive-iframe" title="YouTube video player" allowFullScreen></iframe>
-</div>
+[Vidéo explicative](https://youtu.be/l68fIQEvgHE)
