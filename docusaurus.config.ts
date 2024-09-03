@@ -65,12 +65,18 @@ const config: Config = {
       },
       items: [
         // {to: '/', label: 'Cahier de texte'},
-        {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
+        // {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
+        { 
+          type: "doc",
+          docId: "programmation/rappels_programmation",
+          position: "left",
+          label: "Programmation",
+        },
         {
           type: "doc",
-          docId: "concurrence/Concurrence/concurrence",
+          docId: "langages/langage",
           position: "left",
-          label: "Concurrence",
+          label: "Langages",
         },
         {
           href: 'https://mpi-lamartin.github.io',
