@@ -68,9 +68,15 @@ const config: Config = {
         // {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
         { 
           type: "doc",
+          docId: "tp/tp1",
+          position: "left",
+          label: "TP",
+        },
+        { 
+          type: "doc",
           docId: "programmation/rappels_programmation",
           position: "left",
-          label: "Programmation",
+          label: "Rappels",
         },
         {
           type: "doc",
