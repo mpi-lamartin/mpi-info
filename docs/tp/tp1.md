@@ -62,3 +62,6 @@ int main() {
 ```
 </TabItem>
 </Tabs>
+</details>
+
+:::
