@@ -16,5 +16,5 @@ On rappelle que la recherche par dichotomie d'un élément `e` dans un tableau t
 
 :::info[Exercice]
 
-Écrire une fonction `bool dichotomie(int* t, int n, int e)` déterminant si `e` appartient au tableau `t` de taille `n`.
+Écrire une fonction `dichotomie` déterminant si un élément `e` appartient à un tableau `t`. On pourra utiliser soit une fonction récursive, soit une boucle `while`.
 
