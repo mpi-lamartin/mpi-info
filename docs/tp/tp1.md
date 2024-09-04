@@ -4,7 +4,7 @@ hide_title: true
 title: "TP 1 : révisions de MP2I"
 ---
 
-Ce TP est à effectuer en C, sous Visual Code. Vous pouvez utiliser le Codespace ou votre ordinateur personnel.
+Ce TP est à effectuer en C, sous Visual Code. Vous pouvez utiliser le [Codespace GitHub](./0_codespace.md) ou votre ordinateur personnel.
 
 ## Dichotomie
 
