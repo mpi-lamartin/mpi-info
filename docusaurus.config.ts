@@ -3,6 +3,8 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+const math = require("remark-math");
+const katex = require("rehype-katex");
 
 const config: Config = {
   title: 'Informatique en MPI/MPI* au lycée la Martinière Monplaisir',
@@ -36,6 +38,8 @@ const config: Config = {
       'classic',
       {
         docs: {
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/mpi-lamartin/mpi-info',
         },
@@ -68,7 +72,7 @@ const config: Config = {
         // {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
         { 
           type: "doc",
-          docId: "tp/tp1",
+          docId: "tp/tp1/tp1",
           position: "left",
           label: "TP",
         },
@@ -80,10 +84,16 @@ const config: Config = {
         },
         {
           type: "doc",
-          docId: "langages/langage",
+          docId: "langages/reguliers/reguliers",
           position: "left",
           label: "Langages",
         },
+        // {
+        //   type: "doc",
+        //   docId: "concurrence/Concurrence/concurrence",
+        //   position: "left",
+        //   label: "Concurrence",
+        // },
         {
           href: 'https://mpi-lamartin.github.io',
           label: 'Classe',
@@ -107,6 +117,15 @@ const config: Config = {
       additionalLanguages: ['ocaml'],
     },
   } satisfies Preset.ThemeConfig,
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+      crossorigin: 'anonymous',
+    },
+  ],
 };
 
 export default config;
