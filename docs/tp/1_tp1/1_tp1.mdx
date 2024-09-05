@@ -138,10 +138,10 @@ int main() {
 On pourra compléter :
 
 ```c
-struct list {
+typedef struct list {
     int elem;
     struct list *next;
-} typedef list;
+} list;
 
 list *add(list *l, int e) {
     ...

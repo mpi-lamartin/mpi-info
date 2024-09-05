@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct list {
+typedef struct list {
     int elem;
     struct list *next;
-} typedef list;
+} list;
 
 list *add(list *l, int e) { 
     list *new = malloc(sizeof(list));
