@@ -37,7 +37,7 @@ gcc nom_fichier.c && ./a.out
 <details>
 <summary>Indice</summary>
 
-On pourra utiliser `strlen` de `string.h` pour connaître la taille d'une chaîne de caractères.
+On pourra utiliser `int strlen(char*)` de `string.h` pour connaître la taille d'une chaîne de caractères.
 
 ```c
 #include <string.h>
@@ -127,9 +127,9 @@ int main() {
 </center>
 
 1. Définir une structure `list` de liste chaînée contenant des entiers.
-2. Écrire une fonction `add` permettant d'ajouter un élément (au début) d'une liste chaînée.  
-3. Écrire une fonction `print` permettant d'afficher les éléments d'une liste chaînée.  
-4. Écrire une fonction `del` permettant de supprimer l'élément du début d'une liste chaînée.  
+2. Écrire une fonction `list *add(list *l, int e)` permettant d'ajouter un élément (au début) d'une liste chaînée.  
+3. Écrire une fonction `void print(list *l)` permettant d'afficher les éléments d'une liste chaînée.  
+4. Écrire une fonction `list *del(list *l)` permettant de supprimer l'élément du début d'une liste chaînée.  
 5. Quelle est la structure de donnée abstraite que l'on vient d'implémenter ?
 
 <details>
