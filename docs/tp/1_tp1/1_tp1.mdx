@@ -103,6 +103,7 @@ int main() {
 #include <stdio.h>
 
 bool dichotomie(int* t, int e, int n){
+    int i = 0, j = n - 1; // indices de début et de fin de l'intervalle où on cherche e
     ...
 }
 
@@ -166,6 +167,8 @@ void print(list *l) {
 On considère le problème du sac à dos :  
 **Entrée** : un sac à dos de capacité `C`, des objets de poids `w1`, ..., `wn` et de valeurs `v1`, ..., `vn` .  
 **Sortie** : la valeur maximum d'objets que l’on peut mettre dans le sac (de poids total inférieur à `C`)
+
+Il n'est pas possible de prendre plusieurs fois le même objet.
 
 Pour résoudre ce problème par programmation dynamique, on peut créer une matrice `dp` telle que `dp[i][j]` soit la valeur maximum que l’on peut mettre dans un sac de capacité `i` en utilisant seulement les `j` premiers objets.
 
