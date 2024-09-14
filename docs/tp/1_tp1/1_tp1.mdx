@@ -1,11 +1,18 @@
 ---
 hide_table_of_contents: false
 hide_title: false
+cor: true
 title: "TP 1 : Révisions de MP2I"
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import list_c_def from './list_c_def.png';
+import Solution from '@site/src/components/Solution';
+import Mot from '!!raw-loader!./mot.c';
+import Dichotomie from '!!raw-loader!./dichotomie.c';
+import Linked from '!!raw-loader!./linked.c';
+import Knapsack from '!!raw-loader!./knapsack.c';
+import Floyd from '!!raw-loader!./floyd.c';
 
 Ce TP est à effectuer en c, sous Visual Code. Vous pouvez utiliser le [Codespace GitHub](../0_codespace.md) ou votre ordinateur personnel.  
 On pensera à tester les fonctions.
@@ -59,6 +66,8 @@ int main() {
 </details>
 
 :::
+
+<Solution file={Mot} lang='c' show={frontMatter.cor} />
 
 ## Dichotomie
 
@@ -122,6 +131,8 @@ int main() {
 
 :::
 
+<Solution file={Dichotomie} lang='c' show={frontMatter.cor} />
+
 ## Liste chaînée
 
 :::info[Exercice]
@@ -160,6 +171,8 @@ void print(list *l) {
 </details>
 
 :::
+
+<Solution file={Linked} lang='c' show={frontMatter.cor} />
 
 ## Sac à dos
 
@@ -208,14 +221,16 @@ int main() {
 
 :::
 
-## Doublons et algorithme de Floyd
+<Solution file={Knapsack} lang='c' show={frontMatter.cor} />
+
+## Doublon et algorithme de Floyd
 
 :::info[Exercice]
 
 Soit $t$ un tableau de taille $n$ dont les éléments sont entre $0$ et $n-1$ (inclus).  
 On veut déterminer si $t$ contient un doublon, c'est-à-dire un élément apparaissant plusieurs fois.
-1. Écrire un algorithme en complexité temporelle O($n$) pour résoudre ce problème. Quelle est la complexité spatiale ? 
-2. Écrire un algorithme en complexité O($n$) en temps et O($1$) en mémoire. On pourra modifier $t$
+1. Écrire une fonction `doublon1(int* t, int n)` en complexité temporelle O($n$) pour résoudre ce problème. Quelle est la complexité spatiale ? 
+2. Écrire une fonction `doublon2(int* t, int n)` en complexité O($n$) en temps et O($1$) en mémoire. On pourra modifier $t$.
 
 On considère un type de liste simplement chaînée impérative :
 
@@ -228,12 +243,14 @@ typedef struct cell {
 
 Il est possible qu'une liste chaînée `l` possède un cycle, si l'on revient sur le même élément après avoir parcouru plusieurs successeurs. 
 
-3. Écrire un algorithme naïf pour tester si `l` contient un cycle. Quelle est sa complexité en temps et en espace ?
+3. Écrire un fonction `cycle` pour tester si `l` contient un cycle. Quelle est sa complexité en temps et en espace ?
 
 L'algorithme de Floyd est plus efficace. Il consiste à initialiser une variable `tortue` au premier élément de `l`, une variable `lievre` à la case suivante, puis, tant que c'est possible :
 - Si `lievre` et `tortue` font référence à la même case, affirmer que `l` contient un cycle.
 - Sinon, avancer `lievre` de deux cases et `tortue` d'une case.
 
 4. Montrer que cet algorithme permet bien de détecter un cycle dans `l`. Quelle est l'intérêt de cet algorithme par rapport à celui de la question 3 ?
-5. Écrire une fonction `bool has_cycle(cell* l)` détectant un cycle en utilisant l'algorithme du lièvre et de la tortue.
+5. Écrire une fonction `bool cycle2(cell* l)` détectant un cycle en utilisant l'algorithme du lièvre et de la tortue.
 :::
+
+<Solution file={Floyd} lang='c' show={frontMatter.cor} />
