@@ -1,0 +1,104 @@
+---
+hide_table_of_contents: false
+hide_title: false
+cor: false
+title: "TP 2 : Automates"
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Solution from '@site/src/components/Solution';
+
+Ce TP est à effectuer en OCaml, sous Visual Code. Vous pouvez utiliser le [Codespace GitHub](../0_codespace.md) ou votre ordinateur personnel.  
+
+Si vous avez une boucle infinie (le terminal qui ne répond pas) : Ctrl + C
+
+## Automate
+
+1. Créer un fichier `tp2.ml` avec le type suivant d'automate non-déterministe. 
+
+```ocaml
+(* les états sont des entiers et les lettres des caractères *)
+type automate = { 
+    initiaux : int list;
+    finaux : int list;
+    transitions : (int * char * int) list
+}
+```
+
+Pour exécuter : sélectionner les lignes OCaml et appuyer sur Shift + Entrée. Ceci envoie le code sélectionné dans le terminal (utop). Vous pouvez aussi utiliser utop en mode interactif.  
+On utilisera `;;` à la fin de chaque fonction pour envoyer correctement le code sur utop. 
+
+2. Définir en OCaml les automates `a1` et `a2` suivants :
+
+import a1 from './a1.png';
+import a2 from './a2.png';
+
+<center>
+<img src={a1} width={230}/>
+</center>
+<center>
+<img src={a2} width={360}/>
+</center>
+
+Quels sont les langages reconnus par `a1` et `a2` ?
+
+3. On définit le miroir d'un mot $u = u_1 ... u_n$ par $\widetilde{u} = u_n ... u_1$ et le miroir d'un langage $L$ par $\widetilde{L} = \{\widetilde{u} | u \in L\}$. 
+Définir une fonction `miroir : automate -> automate` telle que `miroir a` renvoie un automate reconnaissant le miroir du langage reconnu par `a`.
+
+4. Définir une fonction `est_deterministe : automate -> bool` qui teste si un automate est déterministe. Vérifier avec `a1` et `a2`.
+
+<details>
+<summary>Indice</summary>
+
+```ocaml
+let est_deterministe a =
+  let rec aux = function
+      | [] -> true
+      | (q1, a, q2)::q -> 
+          let rec aux2 = function
+              ...
+          in aux2 q
+  in ...
+```
+
+</details>
+
+## Automate déterministe complet
+
+Pour simplifier, et quitte à appliquer l'algorithme de déterminisation du cours, on utilisera un type d'automate déterministe complet (AFDC), où les états sont entre $0$ et $n-1$ et les lettres sont des entiers ($a$ est représenté par $0$, $b$ par $1$...) :
+
+```ocaml
+type afdc = { 
+    initial : int;
+    finaux : int list;
+    delta : int array array
+}
+```
+
+Si `a` est de type `afdc`, `a.delta.(i).(j)` est l'état atteint en lisant la lettre $j$ à partir de l'état $i$ (c'est-à-dire $\delta(i, j)$). Le nombre d'états de `a` est donc `Array.length a.delta`.
+
+5. Définir l'automate `a1` avec le type `afdc`.
+
+6. Définir une fonction `delta_etoile : afdc -> int -> int list -> int` telle que `delta_etoile a q u` renvoie l'état atteint en lisant le mot $u$ à partir de l'état $q$ (c'est-à-dire $\delta^*(q, u)$). Vérifier avec `a1`.
+
+7. Définir une fonction `accepte : afdc -> int list -> bool` telle que `accepte a u` détermine si $u$ est reconnu par `a`. Vérifier avec `a1`. Quelle est la complexité de `accepte` ?
+
+8. Définir une fonction `complementaire : afdc -> afdc` telle que `complementaire a` renvoie un automate reconnaissant le complémentaire du langage reconnu par `a`. Vérifier avec `a1`.
+
+9. Définir une fonction `accessibles : afdc -> int list` telle que `accessibles a` renvoie la liste des états accessibles depuis l'état initial de `a`. Pour cela, on pourra utiliser un parcours en profondeur. Vérifier sur des exemples.
+
+<details>
+<summary>Indice</summary>
+
+```ocaml
+let accessibles a =
+  let vus = ... in (* vus.(i) = true si l'état i a été visité *)
+  let rec aux q = (* parcours en profondeur depuis l'état q *)
+    ...
+  aux a.initial; (* on commence le parcours en profondeur depuis l'état initial *)
+  ...
+```
+
+</details>
+
+10. En déduire une fonction `vide : afdc -> bool` déterminant si un automate reconnaît le langage vide.
