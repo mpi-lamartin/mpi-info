@@ -11,7 +11,10 @@ import Solution from '@site/src/components/Solution';
 Ce TP est à effectuer en OCaml, sous Visual Code. Vous pouvez utiliser le [Codespace GitHub](../0_codespace.md) ou votre ordinateur personnel.  
 Si vous avez une boucle infinie (le terminal qui ne répond pas) : Ctrl + C
 
-## Automate
+On pourra créer un fichier `tp2.ml`. Pour exécuter : sélectionner les lignes OCaml et appuyer sur Shift + Entrée. Ceci envoie le code sélectionné dans le terminal (utop). Vous pouvez aussi utiliser utop en mode interactif.  
+On utilisera `;;` à la fin de chaque fonction pour envoyer correctement le code sur utop.
+
+{/*## Automate
 
 1. Créer un fichier `tp2.ml` avec le type suivant d'automate non-déterministe. 
 
@@ -30,7 +33,7 @@ On utilisera `;;` à la fin de chaque fonction pour envoyer correctement le code
 2. Définir en OCaml les automates `a1` et `a2` suivants :
 
 import a1 from './a1.png';
-import a2 from './a2.png';
+import a2 from './a4_det.png';
 
 <center>
 <img src={a1} width={230}/>
@@ -60,31 +63,42 @@ let est_deterministe a =
   in ...
 ```
 
-</details>
+</details> */}
 
-## Automate déterministe complet
+## Automate déterministe
 
-Pour simplifier, et quitte à appliquer l'algorithme de déterminisation du cours, on utilisera un type d'automate déterministe complet (AFDC), où les états sont entre $0$ et $n-1$ et les lettres sont des entiers ($a$ est représenté par $0$, $b$ par $1$...) :
+On utilisera le type suivant d'automate déterministe, où les états sont entre $0$ et $n-1$ et les lettres sont des entiers ($a$ est représenté par $0$, $b$ par $1$...) :
 
 ```ocaml
-type afdc = { 
+type afd = { 
     initial : int;
     finaux : int list;
     delta : int array array
 }
 ```
 
-Si `a` est de type `afdc`, `a.delta.(i).(j)` est l'état atteint en lisant la lettre $j$ à partir de l'état $i$ (c'est-à-dire $\delta(i, j)$). Le nombre d'états de `a` est donc `Array.length a.delta`.
+Si `a` est de type `afd`, `a.delta.(i).(j)` est l'état atteint en lisant la lettre $j$ à partir de l'état $i$ (c'est-à-dire $\delta(i, j)$). Le nombre d'états de `a` est donc `Array.length a.delta`.
 
-5. Définir l'automate `a1` avec le type `afdc`.
+1. Définir en OCaml les automates `a1` et `a2` suivants :
 
-6. Définir une fonction `delta_etoile : afdc -> int -> int list -> int` telle que `delta_etoile a q u` renvoie l'état atteint en lisant le mot $u$ à partir de l'état $q$ (c'est-à-dire $\delta^*(q, u)$). Vérifier avec `a1`.
+import a1 from './a1_0.png';
+import a2 from './bmod3.png';
 
-7. Définir une fonction `accepte : afdc -> int list -> bool` telle que `accepte a u` détermine si $u$ est reconnu par `a`. Vérifier avec `a1`. Quelle est la complexité de `accepte` ?
+<center>
+<img src={a1} width={200}/>
+</center><br></br>
+<center>
+<img src={a2} width={320}/>
+</center>
 
-8. Définir une fonction `complementaire : afdc -> afdc` telle que `complementaire a` renvoie un automate reconnaissant le complémentaire du langage reconnu par `a`. Vérifier avec `a1`.
 
-9. Définir une fonction `accessibles : afdc -> int list` telle que `accessibles a` renvoie la liste des états accessibles depuis l'état initial de `a`. Pour cela, on pourra utiliser un parcours en profondeur. Vérifier sur des exemples.
+2. Définir une fonction `delta_etoile : afd -> int -> int list -> int` telle que `delta_etoile a q u` renvoie l'état atteint en lisant le mot $u$ à partir de l'état $q$ (c'est-à-dire $\delta^*(q, u)$). Vérifier avec `a1`.
+
+3. Définir une fonction `accepte : afd -> int list -> bool` telle que `accepte a u` détermine si $u$ est reconnu par `a`. Vérifier avec `a1`. Quelle est la complexité de `accepte` ?
+
+4. Définir une fonction `complementaire : afd -> afd` telle que `complementaire a` renvoie un automate reconnaissant le complémentaire du langage reconnu par `a`. Vérifier avec `a1`.
+
+5. Définir une fonction `accessibles : afd -> int list` telle que `accessibles a` renvoie la liste des états accessibles depuis l'état initial de `a`. Pour cela, on pourra utiliser un parcours en profondeur. Vérifier sur des exemples.
 
 <details>
 <summary>Indice</summary>
@@ -100,4 +114,14 @@ let accessibles a =
 
 </details>
 
-10. En déduire une fonction `vide : afdc -> bool` déterminant si un automate reconnaît le langage vide.
+6. En déduire une fonction `vide : afd -> bool` déterminant si un automate reconnaît le langage vide.
+
+## Automate produit
+
+7. Écrire une fonction `inter : afd -> afd -> afd` telle que `inter a b` renvoie un automate reconnaissant l'intersection des langages reconnus par `a` et `b`. On suppose que `a` et `b` ont le même alphabet.  
+Pour cela, on construira l'automate produit de `a` et `b`, qui possède $np$ états (où $n$ est le nombre d'états de `a` et $p$ le nombre d'états de `b`), et dont l'état $(i, j)$ sera numéroté $i \times p + j$.  
+Vérifier avec `a1` et `a2`.
+
+8. En déduire une fonction `inclus a b` déterminant si le langage reconnu par l'automate `a` est inclus dans celui reconnu par `b`. On pourra utiliser les fonctions précédentes.
+
+9. En déduire une fonction `equivalent a b` déterminant si les langages reconnus par les automates `a` et `b` sont égaux. Donner la complexité.
