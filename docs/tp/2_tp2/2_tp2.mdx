@@ -67,17 +67,17 @@ let est_deterministe a =
 
 ## Automate déterministe
 
-On utilisera le type suivant d'automate déterministe, où les états sont entre $0$ et $n-1$ et les lettres sont des entiers ($a$ est représenté par $0$, $b$ par $1$...) :
+On utilisera le type suivant d'automate déterministe complet (AFDC), où les états sont entre $0$ et $n-1$ et les lettres sont des entiers ($a$ est représenté par $0$, $b$ par $1$...) :
 
 ```ocaml
-type afd = { 
+type afdc = { 
     initial : int;
     finaux : int list;
     delta : int array array
 }
 ```
 
-Si `a` est de type `afd`, `a.delta.(i).(j)` est l'état atteint en lisant la lettre $j$ à partir de l'état $i$ (c'est-à-dire $\delta(i, j)$). Le nombre d'états de `a` est donc `Array.length a.delta`.
+Si `a` est de type `afdc`, `a.delta.(i).(j)` est l'état atteint en lisant la lettre $j$ à partir de l'état $i$ (c'est-à-dire $\delta(i, j)$). Le nombre d'états de `a` est donc `Array.length a.delta`.
 
 1. Définir en OCaml les automates `a1` et `a2` suivants :
 
@@ -92,13 +92,14 @@ import a2 from './bmod3.png';
 </center>
 
 
-2. Définir une fonction `delta_etoile : afd -> int -> int list -> int` telle que `delta_etoile a q u` renvoie l'état atteint en lisant le mot $u$ à partir de l'état $q$ (c'est-à-dire $\delta^*(q, u)$). Vérifier avec `a1`.
+2. Définir une fonction `delta_etoile : afdc -> int -> int list -> int` telle que `delta_etoile a q u` renvoie l'état atteint en lisant le mot $u$ à partir de l'état $q$ (c'est-à-dire $\delta^*(q, u)$). Vérifier avec `a1`.
 
-3. Définir une fonction `accepte : afd -> int list -> bool` telle que `accepte a u` détermine si $u$ est reconnu par `a`. Vérifier avec `a1`. Quelle est la complexité de `accepte` ?
+3. Définir une fonction `accepte : afdc -> int list -> bool` telle que `accepte a u` détermine si $u$ est reconnu par `a`. Vérifier avec `a1`. Quelle est la complexité de `accepte` ?
 
-4. Définir une fonction `complementaire : afd -> afd` telle que `complementaire a` renvoie un automate reconnaissant le complémentaire du langage reconnu par `a`. Vérifier avec `a1`.
+4. Définir une fonction `complementaire : afdc -> afdc` telle que `complementaire a` renvoie un automate reconnaissant le complémentaire du langage reconnu par `a`. Vérifier avec `a1`.  
+Rappel : on a besoin que l'automate soit déterministe complet, ce qui est supposé dans ce TP.
 
-5. Définir une fonction `accessibles : afd -> int list` telle que `accessibles a` renvoie la liste des états accessibles depuis l'état initial de `a`. Pour cela, on pourra utiliser un parcours en profondeur. Vérifier sur des exemples.
+5. Définir une fonction `accessibles : afdc -> int list` telle que `accessibles a` renvoie la liste des états accessibles depuis l'état initial de `a`. Pour cela, on pourra utiliser un parcours en profondeur. Vérifier sur des exemples.
 
 <details>
 <summary>Indice</summary>
@@ -114,14 +115,14 @@ let accessibles a =
 
 </details>
 
-6. En déduire une fonction `vide : afd -> bool` déterminant si un automate reconnaît le langage vide.
+6. En déduire une fonction `vide : afdc -> bool` déterminant si un automate reconnaît le langage vide.
 
 ## Automate produit
 
-7. Écrire une fonction `inter : afd -> afd -> afd` telle que `inter a b` renvoie un automate reconnaissant l'intersection des langages reconnus par `a` et `b`. On suppose que `a` et `b` ont le même alphabet.  
+7. Écrire une fonction `inter : afdc -> afdc -> afdc` telle que `inter a b` renvoie un automate reconnaissant l'intersection des langages reconnus par `a` et `b`. On suppose que `a` et `b` ont le même alphabet.  
 Pour cela, on construira l'automate produit de `a` et `b`, qui possède $np$ états (où $n$ est le nombre d'états de `a` et $p$ le nombre d'états de `b`), et dont l'état $(i, j)$ sera numéroté $i \times p + j$.  
 Vérifier avec `a1` et `a2`.
 
 8. En déduire une fonction `inclus a b` déterminant si le langage reconnu par l'automate `a` est inclus dans celui reconnu par `b`. On pourra utiliser les fonctions précédentes.
 
-9. En déduire une fonction `equivalent a b` déterminant si les langages reconnus par les automates `a` et `b` sont égaux. Donner la complexité.
+9. En déduire une fonction `equivalent a b` déterminant si les langages reconnus par les automates `a` et `b` sont égaux.
