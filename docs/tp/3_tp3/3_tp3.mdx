@@ -1,0 +1,103 @@
+{/* %     \section{Calcul des ensembles $P(L)$, $S(L)$, $F(L)$}
+% 	Soit $L$ un langage. On rappelle les définitions du cours :
+% 	\begin{itemize}
+% 		\item $P(L)$ = $\s{a \in \Sigma \tq a\Sigma^*\cap L \neq \emptyset}$ (premières lettres des mots de L)
+% 		\item $S(L) = \s{a \in \Sigma \tq \Sigma^* a \cap L \neq \emptyset}$ (dernières lettres des mots de L)
+% 		\item $F(L) = \s{u \in \Sigma^2 \tq \Sigma^* u \Sigma^* \cap L \neq \emptyset}$ (fs de longueur 2 des mots de L)
+% 	%	\item $N(L) = \Sigma^2 \backslash F(L)$ %(les mots de longueur 2 qui ne sont pas f d'un mot de $L$).
+% 	\end{itemize}
+% 	Dans la suite, on utilise le type suivant d'expression régulière : \begin{center}
+% 		\begin{code}{ocaml}
+% type 'a regexp = 
+% 	| Vide | Epsilon | L of 'a
+% 	| Union of 'a regexp * 'a regexp
+% 	| Concat of 'a regexp * 'a regexp
+% 	| Etoile of 'a regexp
+% 		\end{code}
+% 	\end{center}
+% 	\begin{enumerate}
+% 		\item Écrire une fonction \ocaml{has_eps : 'a regexp -> bool} déterminant si le langage d'une expression régulière contient $\epsilon$. 
+% 		\if\cor1\\
+% 		\begin{emphase}
+% 			\underline{Solution} : \begin{center}
+% 				\begin{code}{ocaml}
+% let rec has_eps = function
+% 	| Vide | L _ -> false
+% 	| Epsilon | Etoile _ -> true
+% 	| Union (e1, e2) -> has_eps e1 || has_eps e2
+% 	| Concat (e1, e2) -> has_eps e1 && has_eps e2
+% 				\end{code}
+% 			\end{center}
+% 		\end{emphase}
+% 		\fi  
+% 		\item Écrire une fonction \ocaml{union : 'a list -> 'a list -> 'a list} telle que, si \ocaml{l1} et \ocaml{l2} sont des listes sans doublon (ce qu'on suppose être le cas...), \ocaml{union l1 l2} renvoie une liste sans doublon contenant les éléments des deux listes. Par exemple, \ocaml{union [1; 2] [3; 1]} peut renvoyer \ocaml{[1; 2; 3]} (l'ordre des éléments de la liste de retour n'importe pas).
+% 		\if\cor1\\
+% 		\begin{emphase}
+% 			\underline{Solution} : \begin{center}
+% 				\begin{code}{ocaml}
+% let rec union l1 l2 = match l1 with
+% 	| [] -> l2
+% 	| a::q1 -> if List.mem a l2 then union q1 l2 else a::(union q1 l2)
+% 				\end{code}
+% 			\end{center}
+% 		\end{emphase}
+% 		\fi
+% 		\item Écrire une fonction \ocaml{p} de type \ocaml{'a regexp -> 'a list} telle que \ocaml{p e} renvoie $P(L($\ocaml{e}$))$.
+% 		\if\cor1\\
+% 		\begin{emphase}
+% 			\underline{Solution} : \begin{center}
+% 				\begin{code}{ocaml}
+% let rec p = function
+% 	| Vide | Epsilon -> []
+% 	| L a -> [a]
+% 	| Union (e1, e2) -> union (p e1) (p e2)
+% 	| Concat (e1, e2) -> if has_eps e1 then union (p e1) (p e2) else p e1
+% 	| Etoile e -> p e
+% 				\end{code}
+% 			\end{center}
+% 		\end{emphase}
+% 		\fi
+% 		\item Que faudrait-il modifier à \ocaml{p} pour obtenir une fonction \ocaml{s} renvoyant $S(L)$?
+% 		\if\cor1\\
+% 		\begin{emphase}
+% 			\underline{Solution} : Échanger \ocaml{e1} et \ocaml{e2} dans \ocaml{Concat(e1, e2) -> ...}
+% 		\end{emphase}
+% 		\fi
+% 		\item Écrire une fonction \ocaml{produit : 'a list -> 'b list -> ('a * 'b) list} effectuant le produit cartésien de 2 listes : si \ocaml{l1} et \ocaml{l2} sont des listes, \ocaml{produit l1 l2} renvoie une liste de tous les couples distincts composés d'un élément de \ocaml{l1} et un élément de \ocaml{l2}. Par exemple, \ocaml{produit [1; 2] [3; 1]} peut renvoyer \\
+% 		\ocaml{[(1, 3); (1, 1); (2, 3); (2; 1)]} (l'ordre des éléments de la liste de retour n'importe pas).
+% 		\if\cor1\\
+% 		\begin{emphase}
+% 			\underline{Solution} : Avec \ocaml{List.map} :\begin{center}
+% 				\begin{code}{ocaml}
+% let rec produit l1 l2 = match l1 with
+% 	| [] -> []
+% 	| a::q1 -> List.map (fun b -> (a, b)) l2 @ produit q1 l2
+% 				\end{code}
+% 			\end{center}
+% 		Sans \ocaml{List.map} :\begin{center}
+% 				\begin{code}{ocaml}
+% let rec produit l1 l2 = match l1 with
+% 	| [] -> []
+% 	| a::q1 -> let rec aux l2 = match l2 with
+% 		| [] -> []
+% 		| b::q2 -> (a, b)::aux q2
+% 		in aux l2 @ produit q1 l2
+% 				\end{code}
+% 			\end{center}
+% 		\end{emphase}
+% 		\fi
+% 		\item En déduire une fonction \ocaml{f} de type \ocaml{'a regexp -> ('a * 'a) list} telle que \ocaml{f e} renvoie $F(L($\ocaml{e}$))$. 
+% 		\if\cor1\\
+% 		\begin{emphase}
+% 			\underline{Solution} : \begin{center}
+% 				\begin{code}{ocaml}
+% let rec f = function
+% 	| Vide | Epsilon | L _ -> []
+% 	| Union (e1, e2) -> union (f e1) (f e2)
+% 	| Concat (e1, e2) -> union (f e1) (union (produit (s e1) (p e2)) (f e2))
+% 	| Etoile e -> union (f e) (produit (s e) (p e))
+% 				\end{code}
+% 			\end{center}
+% 		\end{emphase}
+% 		\fi
+% 	\end{enumerate} */}
