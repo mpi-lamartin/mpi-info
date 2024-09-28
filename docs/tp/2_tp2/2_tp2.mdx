@@ -1,18 +1,19 @@
 ---
 hide_table_of_contents: false
 hide_title: false
-cor: false
+cor: true
 title: "TP 2 : Automates"
 ---
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 import Solution from '@site/src/components/Solution';
+import Tp2 from '!!raw-loader!./tp2.ml';
 
 Ce TP est à effectuer en OCaml, sous Visual Code. Vous pouvez utiliser le [Codespace GitHub](../0_codespace.md) ou votre ordinateur personnel.  
 Si vous avez une boucle infinie (le terminal qui ne répond pas) : Ctrl + C
 
 On pourra créer un fichier `tp2.ml`. Pour exécuter : sélectionner les lignes OCaml et appuyer sur Shift + Entrée. Ceci envoie le code sélectionné dans le terminal (utop). Vous pouvez aussi utiliser utop en mode interactif.  
 On utilisera `;;` à la fin de chaque fonction pour envoyer correctement le code sur utop.
+
+<Solution file={Tp2} lang='ocaml' show={frontMatter.cor} />
 
 {/*## Automate
 
