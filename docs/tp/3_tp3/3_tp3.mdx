@@ -1,3 +1,36 @@
+---
+hide_table_of_contents: false
+hide_title: false
+cor: true
+title: "TP 3 : Algorithme de Berry-Sethi"
+---
+
+## Fonctions utilitaires
+
+On utilisera le type suivant d'expression régulière : 
+
+```ocaml
+type 'a regexp = 
+    | Vide | Epsilon | L of 'a
+    | Union of 'a regexp * 'a regexp
+    | Concat of 'a regexp * 'a regexp
+    | Etoile of 'a regexp
+```
+
+1. Écrire une fonction `union : 'a list -> 'a list -> 'a list` renvoyant l'union de deux listes sans doublon. Par exemple, `union [1; 2] [3; 1]` peut renvoyer `[1; 2; 3]` (l'ordre des éléments de la liste de retour n'importe pas).
+2. Écrire une fonction `est_vide : 'a regexp -> bool` déterminant si le langage d'une expression régulière est vide.
+3. Écrire une fonction `a_epsilon : 'a regexp -> bool` déterminant si une expression régulière contient $\epsilon$.
+4. Donner la complexité des fonctions précédentes.
+
+## Calcul des ensembles $P(L)$, $S(L)$, $F(L)$
+
+Revoir si besoin dans le cours les définitions des ensembles $P(L)$, $S(L)$, $F(L)$. 
+
+5. Écrire sur papier des équations de récurrence pour les ensembles $P(L)$, $S(L)$, $F(L)$.  
+6. Écrire une fonction `p : 'a regexp -> 'a list` renvoyant l'ensemble $P(L)$ d'une expression régulière.  
+7. Écrire une fonction `s : 'a regexp -> 'a list` renvoyant l'ensemble $S(L)$ d'une expression régulière.
+8. Écrire une fonction `produit : 'a list -> 'b list -> ('a * 'b) list` renvoyant le produit cartésien de deux listes. Par exemple, `produit [1; 2] [3; 1]` peut renvoyer `[(1, 3); (1, 1); (2, 3); (2; 1)]` (l'ordre des éléments de la liste de retour n'importe pas).
+
 {/* %     \section{Calcul des ensembles $P(L)$, $S(L)$, $F(L)$}
 % 	Soit $L$ un langage. On rappelle les définitions du cours :
 % 	\begin{itemize}
