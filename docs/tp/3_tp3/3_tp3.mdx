@@ -27,7 +27,7 @@ type 'a regexp =
 Revoir si besoin dans le cours les définitions des ensembles $P(L)$, $S(L)$, $F(L)$. 
 
 5. Écrire sur papier des équations de récurrence pour les ensembles $P(L)$, $S(L)$, $F(L)$.  
-6. Écrire une fonction `p : 'a regexp -> 'a list` renvoyant l'ensemble $P(L)$ d'une expression régulière, sous forme de liste strictement croissante. 
+6. Écrire une fonction `p : 'a regexp -> 'a list` renvoyant l'ensemble $P(L)$ d'une expression régulière, sous forme de liste strictement croissante. Tester sur les exemples suivants :
 ```ocaml
 p (Union (Concat(L 1, L 3), L 2));;
 - : int list = [1; 2]
