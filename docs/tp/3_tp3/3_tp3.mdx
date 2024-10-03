@@ -17,7 +17,7 @@ type 'a regexp =
     | Etoile of 'a regexp
 ```
 
-1. Écrire une fonction `union : 'a list -> 'a list -> 'a list` renvoyant l'union de deux listes sans doublon. Par exemple, `union [1; 2] [3; 1]` peut renvoyer `[1; 2; 3]` (l'ordre des éléments de la liste de retour n'importe pas).
+1. Écrire une fonction `fusion : 'a list -> 'a list -> 'a list` telle que, si `u` et `v` sont strictement croissantes, `fusion u v` est une liste strictement croissante contenant tous les éléments de `u` et de `v`. 
 2. Écrire une fonction `est_vide : 'a regexp -> bool` déterminant si le langage d'une expression régulière est vide.
 3. Écrire une fonction `a_epsilon : 'a regexp -> bool` déterminant si une expression régulière contient $\epsilon$.
 4. Donner la complexité des fonctions précédentes.
@@ -27,9 +27,40 @@ type 'a regexp =
 Revoir si besoin dans le cours les définitions des ensembles $P(L)$, $S(L)$, $F(L)$. 
 
 5. Écrire sur papier des équations de récurrence pour les ensembles $P(L)$, $S(L)$, $F(L)$.  
-6. Écrire une fonction `p : 'a regexp -> 'a list` renvoyant l'ensemble $P(L)$ d'une expression régulière.  
-7. Écrire une fonction `s : 'a regexp -> 'a list` renvoyant l'ensemble $S(L)$ d'une expression régulière.
-8. Écrire une fonction `produit : 'a list -> 'b list -> ('a * 'b) list` renvoyant le produit cartésien de deux listes. Par exemple, `produit [1; 2] [3; 1]` peut renvoyer `[(1, 3); (1, 1); (2, 3); (2; 1)]` (l'ordre des éléments de la liste de retour n'importe pas).
+6. Écrire une fonction `p : 'a regexp -> 'a list` renvoyant l'ensemble $P(L)$ d'une expression régulière, sous forme de liste strictement croissante. 
+```ocaml
+p (Union (Concat(L 1, L 3), L 2));;
+- : int list = [1; 2]
+p (Concat (L 1, Vide));;
+- : int list = []
+p (Concat (Concat(L 1, L 3), L 2));;
+- : int list = [1]
+p (Concat (Epsilon, L 2));;
+- : int list = [2]
+```
+7. Écrire une fonction `s : 'a regexp -> 'a list` renvoyant l'ensemble $S(L)$ d'une expression régulière, sous forme de liste strictement croissante.
+8. Écrire une fonction `produit : 'a list -> 'b list -> ('a * 'b) list` renvoyant le produit cartésien de deux listes. Par exemple, `produit [1; 2] [1; 3]` peut renvoyer `[(1, 3); (1, 1); (2, 3); (2; 1)]` (l'ordre des éléments de la liste de retour n'importe pas).  
+9. Écrire une fonction `f : 'a regexp -> ('a * 'a) list` renvoyant l'ensemble $F(L)$ d'une expression régulière, sous forme de liste de couples strictement croissants.
+
+## Linéarisation d'une expression régulière
+
+10. Écrire une fonction `n_lettres : 'a regexp -> int` renvoyant le nombre de lettres d'une expression régulière. Par exemple, `n_lettres (Union (Concat (L 'a', L 'b'), Etoile (L 'a')))` doit renvoyer `3`.  
+11. Écrire une fonction `lineariser : 'a regexp -> int regexp` renvoyant la linéarisation d'une expression régulière, où les lettres sont numérotées par des entiers croissants à partir de $1$.  
+Par exemple, `lineariser (Union (Concat (L 'a', L 'b'), Etoile (L 'a')))` doit renvoyer `Concat (L 1, Concat (L 2, Etoile (L 3)))`.
+
+## Automate de Glushkov
+
+L'automate de Glushkov n'est pas forcément détérministe. On utilisera le type suivant, où les lettres sont numérotées par des entiers et $0$ est l'état initial :
+    
+```ocaml
+type automate = { 
+    delta : int list array array;
+    finaux : bool array;
+}
+```
+Ainsi, si `a` est un automate, `a.delta.(i).(j)` est la liste des états atteignables depuis l'état `i` avec la lettre `j`. `a.finaux.(i)` est vrai si l'état `i` est final.
+
+12. Écrire une fonction `glushkov : 'a regexp -> automate` renvoyant l'automate de Glushkov d'une expression régulière.
 
 {/* %     \section{Calcul des ensembles $P(L)$, $S(L)$, $F(L)$}
 % 	Soit $L$ un langage. On rappelle les définitions du cours :
@@ -63,14 +94,14 @@ Revoir si besoin dans le cours les définitions des ensembles $P(L)$, $S(L)$, $F
 % 			\end{center}
 % 		\end{emphase}
 % 		\fi  
-% 		\item Écrire une fonction \ocaml{union : 'a list -> 'a list -> 'a list} telle que, si \ocaml{l1} et \ocaml{l2} sont des listes sans doublon (ce qu'on suppose être le cas...), \ocaml{union l1 l2} renvoie une liste sans doublon contenant les éléments des deux listes. Par exemple, \ocaml{union [1; 2] [3; 1]} peut renvoyer \ocaml{[1; 2; 3]} (l'ordre des éléments de la liste de retour n'importe pas).
+% 		\item Écrire une fonction \ocaml{fusion : 'a list -> 'a list -> 'a list} telle que, si \ocaml{l1} et \ocaml{l2} sont des listes sans doublon (ce qu'on suppose être le cas...), \ocaml{fusion l1 l2} renvoie une liste sans doublon contenant les éléments des deux listes. Par exemple, \ocaml{fusion [1; 2] [3; 1]} peut renvoyer \ocaml{[1; 2; 3]} (l'ordre des éléments de la liste de retour n'importe pas).
 % 		\if\cor1\\
 % 		\begin{emphase}
 % 			\underline{Solution} : \begin{center}
 % 				\begin{code}{ocaml}
-% let rec union l1 l2 = match l1 with
+% let rec fusion l1 l2 = match l1 with
 % 	| [] -> l2
-% 	| a::q1 -> if List.mem a l2 then union q1 l2 else a::(union q1 l2)
+% 	| a::q1 -> if List.mem a l2 then fusion q1 l2 else a::(fusion q1 l2)
 % 				\end{code}
 % 			\end{center}
 % 		\end{emphase}
@@ -83,8 +114,8 @@ Revoir si besoin dans le cours les définitions des ensembles $P(L)$, $S(L)$, $F
 % let rec p = function
 % 	| Vide | Epsilon -> []
 % 	| L a -> [a]
-% 	| Union (e1, e2) -> union (p e1) (p e2)
-% 	| Concat (e1, e2) -> if has_eps e1 then union (p e1) (p e2) else p e1
+% 	| Union (e1, e2) -> fusion (p e1) (p e2)
+% 	| Concat (e1, e2) -> if has_eps e1 then fusion (p e1) (p e2) else p e1
 % 	| Etoile e -> p e
 % 				\end{code}
 % 			\end{center}
@@ -126,9 +157,9 @@ Revoir si besoin dans le cours les définitions des ensembles $P(L)$, $S(L)$, $F
 % 				\begin{code}{ocaml}
 % let rec f = function
 % 	| Vide | Epsilon | L _ -> []
-% 	| Union (e1, e2) -> union (f e1) (f e2)
-% 	| Concat (e1, e2) -> union (f e1) (union (produit (s e1) (p e2)) (f e2))
-% 	| Etoile e -> union (f e) (produit (s e) (p e))
+% 	| Union (e1, e2) -> fusion (f e1) (f e2)
+% 	| Concat (e1, e2) -> fusion (f e1) (fusion (produit (s e1) (p e2)) (f e2))
+% 	| Etoile e -> fusion (f e) (produit (s e) (p e))
 % 				\end{code}
 % 			\end{center}
 % 		\end{emphase}
