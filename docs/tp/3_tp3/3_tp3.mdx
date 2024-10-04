@@ -59,7 +59,7 @@ p (Concat (Epsilon, L 2));;
 
 10. Écrire une fonction `n_lettres : 'a regexp -> int` renvoyant le nombre de lettres d'une expression régulière. Par exemple, `n_lettres (Union (Concat (L 'a', L 'b'), Etoile (L 'a')))` doit renvoyer `3`.  
 11. Écrire une fonction `lineariser : 'a regexp -> int regexp` renvoyant la linéarisation d'une expression régulière, où les lettres sont numérotées par des entiers croissants à partir de $1$.  
-Par exemple, `lineariser (Union (Concat (L 'a', L 'b'), Etoile (L 'a')))` doit renvoyer `Concat (L 1, Concat (L 2, Etoile (L 3)))`.
+Par exemple, `lineariser (Union (Concat (L 'a', L 'b'), Etoile (L 'a')))` doit renvoyer `Union (Concat (L 1, L 2), Etoile (L 3)))`.
 
 ## Automate de Glushkov
 
