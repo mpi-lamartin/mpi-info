@@ -18,8 +18,21 @@ type 'a regexp =
 ```
 
 1. Écrire une fonction `fusion : 'a list -> 'a list -> 'a list` telle que, si `u` et `v` sont strictement croissantes, `fusion u v` est une liste strictement croissante contenant tous les éléments de `u` et de `v`. 
-2. Écrire une fonction `est_vide : 'a regexp -> bool` déterminant si le langage d'une expression régulière est vide.
-3. Écrire une fonction `a_epsilon : 'a regexp -> bool` déterminant si une expression régulière contient $\epsilon$.
+2. Écrire une fonction `est_vide : 'a regexp -> bool` déterminant si le langage d'une expression régulière est vide.  
+```ocaml
+est_vide (Concat(L 1, Vide));;
+- : bool = true
+est_vide (Etoile Vide);;
+- : bool = false
+```
+3. Écrire une fonction `a_epsilon : 'a regexp -> bool` déterminant si le langage décrit pas une expression régulière contient $\epsilon$.
+```ocaml
+a_epsilon (Concat(L 1, Epsilon));;
+- : bool = false
+a_epsilon (Etoile (L 1));;
+- : bool = true
+```
+
 4. Donner la complexité des fonctions précédentes.
 
 ## Calcul des ensembles $P(L)$, $S(L)$, $F(L)$
