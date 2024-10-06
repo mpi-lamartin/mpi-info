@@ -44,6 +44,7 @@ const config: Config = {
           editUrl: 'https://github.com/mpi-lamartin/mpi-info',
         },
         blog: {
+          blogSidebarCount: 'ALL',
           blogSidebarTitle: 'Cahier de texte',
           showReadingTime: false,
           routeBasePath: '/',
