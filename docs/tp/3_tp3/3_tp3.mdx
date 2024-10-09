@@ -64,7 +64,7 @@ s (Concat (Vide, L 1));;
 s (Concat (Concat(L 1, L 3), L 2));;
 - : int list = [2]
 s (Concat (L 2, Epsilon));;
-- : int list = []
+- : int list = [2]
 ```
 8. Écrire une fonction `produit : 'a list -> 'b list -> ('a * 'b) list` renvoyant le produit cartésien de deux listes. L'ordre des éléments de la liste de retour n'importe pas.  
 ```ocaml
