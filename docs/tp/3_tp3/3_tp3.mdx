@@ -91,7 +91,8 @@ type automate = {
 ```
 Ainsi, si `a` est un automate, `a.delta.(i).(j)` est la liste des états atteignables depuis l'état `i` avec la lettre `j`. `a.finaux.(i)` est vrai si l'état `i` est final.
 
-12. Écrire une fonction `glushkov : 'a regexp -> automate` renvoyant l'automate de Glushkov d'une expression régulière.
+12. Écrire une fonction `glushkov : 'a regexp -> automate` renvoyant l'automate de Glushkov d'une expression régulière.  
+13. Définir une expression régulière dont le langage est l'ensemble des mots sur $\{0, 1\}$ ayant un nombre pair de $0$ et vérifier l'automate de Glushov obtenu.
 
 {/* %     \section{Calcul des ensembles $P(L)$, $S(L)$, $F(L)$}
 % 	Soit $L$ un langage. On rappelle les définitions du cours :
