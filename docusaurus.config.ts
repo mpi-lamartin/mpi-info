@@ -71,6 +71,10 @@ const config: Config = {
       items: [
         // {to: '/', label: 'Cahier de texte'},
         // {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
+        {
+          href: 'https://fortierq-notes-app-ctedub.streamlit.app',
+          label: 'Notes',
+        },
         { 
           type: "doc",
           docId: "tp/tp1/tp1",
