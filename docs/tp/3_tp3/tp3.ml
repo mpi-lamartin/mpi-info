@@ -97,3 +97,42 @@ let rec n_lettres e = match e with
     | Etoile e1 -> n_lettres e1;;
 
 (* 11 *)
+(* attention au fait que dans Union(aux e1, aux e2) appelle d'abord aux e2, puis aux e1 *)
+let lineariser e =
+    let r = ref 0 in
+    let rec aux e = match e with
+        | Vide -> Vide
+        | Epsilon -> Epsilon
+        | L a -> incr r; L (a, !r)
+        | Union (e1, e2) -> let e1' = aux e1 in
+                            let e2' = aux e2 in
+                            Union (e1', e2')
+        | Concat (e1, e2) -> let e1' = aux e1 in
+                             let e2' = aux e2 in
+                             Concat (e1', e2')
+        | Etoile e1 -> Etoile (aux e1) in
+    aux e;;
+lineariser (Union (Concat (L 'a', L 'b'), Etoile (L 'a')));;
+
+type 'a automate = { 
+    delta : 'a list array array;
+    finaux : bool array;
+}
+(* 12 *)
+let glushkov e =
+    let e' = lineariser e in
+    let n = n_lettres e' in
+    
+    let delta = Array.make_matrix (n + 1) (n + 1) [] in
+    (* ajoute une transition de i vers j *)
+    let add i j k = delta.(i).(j) <- k::delta.(i).(j) in
+    List.iter (fun (a, i) -> add 0 i a) (p e');
+    List.iter (fun ((a, i), (b, j)) -> add i j b) (f e');
+    
+    let finaux = Array.make (n + 1) false in
+    List.iter (fun (a, i) -> finaux.(i) <- true) (s e');
+    { delta = delta; finaux = finaux };;
+
+(* 13 *)
+let e = Etoile (Union(L 'b', Concat(L 'a', Concat(Etoile (L 'b'), L 'a'))));;
+glushkov e
