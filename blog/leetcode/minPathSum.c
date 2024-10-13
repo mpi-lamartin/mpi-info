@@ -1,8 +1,11 @@
 #include <math.h>
 
+// On utilise la récurrence suivante :
+// d[i][j] = grid[i][j] + min(d[i - 1][j], d[i][j - 1])
+
 int minPathSum(int** grid, int gridSize, int* gridColSize) {
     int n = gridSize, p = gridColSize[0]; // nombres de lignes et colonnes
-    int** d = malloc(n*sizeof(int*));
+    int** d = malloc(n*sizeof(int*)); // d[i][j] = poids min d'un chemin de (0,0) à (i,j)
     for(int i = 0; i < n; i++) {
         d[i] = malloc(p*sizeof(int));
         for(int j = 0; j < p; j++) {
