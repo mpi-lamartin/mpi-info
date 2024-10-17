@@ -53,7 +53,7 @@ Les variables sont numérotées de `0` à `n_variables - 1` (`int`) et les lettr
 
 $$
 \begin{align*}
-S &\to b \mid AB \mid BA \CA \\
+S &\to b \mid AB \mid BA \mid CA \\
 A &\to a \mid AD \\
 B &\to b \\
 C &\to AB \\
@@ -67,7 +67,7 @@ $$
 
 ## Arbre de dérivation
 
-On définit le type suivant pour définir un arbre de dérivation :
+On définit le type suivant pour modéliser un arbre de dérivation :
 ```ocaml
 type arbre = Vide | Un of int * char | Deux of int * arbre * arbre
 ```
