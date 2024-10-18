@@ -9,7 +9,7 @@ L'algorithme CYK permet de déterminer, par programmation dynamique, si un mot e
 Il permet aussi de trouver un arbre de dérivation pour ce mot, par analyse syntaxique ascendante (bottom-up : des feuilles à la racine).
 
 L'algorithme prend en entrée une grammaire $G = (\Sigma, V, R, S)$ en forme normale de Chomsky, c'est-à-dire que toutes les productions sont de la forme $X \to YZ$ ou $X \to a$ ou $S \to \epsilon$, où $X, Y, Z \in V$ et $a \in \Sigma$.  
-On note $V =\{X_0, X_1, \ldots, X_{n-1}\}$ les variables.
+On note $V =\{X_0, X_1, \ldots, X_{n-1}\}$ les variables, où $S = X_0$.
 
 ## Équation de récurrence
 
@@ -38,7 +38,7 @@ Pour avoir $X_i \Rightarrow^* u_{d} \ldots u_{d + l - 1}$, il faut que $X_i \to 
 On définit le type suivant :
 ```ocaml
 type grammaire = {
-    initial : int;
+    n_variables : int;
     regles1 : (int * char) list;
     regles2 : (int * int * int) list;
     epsilon : bool
