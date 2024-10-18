@@ -8,7 +8,7 @@ title: "TP 4 : Algorithme CYK (Cocke-Younger-Kasami)"
 L'algorithme CYK permet de déterminer, par programmation dynamique, si un mot est généré par une grammaire non contextuelle.  
 Il permet aussi de trouver un arbre de dérivation pour ce mot, par analyse syntaxique ascendante (bottom-up : des feuilles à la racine).
 
-L'algorithme prend en entrée une grammaire $G = (\Sigma, V, P, S)$ en forme normale de Chomsky, c'est-à-dire que toutes les productions sont de la forme $X \to YZ$ ou $X \to a$ ou $S \to \epsilon$, où $X, Y, Z \in V$ et $a \in \Sigma$.  
+L'algorithme prend en entrée une grammaire $G = (\Sigma, V, R, S)$ en forme normale de Chomsky, c'est-à-dire que toutes les productions sont de la forme $X \to YZ$ ou $X \to a$ ou $S \to \epsilon$, où $X, Y, Z \in V$ et $a \in \Sigma$.  
 On note $V =\{X_0, X_1, \ldots, X_{n-1}\}$ les variables.
 
 ## Équation de récurrence
