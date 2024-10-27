@@ -8,14 +8,80 @@ title: "TP 4 : Algorithme CYK (Cocke-Younger-Kasami)"
 L'algorithme CYK permet de déterminer, par programmation dynamique, si un mot est généré par une grammaire non contextuelle.  
 Il permet aussi de trouver un arbre de dérivation pour ce mot, par analyse syntaxique ascendante (bottom-up : des feuilles à la racine).
 
-L'algorithme prend en entrée une grammaire $G = (\Sigma, V, P, S)$ en forme normale de Chomsky, c'est-à-dire que toutes les productions sont de la forme $X \to YZ$ ou $X \to a$ ou $S \to \epsilon$, où $X, Y, Z \in V$ et $a \in \Sigma$.  
-On note $V =\{X_0, X_1, \ldots, X_{n-1}\}$ les variables
+L'algorithme prend en entrée une grammaire $G = (\Sigma, V, R, S)$ en forme normale de Chomsky, c'est-à-dire que toutes les règles sont de la forme $X \to YZ$ ou $X \to a$ ou $S \to \epsilon$, où $X, Y, Z \in V$ et $a \in \Sigma$.  
+On note $V =\{X_0, X_1, \ldots, X_{k-1}\}$ les variables, où $S = X_0$.
 
 ## Équation de récurrence
 
-Soit $u = u_1 \ldots u_n \in \Sigma^*$. On veut savoir si $u \in L(G)$. Pour cela, on va calculer :
+Cette partie est à faire sur papier.
 
-\begin{center}
-t[i][j][k] = vrai si $X_k \Rightarrow^* u_i \ldots u_j$  
-t[i][j][k] = faux sinon
-\end{center}
+Soit $u = u_0 \ldots u_{n-1} \in \Sigma^*$. On veut savoir si $u \in L(G)$. Pour cela, on va calculer, pour $i \in \{0, \ldots, k - 1\}$, $d \in \{0, \ldots, n - 1\}$ et $i \in \{0, \ldots, k-1\}$ :
+
+$$
+\begin{align*}
+t[l][d][i] &= \text{ vrai si } X_i \Rightarrow^* u_{d} \ldots u_{d + l - 1}\\
+t[l][d][i] &= \text{ faux sinon }
+\end{align*}
+$$
+
+1. À quelle condition a t-on $u \in L(G)$ ?  
+2. Que vaut $t[0][d][i]$ ?  
+3. Que vaut $t[1][d][i]$ ?
+
+Pour avoir $X_i \Rightarrow^* u_{d} \ldots u_{d + l - 1}$, il faut que $X_i \to X_j X_k$ avec $X_j \Rightarrow^* u_{d} \ldots u_{d + m - 1}$ et $X_k \Rightarrow^* u_{d + m} \ldots u_{d + l - 1}$.  
+
+4. En déduire une équation de récurrence pour $t[l][d][i]$.  
+5. En déduire un algorithme en pseudo-code pour remplir le tableau $t$. Quelle est sa complexité ?
+
+## Implémentation
+
+On définit le type suivant :
+```ocaml
+type grammaire = {
+    n_variables : int;
+    regles1 : (int * char) list;
+    regles2 : (int * int * int) list;
+    epsilon : bool
+}
+```
+
+Les variables sont numérotées de `0` à `n_variables - 1` (`int`) et les lettres sont des caractères (`char`).  
+`regles1` contient un couple $(i, a)$ pour chaque règle $X_i \to a$ et `regles2` contient un triplet $(i, j, k)$ pour chaque règle $X_i \to X_j X_k$.  
+`epsilon` est vrai si $\epsilon \in L(G)$.
+
+6. Définir une variable `g0` représentant la grammaire suivante :
+
+$$
+\begin{align*}
+S &\to b \mid AB \mid BA \mid CA \\
+A &\to a \mid AD \\
+B &\to b \\
+C &\to AB \\
+D &\to a
+\end{align*}
+$$
+
+7. Écrire une fonction `cyk : grammaire -> string -> bool` qui prend en argument une grammaire et un mot et renvoie vrai si le mot est dans le langage de la grammaire, en utilisant l'algorithme CYK décrit en première partie.
+
+8. Justifier que `g0` engendre le langage $a^* b a^*$ et tester la fonction `cyk` sur quelques exemples.
+
+## Arbre de dérivation
+
+On définit le type suivant pour modéliser un arbre de dérivation :
+```ocaml
+type arbre = Vide | Un of int * char | Deux of int * arbre * arbre
+```
+
+où :
+- `Vide` correspond à une dérivation $S \to \epsilon$,
+- `Un (i, a)` correspond à une dérivation $X_i \to a$,
+- `Deux (i, j, k)` correspond à une dérivation $X_i \to X_j X_k$.
+
+On rappelle que le type `option` est défini nativement en OCaml par :
+```ocaml
+type 'a option = None | Some of 'a
+```
+
+On adapte alors l'algorithme CYK avec `t : arbre option array array array` où `t[l][d][i]` contient un arbre de dérivation pour $X_i \Rightarrow^* u_{d} \ldots u_{d + l - 1}$ s'il en existe un, `None` sinon.
+
+9. Écrire une fonction `arbre_derivation : grammaire -> string -> arbre option` qui prend en argument une grammaire et un mot et renvoie un arbre de dérivation pour ce mot si celui-ci est dans le langage de la grammaire ou `None` sinon.
