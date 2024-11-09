@@ -83,6 +83,12 @@ const config: Config = {
         },
         { 
           type: "doc",
+          docId: "ds/ds2/ds2",
+          position: "left",
+          label: "DS/DM",
+        },
+        { 
+          type: "doc",
           docId: "tp/tp1/tp1",
           position: "left",
           label: "TP",
