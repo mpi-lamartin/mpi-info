@@ -1,9 +1,14 @@
 ---
 hide_table_of_contents: false
 hide_title: false
-cor: false
+cor: true
 title: "TP 4 : Algorithme CYK (Cocke-Younger-Kasami)"
 ---
+
+import Solution from '@site/src/components/Solution';
+import TP from '!!raw-loader!./tp4.ml';
+
+<Solution file={TP} lang='ocaml' show={frontMatter.cor} />
 
 L'algorithme CYK permet de déterminer, par programmation dynamique, si un mot est généré par une grammaire non contextuelle.  
 Il permet aussi de trouver un arbre de dérivation pour ce mot, par analyse syntaxique ascendante (bottom-up : des feuilles à la racine).
@@ -15,7 +20,7 @@ On note $V =\{X_0, X_1, \ldots, X_{k-1}\}$ les variables, où $S = X_0$.
 
 Cette partie est à faire sur papier.
 
-Soit $u = u_0 \ldots u_{n-1} \in \Sigma^*$. On veut savoir si $u \in L(G)$. Pour cela, on va calculer, pour $i \in \{0, \ldots, k - 1\}$, $d \in \{0, \ldots, n - 1\}$ et $i \in \{0, \ldots, k-1\}$ :
+Soit $u = u_0 \ldots u_{n-1} \in \Sigma^*$. On veut savoir si $u \in L(G)$. Pour cela, on va calculer, pour $l \in \{0, \ldots, n\}$, $d \in \{0, \ldots, n - 1\}$ et $i \in \{0, \ldots, k-1\}$ :
 
 $$
 \begin{align*}
@@ -32,6 +37,10 @@ Pour avoir $X_i \Rightarrow^* u_{d} \ldots u_{d + l - 1}$, il faut que $X_i \to 
 
 4. En déduire une équation de récurrence pour $t[l][d][i]$.  
 5. En déduire un algorithme en pseudo-code pour remplir le tableau $t$. Quelle est sa complexité ?
+
+import tp4_1 from './tp4.png';
+
+{cor && <img src={tp4_1} width={230}/>}
 
 ## Implémentation
 
