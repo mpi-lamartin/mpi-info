@@ -9,5 +9,6 @@
     \item $u$ appartient à $L(G)$ si et seulement si \texttt{t[n][0][0]}.
     \item \texttt{t[0][d][i]} est vrai si et seulement si $i = 0$, $d = 0$ et $S \rightarrow \varepsilon$.
     \item \texttt{t[1][d][i]} est vrai si et seulement si $X_i \rightarrow u_d$ est une règle de $G$.
+    \item $$t[l][d][i] = \bigvee_{\substack{X_i \rightarrow X_j X_k} \bigvee_{p = 1}^{l-1} t[p][d][j] \land t[l-p][\underbrace{d+m}_{\text{si }d + p < n}][k]}$$
 \end{enumerate}
 \end{document}
