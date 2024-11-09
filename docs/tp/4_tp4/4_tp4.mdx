@@ -7,10 +7,17 @@ title: "TP 4 : Algorithme CYK (Cocke-Younger-Kasami)"
 
 import Solution from '@site/src/components/Solution';
 import TP from '!!raw-loader!./tp4.ml';
-import tp4_1 from './tp4.png';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
 
 <Solution file={TP} lang='ocaml' show={frontMatter.cor}>
-<img src={tp4_1} width={"1000"} /> 
+<ThemedImage
+  alt="CYK"
+  sources={{
+    light: useBaseUrl('/img/tp4.png'),
+    dark: useBaseUrl('/img/tp4_inv.png'),
+  }}
+/>
 </Solution>
 
 L'algorithme CYK permet de déterminer, par programmation dynamique, si un mot est généré par une grammaire non contextuelle.  
