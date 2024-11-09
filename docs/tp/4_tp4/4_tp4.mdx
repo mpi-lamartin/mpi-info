@@ -7,8 +7,11 @@ title: "TP 4 : Algorithme CYK (Cocke-Younger-Kasami)"
 
 import Solution from '@site/src/components/Solution';
 import TP from '!!raw-loader!./tp4.ml';
+import tp4_1 from './tp4.png';
 
-<Solution file={TP} lang='ocaml' show={frontMatter.cor} />
+<Solution file={TP} lang='ocaml' show={frontMatter.cor}>
+<img src={tp4_1} width={"1000"} /> 
+</Solution>
 
 L'algorithme CYK permet de déterminer, par programmation dynamique, si un mot est généré par une grammaire non contextuelle.  
 Il permet aussi de trouver un arbre de dérivation pour ce mot, par analyse syntaxique ascendante (bottom-up : des feuilles à la racine).
@@ -38,10 +41,6 @@ Pour avoir $X_i \Rightarrow^* u_{d} \ldots u_{d + l - 1}$, il faut que $X_i \to 
 4. En déduire une équation de récurrence pour $t[l][d][i]$.  
 5. En déduire un algorithme en pseudo-code pour remplir le tableau $t$. Quelle est sa complexité ?
 
-import tp4_1 from './tp4.png';
-
-{cor && <img src={tp4_1} width={230}/>}
-
 ## Implémentation
 
 On définit le type suivant :
@@ -62,11 +61,11 @@ Les variables sont numérotées de `0` à `n_variables - 1` (`int`) et les lettr
 
 $$
 \begin{align*}
-S &\to b \mid AB \mid BA \mid CA \\
-A &\to a \mid AD \\
-B &\to b \\
-C &\to AB \\
-D &\to a
+S &\to b \mid X_1 X_2 \mid X_2 X_1 \mid X_3 X_1 \\
+X_1 &\to a \mid X_1 X_4 \\
+X_2 &\to b \\
+X_3 &\to X_1 X_2 \\
+X_4 &\to a
 \end{align*}
 $$
 
