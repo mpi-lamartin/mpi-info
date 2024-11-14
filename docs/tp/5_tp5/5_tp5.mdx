@@ -1,0 +1,75 @@
+---
+hide_table_of_contents: false
+hide_title: false
+cor: true
+title: "TP 5 : Algorithme de Kruskal"
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+
+## Tri des arêtes
+
+On définit les types suivants pour un graphe pondéré non-orienté en C :
+
+```c
+typedef struct {
+    int u;
+    int v;
+    int poids;
+} arete;
+
+typedef struct {
+    int n; // nombre de sommets
+    int *degres; // degres[i] = nombre de voisins du sommet i
+    arete **aretes; // aretes[i] = tableau des aretes incidentes au sommet i
+} graphe;
+```
+
+1. Écrire une fonction `arete* new_arete(int u, int v, int poids)` permettant d'ajouter une arête à un graphe puis définir le graphe `G1` suivant dans votre fonction `main` :
+
+<ThemedImage
+  alt="Graphe"
+  sources={{
+    light: useBaseUrl('/img/g1_.png'),
+    dark: useBaseUrl('/img/g1_inv.png'),
+  }}
+/>
+
+2. Écrire une fonction `void free_graphe(graphe g)` libérant la mémoire allouée pour le graphe `g`.
+
+On utilisera `G1` pour tester les fonctions suivantes.
+
+3. Écrire une fonction `int n_aretes(graphe g)` renvoyant le nombre d'arêtes du graphe `g`.  
+4. Écrire une fonction `arete* aretes(graphe g)` renvoyant un tableau contenant toutes les arêtes du graphe `g`.
+
+Le tri par insertion trie un tableau `t` en parcourant chaque élément `t[i]` et en le plaçant à sa place dans le sous-tableau trié `t[0]`, `t[1]`, ..., `t[i - 1]`. On conserve donc l'invariant suivant : à la fin de la $i$-ème itération, le sous-tableau `t[0]`, `t[1]`, ..., `t[i]` est trié.
+
+5. Écrire une fonction `void tri_insertion(arete* aretes, int n)` qui trie le tableau `aretes` de taille `n`, par poids croissant. Quelle est sa complexité ?  
+
+## Union-Find
+
+On utilise le type suivant pour représenter une structure Union-Find :
+
+```c
+typedef struct {
+  int n; // nombre d'élements
+  int t; // t[i] = père de i
+} uf;
+```
+
+Si $i$ est une racine, on prendra $t[i] = i$.
+
+6. Écrire une fonction `uf* create(int n)` initialisant une structure Union-Find de taille `n`.  
+7. Écrire une fonction `int find(uf* u, int x)` renvoyant la racine de l'arbre contenant `x`, sans compression de chemin.
+8. Écrire une fonction `void merge(uf* u, int x, int y)` fusionnant les arbres contenant `x` et `y`, sans optimisation.
+
+## Algorithme de Kruskal
+
+9. Écrire une fonction `int n_cc(uf* u)` renvoyant le nombre de composantes connexes de la structure Union-Find `u`.
+10. Écrire une fonction `arete* kruskal(graphe g)` renvoyant un tableau contenant les arêtes de l'arbre couvrant minimum du graphe `g`.
+
+## Optimisations
+
+11. Réécrire la fonction `find` pour qu'elle utilise la compression de chemin.  
+12. Redéfinir le type `uf` et réécrire `merge` pour qu'il utilise l'union par rang.
