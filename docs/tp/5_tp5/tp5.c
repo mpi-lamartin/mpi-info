@@ -95,7 +95,7 @@ int find(uf* u, int x) {
 }
 
 // 8
-void void free_graphe(graphe g)(uf* u, int x, int y) {
+void merge(uf* u, int x, int y) {
     u->t[find(u, x)] = find(u, y);
 }
 
