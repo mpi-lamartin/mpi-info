@@ -46,7 +46,8 @@ On utilisera `G1` pour tester les fonctions suivantes.
 3. Écrire une fonction `int n_aretes(graphe g)` renvoyant le nombre d'arêtes du graphe `g`.  
 4. Écrire une fonction `arete* aretes(graphe g)` renvoyant un tableau contenant toutes les arêtes du graphe `g`.
 
-Le tri par insertion trie un tableau `t` en parcourant chaque élément `t[i]` et en le plaçant à sa place dans le sous-tableau trié `t[0]`, `t[1]`, ..., `t[i - 1]`. On conserve donc l'invariant suivant : à la fin de la $i$-ème itération, le sous-tableau `t[0]`, `t[1]`, ..., `t[i]` est trié.
+Le tri par insertion trie un tableau `t` en parcourant chaque élément `t[i]` et en le plaçant à sa place dans le sous-tableau trié `t[0]`, `t[1]`, ..., `t[i - 1]`. Pour le mettre à sa bonne position, on l'échange avec l'élément précédent tant que celui-ci est plus grand.  
+L'invariant suivant est conservé : à la fin de la $i$-ème itération, le sous-tableau `t[0]`, `t[1]`, ..., `t[i]` est trié.
 
 5. Écrire une fonction `void tri_insertion(arete* aretes, int n)` qui trie le tableau `aretes` de taille `n`, par poids croissant. Quelle est sa complexité ?  
 
