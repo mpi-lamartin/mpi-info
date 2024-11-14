@@ -26,7 +26,9 @@ typedef struct {
 } graphe;
 ```
 
-1. Écrire une fonction `arete* new_arete(int u, int v, int poids)` permettant d'ajouter une arête à un graphe puis définir le graphe `G1` suivant dans votre fonction `main` :
+0. Écrire une fonction `arete new_arete(int u, int v, int poids)` renvoyant une nouvelle arête de poids `poids` entre les sommets `u` et `v`.
+
+1. Définir le graphe `G1` suivant :
 
 <ThemedImage
   alt="Graphe"
@@ -34,6 +36,7 @@ typedef struct {
     light: useBaseUrl('/img/g1_.png'),
     dark: useBaseUrl('/img/g1_inv.png'),
   }}
+  width={"70%"}
 />
 
 2. Écrire une fonction `void free_graphe(graphe g)` libérant la mémoire allouée pour le graphe `g`.
