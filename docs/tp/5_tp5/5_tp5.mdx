@@ -58,22 +58,27 @@ On utilise le type suivant pour représenter une structure Union-Find :
 ```c
 typedef struct {
   int n; // nombre d'élements
-  int t; // t[i] = père de i
+  int* t; // t[i] = père de i
 } uf;
 ```
 
 Si $i$ est une racine, on prendra $t[i] = i$.
 
-6. Écrire une fonction `uf* create(int n)` initialisant une structure Union-Find de taille `n`.  
-7. Écrire une fonction `int find(uf* u, int x)` renvoyant la racine de l'arbre contenant `x`, sans compression de chemin.
-8. Écrire une fonction `void merge(uf* u, int x, int y)` fusionnant les arbres contenant `x` et `y`, sans optimisation.
+6. Écrire une fonction `uf create(int n)` initialisant une structure Union-Find de taille `n`.  
+7. Écrire une fonction `int find(uf u, int x)` renvoyant la racine de l'arbre contenant `x`, sans compression de chemin.
+8. Écrire une fonction `void merge(uf u, int x, int y)` fusionnant les arbres contenant `x` et `y`, sans optimisation.
 
 ## Algorithme de Kruskal
 
-9. Écrire une fonction `int n_cc(uf* u)` renvoyant le nombre de composantes connexes de la structure Union-Find `u`.
+9. Écrire une fonction `int n_cc(uf u)` renvoyant le nombre de composantes connexes de la structure Union-Find `u`.
 10. Écrire une fonction `arete* kruskal(graphe g)` renvoyant un tableau contenant les arêtes de l'arbre couvrant minimum du graphe `g`.
 
 ## Optimisations
 
 11. Réécrire la fonction `find` pour qu'elle utilise la compression de chemin.  
 12. Redéfinir le type `uf` et réécrire `merge` pour qu'il utilise l'union par rang.
+
+## LeetCode
+
+13. Résoudre ce [problème LeetCode](https://leetcode.com/problems/min-cost-to-connect-all-points).
+
