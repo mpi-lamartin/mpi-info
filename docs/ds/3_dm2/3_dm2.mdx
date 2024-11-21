@@ -1,0 +1,9 @@
+---
+hide_table_of_contents: true
+hide_title: true
+title: "DM 2 : Centrale 2024 MP"
+pdf: "CS_2024"
+---
+import Button from '@site/src/components/Button';
+
+<Button pdf={require(`./${frontMatter.pdf}.pdf`).default} cor={require(`./${frontMatter.pdf}_cor.pdf`).default} />
