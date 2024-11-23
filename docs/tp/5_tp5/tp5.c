@@ -13,7 +13,7 @@ typedef struct {
     arete **aretes; // aretes[i] = tableau des aretes incidentes au sommet i
 } graphe;
 
-//1 
+// 1 
 arete a(int u, int v, int poids) {
     arete e;
     e.u = u;
@@ -121,21 +121,69 @@ arete* kruskal(graphe g) {
     return mst;
 }
 
+// 11. Réécrire la fonction `find` pour qu'elle utilise la compression de chemin.  
+int find(uf* u, int x) {
+    if (u->t[x] == x) {
+        return x;
+    } else {
+        u->t[x] = find(u, u->t[x]);
+        return u->t[x];
+    }
+}
+
+// 12. Redéfinir le type `uf` et réécrire `merge` pour qu'il utilise l'union par rang.
+typedef struct {
+  int n; // nombre d'élements
+  int* t; // t[i] = père de i
+  int* h; // h[i] = hauteur de l'arbre enraciné en i
+} uf;
+
+void merge(uf* u, int x, int y) {
+    int rx = find(u, x);
+    int ry = find(u, y);
+    if (u->h[rx] < u->h[ry]) {
+        u->t[rx] = ry;
+    } else if (u->h[rx] > u->h[ry]) {
+        u->t[ry] = rx;
+    } else {
+        u->t[rx] = ry;
+        u->h[ry]++;
+    }
+}
+
 int main() {
     // 2
-    int degres[] = {3, 3, 4, 3, 2, 3, 2};
-    arete a0[] = {a(0, 1, 1), a(0, 2, 5), a(0, 6, 5)};
-    arete a1[] = {a(0, 1, 1), a(1, 3, 2), a(1, 6, 3)};
-    arete a2[] = {a(0, 2, 5), a(2, 3, 3), a(2, 5, 5), a(2, 4, 2)};
-    arete a3[] = {a(1, 3, 2), a(2, 3, 3), a(3, 5, 1)};
-    arete a4[] = {a(2, 4, 2), a(4, 5, 5)};
-    arete a5[] = {a(4, 5, 5), a(2, 5, 5), a(3, 5, 1)};
-    arete a6[] = {a(0, 6, 5), a(0, 6, 5)};
-    arete* g_aretes[] = {a0, a1, a2, a3, a4, a5, a6};
-    graphe g = {
-        .n = 7,
-        .degres = degres,
-        .aretes = g_aretes};
+    graphe g;
+    g.n = 7;
+    g.degres = malloc(7 * sizeof(int));
+    g.degres[0] = 3;
+    g.degres[1] = 3;
+    g.degres[2] = 4;
+    g.degres[3] = 3;
+    g.degres[4] = 2;
+    g.degres[5] = 3;
+    g.degres[6] = 2;
+    g.aretes = malloc(10 * sizeof(arete*));
+    g.aretes[0] = malloc(3 * sizeof(arete));
+    g.aretes[1] = malloc(3 * sizeof(arete));
+    g.aretes[2] = malloc(4 * sizeof(arete));
+    g.aretes[3] = malloc(3 * sizeof(arete));
+    g.aretes[4] = malloc(2 * sizeof(arete));
+    g.aretes[5] = malloc(3 * sizeof(arete));
+    g.aretes[6] = malloc(2 * sizeof(arete));
+    g.aretes[7] = malloc(2 * sizeof(arete));
+    g.aretes[8] = malloc(2 * sizeof(arete));
+    g.aretes[9] = malloc(2 * sizeof(arete));
+    g.aretes[0][0] = g.aretes[1][0] = a(0, 1, 1);
+    g.aretes[0][1] = g.aretes[2][0] = a(0, 2, 5);
+    g.aretes[0][2] = g.aretes[6][0] = a(0, 6, 5);
+    g.aretes[1][1] = g.aretes[3][0] = a(1, 3, 2);
+    g.aretes[1][2] = g.aretes[6][1] = a(1, 6, 3);
+    g.aretes[2][1] = g.aretes[3][1] = a(2, 3, 3);
+    g.aretes[2][2] = g.aretes[4][0] = a(2, 4, 2);
+    g.aretes[2][3] = g.aretes[5][0] = a(2, 5, 5);
+    g.aretes[3][2] = g.aretes[5][1] = a(3, 5, 1);
+    g.aretes[4][1] = g.aretes[5][2] = a(4, 5, 5);
 
     printf("Nombre d'aretes : %d\n", n_aretes(g));
     arete* t = aretes(g);
