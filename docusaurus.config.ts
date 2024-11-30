@@ -110,6 +110,11 @@ const config: Config = {
           docId: "graphes/revisions/revisions",
           label: "Graphes",
         },
+        {
+          type: "doc",
+          docId: "complexite/complexite",
+          label: "Complexité",
+        },
         // {
         //   type: "doc",
         //   docId: "concurrence/Concurrence/concurrence",
