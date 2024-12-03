@@ -5,8 +5,99 @@ cor: true
 title: "TP 6 : Couplage maximum dans un graphe biparti"
 ---
 
-**Télécharger le [squelette de code et les tests](./pour-eleves.zip).**
+Dans tout le sujet :
+- $G = (X\sqcup Y, E)$ désigne un graphe biparti avec $V = X\sqcup Y$
+    son ensemble de sommets ;
+- $X = \{0,\dots,n_{1} - 1\}$, $Y = \{n_{1},\dots, n - 1\}$ : toutes les arêtes relient donc un sommet d'indice strictement inférieur à $n_{1}$ à un sommet d'indice supérieur ou égal à $n_{1}$ ;
+- on note $p = |E|$ le nombre d'arêtes du graphe ;
+- on note $A \Delta B = (A \cup B) \setminus (A \cap B)$ la différence symétrique de deux ensembles $A$ et $B$.
 
-import Pdf from '@site/src/components/Pdf';
+On représente un graphe biparti par le type suivant :
+```ocaml
+type bipartite = {
+  n1 : int;
+  adj : int list array
+}
+```
 
-<Pdf pdf={require(`./tp-couplages.pdf`).default} />
+Un couplage est représenté par le type suivant :
+
+```ocaml
+type matching = int option array
+```
+
+Pour un couplage `m`, on aura :
+- `e` si le sommet $i$ est libre ;
+- `j` et `i` si les sommets $i$ et $j$ sont appariés.
+
+Un chemin $x_{0}, \dots, x_{k}$ sera simplement représenté par la liste `]` :
+```ocaml
+type path = int list
+```
+
+0. Écrire une fonction `elementaire : path -> bool` renvoyant `true` si le chemin est élémentaire (c'est-à-dire : ne passe pas deux fois par le même sommet) et `false` sinon. On fera en sorte d'avoir une complexité linéaire en le nombre $n$ de sommets du graphe.  
+1. Écrire une fonction `is_augmenting` prenant en entrée un couplage \cl!m! et un chemin et indiquant si le chemin est augmentant. On supposera sans le vérifier que le chemin est élémentaire (ne passe pas deux fois par le mêmeet que les entiers sont bien entre 0 et $|m|$.
+
+<details>
+<summary>Tests</summary>
+    
+```ocaml
+let g20 = {
+  n1 = 20;
+  adj =
+    [|[37; 34; 32; 31; 25; 22; 20]; [39; 38; 36; 24; 23; 20]; [36; 35; 30; 21];
+      [35; 32; 28; 27]; [24; 23; 20]; [37; 34; 32; 27]; [34; 29; 27]; [38; 27];
+      [39; 30; 26; 22; 20]; [39; 36]; [36; 31; 28; 27; 26; 25; 24; 23; 22; 21];
+      [38; 33; 31]; [29]; [38; 36; 32; 23; 22; 20]; [33; 23]; [24]; [26];
+      [39; 26]; [33; 29]; [39; 31; 28; 27]; [13; 8; 4; 1; 0]; [10; 2];
+      [13; 10; 8; 0]; [14; 13; 10; 4; 1]; [15; 10; 4; 1]; [10; 0];
+      [17; 16; 10; 8]; [19; 10; 7; 6; 5; 3]; [19; 10; 3]; [18; 12; 6];
+      [8; 2]; [19; 11; 10; 0]; [13; 5; 3; 0]; [18; 14; 11]; [6; 5; 0];
+      [3; 2]; [13; 10; 9; 2; 1]; [5; 0]; [13; 11; 7; 1]; [19; 17; 9; 8; 1]|]
+}
+
+(* Un couplage maximal pour l'inclusion, mais pas de cardinalité maximale, *)
+(* pour g20. *)
+
+let m20 = [|
+  Some 20; Some 23; Some 21; Some 27; Some 24; Some 32; Some 29; Some 38;
+  Some 22; Some 36; Some 25; Some 31; None; None; Some 33; None; Some 26;
+  Some 39; None; Some 28; Some 0; Some 2; Some 8; Some 1; Some 4; Some 10;
+  Some 16; Some 3; Some 19; Some 6; None; Some 11; Some 5; Some 14; None;
+  None; Some 9; None; Some 7; Some 17
+|]
+
+(* 6 chemins élémentaires de g20. Seul le premier et le dernier sont *)
+(* augmentants pour m20. *)
+
+let p20_1 = [30; 8; 22; 0; 20; 1; 23; 14; 33; 11; 31; 19; 28; 3; 27; 6; 29; 12]
+let p20_2 = [26; 8; 22; 0; 20; 1; 23; 14; 33; 11; 31; 19; 28; 3; 27; 6; 29; 12]
+let p20_3 = [30; 8; 22; 0; 20; 1; 23; 14; 33; 11; 31; 19; 28; 3; 27; 6; 29]
+let p20_4 = [30; 8; 22; 0; 20; 1; 23; 14; 33; 11; 31; 19; 28; 3; 27; 6]
+let p20_5 = [30; 8; 22; 13; 20; 1; 23; 14; 33; 11; 31; 19; 28; 3; 27; 6; 29; 12]
+let p20_6 = [34; 6; 29; 12]
+```
+
+</details>
+
+2. Écrire une fonction `delta : matching -> path -> unit` prenant en entrée un couplage $M$ et un chemin $p$ supposé augmentant pour $M$ et effectuant l'opération $M \leftarrow M \Delta p$.
+
+3. Écrire une fonction `orient : bipartite -> matching -> int list array` prenant en entrée un graphe biparti
+  $G$ et un couplage $M$ et renvoyant un graphe orienté $G_{M}$ (sous
+  forme d'un `int list array`) tel que :
+    - les sommets de $G_{M}$ sont les mêmes que ceux de $G$ ;
+    - $G_{M}$ contient exactement un arc orienté pour chaque
+          arête $\{x, y\}$ (avec $x \in X$ et $y \in Y$) de $G$ :
+            - si $xy \in M$, l'arc de $G_{M}$ est $(y, x)$ ;
+            - si $xy \notin M$, l'arc de $G_{M}$ est $(x, y)$.
+$G_M$ est donc obtenu à partir de $G$ en orientant les arêtes de $M$ de $X$ vers $Y$ et les autres de $Y$ vers $X$.
+
+4. Écrire une fonction `find_augmenting_path : bipartite -> matching -> path option`
+! prenant en entrée un graphe biparti $G$ et un couplage $M$ et renvoyant :
+\item `None` si $M$ n'admet pas de chemin augmentant ;
+\item `Some p`, avec $p$ un chemin augmentant, s'il en existe un.  
+Pour cela, on utilisera un parcours en profondeur de $G_{M}$.
+
+5. Écrire une fonction `maximum_matching : bipartite -> matching` renvoyant un couplage maximal pour le graphe biparti $G$.
+
+6. Déterminer la complexité de `maximum_matching`.
