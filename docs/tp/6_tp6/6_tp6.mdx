@@ -35,23 +35,6 @@ Un chemin $x_{0}, \dots, x_{k}$ sera simplement représenté par la liste `]` :
 type path = int list
 ```
 
-0. Écrire une fonction `elementaire : path -> bool` renvoyant `true` si le chemin est élémentaire (c'est-à-dire : ne passe pas deux fois par le même sommet) et `false` sinon. On fera en sorte d'avoir une complexité linéaire en le nombre $n$ de sommets du graphe.  
-1. Écrire une fonction `is_augmenting` prenant en entrée un couplage \cl!m! et un chemin et indiquant si le chemin est augmentant. On supposera sans le vérifier que le chemin est élémentaire (ne passe pas deux fois par le mêmeet que les entiers sont bien entre 0 et $|m|$.
-
-```ocaml
-is_augmenting m20 p20_1;;
-- : bool = true
-is_augmenting m20 p20_2;;
-- : bool = false
-is_augmenting m20 p20_3;;
-- : bool = false
-is_augmenting m20 p20_4;;
-- : bool = false
-is_augmenting m20 p20_5;;
-- : bool = false
-is_augmenting m20 p20_6;;
-- : bool = true
-```
 
 <details>
 <summary>Tests</summary>
@@ -95,13 +78,29 @@ let p20_6 = [34; 6; 29; 12]
 
 </details>
 
+1. Écrire une fonction `is_augmenting` prenant en entrée un couplage \cl!m! et un chemin et indiquant si le chemin est augmentant. On supposera sans le vérifier que le chemin est élémentaire (ne passe pas deux fois par le mêmeet que les entiers sont bien entre 0 et $|m|$.
+
+```ocaml
+is_augmenting m20 p20_1;;
+- : bool = true
+is_augmenting m20 p20_2;;
+- : bool = false
+is_augmenting m20 p20_3;;
+- : bool = false
+is_augmenting m20 p20_4;;
+- : bool = false
+is_augmenting m20 p20_5;;
+- : bool = false
+is_augmenting m20 p20_6;;
+- : bool = true
+```
+
 2. Écrire une fonction `delta : matching -> path -> unit` prenant en entrée un couplage $M$ et un chemin $p$ supposé augmentant pour $M$ et effectuant l'opération $M \leftarrow M \Delta p$.  
 Remarque : Pensez à réinitialiser `m20` à sa valeur initiale après chaque test.
 
 ```ocaml
 delta m20 p20_1;;
 - : unit = ()
-─( 12:27:07 )─< command 17 >──────────────────────────────────────────────────────{ counter: 0 }─
 m20;;
 - : int option array =
 [|Some 22; Some 20; Some 21; Some 28; Some 24; Some 32; Some 27; Some 38;
