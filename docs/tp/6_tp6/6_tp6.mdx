@@ -132,9 +132,9 @@ orient g20 m20;;
 ```
 
 4. Écrire une fonction `find_augmenting_path : bipartite -> matching -> path option`
-! prenant en entrée un graphe biparti $G$ et un couplage $M$ et renvoyant :
-\item `None` si $M$ n'admet pas de chemin augmentant ;
-\item `Some p`, avec $p$ un chemin augmentant, s'il en existe un.  
+ prenant en entrée un graphe biparti $G$ et un couplage $M$ et renvoyant :  
+- `None` si $M$ n'admet pas de chemin augmentant ;  
+- `Some p`, avec $p$ un chemin augmentant, s'il en existe un.  
 Pour cela, on utilisera un parcours en profondeur de $G_{M}$.
 ```ocaml
 - : int list option =
