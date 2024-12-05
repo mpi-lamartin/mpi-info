@@ -27,10 +27,11 @@ type matching = int option array
 ```
 
 Pour un couplage `m`, on aura :
-- `e` si le sommet $i$ est libre ;
-- `j` et `i` si les sommets $i$ et $j$ sont appariés.
+- `m.(i) = None` si le sommet $i$ est libre ;
+- `m.(i) = Some j` et `m.(j) = Some i` si les
+        sommets $i$ et $j$ sont appariés.
 
-Un chemin $x_{0}, \dots, x_{k}$ sera simplement représenté par la liste `]` :
+Un chemin $x_{0}, \dots, x_{k}$ sera simplement représenté par la liste `[x0; ...; xk]` :
 ```ocaml
 type path = int list
 ```
@@ -78,7 +79,7 @@ let p20_6 = [34; 6; 29; 12]
 
 </details>
 
-1. Écrire une fonction `is_augmenting` prenant en entrée un couplage \cl!m! et un chemin et indiquant si le chemin est augmentant. On supposera sans le vérifier que le chemin est élémentaire (ne passe pas deux fois par le mêmeet que les entiers sont bien entre 0 et $|m|$.
+1. Écrire une fonction `is_augmenting` prenant en entrée un couplage `m` et un chemin et indiquant si le chemin est augmentant. On supposera sans le vérifier que le chemin est élémentaire (ne passe pas deux fois par le mêmeet que les entiers sont bien entre 0 et $|m|$.
 
 ```ocaml
 is_augmenting m20 p20_1;;
@@ -131,16 +132,16 @@ orient g20 m20;;
 ```
 
 4. Écrire une fonction `find_augmenting_path : bipartite -> matching -> path option`
-! prenant en entrée un graphe biparti $G$ et un couplage $M$ et renvoyant :
-\item `None` si $M$ n'admet pas de chemin augmentant ;
-\item `Some p`, avec $p$ un chemin augmentant, s'il en existe un.  
+ prenant en entrée un graphe biparti $G$ et un couplage $M$ et renvoyant :  
+- `None` si $M$ n'admet pas de chemin augmentant ;  
+- `Some p`, avec $p$ un chemin augmentant, s'il en existe un.  
 Pour cela, on utilisera un parcours en profondeur de $G_{M}$.
 ```ocaml
 - : int list option =
 Some [30; 8; 22; 0; 20; 1; 23; 14; 33; 11; 31; 19; 28; 3; 27; 6; 29; 12]
 ```
 
-5. Écrire une fonction `maximum_matching : bipartite -> matching` renvoyant un couplage maximal pour le graphe biparti $G$.
+5. Écrire une fonction `maximum_matching : bipartite -> matching` renvoyant un couplage maximum pour le graphe biparti $G$.
 
 ```ocaml
 maximum_matching g20;;
