@@ -10,21 +10,21 @@ type path = int list
 (* 1 *)
 let is_augmenting m path =
   let rec aux = function
-  | x::y::xs -> m.(x) = Some y && aux xs
-  | [x] -> m.(x) = None
+  | u::v::q -> m.(u) = Some v && aux q
+  | [u] -> m.(u) = None
   | [] -> false in
   match path with
-  | x::xs -> m.(x) = None && aux xs
+  | u::q -> m.(u) = None && aux q
   | _ -> false
 
 (* 2 *)
 let rec delta m path =
   match path with
-  | x::y::tl ->
-    m.(x) <- Some y;
-    m.(y) <- Some x;
-    delta m tl
   | [] | [_] -> ()
+  | u::v::q ->
+    m.(u) <- Some v;
+    m.(v) <- Some u;
+    delta m q
 
 (* 3 *)
 let orient g m =
