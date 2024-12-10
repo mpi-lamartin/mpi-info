@@ -112,8 +112,8 @@ const config: Config = {
         },
         {
           type: "doc",
-          docId: "complexite/complexite",
-          label: "Complexité",
+          docId: "algorithmique/complexite/complexite",
+          label: "Algorithmique",
         },
         // {
         //   type: "doc",
