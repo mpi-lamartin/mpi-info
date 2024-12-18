@@ -122,8 +122,8 @@ la ligne de l'entier $v$ dans $e$ et $e_{v}^{j}$ sa colonne.
 On pose alors :
 $$
   h(e)
-  = \sum_{v = 0}^{14} | e_v^i - \left\lfloor \frac{v}{n} \right\rfloor |
-    + |e_v^j - (v \textnormal{ mod } n)|
+  = \sum_{v = 0}^{14} | e_v^i - \left\lfloor \frac{v}{4} \right\rfloor |
+    + |e_v^j - (v \textnormal{ mod } 4)|
 $$
 
 $h(e)$ est donc la somme, pour chaque valeur $v$ de la grille, de la distance entre sa position actuelle et sa position dans la grille finale.  
