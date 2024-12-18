@@ -97,10 +97,8 @@ let final = (* l'état dans lequel on doit aboutir *)
 ## Graphe du taquin
 
 Une configuration du taquin se code naturellement comme une
-permutation de $\{0, ..., 15\}$ (où le 15 correspond à la case vide).  
-On peut alors définir le graphe (non orienté) $G$ du taquin comme suit :
-- Chaque sommet $s$ de $G$ est une grille.
-- Il y a une arête entre $s$ et $s'$ si on peut passer de $s$ à $s'$ en une étape.
+permutation de $\{0, ..., 15\}$, où le 15 correspond à la case vide.  
+On peut alors définir le graphe (non orienté) $G$ du taquin où chaque sommet $s$ de $G$ est une grille et il y a une arête entre $s$ et $s'$ si on peut passer de $s$ à $s'$ en une étape.
 
 Remarque : on peut montrer que $G$ possède exactement deux composantes connexes,
 contenant chacune la moitié des sommets.
@@ -158,7 +156,9 @@ Chaque élément de l'ABR est un couple `(priorité, élément)` et l'arbre est 
 
 ```ocaml
 val add : ('a * 'b) abr -> 'a -> 'b -> ('a * 'b) abr
+(* add a x y ajoute l'élément (x, y) à l'ABR a *)
 val extract_min : 'a abr -> 'a * 'a abr
+(* extract_min a renvoie le couple (x, a') où x est le minimum de a et a' est a privé de x *)
 ```
 
 On rappelle le fonctionnement de l'algorithme $A^{\star}$ :
@@ -193,7 +193,7 @@ Dans notre situation, on en peut pas utiliser un tableau pour `d` car les sommet
         fait la même chose, mais utilise une option au lieu d'une
         exception.
 
-10. Écrire une fonction `a_star : state -> int` qui prend en entrée un état initial et renvoie la longueur d'une solution trouvée par l'algorithme $A^*$. Tester avec les exemples suivants.
+10. Écrire une fonction `a_star : state -> int` qui prend en entrée un état initial et renvoie la longueur d'une solution trouvée par l'algorithme $A^*$. On renverra $-1$ s'il n'y a pas de solution. Tester avec les exemples suivants.
 
 <details>
 <summary>Exemples</summary>
