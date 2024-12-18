@@ -8,78 +8,190 @@ title: "TP 7 : Résolution du taquin avec A*"
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
 
-Le jeu de taquin est constitué d'une grille $n \times n$ dans laquelle
-sont disposés les entiers de $0$ à $n^{2} - 2$, une case étant laissée libre.
-Voici un état initial possible pour $n = 4$ (qui est la version classique) :
+Le jeu de taquin est constitué d'une grille $4 \times 4$ dans laquelle
+sont disposés les entiers de $0$ à $14$, une case étant laissée libre.  
+Voici un état initial possible :
 
+<center>
 <ThemedImage
   alt="Taquin"
   sources={{
     light: useBaseUrl('/img/taquin_1.png'),
     dark: useBaseUrl('/img/taquin_1.png'),
   }}
-  width={"30%"}
+  width={"20%"}
 />
+</center>
 
 On obtient un nouvel état du jeu en déplaçant dans la case libre le
 contenu de la case située au-dessus, à gauche, en dessous ou à droite, au
 choix. Si on déplace par exemple le contenu de la case située à droite de
 la case libre, c'est-à-dire 12, on obtient le nouvel état suivant :
 
-<ThemedImage
+<center><ThemedImage
   alt="Taquin"
   sources={{
     light: useBaseUrl('/img/taquin_2.png'),
     dark: useBaseUrl('/img/taquin_2.png'),
   }}
-  width={"30%"}
-/>
+  width={"18%"}
+/></center>
 
 Le but du jeu de taquin est de parvenir à l'état final suivant :
 
-<ThemedImage
+<center><ThemedImage
   alt="Taquin"
   sources={{
     light: useBaseUrl('/img/taquin_3.png'),
     dark: useBaseUrl('/img/taquin_3.png'),
   }}
-  width={"30%"}
-/>
+  width={"18%"}
+/></center>
 
-Dans ce sujet, on s'intéresse à la résolution optimale du jeu du taquin,
-c'est-à-dire à déterminer une suite de déplacements légaux de longueur
-minimale permettant de passer d'une configuration initiale donnée à
-la configuration finale.
-Dans l'exemple ci-dessus, la solution optimale est de longueur 50
-(à partir de l'état initial, ou 49 à partir du deuxième état
-représenté).
+On souhaite résoudre de façon optimale le jeu du taquin,
+avec une suite de déplacements de longueur
+minimum permettant de passer d'une configuration initiale à
+la configuration finale.  
+Dans le premier exemple ci-dessus, la solution optimale est de longueur 50.
 
 En OCaml, une position sera représentée par le type suivant :
-\begin{ocaml}
+
+```ocaml
 type state = {
   grid : int array array;
   mutable i : int;
   mutable j : int;
   mutable h : int;
 }
-\end{ocaml}
+```
 
-- On suppose qu'une constante globale $n$ a été définie.
 - `i` et `j` indique les coordonnées de la case libre.
-- `grid` est une matrice $n \times n$ codant la grille.
-        La case libre contiendra toujours la valeur $n^{2} - 1$
-        (qui n'apparaît pas dans une autre case).
+- `grid` est une matrice $4 \times 4$ codant la grille.
+        La case libre contiendra toujours la valeur $15$.
 - `h` sera une heuristique estimant la distance de l'état
         actuel à l'état final, que nous définirons plus loin.
+
+On pourra utiliser les grilles suivantes pour tester :
+
+```ocaml
+let s = { (* exemple de l'énoncé *)
+    grid =
+        [| [| 2; 3; 1; 6 |];
+           [| 14; 5; 8; 4 |];
+           [| 15; 12; 7; 9 |];
+           [| 10; 13; 11; 0|] |];
+    i = 2;
+    j = 3;
+    h = 0
+}
+let final = (* l'état dans lequel on doit aboutir *)
+  let m = Array.make_matrix 4 4 0 in
+  for i = 0 to 3 do
+    for j = 0 to 3 do
+      m.(i).(j) <- i * 4 + j
+    done
+  done;
+  {grid = m; i = 3; j = 3; h = 0}
+```
 
 ## Graphe du taquin
 
 Une configuration du taquin se code naturellement comme une
-permutation de $[0, ..., 15]$ (où le 15 correspond à la case vide).
+permutation de $\{0, ..., 15\}$ (où le 15 correspond à la case vide).  
 On peut alors définir le graphe (non orienté) $G$ du taquin comme suit :
-\begin{itemize}
-  \item chaque sommet $s$ de $G$ est une grille ;
-  \item il y a une arête entre $s$ et $s'$ si et seulement si
-        on peut passer de $s$ à $s'$ en une étape
-        par l'un des quatre déplacements décrits plus haut.
-\end{itemize}
+- Chaque sommet $s$ de $G$ est une grille.
+- Il y a une arête entre $s$ et $s'$ si on peut passer de $s$ à $s'$ en une étape.
+
+Remarque : on peut montrer que $G$ possède exactement deux composantes connexes,
+contenant chacune la moitié des sommets.
+
+1. Quel est le nombre de sommets de $G$ ? Le nombre approximatif d'arêtes ? Est-il raisonnable de stocker $G$ explicitement en mémoire ?
+
+On code un déplacement par le type suivant, où `U`, par exemple,
+correspond à un déplacement de la case libre vers le haut :
+
+```ocaml
+type direction = U | D | L | R | No_move
+```
+
+2. Écrire une fonction `possible_moves : state -> direction list` qui renvoie la liste
+  des directions de déplacement légales à partir d'un certain état.
+
+Pour orienter la recherche, on définit une heuristique $h$ comme suit qui
+associe à chaque état du taquin un entier positif ou nul.
+Pour $e$ un état (grille) et $v \in \{0, ..., 14\}$, on note $e_{v}^{i}$
+la ligne de l'entier $v$ dans $e$ et $e_{v}^{j}$ sa colonne.
+On pose alors :
+$$
+  h(e)
+  = \sum_{v = 0}^{14} \lfloor{e_v^i - \left\lfloor \frac{v}{n} \right\rfloor}\rfloor
+    + \lfloor{e_v^j - (v \textnormal{ mod } n)}\rfloor.
+$$
+
+$h(e)$ est donc la somme, pour chaque valeur $v$ de la grille, de la distance entre sa position actuelle et sa position dans la grille finale.  
+Plus $h(e)$ est petit, plus la grille semble proche de l'état finale. On peut montrer que $h(e)$ est une borne inférieure de la distance entre $e$ et la grille finale.
+
+3. Écrire une fonction `compute_h : state -> unit` qui prend en entrée un état, dans lequel le champ `h` a une valeur quelconque, et donne à ce champ la bonne valeur.
+
+4. Écrire une fonction `delta_h : state -> direction -> int` qui prend en entrée un état $e$ et une
+  direction $d$ et renvoie la différence $h(e') - h(e)$, où $e'$
+  est l'état que l'on atteint à partir de $e$ en effectuant le déplacement
+  $d$. On ne fera que les calculs nécessaires (on évitera donc de recalculer
+  toute la somme définissant $h$).
+
+5. Écrire une fonction `apply : state -> direction -> unit` qui modifie un état en lui appliquant un déplacement, que l'on supposera légal.
+
+6. Écrire une fonction `copy : state -> state` qui prend un état et en renvoie une copie.  
+On pourra utiliser la fonction `Array.copy`, mais attention : `grid` est un tableau de tableaux\dots
+
+## Algorithme A*
+
+7. Écrire une fonction `successors : state -> state list` qui prend en entrée un état et renvoie la liste de ses voisins.
+
+8. Nous avons souvent codé des arbres dans des tableaux de la manière
+  suivante :
+  - $t[i] = i$ si et seulement si $i$ est la racine de l'arbre ;
+  - $t[i] = j$ si $j$ est le père de $i$.
+
+On peut naturellement étendre cette définition à un
+`('a, 'a) Hashtbl.t`. Écrire une fonction `reconstruct : ('a, 'a) Hashtbl.t -> 'a -> 'a list`
+qui prend en entrée un dictionnaire codant un arbre et un
+nœud $x$ de l'arbre, et renvoie un chemin de la racine à $x$,
+sous la forme d'une liste de nœuds.
+
+On utilisera le module `Hashtbl` qui fournit des tables de hachage. On rappelle ci-dessous quelques fonctions utiles (`'a` est le type des clés et `'b` celui des valeurs).
+- `Hashtbl.create : int -> ('a, 'b) Hashtbl.t` crée une table
+        vide. L'entier fourni donne la capacité initiale mais n'a que
+        peu d'importance (la table sera redimensionnée au besoin).
+- `Hashtbl.mem : ('a, 'b) Hashtbl.t -> 'a -> bool`
+        permet de tester si une clé est présente dans la table.
+- `Hashtbl.add : ('a, 'b) Hashtbl.t -> 'a -> 'b -> unit` ajoute
+        une association à la table.
+- `Hashtbl.replace : ('a, 'b) Hashtbl.t -> 'a -> 'b -> unit`
+        modifie une association existante, ou crée l'association si
+        elle n'existait pas. On peut donc l'utiliser systématiquement à
+        la place de `Hashtbl.add`.
+- `Hashtbl.find : ('a, 'b) Hashtbl.t -> 'a -> 'b` renvoie
+        la valeur associée à une clé, ou lève l'exception
+        `Not_found` si la valeur n'est pas dans la table.
+- `Hashtbl.find_opt : ('a, 'b) Hashtbl.t -> 'a -> 'b option`
+        fait la même chose, mais utilise une option au lieu d'une
+        exception.
+
+L'algorithme A* utilise une file de priorité, que l'on va implémenter ici par arbre binaire de recherche (ABR), défini par le type :
+```ocaml
+type 'a abr = V | N of 'a * 'a abr * 'a abr
+```
+Chaque élément de l'ABR est un couple `(priorité, élément)` et l'arbre est ordonné par rapport à la priorité.
+
+9. Écrire des fonctions pour ajouter un élément à un ABR, extraire le minimum et supprimer un élément donné.
+
+```ocaml
+val add : ('a * 'b) abr -> 'a -> 'b -> ('a * 'b) abr
+val extract_min : 'a abr -> 'a * 'a abr
+val remove : ('a * 'b) abr -> 'a -> ('a * 'b) abr
+```
+
+10. Écrire une fonction `a_star : state -> state list` qui prend en entrée un état initial et calculant un chemin de longueur minimale vers l'état final à
+  l'aide de l'algorithme $A^{\star}$. On pourra renvoyer une liste vide si aucun chemin n'existe.  
+Remarque : Comme indiqué, on utilise un dictionnaire `parents` au lieu d'un tableau : il faudra faire de même pour les distances.
