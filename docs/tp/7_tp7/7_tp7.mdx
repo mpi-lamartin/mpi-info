@@ -5,5 +5,34 @@ cor: true
 title: "TP 7 : Résolution du taquin avec A*"
 ---
 
-[Sujet](./tp-taquin.pdf)  
-[Fichiers](./pour-eleves.zip)
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+
+<ThemedImage
+  alt="Taquin"
+  sources={{
+    light: useBaseUrl('/img/taquin_1.png'),
+    dark: useBaseUrl('/img/taquin_1.png'),
+  }}
+  width={"70%"}
+/>
+
+Le jeu de taquin est constitué d'une grille $n \times n$ dans laquelle
+sont disposés les entiers de $0$ à $n^{2} - 2$, une case étant laissée libre.
+Voici un état initial possible pour $n = 4$ (qui est la version classique) :
+
+$
+\begin{center}
+  \begin{tabular}{r|c|c|c|c|}
+    \multicolumn{1}{c}{}
+    & \multicolumn{1}{c}{0}
+    & \multicolumn{1}{c}{1}
+    & \multicolumn{1}{c}{2}
+    & \multicolumn{1}{c}{3} \\ \cline{2-5}
+    0 & 2 & 3 & 1 & \ 6 \ \\ \cline{2-5}
+    1 & 14 & 5 & 8 & 4 \\ \cline{2-5}
+    2 & & 12 & 7 & 9 \\ \cline{2-5}
+    3 & 10&13 & 11 & 0 \\ \cline{2-5}
+  \end{tabular}
+\end{center}
+$
