@@ -65,7 +65,7 @@ type state = {
 }
 ```
 
-- `i` et `j` indique les coordonnées de la case libre.
+- `i` et `j` indique les coordonnées de la case libre (le 15).
 - `grid` est une matrice $4 \times 4$ codant la grille.
         La case libre contiendra toujours la valeur $15$.
 - `h` sera une heuristique estimant la distance de l'état
@@ -81,7 +81,7 @@ let s = { (* exemple de l'énoncé *)
            [| 15; 12; 7; 9 |];
            [| 10; 13; 11; 0|] |];
     i = 2;
-    j = 3;
+    j = 0;
     h = 0
 }
 let final = (* l'état dans lequel on doit aboutir *)
