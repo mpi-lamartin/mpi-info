@@ -148,18 +148,33 @@ On pourra utiliser la fonction `Array.copy`, mais attention : `grid` est un tabl
 
 7. Écrire une fonction `successors : state -> state list` qui prend en entrée un état et renvoie la liste de ses voisins.
 
-8. Nous avons souvent codé des arbres dans des tableaux de la manière
-  suivante :
-  - $t[i] = i$ si et seulement si $i$ est la racine de l'arbre ;
-  - $t[i] = j$ si $j$ est le père de $i$.
+L'algorithme A* utilise une file de priorité, que l'on va implémenter ici par arbre binaire de recherche (ABR), défini par le type :
+```ocaml
+type 'a abr = V | N of 'a * 'a abr * 'a abr
+```
+Chaque élément de l'ABR est un couple `(priorité, élément)` et l'arbre est ordonné par rapport à la priorité.
 
-On peut naturellement étendre cette définition à un
-`('a, 'a) Hashtbl.t`. Écrire une fonction `reconstruct : ('a, 'a) Hashtbl.t -> 'a -> 'a list`
-qui prend en entrée un dictionnaire codant un arbre et un
-nœud $x$ de l'arbre, et renvoie un chemin de la racine à $x$,
-sous la forme d'une liste de nœuds.
+8. Écrire des fonctions pour ajouter un élément à un ABR et extraire le minimum.
 
-On utilisera le module `Hashtbl` qui fournit des tables de hachage. On rappelle ci-dessous quelques fonctions utiles (`'a` est le type des clés et `'b` celui des valeurs).
+```ocaml
+val add : ('a * 'b) abr -> 'a -> 'b -> ('a * 'b) abr
+val extract_min : 'a abr -> 'a * 'a abr
+```
+
+On rappelle le fonctionnement de l'algorithme $A^{\star}$ :
+
+<center>
+<ThemedImage
+  alt="Taquin"
+  sources={{
+    light: useBaseUrl('/img/astar.png'),
+    dark: useBaseUrl('/img/astar.png'),
+  }}
+  width={"65%"}
+/>
+</center>
+
+Dans notre situation, on en peut pas utiliser un tableau pour `d` car les sommets de $G$ sont ici des matrices (grilles). On utilisera donc un table de hachage pour `d`, avec les fonctions suivantes (`'a` est le type des clés et `'b` celui des valeurs) :  
 - `Hashtbl.create : int -> ('a, 'b) Hashtbl.t` crée une table
         vide. L'entier fourni donne la capacité initiale mais n'a que
         peu d'importance (la table sera redimensionnée au besoin).
@@ -178,20 +193,82 @@ On utilisera le module `Hashtbl` qui fournit des tables de hachage. On rappelle 
         fait la même chose, mais utilise une option au lieu d'une
         exception.
 
-L'algorithme A* utilise une file de priorité, que l'on va implémenter ici par arbre binaire de recherche (ABR), défini par le type :
-```ocaml
-type 'a abr = V | N of 'a * 'a abr * 'a abr
-```
-Chaque élément de l'ABR est un couple `(priorité, élément)` et l'arbre est ordonné par rapport à la priorité.
+10. Écrire une fonction `a_star : state -> int` qui prend en entrée un état initial et renvoie la longueur d'une solution trouvée par l'algorithme $A^*$. Tester avec les exemples suivants.
 
-9. Écrire des fonctions pour ajouter un élément à un ABR, extraire le minimum et supprimer un élément donné.
+<details>
+<summary>Exemples</summary>
 
 ```ocaml
-val add : ('a * 'b) abr -> 'a -> 'b -> ('a * 'b) abr
-val extract_min : 'a abr -> 'a * 'a abr
-val remove : ('a * 'b) abr -> 'a -> ('a * 'b) abr
+(* the goal state *)
+let final =
+  let m = Array.make_matrix n n 0 in
+  for i = 0 to n - 1 do
+    for j = 0 to n - 1 do
+      m.(i).(j) <- i * n + j
+    done
+  done;
+  {grid = m; i = n - 1; j = n - 1; h = 0}
+
+let ten =
+  let moves = [U; U; L; L; U; R; D; D; L; L] in
+  let state = copy final in
+  List.iter (apply state) moves;
+  state
+
+(* distance 20 *)
+let twenty =
+  {grid =
+    [| [|0; 1; 2; 3|];
+      [|12; 4; 5; 6|];
+      [|8; 4; 10; 11|];
+      [|13; 14; 7; 9|] |];
+   i = 1; j = 1; h = 14}
+
+(* distance 30 *)
+let thirty =
+  {grid =
+     [| [|8; 0; 3; 1|];
+       [|8; 5; 2; 13|];
+       [|6; 4; 11; 7|];
+       [|12; 10; 9; 14|] |];
+   i = 0; j = 0; h = 22}
+
+(* distance 40 *)
+let forty =
+  {grid =
+     [| [|7; 6; 0; 10|];
+       [|1; 12; 11; 3|];
+       [|8; 4; 2; 5|];
+       [|8; 9; 13; 14|] |];
+   i = 2; j = 0; h = 30}
+
+(* distance 50 *)
+let fifty =
+  let s =
+    {grid =
+       [| [| 2; 3; 1; 6 |];
+          [| 14; 5; 8; 4 |];
+          [| 15; 12; 7; 9 |];
+          [| 10; 13; 11; 0|] |];
+     i = 2;
+     j = 3;
+     h = 0} in
+  compute_h s;
+  s
+
+(* distance 64 *)
+let sixty_four =
+  let s =
+    {grid =
+       [| [| 15; 14; 11; 7|];
+          [| 5; 9; 12; 4|];
+          [| 3; 10; 13; 8|];
+          [| 2; 6; 0; 1|] |];
+     i = 0;
+     j = 0;
+     h = 0} in
+  compute_h s;
+  s
 ```
 
-10. Écrire une fonction `a_star : state -> state list` qui prend en entrée un état initial et calculant un chemin de longueur minimale vers l'état final à
-  l'aide de l'algorithme $A^{\star}$. On pourra renvoyer une liste vide si aucun chemin n'existe.  
-Remarque : Comme indiqué, on utilise un dictionnaire `parents` au lieu d'un tableau : il faudra faire de même pour les distances.
+</details>
