@@ -5,6 +5,12 @@ cor: true
 title: "TP 7 : Résolution du taquin avec A*"
 ---
 
+import Solution from '@site/src/components/Solution';
+import TP from '!!raw-loader!./tp7.ml';
+
+<Solution file={TP} lang='ocaml' show={frontMatter.cor}>
+</Solution>
+
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
 
@@ -82,7 +88,7 @@ let s = { (* exemple de l'énoncé *)
            [| 10; 13; 11; 0|] |];
     i = 2;
     j = 0;
-    h = 0
+    h = 38
 }
 let final = (* l'état dans lequel on doit aboutir *)
   let m = Array.make_matrix 4 4 0 in
@@ -146,7 +152,7 @@ On pourra utiliser la fonction `Array.copy`, mais attention : `grid` est un tabl
 
 7. Écrire une fonction `successors : state -> state list` qui prend en entrée un état et renvoie la liste de ses voisins.
 
-L'algorithme A* utilise une file de priorité, que l'on va implémenter ici par arbre binaire de recherche (ABR), défini par le type :
+L'algorithme A* utilise une file de priorité `q`, que l'on va implémenter ici par arbre binaire de recherche (ABR), défini par le type :
 ```ocaml
 type 'a abr = V | N of 'a * 'a abr * 'a abr
 ```
@@ -174,7 +180,8 @@ On rappelle le fonctionnement de l'algorithme $A^{\star}$ :
 />
 </center>
 
-Dans notre situation, on en peut pas utiliser un tableau pour `d` car les sommets de $G$ sont ici des matrices (grilles). On utilisera donc un table de hachage pour `d`, avec les fonctions suivantes (`'a` est le type des clés et `'b` celui des valeurs) :  
+Dans notre situation, on en peut pas utiliser un tableau pour `d` car les sommets de $G$ sont ici des matrices (grilles).  
+On utilisera donc une table de hachage pour `d` dont chaque clé (`'a`) est un `state` et sa valeur (`'b`) est sa distance depuis l'état de départ :
 - `Hashtbl.create : int -> ('a, 'b) Hashtbl.t` crée une table
         vide. L'entier fourni donne la capacité initiale mais n'a que
         peu d'importance (la table sera redimensionnée au besoin).
@@ -189,17 +196,14 @@ Dans notre situation, on en peut pas utiliser un tableau pour `d` car les sommet
 - `Hashtbl.find : ('a, 'b) Hashtbl.t -> 'a -> 'b` renvoie
         la valeur associée à une clé, ou lève l'exception
         `Not_found` si la valeur n'est pas dans la table.
-- `Hashtbl.find_opt : ('a, 'b) Hashtbl.t -> 'a -> 'b option`
-        fait la même chose, mais utilise une option au lieu d'une
-        exception.
 
-9. Écrire une fonction `a_star : state -> int` qui prend en entrée un état initial et renvoie la longueur d'une solution trouvée par l'algorithme $A^*$. On renverra $-1$ s'il n'y a pas de solution. Tester avec les exemples suivants.
+9. Écrire une fonction `a_star : state -> int` qui prend en entrée un état initial et renvoie la longueur d'une solution trouvée par l'algorithme $A^*$, en supposant qu'il en existe une. Tester avec les exemples suivants.
 
 <details>
 <summary>Exemples</summary>
 
 ```ocaml
-(* the goal state *)
+(* état final *)
 let final =
   let m = Array.make_matrix n n 0 in
   for i = 0 to n - 1 do
@@ -209,66 +213,16 @@ let final =
   done;
   {grid = m; i = n - 1; j = n - 1; h = 0}
 
+(* distance 5 de l'état final *)
+let five =   
+  {grid = [|[|0; 15; 2; 3|]; [|4; 1; 5; 7|]; [|8; 9; 6; 11|]; [|12; 13; 10; 14|]|];
+  i = 0; j = 1; h = -5}
+
 let ten =
   let moves = [U; U; L; L; U; R; D; D; L; L] in
   let state = copy final in
   List.iter (apply state) moves;
   state
-
-(* distance 20 *)
-let twenty =
-  {grid =
-    [| [|0; 1; 2; 3|];
-      [|12; 4; 5; 6|];
-      [|8; 4; 10; 11|];
-      [|13; 14; 7; 9|] |];
-   i = 1; j = 1; h = 14}
-
-(* distance 30 *)
-let thirty =
-  {grid =
-     [| [|8; 0; 3; 1|];
-       [|8; 5; 2; 13|];
-       [|6; 4; 11; 7|];
-       [|12; 10; 9; 14|] |];
-   i = 0; j = 0; h = 22}
-
-(* distance 40 *)
-let forty =
-  {grid =
-     [| [|7; 6; 0; 10|];
-       [|1; 12; 11; 3|];
-       [|8; 4; 2; 5|];
-       [|8; 9; 13; 14|] |];
-   i = 2; j = 0; h = 30}
-
-(* distance 50 *)
-let fifty =
-  let s =
-    {grid =
-       [| [| 2; 3; 1; 6 |];
-          [| 14; 5; 8; 4 |];
-          [| 15; 12; 7; 9 |];
-          [| 10; 13; 11; 0|] |];
-     i = 2;
-     j = 3;
-     h = 0} in
-  compute_h s;
-  s
-
-(* distance 64 *)
-let sixty_four =
-  let s =
-    {grid =
-       [| [| 15; 14; 11; 7|];
-          [| 5; 9; 12; 4|];
-          [| 3; 10; 13; 8|];
-          [| 2; 6; 0; 1|] |];
-     i = 0;
-     j = 0;
-     h = 0} in
-  compute_h s;
-  s
 ```
 
 </details>
