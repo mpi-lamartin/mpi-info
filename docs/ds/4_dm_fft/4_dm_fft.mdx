@@ -6,4 +6,9 @@ pdf: "dm_fft"
 ---
 import Button from '@site/src/components/Button';
 
+import Solution from '@site/src/components/Solution';
+import Code from '!!raw-loader!./fft.ml';
+
+<Solution file={Code} lang='ocaml' show={true} />
+
 <Button pdf={require(`./${frontMatter.pdf}.pdf`).default} />
