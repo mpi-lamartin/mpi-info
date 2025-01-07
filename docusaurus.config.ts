@@ -83,10 +83,6 @@ const config: Config = {
           position: "left",
           label: 'Concours',
         },
-        {
-          href: 'https://fortierq-notes-app-ctedub.streamlit.app',
-          label: 'Notes',
-        },
         { 
           type: "doc",
           docId: "ds/ds2/ds2",

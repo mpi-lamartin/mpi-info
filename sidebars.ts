@@ -8,5 +8,10 @@ const sidebars = {};
     },
   ];
 });
+sidebars["ds"].push({
+  type: "link",
+  href: 'https://fortierq-notes-app-ctedub.streamlit.app',
+  label: 'Notes', 
+});
 
 module.exports = sidebars;
