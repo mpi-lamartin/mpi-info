@@ -25,7 +25,7 @@ On admet que le problème PARTITION est NP-complet :
 
 2. Définir le problème de décision BPD associé à BIN-PACKING.
 
-3. Montrer que BIN-PACKING est NP-complet.
+3. Montrer que BPD est NP-complet.
 
 ## Algorithme glouton
 
@@ -55,7 +55,6 @@ first_fit_decr: 3
 ```c
 #include <time.h>
 ...
-srand(time(NULL)); // initialisation de rand
 int t = clock();
 ... // exécution d'un algorithme
 printf("Temps d'exécution : %f\n", (double)(clock() - t) / CLOCKS_PER_SEC);
