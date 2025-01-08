@@ -50,7 +50,10 @@ first_fit: 4
 first_fit_decr: 3
 ```
 
-9. Écrire une fonction `instance* random_instance(int n, int c)` qui génère une instance aléatoire de BIN-PACKING avec $n$ objets et une capacité $c$. Utiliser cette fonction pour comparer les trois algorithmes sur des instances aléatoires. On pourra aussi les comparer en temps d'exécution :
+9. Écrire une fonction `instance* random_instance(int n, int c)` qui génère une instance aléatoire de BIN-PACKING avec $n$ objets et une capacité $c$. On utilisera `srand(time(0));
+` pour initialiser le générateur aléatoire dans le `main` et `rand() % c` pour obtenir un entier uniformément au hasard entre `0` et `c - 1`.
+
+Utiliser cette fonction pour comparer les trois algorithmes sur des instances aléatoires. On pourra aussi les comparer en temps d'exécution :
 
 ```c
 #include <time.h>
