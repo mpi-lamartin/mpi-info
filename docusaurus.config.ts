@@ -117,7 +117,11 @@ const config: Config = {
           docId: "algorithmique/complexite/complexite",
           label: "Algorithmique",
         },
-        // {
+        {
+          type: "doc",
+          docId: "ia/apprentissage/apprentissage",
+          label: "IA",
+        },        // {
         //   type: "doc",
         //   docId: "concurrence/Concurrence/concurrence",
         //   position: "left",

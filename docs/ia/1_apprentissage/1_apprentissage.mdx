@@ -1,0 +1,9 @@
+---
+hide_table_of_contents: true
+hide_title: true
+title: "Apprentissage automatique"
+pdf: "supervise"
+---
+import Pdf from '@site/src/components/Pdf';
+
+<Pdf pdf={require(`./${frontMatter.pdf}.pdf`).default} />
