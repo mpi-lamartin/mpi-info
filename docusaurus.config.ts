@@ -119,9 +119,15 @@ const config: Config = {
         },
         {
           type: "doc",
-          docId: "ia/apprentissage/apprentissage",
+          docId: "ia/supervise/supervise",
           label: "IA",
-        },        // {
+        },
+        {
+          type: "doc",
+          docId: "logique/deduction/deduction",
+          label: "Logique",
+        }, 
+          // {
         //   type: "doc",
         //   docId: "concurrence/Concurrence/concurrence",
         //   position: "left",
