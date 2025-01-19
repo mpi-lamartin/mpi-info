@@ -95,6 +95,7 @@ void print_instance(instance *inst) {
 }
 
 int main() {
+    srand(time(NULL));
     instance q1 = {
         .n = 7,
         .w = (int[]){2, 5, 4, 7, 1, 3, 8},
@@ -104,8 +105,7 @@ int main() {
     printf("first_fit: %d\n", first_fit(&q1));
     printf("first_fit_decr: %d\n", first_fit_decr(&q1));
     printf("branch_and_bound: %d\n", branch_and_bound(&q1, 0, malloc(q1.n * sizeof(int)), 0, q1.n));
-    srand(time(0));
-    int n = 70;
+    int n = 30;
     int c = 100;
     instance* inst = random_instance(n, c);
     print_instance(inst);
