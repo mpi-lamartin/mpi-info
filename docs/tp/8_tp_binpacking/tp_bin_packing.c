@@ -48,7 +48,7 @@ int first_fit(instance *inst) {
 void sort(instance *inst) {
     for (int i = 0; i < inst->n; i++) {
         for (int j = i + 1; j < inst->n; j++) {
-            if ((double)inst->w[i] / inst->c < (double)inst->w[j] / inst->c) {
+            if (inst->w[i] < inst->w[j]) {
                 int tmp = inst->w[i];
                 inst->w[i] = inst->w[j];
                 inst->w[j] = tmp;
