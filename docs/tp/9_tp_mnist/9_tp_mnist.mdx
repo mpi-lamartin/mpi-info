@@ -16,21 +16,15 @@ import Solution from '@site/src/components/Solution';
 
 Dans cette partie, les fonctions seront écrites dans `utils.c` et déclarées dans `utils.h`.
 
-Le dossier `data` contient les données d'entraînement et de test pour deux problèmes : classification de chiffres manuscrits et de vêtements.  
+Le dossier `data` contient les données d'entraînement et de test pour deux problèmes : classification de chiffres manuscrits (digits) et de vêtements (fashion).  
 Pour chaque fichier :
 - la première ligne est le nombre N de données
 - chacune des N lignes suivantes contient $1 + 28\times 28$ valeurs : le label de la donnée (0 à 9 pour les chiffres et les vêtements) et les 28x28 pixels de l'image (de 0 à 255).
 
 <center>
-<figure>
   <img src={useBaseUrl('/img/mnist.png')} height={400} />
-  <figcaption>digits</figcaption>
-</figure>
 
-<figure>
 <img src={useBaseUrl('/img/fashion.png')} height={400} />
-  <figcaption>fashion</figcaption>
-</figure>
 </center>
 
 `utils.h` contient plusieurs définitions, dont un type `sample` permettant de représenter une donnée :
