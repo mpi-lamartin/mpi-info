@@ -66,6 +66,8 @@ int main() {
     printf("Read %d testing data\n", n_test);
     int c = knn(test[0], train, n_train, k);
     printf("Predicted class: %d (class is %d)\n", c, test[0].class); // doit afficher 7
+    free(train);
+    free(test);
     return 0;
 }
 ```
