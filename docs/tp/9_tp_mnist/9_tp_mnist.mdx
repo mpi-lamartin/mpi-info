@@ -19,11 +19,11 @@ Dans cette partie, les fonctions seront écrites dans `utils.c` et déclarées d
 Le dossier `data` contient les données d'entraînement et de test pour deux problèmes : classification de chiffres manuscrits et de vêtements.  
 Pour chaque fichier :
 - la première ligne est le nombre N de données
-- chacune des N lignes suivantes contient $1 + 28\times 28$ valeurs : le label de la donnée (0 à 9 pour les chiffres, 0 à 9 pour les vêtements) et les 28x28 pixels de l'image (de 0 à 255).
+- chacune des N lignes suivantes contient $1 + 28\times 28$ valeurs : le label de la donnée (0 à 9 pour les chiffres et les vêtements) et les 28x28 pixels de l'image (de 0 à 255).
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/2/27/MnistExamples.png?download" width=500/>
+<img src=useBaseUrl('/img/mnist.png') width=500 />
 
-<img src="https://www.researchgate.net/publication/340299295/figure/fig1/AS:875121904476163@1585656729996/Fashion-MNIST-Dataset-Images-with-Labels-and-Description-II-LITERATURE-REVIEW-In-image.jpg" width=500 />
+<img src=useBaseUrl('/img/fashion.png') width=500 />
 
 `utils.h` contient plusieurs définitions, dont un type `sample` permettant de représenter une donnée :
 ```c
