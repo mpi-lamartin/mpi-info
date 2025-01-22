@@ -1,0 +1,81 @@
+---
+hide_table_of_contents: true
+hide_title: false
+cor: true
+title: "TP 9 : Apprentissage automatique"
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Solution from '@site/src/components/Solution';
+
+1. Télécharger [tp_apprentissage.zip](tp_apprentissage.zip).  
+2. Le décompresser avec `unzip tp_apprentissage.zip` dans le terminal.  
+
+## Fonctions utilitaires
+
+Dans cette partie, les fonctions seront écrites dans `utils.c` et déclarées dans `utils.h`.
+
+Le dossier `data` contient les données d'entraînement et de test pour deux problèmes : classification de chiffres manuscrits et de vêtements.  
+Pour chaque fichier :
+- la première ligne est le nombre N de données
+- chacune des N lignes suivantes contient $1 + 28\times 28$ valeurs : le label de la donnée (0 à 9 pour les chiffres, 0 à 9 pour les vêtements) et les 28x28 pixels de l'image (de 0 à 255).
+
+`utils.h` contient plusieurs définitions, dont un type `sample` permettant de représenter une donnée :
+```c
+#define LEN (28 * 28) // taille d'une image
+#define NB_CLASSES 10
+
+typedef struct data {
+    int class;
+    float pixels[LEN]; // pixels[i*28+j] est le pixel (i, j)
+} data;
+```
+
+`utils.c` contient une fonction `data* read_dataset(char* path, int n)` renvoyant un tableau contenant `n` données du fichier `path`.  
+
+3. Écrire une fonction `float d(data x1, data x2)` calculant la distance euclidienne au carré entre deux données (il est inutile de calculer la racine carrée car on ne cherche qu'à comparer les distances).
+
+4. Écrire une fonction `int nearest(data x, data* X, bool* T, int n)` renvoyant un `i` tel que `T[i]` est vrai et `dist(x, X[i])` est minimum, où `n` est la taille de `X` et de `T`.
+
+5. Écrire une fonction `int majority(int* T, int n, int p)` renvoyant un élément majoritaire d'un tableau `T` de taille `n` dont les éléments sont entre `0` et `p - 1`, en complexité O($n + p$).
+
+## KNN
+
+Dans cette partie, les fonctions seront écrites dans `knn.c`.
+
+6. Écrire une fonction `int* k_nearest(data x, data* X, int n, int k)` renvoyant les indices des `k` plus proches voisins de `x` dans `X`, où `n` est la taille de `X`.
+
+7. Écrire une fonction `int knn(data x, data* X, int n, int k)` renvoyant la classe majoritaire des `k` plus proches voisins de `x` dans `X`, où `n` est la taille de `X`.
+
+8. Tester avec le code suivant, avec `gcc -fsanitize=address -Wall knn.c utils.c && ./a.out` :
+```c
+int main() {
+    int n_train = 10000;
+    int n_test = 200;
+    int k = 3;
+    data *train = read_dataset("data/digit-train.txt", n_train);
+    printf("Read %d training data\n", n_train);
+    data *test = read_dataset("data/digit-test.txt", n_test);
+    printf("Read %d testing data\n", n_test);
+    int c = knn(test[0], train, n_train, k);
+    printf("Predicted class: %d (class is %d)\n", c, test[0].class); // doit afficher 7
+    return 0;
+}
+```
+
+9. Écrire une fonction `precision(data* test, int n_test, data* train, int n_train, int k)` renvoyant la précision du classifieur KNN sur `test` en utilisant `train` pour l'entraînement. Essayer avec différentes valeurs de `k`, `n_train` et `n_test`.
+
+## $k$-moyennes
+
+Dans cette partie, les fonctions seront écrites dans `kmeans.c`.
+
+10. Écrire une fonction `data* compute_centers(data* X, int n, int* classes, int k)` renvoyant les centres des classes obtenues par l'algorithme des $k$-moyennes, où `classes[i]` est la classe de `X[i]`, `n` est la taille de `X` et `k` est la taille de classes.
+
+11. Écrire une fonction `int* compute_classes(data* X, int n, data* centers, int k, bool* has_changed)` renvoyant les classes obtenues par l'algorithme des $k$-moyennes, où `n` est la taille de `X` et `k` est la taille de `centers`. `has_changed` doit être mis à vrai si une donnée change de classe, faux sinon.
+
+12. Écrire une fonction `data* init_centers(data* X, int n, int k)` renvoyant `k` centres aléatoires parmi les données de `X`, où `n` est la taille de `X`. On utilisera `srand(time(NULL));` dans le `main` et `rand() % n` pour générer un nombre aléatoire entre `0` et `n - 1`.
+
+13. Écrire une fonction `int* kmeans(data* X, int n, int k)` renvoyant les classes obtenues par l'algorithme des $k$-moyennes, où `n` est la taille de `X`.
+
+14. Tester sur les données de chiffres.
