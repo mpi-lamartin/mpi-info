@@ -9,17 +9,23 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
 import Solution from '@site/src/components/Solution';
 
-1. Télécharger [tp_apprentissage.zip](tp_apprentissage.zip).  
+1. Télécharger [tp_apprentissage.zip](tp_apprentissage.zip) et le charger dans le Codespace avec clic droit -> charger.  
 2. Le décompresser avec `unzip tp_apprentissage.zip` dans le terminal.  
 
 ## Fonctions utilitaires
 
 Dans cette partie, les fonctions seront écrites dans `utils.c` et déclarées dans `utils.h`.
 
-Le dossier `data` contient les données d'entraînement et de test pour deux problèmes : classification de chiffres manuscrits et de vêtements.  
+Le dossier `data` contient les données d'entraînement et de test pour deux problèmes : classification de chiffres manuscrits (digits) et de vêtements (fashion).  
 Pour chaque fichier :
 - la première ligne est le nombre N de données
-- chacune des N lignes suivantes contient $1 + 28\times 28$ valeurs : le label de la donnée (0 à 9 pour les chiffres, 0 à 9 pour les vêtements) et les 28x28 pixels de l'image (de 0 à 255).
+- chacune des N lignes suivantes contient $1 + 28\times 28$ valeurs : le label de la donnée (0 à 9 pour les chiffres et les vêtements) et les 28x28 pixels de l'image (de 0 à 255).
+
+<center>
+  <img src={useBaseUrl('/img/mnist.png')} height={400} />
+
+<img src={useBaseUrl('/img/fashion.png')} height={400} />
+</center>
 
 `utils.h` contient plusieurs définitions, dont un type `sample` permettant de représenter une donnée :
 ```c
@@ -42,7 +48,7 @@ typedef struct data {
 
 ## KNN
 
-Dans cette partie, les fonctions seront écrites dans `knn.c`.
+Dans cette partie, les fonctions seront écrites dans un nouveau fichier `knn.c`.
 
 6. Écrire une fonction `int* k_nearest(data x, data* X, int n, int k)` renvoyant les indices des `k` plus proches voisins de `x` dans `X`, où `n` est la taille de `X`.
 
@@ -60,6 +66,8 @@ int main() {
     printf("Read %d testing data\n", n_test);
     int c = knn(test[0], train, n_train, k);
     printf("Predicted class: %d (class is %d)\n", c, test[0].class); // doit afficher 7
+    free(train);
+    free(test);
     return 0;
 }
 ```
@@ -68,7 +76,7 @@ int main() {
 
 ## $k$-moyennes
 
-Dans cette partie, les fonctions seront écrites dans `kmeans.c`.
+Dans cette partie, les fonctions seront écrites dans dans un nouveau fichier `kmeans.c`.
 
 10. Écrire une fonction `data* compute_centers(data* X, int n, int* classes, int k)` renvoyant les centres des classes obtenues par l'algorithme des $k$-moyennes, où `classes[i]` est la classe de `X[i]`, `n` est la taille de `X` et `k` est la taille de classes.
 

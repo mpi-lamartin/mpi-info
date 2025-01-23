@@ -50,5 +50,7 @@ int main() {
     printf("Predicted class: %d (class is %d)\n", c, test[0].class);
     float p = precision(test, n_test, train, n_train, k);
     printf("Precision: %f\n", p);
+    free(train);
+    free(test);
     return 0;
 }
