@@ -129,7 +129,7 @@ const config: Config = {
         }, 
           {
           type: "doc",
-          docId: "concurrence/Concurrence/concurrence",
+          docId: "concurrence/concurrence/concurrence",
           label: "Concurrence",
         },
         {
