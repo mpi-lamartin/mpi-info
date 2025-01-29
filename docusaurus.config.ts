@@ -127,12 +127,11 @@ const config: Config = {
           docId: "logique/deduction/deduction",
           label: "Logique",
         }, 
-          // {
-        //   type: "doc",
-        //   docId: "concurrence/Concurrence/concurrence",
-        //   position: "left",
-        //   label: "Concurrence",
-        // },
+          {
+          type: "doc",
+          docId: "concurrence/Concurrence/concurrence",
+          label: "Concurrence",
+        },
         {
           href: 'https://mpi-lamartin.github.io',
           label: 'Classe',
