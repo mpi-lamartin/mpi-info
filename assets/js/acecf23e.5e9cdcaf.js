@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmpi_info=self.webpackChunkmpi_info||[]).push([[1903],{1912:e=>{e.exports=JSON.parse('{"blogBasePath":"/mpi-info/","blogTitle":"Cahier de texte","authorsListPath":"/mpi-info/authors"}')}}]);

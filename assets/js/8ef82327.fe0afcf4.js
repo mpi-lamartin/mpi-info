@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmpi_info=self.webpackChunkmpi_info||[]).push([[2984],{5007:e=>{e.exports=JSON.parse('{"authors":[{"name":"Quentin Fortier","title":"Professeur d\'informatique","url":"https://fortierq.github.io/","imageURL":"https://fortierq.github.io/assets/images/photo_cv.png","key":"qfortier","page":null,"count":15}]}')}}]);
