@@ -1,7 +1,7 @@
 ---
 hide_table_of_contents: false
 hide_title: true
-title: "Exemples de code concurrent"
+title: "Code"
 ---
 
 import Tabs from '@theme/Tabs';
