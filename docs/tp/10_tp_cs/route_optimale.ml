@@ -83,3 +83,70 @@ let () = ajoute_transition g2 n2_13 n2_14 31 [7; 8]
 let () = ajoute_transition g2 n2_13 n2_15 17 [2]
 let () = ajoute_transition g2 n2_13 n2_16 17 [10]
 let () = ajoute_transition g2 n2_16 n2_17 17 [15; 16]
+
+(* Q20 *)
+(* Algorithme de Dijkstra où la longueur d'un chemin est le temps total *)
+(* On peut l'utiliser car les poids sont positifs *)
+(* Sa complexité est O(plog(n)) si implémenté avec un tas *)
+
+let mise_a_jour_inventaire clefs inventaire : unit =
+  let rec aux = function
+    | [] -> ()
+    | (i, t):: q -> match inventaire.(i) with
+      | None -> inventaire.(i) <- Some t; aux q
+      | Some t' -> if t < t' then (inventaire.(i) <- Some t; aux q)
+  in aux clefs
+
+let verrou_franchissable verrou inventaire : bool =
+  List.for_all (fun i -> inventaire.(i) <> None) verrou
+
+let prendre_arete verrou inventaire : temps =
+  let rec aux = function
+    | [] -> 0
+    | i::q -> match inventaire.(i) with
+      | None -> failwith "Erreur"
+      | Some t -> inventaire.(i) <- Some 0; t + aux q in
+  aux verrou
+
+let voisins etat g =
+  let (noeud, temps, inventaire) = (etat.noeud, etat.temps, etat.inventaire) in
+  let transitions = g.(noeud.id) in
+  let rec aux = function
+    | [] -> []
+    | (t, verrou, n):: q when verrou_franchissable verrou inventaire ->
+        let inventaire' = Array.copy inventaire in
+        let temps' = temps + t + prendre_arete verrou inventaire' in
+        mise_a_jour_inventaire n.clefs inventaire';
+        {noeud = n; temps = temps'; inventaire = inventaire'}::aux q
+    | _:: q -> aux q in
+  aux transitions
+
+(* tests *)
+let v = voisins {noeud = n1_0; temps = 0; inventaire = Array.make 3 None} g1
+voisins (List.hd v) g1
+
+(* Q25 *)
+(* On peut implémenter une file de priorité avec un tas ou avec un ABR (si possible équilibré pour des opérations en O(log(n))) *)
+(* L'implémentation avec un tas est plus efficace (voir cours) mais un ABR est plus rapide à coder *)
+type arb = V | N of arb * etat * arb
+
+let rec add x = function
+  | V -> N(V, x, V)
+  | N(g, y, d) when x.temps < y.temps -> N(add x g, y, d)
+  | N(g, y, d) -> N(g, y, add x d)
+
+let rec take_min = function
+  | N(V, x, d) -> (x, d)
+  | N(g, x, d) -> let (min, g') = take_min g in (min, N(g', x, d))
+
+let dijkstra g n =
+  let rec aux file =
+    match take_min file with
+    | (etat, file') when etat.noeud.est_final -> etat
+    | (etat, file') -> aux (List.fold_left (fun f e -> add e f) file' (voisins etat g))
+  in aux (add n V)
+
+dijkstra g1 {noeud = n1_0; temps = 0; inventaire = Array.make 3 None}
+
+(* Q30 *)
+(* Pour se souvenir des sommets (avec inventaire) déjà rencontrés, il faut implémenter une structure d'ensemble, par exemple table de hachage. Ce qui demande de définir une fonction de hachage... *)
