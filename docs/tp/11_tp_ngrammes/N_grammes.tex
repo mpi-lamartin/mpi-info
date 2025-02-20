@@ -1,0 +1,237 @@
+\documentclass[10pt]{article}
+\usepackage{nathaniel}
+\geometry{hscale=0.80,vscale=0.80,centering}
+\renewcommand\footrulewidth{1pt}
+\pagestyle{plain}
+
+
+\begin{document}
+\begin{center}
+\LARGE
+Modèles de $N$-grammes
+\normalsize
+\end{center}
+\textit{Adapté d'un sujet de TP d'agrégation}
+
+\section*{Consignes}
+
+La durée de l'épreuve est de 3h30.
+
+Chaque partie contenant des questions de programmation est associée à un seul langage de programmation qu'il faudra respecter. Des rappels de programmation dans les deux langages sont donnés en annexe.
+
+Il est attendu, au cours de l'épreuve, la rédaction d'un compte-rendu qui contiendra notamment :
+\begin{itemize}
+\item un résumé des questions n'apparaissant pas dans le sujet posées par l'examinateur ;
+\item pour les questions de programmation, le nom des fonctions répondant à la question (s'il n'est pas imposé par l'énoncé), ainsi qu'un résumé des tests effectués pour tester le code ;
+\item pour les questions n'attendant pas de code, un résumé de ce qui a été expliqué au jury (éventuellement via des schémas).
+\end{itemize}
+
+Pour simplifier l'étude, on supposera que tous les caractères considérés sont ceux de la table ASCII et sont représentés en C et OCaml par le type \verb"char", en ignorant tout problème relatif à l'encodage. L'annexe rappelle comment faire la conversion entre un caractère et le code entier ASCII associé, compris entre 0 et 127.
+
+\section{Contexte}
+
+On souhaite développer un système permettant de prédire la suite d'une séquence de caractères. Ce genre de système est utilisé pour compléter les messages mails ou SMS par exemple. L'utilisateur commence à taper son message (une séquence de caractères) et le système propose de le compléter.
+
+L'approche considérée est basée sur les $N$-grammes par apprentissage sur un texte préexistant. Un $N$-gramme est une séquence de $N$ caractères consécutifs apparaissant dans le texte. Cette approche est expliquée sur le texte suivant (un réel apprentissage nécessite un texte bien plus grand) :
+$$\texttt{Bonjour,␣comment␣allez-vous␣?␣Ca␣va,␣ca␣va␣aller␣bien␣mieux.}$$
+
+L'objectif de l'approche est :
+\begin{enumerate}
+\item de construire les $N$-grammes contenus dans le texte ;
+\item d'identifier les caractères qui leur succèdent en calculant les probabilités associées.
+\end{enumerate}
+
+La première étape nécessite de choisir la valeur de $N$, la taille des $N$-grammes. Dans l'exemple précédent, le texte contient, par ordre d'apparition :
+\begin{itemize}
+\item les $1$-grammes : \verb|"B"|, \verb|"o"|, \verb|"n"|, \verb|"j"|, \verb|"u"|, \verb|"r"|, \verb|","|, \verb|'␣'|, \verb|"c"|, …
+\item les $2$-grammes : \verb|"Bo"|, \verb|"on"|, \verb|"nj"|, \verb|"jo"|, \verb|"ou"|, …
+\item les $3$-grammes : \verb|"Bon"|, \verb|"onj"|, \verb|"njo"|, \verb|"jou"|, …
+\item etc.
+\end{itemize}
+
+La deuxième étape vise à identifier les caractères qui suivent chaque $N$-gramme, qu'on appellera les \textbf{successeurs}, et compter leurs occurrences pour connaître leur probabilité d'apparition. Par exemple :
+\begin{itemize}
+\item le $1$-gramme \verb|"a"| peut être suivi par les caractères \verb|'l'|, \verb|'␣'| et \verb|','| avec respectivement $2$, $3$ et $1$ occurrences, donc les probabilités $\frac{2}{6}$, $\frac{3}{6}$ et $\frac{1}{6}$ ;
+\item le $1$-gramme \verb|"u"| peut être suivi par les caractères \verb|'r'| et \verb|'s'| avec respectivement $1$ et $1$ occurrences, donc les probabilités $\frac{1}{2}$ et $\frac{1}{2}$ ;
+\item le $2$-gramme \verb|"le"| peut être suivi par les caractères \verb|'z'| et \verb|'r'| avec respectivement $1$ et $1$ occurrences, donc les probabilités $\frac{1}{2}$ et $\frac{1}{2}$.
+\end{itemize}
+
+En choisissant une taille de $N$-grammes, c'est-à-dire en fixant $N$, on dispose alors de probabilités conditionnelles qui permettent de prédire le caractère qui fait suite à une séquence de caractères donnée.
+
+\section{Modèle de $1$-grammes}
+
+\textit{Cette partie doit être réalisée en C.}
+
+Dans une version simplifiée de modèle de $1$-grammes, le caractère à prédire après un autre sera toujours le même, à savoir le plus fréquent parmi les successeurs. En cas d'égalité de nombres d'occurrences entre deux successeurs, on choisira arbitrairement le premier dans l'ordre alphabétique, à savoir celui qui a le plus petit code associé. Ainsi, le modèle n'a pas à garder en mémoire l'ensemble des successeurs pour chaque caractère, mais seulement celui qui sera prédit.
+
+En reprenant les exemples précédents, le modèle prédira que :
+\begin{itemize}
+\item le $1$-gramme \verb|"a"| sera suivi par le caractère \verb|'␣'| qui est le plus fréquent parmi les successeurs ;
+\item le $1$-gramme \verb|"u"| sera suivi par le caractère \verb|'r'|, qui apparaît aussi fréquemment que \verb|'s'| mais se trouve avant \verb|'s'| dans l'ordre alphabétique.
+\end{itemize}
+
+On implémente un modèle de $1$-grammes par un tableau d'entiers \verb"M", de taille 128, tel que si \verb"c" est un caractère de code \verb"k", alors \verb"M[k]" vaut :
+\begin{itemize}
+\item le code du caractère à prédire si \verb"c" possède des successeurs ;
+\item le code $0$ du caractère nul \verb"'\0'" sinon.
+\end{itemize}
+
+\begin{Exercise}
+Écrire une fonction \verb"int plus_frequent_successeur(char c, char* chaine)" qui prend en argument un caractère \verb"c" et une chaîne de caractère et renvoie le code du caractère qui apparaît le plus fréquemment dans la chaîne comme successeur de \verb"c", ou le plus petit code en cas d'égalité. La fonction renverra le code du caractère nul si \verb"c" n'apparaît pas dans la chaîne.
+\end{Exercise}
+
+\begin{Exercise}
+En déduire une fonction \verb"int* init_modele(char* chaine)" qui construit et renvoie un modèle de $1$-gramme à partir d'un texte d'apprentissage donné en argument.
+\end{Exercise}
+
+\begin{Exercise}
+Quelle est la complexité temporelle de la fonction précédente ? Peut-on faire mieux ? On ne demande pas d'implémenter une éventuelle solution mais de la décrire succinctement à l'examinateur.
+\end{Exercise}
+
+\begin{Exercise}
+Écrire une fonction \verb"int** matrice_confusion(int* M, char* test)" qui prend en argument un modèle de $1$-gramme et une chaîne de caractères \verb"test" et crée et renvoie une matrice de confusion de taille $128\times 128$ comparant les prédictions données par le modèle et les successeurs de chaque caractère dans la chaîne de test.
+\end{Exercise}
+
+\begin{Exercise}
+Évaluer le modèle de prédiction basé sur la phrase donnée en exemple, en calculant le pourcentage d'erreurs à partir de la matrice de confusion pour la phrase de test :
+
+$$\texttt{Bonjour,␣ca␣va␣bien␣?␣Oui␣!␣Bien␣mieux,␣et␣vous,␣ca␣va␣?}$$
+\end{Exercise}
+
+\section{Modèle de $N$-grammes}
+
+\textit{Cette partie doit être réalisée en OCaml.}
+
+Par rapport au modèle précédent, on propose deux changements :
+\begin{itemize}
+\item la prédiction se fait non plus à partir du dernier $1$-gramme lu, mais du dernier $N$-gramme, ou le dernier $(N-1)$-gramme si le $N$-gramme n'a pas de successeur, ou du dernier $(N-2)$-gramme si le $(N-1)$-gramme n'a pas de successeur, … en allant si besoin jusqu'au $0$-gramme (la chaîne vide), dont les successeurs sont l'ensemble des lettres du texte d'apprentissage ;
+\item la prédiction n'est plus déterministe, mais choisit aléatoirement un successeur pour un $N$-gramme en fonction de la probabilité associée.
+\end{itemize}
+
+Par exemple :
+\begin{itemize}
+\item le modèle prédira que le $1$-gramme \verb|"a"| sera suivi par le caractère \verb|'l'| avec probabilité $\frac{2}{6}$, \verb|'␣'| avec probabilité $\frac36$ et \verb|','| avec probabilité $\frac16$ ;
+\item le $3$-gramme \verb|"ple"| n'a pas de successeur, donc le modèle utilisera le $2$-gramme \verb|"le"| pour faire la prédiction, qui sera le caractère \verb|'r'| avec probabilité $\frac12$ et \verb|'z'| avec probabilité $\frac12$ ;
+\item le $2$-gramme \verb|"ay"| n'a pas de successeur, et le $1$-gramme \verb|"y"| non plus, donc le modèle utilisera le $0$-gramme pour faire la prédiction, qui sera le caractère \verb|'B'| avec probabilité $\frac1{60}$, le caractère \verb|'o'| avec probabilité $\frac4{60}$, le caractère \verb|'n'| avec probabilité $\frac3{60}$, …
+\end{itemize}
+
+Dans cette partie, un modèle de $N$-grammes contient, pour chaque $k$-gramme du texte d'apprentissage, $k\leq N$, l'ensemble de ses successeurs et du nombre d'occurrences correspondant, ou des probabilité associées.
+
+\begin{Exercise}
+Décrire une structure de données pour encoder un modèle de $N$-grammes avec un $N$ donné. Cette structure doit permettre de retrouver les modèles dont la taille est inférieure à $N$. Par exemple, un modèle de $3$-grammes devra contenir les successeurs des $3$-grammes, mais également des $2$-grammes, des $1$-grammes et du $0$-gramme. On fera valider la structure par l'examinateur avant de créer un type correspondant en OCaml.
+
+\textit{On donne ici quelques suggestions pour la question précédente :}
+\begin{itemize}
+\item on peut représenter un ensemble de successeurs et de leurs occurrences par :
+\begin{itemize}
+\item un tableau de taille 128, où l'élément d'indice $k$ est le nombre d'occurrences de la lettre dont le code est $k$.
+\item un dictionnaire dont les clés sont les caractères et les valeurs le nombre d'occurrences.
+\end{itemize}
+On peut alors représenter un modèle de $N$-grammes comme un dictionnaire dont les clés sont les $N$-grammes et les valeurs les ensembles de successeurs et occurrences associés.
+\item On peut également représenter directement un modèle de $N$-grammes comme un arbre préfixe (ou \textit{trie}), c'est-à-dire un arbre d'arité quelconque vérifiant :
+\begin{itemize}
+\item la racine est étiquetée par le mot vide ;
+\item les autres nœuds sont étiquetés par un couple (caractère, nombre d'occurrences) ;
+\item à chaque nœud, on peut associer le mot constitué de la concaténation de tous les caractères lues dans le chemin de la racine à ce nœud ;
+\item chaque nœud interne a pour enfants tous les successeurs du mot associé, avec le nombre d'occurrences correspondant.
+\end{itemize}
+\end{itemize}
+\end{Exercise}
+
+\begin{Exercise}
+Écrire une fonction qui construit et renvoie un modèle de $N$-grammes à partir d'un texte d'apprentissage et d'un entier $N$ donnés en argument.
+\end{Exercise}
+
+\begin{Exercise}
+Écrire une fonction qui prend en argument un modèle et un $N$-gramme et renvoie un caractère prédit par le modèle selon le principe décrit précédemment.
+\end{Exercise}
+
+Pour tester le modèle, on souhaite faire de la génération automatique de texte en \textit{pseudo-français}, c'est-à-dire un texte dont les mots ressemblent à du français mais n'en sont pas forcément. L'idée est de partir d'une chaîne de caractère (vide ou non) et de prédire les caractères suivants, à chaque fois en considérant le dernier $N$-gramme, qui contient éventuellement les lettres déjà prédites. Voici par exemple un texte généré automatiquement à partir de la chaîne \verb|"Bonjour"| en utilisant le modèle de la phrase donnée initialement en exemple, pour $N = 2$.
+
+\begin{minipage}{.95\textwidth}
+\texttt{Bonjour, ca allez-vour, ca va, ca aller bien mien mieux.-vous ? Ca va, commen mieux. va va aller bieux.va va, commen mient allez-vous ? Ca va va, ca va va va, ca va va va, comment aller bieux.}
+\end{minipage}
+
+
+\begin{Exercise}
+Écrire une fonction qui prend en argument un modèle de $N$-grammes, une chaîne de caractères et une taille cible et génère un texte aléatoire de taille cible à partir de la chaîne, en utilisant le modèle de prédiction, selon le principe décrit précédemment.
+\end{Exercise}
+
+\begin{Exercise}
+Le fichier texte \verb"cid.txt" contient un extrait du Cid (Corneille). Utiliser ce texte pour faire de la génération automatique, pour différentes valeurs de $N$.
+\end{Exercise}
+
+\section{Programmation concurrente}
+
+\textit{Cette partie doit être réalisée en OCaml.}
+
+La construction d'un modèle de $N$-grammes peut prendre du temps surtout si le texte d'entrée est très long. Pour optimiser la construction, on souhaite mettre en place une approche exploitant la concurrence, avec plusieurs fils d'exécution.
+
+\begin{Exercise}
+Proposer à l'examinateur une approche pour répartir la construction du modèle sur plusieurs fils.
+\end{Exercise}
+
+\begin{Exercise}
+Implémenter la solution précédente.
+\end{Exercise}
+\section*{Annexe : rappels de programmation}
+\subsection*{Rappels en C}
+La compilation d'un fichier \verb"source.c" peut se faire avec la commande \verb"gcc source.c". On peut rajouter des options avec la commande \texttt{gcc \textit{options} source.c} où \texttt{\textit{options}} doit être remplacé par une ou plusieurs options de compilation. On cite par exemple :
+\begin{itemize}
+\item choix du nom d'exécutable : \verb"-o nom_exec"
+\item avertissements : \verb"-Wall", \verb"-Wextra"
+\item alerte mémoire : \verb"-fsanitize=address"
+\end{itemize}
+
+On peut lancer un fichier exécutable \verb"nom_exec" par la commande \verb"./nom_exec".
+
+On peut convertir un caractère \verb"c" en son code ASCII associé par \verb"(int) c". On peut convertir un entier \verb"k" entre 0 et 127 en le caractère associé par \verb"(char) k".
+\subsection*{Rappels en OCaml}
+
+La compilation d'un fichier \verb"source.ml" peut se faire avec la commande \verb"ocamlc source.ml". Comme en C, on peut rajouter des options de compilation avec \texttt{ocamlc \textit{options} source.ml} où \texttt{\textit{options}} doit être remplacé par une ou plusieurs options de compilation. On cite par exemple :
+\begin{itemize}
+\item choix du nom d'exécutable : \verb"-o nom_exec"
+\item utilisation des fils d'exécution : \verb"-I +threads unix.cma threads.cma" (en dernière option)\\
+\end{itemize}
+
+On peut tirer un entier pseudo-aléatoire entre $0$ inclus et $n$ exclu par la commande \verb"Random.int n". On peut écrire \verb"Random.self_init ()" pour utiliser une graine aléatoire.
+
+\verb"Char.code : char -> int" et \verb"Char.chr : int -> char" permettent de faire la conversion entre caractère et code associé. La fonction \verb"String.sub : string -> int -> int" permet de renvoyer une sous-chaîne : \verb"String.sub s deb taille" renvoie la sous-chaîne de \verb"s" commençant à l'indice \verb"deb" et de taille \verb"taille".
+
+L'utilisation de dictionnaires peut se faire à l'aide du module \verb"Hashtbl". On dispose notamment des commandes : 
+
+\begin{itemize}
+\item \texttt{Hashtbl.create : int -> ('a, 'b) Hashtbl.t} qui prend en argument un entier correspondant à une estimation du nombre de clés qui vont être associées dans la table (en pratique on peut simplement utiliser \verb"1" car les tables sont redimensionnables dynamiquement) et crée une table vide ;
+\item \texttt{Hashtbl.add : ('a, 'b) Hashtbl.t -> 'a -> 'b -> unit} qui prend en argument une table, une clé et une valeur et rajoute une association ;
+\item \texttt{Hashtbl.mem : ('a, 'b) Hashtbl.t -> 'a -> bool} qui teste si une table contient une association pour une clé donnée ;
+\item \texttt{Hashtbl.find : ('a, 'b) Hashtbl.t -> 'a -> 'b} qui prend en argument une table et une clé et renvoie la valeur associée, ou lève l'exception \verb"Not_found" si la clé n'a pas d'association ;
+\item \texttt{Hashtbl.iter : ('a -> 'b -> unit) -> ('a, 'b) t -> unit} qui prend en argument une fonction $f$ et une table et applique la fonction $f$ à chaque couple (clé, valeur) de la table.
+\end{itemize}
+
+L'utilisation des outils de synchronisation peut se faire à l'aide des commandes suivantes. Pour simplifier l'utilisation des sémaphores, on peut renommer le module avec :
+\begin{cbox}
+   \begin{minted}{ocaml}
+module Sem = Semaphore.Counting
+   \end{minted}
+\end{cbox}
+
+\begin{itemize}
+\item \verb"Thread.create : ('a -> 'b) -> 'a -> Thread.t" prend en argument une fonction \verb"f" et un argument \verb"x" et renvoie un fil d'exécution qui exécute \verb"f x". \textbf{Attention} : la fonction \verb"f" ne doit avoir qu'un seul argument. Si on souhaite la faire travailler avec plusieurs arguments, on peut utiliser un tuple ;
+\item \verb"Thread.join : Thread.t -> unit" prend en argument un fil d'exécution et attend qu'il ait terminé son exécution ;
+\item \verb"Mutex.create : unit -> Mutex.t" renvoie un nouveau mutex ;
+\item \verb"Mutex.lock : Mutex.t -> unit" verrouille un mutex ;
+\item \verb"Mutex.unlock : Mutex.t -> unit" déverrouille un mutex ;
+\item \verb"Sem.make : int -> Sem.t" prend en argument un entier $k$ et renvoie un sémaphore avec un compteur initialisé à $k$ ;
+\item \verb"Sem.acquire : Sem.t -> unit" acquière un sémaphore (c'est-à-dire décrémente le compteur) ;
+\item \verb"Sem.release : Sem.t -> unit" libère un sémaphore (c'est-à-dire incrémente le compteur).
+\end{itemize}
+
+Attention, il est nécessaire d'utiliser l'option de compilation prévue à cet effet. On peut également utiliser un interpréteur OCaml au lieu de compiler, auquel cas il sera nécessaire d'exécuter les commandes suivantes :
+\begin{cbox}
+   \begin{minted}{ocaml}
+#directory "+threads";;
+#load "unix.cma";;
+#load "threads.cma";;
+   \end{minted}
+\end{cbox}
+\end{document}
