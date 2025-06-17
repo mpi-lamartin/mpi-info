@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -8,12 +7,12 @@
 
 // Structure pour une proposition
 struct prop_ {
-    bool N; // Booléen indiquant si c'est une proposition N_i ou O_i
-    int i; // Indice i associé à la proposition
+    bool N; // BoolÃ©en indiquant si c'est une proposition N_i ou O_i
+    int i; // Indice i associÃ© Ã  la proposition
 };
 typedef struct prop_ prop;
 
-// Structure pour une règle reliée aux règles suivantes.
+// Structure pour une rÃ¨gle reliÃ©e aux rÃ¨gles suivantes.
 struct regle_ {
     struct regle_* suivant;
     prop* premisse;
@@ -24,11 +23,11 @@ typedef struct regle_ regle;
 
 
 //////////////////////////////////////////////////////////////////////
-// Définition du jeu.
+// DÃ©finition du jeu.
 
-// Libération des règles restantes.
+// LibÃ©ration des rÃ¨gles restantes.
 void libere_regles(regle *r) {
-    // Attention à bien libérer la premisse.
+    // Attention Ã  bien libÃ©rer la premisse.
     if (r != NULL) {
         libere_regles(r->suivant);
         free(r->premisse);
@@ -39,159 +38,12 @@ void libere_regles(regle *r) {
 
 //////////////////////////////////////////////////////////////////////
 // Generation d'une permutation
-void init_i(int* tableau, int k) {
-    for (int i = 0; i < k; i++) {
-        tableau[i] = i;
-    }
-}
 
-void pp_permutation(int* permutation, int k) {
-    for (int i = 0; i < k; i++) {
-        printf("%d ", permutation[i]);
-    }
-    printf("\n");
-}
 
-void melange(int* tableau, int k) {
-    for (int i = 0; i < k; i++) {
-        int j = rand() % k;
-        int tmp = tableau[i];
-        tableau[i] = tableau[j];
-        tableau[j] = tmp;
-    }
-}
 
 //////////////////////////////////////////////////////////////////////
-// Règles de déduction
-regle* ajoute_regles_clefs(regle* r, int n1, int* clefs, int nb_clefs) {
-    for (int i = 0; i < nb_clefs; i++) {
-        regle* new = malloc(sizeof(regle));
-        prop* p = malloc(sizeof(prop));
-        p[0].N = true;
-        p[0].i = n1;
-        new->premisse = p;
-        new->taille_premisse = 1;
-        new->conclusion.N = false;
-        new->conclusion.i = clefs[i];
-        new->suivant = r;
-        r = new;
-    }
-    return r;
-}
+// RÃ¨gles de dÃ©duction
 
-// ajoute une règle provenant d'une arête, seulement dans une direction
-regle* ajoute_regle_arete(regle* r, int n1, int n2, int* verr, int nb_verr) {
-    prop* p = malloc((nb_verr + 1) * sizeof(prop));
-    p[0].N = true;
-    p[0].i = n1;
-    for(int i = 0; i < nb_verr; i++) {
-        p[i + 1].N = false;
-        p[i + 1].i = verr[i];
-    }
-    regle *new = malloc(sizeof(regle));
-    new->premisse = p;
-    new->taille_premisse = nb_verr + 1;
-    new->conclusion.N = true;
-    new->conclusion.i = n2;
-    new->suivant = r;
-    return new;
-}
-
-// dans les deux directions
-regle* ajoute_regles_arete(regle* r, int n1, int n2, int* verr, int nb_verr) {
-    r = ajoute_regle_arete(r, n1, n2, verr, nb_verr);
-    r = ajoute_regle_arete(r, n2, n1, verr, nb_verr);
-    return r;
-}
-
-void print_jeu(regle* r) {
-    while (r != NULL) {
-        for (int i = 0; i < r->taille_premisse; i++) {
-            if (r->premisse[i].N) {
-                printf("N_%d ", r->premisse[i].i);
-            } else {
-                printf("O_%d ", r->premisse[i].i);
-            }
-        }
-        if (r->conclusion.N) {
-            printf("=> N_%d\n", r->conclusion.i);
-        } else {
-            printf("=> O_%d\n", r->conclusion.i);
-        }
-        r = r->suivant;
-    }
-}
-
-void init_faux(bool* tableau, int taille_tableau) {
-    for (int i = 0; i < taille_tableau; i++) {
-        tableau[i] = false;
-    }
-}
-
-bool verifie_premisse(regle r, bool* noeuds, bool* clefs) {
-    for (int i = 0; i < r.taille_premisse; i++) {
-        if (r.premisse[i].N) {
-            if (!noeuds[r.premisse[i].i]) {
-                return false;
-            }
-        } else {
-            if (!clefs[r.premisse[i].i]) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-regle* parcours_regles(regle* r, bool* noeuds, bool* clefs, bool* progres) {
-    regle* debut = r;
-    while (r != NULL) {
-        printf("Vérification de la règle : ");
-        for (int i = 0; i < r->taille_premisse; i++) {
-            if (r->premisse[i].N) {
-                printf("N_%d ", r->premisse[i].i);
-            } else {
-                printf("O_%d ", r->premisse[i].i);
-            }
-        }
-        if (r->conclusion.N) {
-            printf("=> N_%d\n", r->conclusion.i);
-        } else {
-            printf("=> O_%d\n", r->conclusion.i);
-        }
-        if (verifie_premisse(*r, noeuds, clefs)) {
-            if (r->conclusion.N && !noeuds[r->conclusion.i]) {
-                noeuds[r->conclusion.i] = true;
-                printf("Noeud %d débloqué\n", r->conclusion.i);
-                *progres = true;
-            }
-            if (!r->conclusion.N && !clefs[r->conclusion.i]) {
-                clefs[r->conclusion.i] = true;
-                printf("Clef %d débloquée\n", r->conclusion.i);
-                *progres = true;
-            }
-        }
-        r = r->suivant;
-    }
-    return debut;
-}
-
-bool est_sat(regle* r, int nb_noeuds, int nb_clefs, int D, int F) {
-    bool* noeuds = malloc(nb_noeuds * sizeof(bool));
-    bool* clefs = malloc(nb_clefs * sizeof(bool));
-    init_faux(noeuds, nb_noeuds);
-    init_faux(clefs, nb_clefs);
-    noeuds[D] = true;
-    bool progres = true;
-    while (progres) {
-        progres = false;
-        r = parcours_regles(r, noeuds, clefs, &progres);
-    }
-    bool res = noeuds[F];
-    free(noeuds);
-    free(clefs);
-    return res;
-}
 
 
 //////////////////////////////////////////////////////////////////////
@@ -200,7 +52,8 @@ bool est_sat(regle* r, int nb_noeuds, int nb_clefs, int D, int F) {
 regle* genere_jeu_1() {
 
     regle* r = NULL;
-    // Définition des règles représentant le jeu 1 donné en exemple.
+    /*
+    // DÃ©finition des rÃ¨gles reprÃ©sentant le jeu 1 donnÃ© en exemple.
 
     r = ajoute_regles_clefs(r, 2, (int []){1}, 1);
     r = ajoute_regles_clefs(r, 3, (int []){0}, 1);
@@ -217,15 +70,17 @@ regle* genere_jeu_1() {
 
 
     // Noeud initial d'indice 0, et noeud final d'indice 5
-    // Ce jeu comprend 6 noeuds et 3 clefs différentes
+    // Ce jeu comprend 6 noeuds et 3 clefs diffÃ©rentes
 
+    */
     return r;
 }
 
 regle* genere_jeu_2() {
 
     regle* r = NULL;
-    // Définition des règles représentant le jeu 2 donné en annexe.
+    /*
+    // DÃ©finition des rÃ¨gles reprÃ©sentant le jeu 2 donnÃ© en annexe.
 
     r = ajoute_regles_clefs(r, 1, (int []){2}, 1);
     r = ajoute_regles_clefs(r, 2, (int []){5}, 1);
@@ -270,20 +125,17 @@ regle* genere_jeu_2() {
     r = ajoute_regles_arete(r, 16, 17, (int []){15, 16}, 2);
 
     // Noeud initial d'indice 3, et noeud final d'indice 0
-    // Ce jeu comprend 18 noeuds et 17 clefs différentes
+    // Ce jeu comprend 18 noeuds et 17 clefs diffÃ©rentes
+
+    */
 
     return r;
 }
 
 
 int main() {
-    srand(1); // seed à changer pour modifier l'aléatoire généré.
+    srand(1); // seed Ã  changer pour modifier l'alÃ©atoire gÃ©nÃ©rÃ©.
 
-    printf("Jeu 1\n");
-    regle* r = genere_jeu_1();
-    print_jeu(r);
-    printf("Est satisfiable ? %d\n", est_sat(r, 6, 3, 0, 5));
-    libere_regles(r);
     //int p0[] = {8, 10, 14, 12, 5, 13, 4, 16, 11, 15, 9, 3, 7, 0, 1, 2, 6};
     //int p1[] = {0, 16, 5, 14, 1, 15, 3, 12, 8, 7, 11, 9, 13, 6, 4, 10, 2};
     //int p2[] = {0, 5, 10, 4, 15, 2, 9, 11, 16, 12, 6, 8, 13, 3, 1, 14, 7};
