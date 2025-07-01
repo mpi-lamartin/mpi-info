@@ -4,12 +4,12 @@
 #include "../boite_noire2.h"
 #define NB_THREADS 3
 
-pthread_mutex_t mon_mutex;                          // Mutex partagé
-pthread_t tid_thread_1, tid_thread_2, tid_thread_3; // Identifiant des threads
-
+pthread_mutex_t mon_mutex;                          
+pthread_t tid_thread_1, tid_thread_2, tid_thread_3; 
 int ordre[OBJECTIF];
 int k = 0;
 int cur = 0;
+
 void topo(int* vus, int i) {
     if(vus[i]) return;
     vus[i] = 1;
@@ -30,13 +30,8 @@ int verifie_topo() {
 
 void *thread_main(void *data) {
     pthread_t tid_local = pthread_self(); // vaut tdi_thread_i quand on est le thread i
-    // pthread_mutex_lock(&mon_mutex);
-    // section critique
-    // pthread_mutex_unlock(&mon_mutex);
-
 
     while(1) {
-        pthread_mutex_init(&mon_mutex, NULL);
         pthread_mutex_lock(&mon_mutex);
         if(cur == OBJECTIF) {
             pthread_mutex_unlock(&mon_mutex);
@@ -44,10 +39,7 @@ void *thread_main(void *data) {
         }
         int i = ordre[cur++];
         pthread_mutex_unlock(&mon_mutex);
-        if(etat(i) != 0) {
-            // printf("Tache %d déjà faite\n", i);
-            continue;
-        }
+        if(etat(i) != 0) continue;
         int b = 0;
         while(!b) {
             b = 1;
@@ -62,14 +54,11 @@ void *thread_main(void *data) {
     }
     return NULL;
 }
-void *thread_main2_2(void *data)
-{
-    return NULL;
-}
 
 int main(void)
 {
     demarre_boite();
+    pthread_mutex_init(&mon_mutex, NULL);
 
     int* vus = (int*)malloc(OBJECTIF * sizeof(int));
     for(int i = 0; i < OBJECTIF; i++)
@@ -84,10 +73,6 @@ int main(void)
     pthread_create(&tid_thread_2, NULL, thread_main, NULL);
     pthread_create(&tid_thread_3, NULL, thread_main, NULL);
 
-    // un thread avec une autre fonction
-    // pthread_create(&tid_thread_3, NULL, thread_main_2, NULL);
-
-    // on attend maintenant que nos threads terminent
     pthread_join(tid_thread_1, NULL);
     pthread_join(tid_thread_2, NULL);
     pthread_join(tid_thread_3, NULL);
