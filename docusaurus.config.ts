@@ -75,75 +75,75 @@ const config: Config = {
       items: [
         // {to: '/', label: 'Cahier de texte'},
         // {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
-        {
-          type: "doc",
-          docId: "concours/concours",
-          position: "left",
-          label: 'Concours',
-        },
-        { 
-          type: "doc",
-          docId: "tp/tp1/tp1",
-          position: "left",
-          label: "TP",
-        },
-        { 
-          type: "doc",
-          docId: "programmation/rappels_programmation",
-          position: "left",
-          label: "Rappels",
-        },
+        // {
+        //   type: "doc",
+        //   docId: "concours/concours",
+        //   position: "left",
+        //   label: 'Concours',
+        // },
+        // { 
+        //   type: "doc",
+        //   docId: "tp/tp1/tp1",
+        //   position: "left",
+        //   label: "TP",
+        // },
+        // { 
+        //   type: "doc",
+        //   docId: "programmation/rappels_programmation",
+        //   position: "left",
+        //   label: "Rappels",
+        // },
         {
           type: "doc",
           docId: "langages/reguliers/reguliers",
           position: "left",
           label: "Langages",
         },
-        {
-          type: "doc",
-          docId: "graphes/revisions/revisions",
-          label: "Graphes",
-        },
-        {
-          type: "doc",
-          docId: "algorithmique/complexite/complexite",
-          label: "Algorithmique",
-        },
-        {
-          type: "doc",
-          docId: "ia/supervise/supervise",
-          label: "IA",
-        },
-        {
-          type: "doc",
-          docId: "logique/deduction/deduction",
-          label: "Logique",
-        }, 
-        {
-          type: "doc",
-          docId: "concurrence/concurrence/concurrence",
-          label: "Concurrence",
-        },
-        {
-          type: "doc",
-          docId: "revision/search/search",
-          label: "Révisions",
-        },
-        {
-          href: 'https://mpi-lamartin.github.io',
-          label: 'Classe',
-          position: 'right',
-        },
-        {
-          href: 'https://mp2i-info.github.io',
-          label: 'MP2I',
-          position: 'right',
-        },
-        {
-          href: 'https://github.com/mpi-lamartin/mpi-info',
-          label: 'GitHub',
-          position: 'right',
-        },
+        // {
+        //   type: "doc",
+        //   docId: "graphes/revisions/revisions",
+        //   label: "Graphes",
+        // },
+        // {
+        //   type: "doc",
+        //   docId: "algorithmique/complexite/complexite",
+        //   label: "Algorithmique",
+        // },
+        // {
+        //   type: "doc",
+        //   docId: "ia/supervise/supervise",
+        //   label: "IA",
+        // },
+        // {
+        //   type: "doc",
+        //   docId: "logique/deduction/deduction",
+        //   label: "Logique",
+        // }, 
+        // {
+        //   type: "doc",
+        //   docId: "concurrence/concurrence/concurrence",
+        //   label: "Concurrence",
+        // },
+        // {
+        //   type: "doc",
+        //   docId: "revision/search/search",
+        //   label: "Révisions",
+        // },
+        // {
+        //   href: 'https://mpi-lamartin.github.io',
+        //   label: 'Classe',
+        //   position: 'right',
+        // },
+        // {
+        //   href: 'https://mp2i-info.github.io',
+        //   label: 'MP2I',
+        //   position: 'right',
+        // },
+        // {
+        //   href: 'https://github.com/mpi-lamartin/mpi-info',
+        //   label: 'GitHub',
+        //   position: 'right',
+        // },
       ],
     },
     prism: {
