@@ -1,7 +1,7 @@
 ---
 title: Codespace GitHub
 authors: qfortier
-tags: [github, programmation, devoir]
+tags: [github, programmation]
 ---
 
 Pour pouvoir utiliser un environnement de développement en ligne avec Visual Code, OCaml, utop, gcc :
