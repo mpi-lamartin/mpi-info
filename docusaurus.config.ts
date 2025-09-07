@@ -129,21 +129,21 @@ const config: Config = {
         //   docId: "revision/search/search",
         //   label: "Révisions",
         // },
-        // {
-        //   href: 'https://mpi-lamartin.github.io',
-        //   label: 'Classe',
-        //   position: 'right',
-        // },
-        // {
-        //   href: 'https://mp2i-info.github.io',
-        //   label: 'MP2I',
-        //   position: 'right',
-        // },
-        // {
-        //   href: 'https://github.com/mpi-lamartin/mpi-info',
-        //   label: 'GitHub',
-        //   position: 'right',
-        // },
+        {
+          href: 'https://mpi-lamartin.github.io',
+          label: 'Classe',
+          position: 'right',
+        },
+        {
+          href: 'https://mp2i-info.github.io',
+          label: 'MP2I',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/mpi-lamartin/mpi-info',
+          label: 'GitHub',
+          position: 'right',
+        },
       ],
     },
     prism: {
