@@ -75,12 +75,18 @@ const config: Config = {
       items: [
         // {to: '/', label: 'Cahier de texte'},
         // {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
-        // {
-        //   type: "doc",
-        //   docId: "concours/concours",
-        //   position: "left",
-        //   label: 'Concours',
-        // },
+        {
+          type: "doc",
+          docId: "concours/concours",
+          position: "left",
+          label: 'Concours',
+        },
+        { 
+          type: "doc",
+          docId: "ds/ds2/ds2",
+          position: "left",
+          label: "DS/DM",
+        },
         { 
           type: "doc",
           docId: "tp/tp1/tp1",
