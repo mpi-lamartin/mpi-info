@@ -81,12 +81,12 @@ const config: Config = {
           position: "left",
           label: 'Concours',
         },
-        // { 
-        //   type: "doc",
-        //   docId: "ds/ds2/ds2",
-        //   position: "left",
-        //   label: "DS/DM",
-        // },
+        { 
+          type: "doc",
+          docId: "ds/dm1/dm1",
+          position: "left",
+          label: "Devoirs",
+        },
         { 
           type: "doc",
           docId: "tp/tp1/tp1",
