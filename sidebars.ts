@@ -8,11 +8,11 @@ const sidebars = {};
     },
   ];
 });
-// sidebars["ds"].push({
-//   type: "link",
-//   href: 'https://fortierq-notes-app-ctedub.streamlit.app',
-//   label: 'Notes', 
-// });
+sidebars["ds"].push({
+  type: "link",
+  href: 'https://fortierq-notes-app-ctedub.streamlit.app',
+  label: 'Notes', 
+});
 sidebars["concurrence"].push({
   type: "link",
   href: 'https://deadlockempire.github.io',
