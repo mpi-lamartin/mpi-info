@@ -105,11 +105,11 @@ const config: Config = {
           position: "left",
           label: "Langages",
         },
-        // {
-        //   type: "doc",
-        //   docId: "graphes/revisions/revisions",
-        //   label: "Graphes",
-        // },
+        {
+          type: "doc",
+          docId: "graphes/revisions/revisions",
+          label: "Graphes",
+        },
         // {
         //   type: "doc",
         //   docId: "algorithmique/complexite/complexite",
