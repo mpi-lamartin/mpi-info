@@ -1,0 +1,45 @@
+\documentclass[preview, convert={outfile=\jobname.png}, border={0pt 20pt 40pt 0pt}]{standalone}
+\usepackage{base}
+\usepackage{draw}
+\usepackage{code}
+\usepackage{enumitem}
+
+\begin{document}
+
+\begin{enumerate}
+    \item $u$ appartient à $L(G)$ si et seulement si \texttt{t[n][0][0]}.
+    \item \texttt{t[0][d][i]} est vrai si et seulement si $i = 0$, $d = 0$ et $S \rightarrow \varepsilon$.
+    \item \texttt{t[1][d][i]} est vrai si et seulement si $X_i \rightarrow u_d$ est une règle de $G$.
+    \item $$t[l][d][i] = {\bigvee_{\substack{X_i \rightarrow X_j X_k}} \bigvee_{p = 1}^{l-1} t[p][d][j] \land t[l-p]\underbrace{[d+m]}_{\text{si }d + p < n}[k]}$$
+    \item On obtient un algorithme de programmation dynamique en complexité O($n^3 | R |$).
+    \begin{algo2}{Algorithme CYK}{12cm}
+        \Entree{Une grammaire $G = (\Sigma, V, R, S)$ et un mot $u = u_0 ... u_{n - 1}$}
+        \Sortie{\texttt{true} si $u \in L(G)$, \texttt{false} sinon}
+        \;
+
+        $t \longleftarrow$ tableau de taille $(n + 1) \times n \times k$ initialisé à \texttt{false}, où $k = |V|$\;
+        \Si{$S \rightarrow \epsilon \in R$}{
+            $t[0][0][0] \longleftarrow$ \texttt{true}\; 
+        }
+        \Pour{$X_i \rightarrow a \in R$}{
+            \Pour{$d = 0$ à $n - 1$}{
+                \Si{$a = u_d$}{
+                    $t[1][d][i] \longleftarrow$ \texttt{true}\;
+                }
+            }
+        }
+        \Pour{$l = 2$ à $n$}{
+            \Pour{$d = 0$ à $n - l$}{
+                \Pour{$X_i \rightarrow X_j X_k \in R$}{
+                    \Pour{$p = 1$ à $l - 1$}{
+                        \Si{$d + p < n$ et $t[p][d][j] \land t[l - p][d + p][k]$}{
+                            $t[l][d][i] \longleftarrow$ \texttt{true}\;
+                        }
+                    }
+                }
+            }
+        }
+        \Renv{$t[n][0][0]$}
+    \end{algo2}
+\end{enumerate}
+\end{document}
