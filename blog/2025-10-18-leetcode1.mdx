@@ -1,0 +1,38 @@
+---
+title: "LeetCode 1 : Number of Islands" 
+authors: qfortier
+tags: [leetcode, devoir, programmation]
+---
+
+- Vous devez vous inscrire sur [https://leetcode.com](https://leetcode.com) (en cliquant sur Create Account). 
+- Exercice à faire en C sur LeetCode : https://leetcode.com/problems/number-of-islands
+- Une vidéo explicative pour utiliser LeetCode : https://youtu.be/q5dEFWMO8-o
+
+<details>
+<summary>Indice</summary>
+
+Le problème revient à calculer les composantes connexes du graphe dont les sommets sont les cases de la grille et où chaque case a 4 arêtes possibles avec les cases voisines.  
+Pour calculer le nombre de composantes connexes, on peut utiliser un parcours en profondeur (ou en largeur). On peut directement utiliser `grid` comme tableau des vus (en mettant une case à '0' après l'avoir visitée).
+
+```c
+// Parcours en profondeur depuis la case (i, j)
+void dfs(char** grid, int n, int p, int i, int j) {
+    ...
+}
+
+int numIslands(char** grid, int gridSize, int* gridColSize) {
+    int n = gridSize, p = gridColSize[0]; // n lignes, p colonnes
+    int k = 0; // nombre de composantes connexes
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < p; j++)
+            ...
+    return k;
+}
+```
+
+</details>
+
+import Solution from '@site/src/components/Solution';
+import Code from '!!raw-loader!./leetcode/numIslands.c';
+
+<Solution file={Code} lang='c' show={false} />
