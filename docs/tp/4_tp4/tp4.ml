@@ -13,8 +13,7 @@ let g0 = {
     epsilon = false
 }
 
-(* 7 *)
-let cyk g u =
+let init g u =
     let n = String.length u in
     let k = g.n_variables in
     let t = Array.make (n+1) [||] in
@@ -32,6 +31,12 @@ let cyk g u =
             aux q
     in
     aux g.regles1;
+    t
+
+(* 7 *)
+let cyk g u =
+    let t = init g u in
+    let n = String.length u in
 
     for l = 2 to n do
         for d = 0 to n - l do
