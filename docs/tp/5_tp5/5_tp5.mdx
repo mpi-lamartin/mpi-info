@@ -109,6 +109,8 @@ Si $i$ est une racine, on prendra $t[i] = i$.
 7. Écrire une fonction `int find(uf u, int x)` renvoyant la racine de l'arbre contenant `x`, sans compression de chemin.
 8. Écrire une fonction `void merge(uf u, int x, int y)` fusionnant les arbres contenant `x` et `y`, sans optimisation.
 
+Remarque : on utilise `merge` au lieu de `union` car ce mot est réservé en C.
+
 ## Algorithme de Kruskal
 
 9. Écrire une fonction `int n_cc(uf u)` renvoyant le nombre de composantes connexes de la structure Union-Find `u`.
