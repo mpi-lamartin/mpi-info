@@ -163,17 +163,9 @@ int main() {
     g.degres[4] = 2;
     g.degres[5] = 3;
     g.degres[6] = 2;
-    g.aretes = malloc(10 * sizeof(arete*));
-    g.aretes[0] = malloc(3 * sizeof(arete));
-    g.aretes[1] = malloc(3 * sizeof(arete));
-    g.aretes[2] = malloc(4 * sizeof(arete));
-    g.aretes[3] = malloc(3 * sizeof(arete));
-    g.aretes[4] = malloc(2 * sizeof(arete));
-    g.aretes[5] = malloc(3 * sizeof(arete));
-    g.aretes[6] = malloc(2 * sizeof(arete));
-    g.aretes[7] = malloc(2 * sizeof(arete));
-    g.aretes[8] = malloc(2 * sizeof(arete));
-    g.aretes[9] = malloc(2 * sizeof(arete));
+    g.aretes = malloc(7 * sizeof(arete*));
+    for(int i = 0; i < 7; i++)
+        g.aretes[i] = malloc(g.degres[i] * sizeof(arete));
     g.aretes[0][0] = g.aretes[1][0] = a(0, 1, 1);
     g.aretes[0][1] = g.aretes[2][0] = a(0, 2, 5);
     g.aretes[0][2] = g.aretes[6][0] = a(0, 6, 5);
