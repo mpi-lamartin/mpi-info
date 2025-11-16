@@ -9,7 +9,65 @@ Exercice à faire en C sur LeetCode, avant lundi prochain : https://leetcode.com
 <details>
 <summary>Indice</summary>
 
-Utiliser l'algorithme de Kruskal sur le graphe dont les sommets sont les points et les arêtes sont les distances entre les points.
+Utiliser l'algorithme de Kruskal sur le graphe dont les sommets sont les points et les arêtes sont les distances entre les points. Vous pouvez implémenter un tri fusion :
+
+```c
+typedef struct {
+    int n; // nombre de sommets
+    int *degres; // degres[i] = nombre de voisins du sommet i
+    arete **aretes; // aretes[i] = tableau des aretes incidentes au sommet i
+} graphe;
+
+arete a(int u, int v, int poids) {
+    arete e;
+    e.u = u;
+    e.v = v;
+    e.poids = poids;
+    return e;
+}
+
+void fusion(arete* t, int n, arete* t1, int n1, arete* t2, int n2) {
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    while (i < n1 && j < n2) {
+        if (t1[i].poids < t2[j].poids) {
+            t[k] = t1[i];
+            i++;
+        } else {
+            t[k] = t2[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < n1) {
+        t[k] = t1[i];
+        i++;
+        k++;
+    }
+    while (j < n2) {
+        t[k] = t2[j];
+        j++;
+        k++;
+    }
+}
+
+// tri t de taille n entre les indices debut (inclus) et fin (exclus)
+void tri_fusion(arete* t, int n, int debut, int fin) {
+    if (fin - debut <= 1) {
+        return;
+    }
+    int milieu = (debut + fin) / 2;
+    tri_fusion(t, n, debut, milieu);
+    tri_fusion(t, n, milieu, fin);
+    arete* temp = malloc((fin - debut) * sizeof(arete));
+    fusion(temp, fin - debut, &t[debut], milieu - debut, &t[milieu], fin - milieu);
+    for (int i = debut; i < fin; i++) {
+        t[i] = temp[i - debut];
+    }
+    free(temp);
+}
+```
 
 </details>
 
