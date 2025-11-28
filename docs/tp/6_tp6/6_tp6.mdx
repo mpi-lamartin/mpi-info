@@ -126,7 +126,8 @@ m20;;
           arête $\{x, y\}$ (avec $x \in X$ et $y \in Y$) de $G$ :
             - si $xy \in M$, l'arc de $G_{M}$ est $(y, x)$ ;
             - si $xy \notin M$, l'arc de $G_{M}$ est $(x, y)$.
-$G_M$ est donc obtenu à partir de $G$ en orientant les arêtes de $M$ de $X$ vers $Y$ et les autres de $Y$ vers $X$.
+
+$G_M$ est donc obtenu à partir de $G$ en orientant les arêtes de $M$ de $Y$ vers $X$ et les autres de $X$ vers $Y$.
 ```ocaml
 orient g20 m20;;
 - : int list array =
