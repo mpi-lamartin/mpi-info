@@ -110,11 +110,11 @@ const config: Config = {
           docId: "graphes/revisions/revisions",
           label: "Graphes",
         },
-        // {
-        //   type: "doc",
-        //   docId: "algorithmique/complexite/complexite",
-        //   label: "Algorithmique",
-        // },
+        {
+          type: "doc",
+          docId: "algorithmique/complexite/complexite",
+          label: "Algorithmique",
+        },
         // {
         //   type: "doc",
         //   docId: "ia/supervise/supervise",
