@@ -1,0 +1,228 @@
+---
+hide_table_of_contents: true
+hide_title: false
+cor: false
+title: "TP 7 : Résolution du taquin avec A*"
+---
+
+import Solution from '@site/src/components/Solution';
+import TP from '!!raw-loader!./tp7.ml';
+
+<Solution file={TP} lang='ocaml' show={frontMatter.cor}>
+</Solution>
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+
+Le jeu de taquin est constitué d'une grille $4 \times 4$ dans laquelle
+sont disposés les entiers de $0$ à $14$, une case étant laissée libre.  
+Voici un état initial possible :
+
+<center>
+<ThemedImage
+  alt="Taquin"
+  sources={{
+    light: useBaseUrl('/img/taquin_1.png'),
+    dark: useBaseUrl('/img/taquin_1.png'),
+  }}
+  width={"20%"}
+/>
+</center>
+
+On obtient un nouvel état du jeu en déplaçant dans la case libre le
+contenu de la case située au-dessus, à gauche, en dessous ou à droite, au
+choix. Si on déplace par exemple le contenu de la case située à droite de
+la case libre, c'est-à-dire 12, on obtient le nouvel état suivant :
+
+<center><ThemedImage
+  alt="Taquin"
+  sources={{
+    light: useBaseUrl('/img/taquin_2.png'),
+    dark: useBaseUrl('/img/taquin_2.png'),
+  }}
+  width={"18%"}
+/></center>
+
+Le but du jeu de taquin est de parvenir à l'état final suivant :
+
+<center><ThemedImage
+  alt="Taquin"
+  sources={{
+    light: useBaseUrl('/img/taquin_3.png'),
+    dark: useBaseUrl('/img/taquin_3.png'),
+  }}
+  width={"18%"}
+/></center>
+
+On souhaite résoudre de façon optimale le jeu du taquin,
+avec une suite de déplacements de longueur
+minimum permettant de passer d'une configuration initiale à
+la configuration finale.  
+Dans le premier exemple ci-dessus, la solution optimale est de longueur 50.
+
+En OCaml, une position sera représentée par le type suivant :
+
+```ocaml
+type state = {
+  grid : int array array;
+  mutable i : int;
+  mutable j : int;
+  mutable h : int;
+}
+```
+
+- `i` et `j` indique les coordonnées de la case libre (le 15).
+- `grid` est une matrice $4 \times 4$ codant la grille.
+        La case libre contiendra toujours la valeur $15$.
+- `h` sera une heuristique estimant la distance de l'état
+        actuel à l'état final, que nous définirons plus loin.
+
+On pourra utiliser les grilles suivantes pour tester :
+
+```ocaml
+let s = { (* exemple de l'énoncé *)
+    grid =
+        [| [| 2; 3; 1; 6 |];
+           [| 14; 5; 8; 4 |];
+           [| 15; 12; 7; 9 |];
+           [| 10; 13; 11; 0|] |];
+    i = 2;
+    j = 0;
+    h = 38
+}
+let final = (* l'état dans lequel on doit aboutir *)
+  let m = Array.make_matrix 4 4 0 in
+  for i = 0 to 3 do
+    for j = 0 to 3 do
+      m.(i).(j) <- i * 4 + j
+    done
+  done;
+  {grid = m; i = 3; j = 3; h = 0}
+```
+
+## Graphe du taquin
+
+Une configuration du taquin se code naturellement comme une
+permutation de $\{0, ..., 15\}$, où le 15 correspond à la case vide.  
+On peut alors définir le graphe (non orienté) $G$ du taquin où chaque sommet $s$ de $G$ est une grille et il y a une arête entre $s$ et $s'$ si on peut passer de $s$ à $s'$ en une étape.
+
+Remarque : on peut montrer que $G$ possède exactement deux composantes connexes,
+contenant chacune la moitié des sommets.
+
+1. Quel est le nombre de sommets de $G$ ? Le nombre approximatif d'arêtes ? Est-il raisonnable de stocker $G$ explicitement en mémoire ?
+
+On code un déplacement par le type suivant, où `U`, par exemple,
+correspond à un déplacement de la case libre vers le haut :
+
+```ocaml
+type direction = U | D | L | R
+```
+
+2. Écrire une fonction `possible_moves : state -> direction list` qui renvoie la liste
+  des directions de déplacement légales à partir d'un certain état.
+
+Pour orienter la recherche, on définit une heuristique $h$ comme suit qui
+associe à chaque état du taquin un entier positif ou nul.
+Pour $e$ un état (grille) et $v \in \{0, ..., 14\}$, on note $e_{v}^{i}$
+la ligne de l'entier $v$ dans $e$ et $e_{v}^{j}$ sa colonne.
+On pose alors :
+$$
+  h(e)
+  = \sum_{v = 0}^{14} | e_v^i - \left\lfloor \frac{v}{4} \right\rfloor |
+    + |e_v^j - (v \textnormal{ mod } 4)|
+$$
+
+$h(e)$ est donc la somme, pour chaque valeur $v$ de la grille, de la distance entre sa position actuelle et sa position dans la grille finale.  
+Plus $h(e)$ est petit, plus la grille semble proche de l'état finale. On peut montrer que $h(e)$ est une borne inférieure de la distance entre $e$ et la grille finale.
+
+3. Écrire une fonction `compute_h : state -> unit` qui prend en entrée un état, dans lequel le champ `h` a une valeur quelconque, et donne à ce champ la bonne valeur.
+
+4. Écrire une fonction `delta_h : state -> direction -> int` qui prend en entrée un état $e$ et une
+  direction $d$ et renvoie la différence $h(e') - h(e)$, où $e'$
+  est l'état que l'on atteint à partir de $e$ en effectuant le déplacement
+  $d$. On ne fera que les calculs nécessaires (on évitera donc de recalculer
+  toute la somme définissant $h$).
+
+5. Écrire une fonction `apply : state -> direction -> unit` qui modifie un état en lui appliquant un déplacement, que l'on supposera légal.
+
+6. Écrire une fonction `copy : state -> state` qui prend un état et en renvoie une copie.  
+On pourra utiliser la fonction `Array.copy`, mais attention : `grid` est un tableau de tableaux\dots
+
+## Algorithme A*
+
+7. Écrire une fonction `successors : state -> state list` qui prend en entrée un état et renvoie la liste de ses voisins.
+
+L'algorithme A* utilise une file de priorité `q`, que l'on va implémenter ici par arbre binaire de recherche (ABR), défini par le type :
+```ocaml
+type 'a abr = V | N of 'a * 'a abr * 'a abr
+```
+Chaque élément de l'ABR est un couple `(priorité, élément)` et l'arbre est ordonné par rapport à la priorité.
+
+8. Écrire des fonctions `add` pour ajouter un élément à un ABR et `extract_min` pour extraire le minimum.
+
+```ocaml
+val add : ('a * 'b) abr -> 'a -> 'b -> ('a * 'b) abr
+(* add a x y ajoute l'élément (x, y) à l'ABR a *)
+val extract_min : 'a abr -> 'a * 'a abr
+(* extract_min a renvoie le couple (x, a') où x est le minimum de a et a' est a privé de x *)
+```
+
+On rappelle le fonctionnement de l'algorithme $A^{\star}$ :
+
+<center>
+<ThemedImage
+  alt="Taquin"
+  sources={{
+    light: useBaseUrl('/img/astar.png'),
+    dark: useBaseUrl('/img/astar.png'),
+  }}
+  width={"65%"}
+/>
+</center>
+
+Dans notre situation, on en peut pas utiliser un tableau pour `d` car les sommets de $G$ sont ici des matrices (grilles).  
+On utilisera donc une table de hachage pour `d` dont chaque clé (`'a`) est un `state` et sa valeur (`'b`) est sa distance depuis l'état de départ :
+- `Hashtbl.create : int -> ('a, 'b) Hashtbl.t` crée une table
+        vide. L'entier fourni donne la capacité initiale mais n'a que
+        peu d'importance (la table sera redimensionnée au besoin).
+- `Hashtbl.mem : ('a, 'b) Hashtbl.t -> 'a -> bool`
+        permet de tester si une clé est présente dans la table.
+- `Hashtbl.add : ('a, 'b) Hashtbl.t -> 'a -> 'b -> unit` ajoute
+        une association à la table.
+- `Hashtbl.replace : ('a, 'b) Hashtbl.t -> 'a -> 'b -> unit`
+        modifie une association existante, ou crée l'association si
+        elle n'existait pas. On peut donc l'utiliser systématiquement à
+        la place de `Hashtbl.add`.
+- `Hashtbl.find : ('a, 'b) Hashtbl.t -> 'a -> 'b` renvoie
+        la valeur associée à une clé, ou lève l'exception
+        `Not_found` si la valeur n'est pas dans la table.
+
+9. Écrire une fonction `a_star : state -> int` qui prend en entrée un état initial et renvoie la longueur d'une solution trouvée par l'algorithme $A^*$, en supposant qu'il en existe une. Tester avec les exemples suivants.
+
+<details>
+<summary>Exemples</summary>
+
+```ocaml
+(* état final *)
+let final =
+  let m = Array.make_matrix n n 0 in
+  for i = 0 to n - 1 do
+    for j = 0 to n - 1 do
+      m.(i).(j) <- i * n + j
+    done
+  done;
+  {grid = m; i = n - 1; j = n - 1; h = 0}
+
+(* distance 5 de l'état final *)
+let five =   
+  {grid = [|[|0; 15; 2; 3|]; [|4; 1; 5; 7|]; [|8; 9; 6; 11|]; [|12; 13; 10; 14|]|];
+  i = 0; j = 1; h = -5}
+
+let ten =
+  let moves = [U; U; L; L; U; R; D; D; L; L] in
+  let state = copy final in
+  List.iter (apply state) moves;
+  state
+```
+
+</details>
