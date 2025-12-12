@@ -164,7 +164,7 @@ Chaque élément de l'ABR est un couple `(priorité, élément)` et l'arbre est 
 val add : ('a * 'b) abr -> 'a -> 'b -> ('a * 'b) abr
 (* add a x y ajoute l'élément (x, y) à l'ABR a *)
 val extract_min : 'a abr -> 'a * 'a abr
-(* extract_min a renvoie le couple (x, a') où x est le minimum de a et a' est a privé de x *)
+(* extract_min a renvoie le couple (x, b) où x est le minimum de a et b est l'arbre obtenu à partir de a en supprimant x *)
 ```
 
 On rappelle le fonctionnement de l'algorithme $A^{\star}$ :
