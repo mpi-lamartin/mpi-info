@@ -57,6 +57,8 @@ let delta_h s d =
     (abs (i - v/4)) + (abs (j - v mod 4)) -
     (abs ((i+di) - v/4)) - (abs ((j+dj) - v mod 4))
 
+delta_h s U;;
+
 let apply s d =
     let (di, dj) = match d with
         | U -> (-1, 0)
@@ -70,6 +72,8 @@ let apply s d =
     s.h <- s.h + delta_h s d;
     s.i <- i + di;
     s.j <- j + dj
+
+apply s U; s;;
 
 let copy s = {
     i = s.i;
@@ -86,6 +90,9 @@ let successors s =
             apply s' d;
             s'::aux q in
     aux (possible_moves s)
+
+(* penser à réinitialiser s après l'utilisation de apply *)
+successors s;;
 
 type 'a abr = V | N of 'a * 'a abr * 'a abr
 
