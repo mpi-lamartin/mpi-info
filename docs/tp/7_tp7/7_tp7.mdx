@@ -121,10 +121,13 @@ type direction = U | D | L | R
 2. Écrire une fonction `possible_moves : state -> direction list` qui renvoie la liste
   des directions de déplacement légales à partir d'un certain état.
 
-Pour orienter la recherche, on définit une heuristique $h$ comme suit qui
-associe à chaque état du taquin un entier positif ou nul.
-Pour $e$ un état (grille) et $v \in \{0, ..., 14\}$, on note $e_{v}^{i}$
-la ligne de l'entier $v$ dans $e$ et $e_{v}^{j}$ sa colonne.
+```ocaml
+possible_moves s;;
+- : direction list = [R; U; D]
+```
+
+Pour orienter la recherche, on définit une heuristique $h$ comme suit qui associe à chaque état du taquin un entier positif ou nul.
+Pour $e$ un état (grille) et $v \in \{0, ..., 14\}$, on note $e_{v}^{i}$ la ligne de l'entier $v$ dans $e$ et $e_{v}^{j}$ sa colonne.
 On pose alors :
 $$
   h(e)
@@ -137,13 +140,31 @@ Plus $h(e)$ est petit, plus la grille semble proche de l'état finale. On peut m
 
 3. Écrire une fonction `compute_h : state -> unit` qui prend en entrée un état, dans lequel le champ `h` a une valeur quelconque, et donne à ce champ la bonne valeur.
 
+```ocaml
+compute_h s; s.h;;
+- : int = 38
+```
+
 4. Écrire une fonction `delta_h : state -> direction -> int` qui prend en entrée un état $e$ et une
   direction $d$ et renvoie la différence $h(e') - h(e)$, où $e'$
   est l'état que l'on atteint à partir de $e$ en effectuant le déplacement
   $d$. On ne fera que les calculs nécessaires (on évitera donc de recalculer
   toute la somme définissant $h$).
 
+```ocaml
+delta_h s U;;
+- : int = -1
+```
+
 5. Écrire une fonction `apply : state -> direction -> unit` qui modifie un état en lui appliquant un déplacement, que l'on supposera légal.
+
+```ocaml
+apply s U; s;;
+- : state =
+{grid =
+  [|[|2; 3; 1; 6|]; [|15; 5; 8; 4|]; [|14; 12; 7; 9|]; [|10; 13; 11; 0|]|];
+ i = 1; j = 0; h = 37}
+````
 
 6. Écrire une fonction `copy : state -> state` qui prend un état et en renvoie une copie.  
 On pourra utiliser la fonction `Array.copy`, mais attention : `grid` est un tableau de tableaux...
@@ -151,6 +172,20 @@ On pourra utiliser la fonction `Array.copy`, mais attention : `grid` est un tabl
 ## Algorithme A*
 
 7. Écrire une fonction `successors : state -> state list` qui prend en entrée un état et renvoie la liste de ses voisins.
+
+```ocaml
+successors s;; (* penser à réinitialiser s après l'utilisation de apply *)
+- : state list =
+[{grid =
+   [|[|2; 3; 1; 6|]; [|14; 5; 8; 4|]; [|12; 15; 7; 9|]; [|10; 13; 11; 0|]|];
+  i = 2; j = 1; h = 39};
+ {grid =
+   [|[|2; 3; 1; 6|]; [|15; 5; 8; 4|]; [|14; 12; 7; 9|]; [|10; 13; 11; 0|]|];
+  i = 1; j = 0; h = 37};
+ {grid =
+   [|[|2; 3; 1; 6|]; [|14; 5; 8; 4|]; [|10; 12; 7; 9|]; [|15; 13; 11; 0|]|];
+  i = 3; j = 0; h = 39}]
+```
 
 L'algorithme A* utilise une file de priorité `q`, que l'on va implémenter ici par arbre binaire de recherche (ABR), défini par le type :
 ```ocaml
@@ -218,6 +253,7 @@ let five =
   {grid = [|[|0; 15; 2; 3|]; [|4; 1; 5; 7|]; [|8; 9; 6; 11|]; [|12; 13; 10; 14|]|];
   i = 0; j = 1; h = -5}
 
+(* distance 10 de l'état final *)
 let ten =
   let moves = [U; U; L; L; U; R; D; D; L; L] in
   let state = copy final in
@@ -226,3 +262,11 @@ let ten =
 ```
 
 </details>
+
+```ocaml
+a_star five;;
+- : int = 5
+
+a_star ten;;
+- : int = 10
+```
