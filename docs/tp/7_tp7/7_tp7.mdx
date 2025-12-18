@@ -126,11 +126,11 @@ possible_moves s;;
 ```
 
 Pour orienter la recherche, on définit une heuristique $h$ comme suit qui associe à chaque état du taquin un entier positif ou nul.
-Pour $e$ un état (grille) et $v \in \{0, ..., 15\}$, on note $e_{v}^{i}$ la ligne de l'entier $v$ dans $e$ et $e_{v}^{j}$ sa colonne.
+Pour $e$ un état (grille) et $v \in \{0, ..., 14\}$, on note $e_{v}^{i}$ la ligne de l'entier $v$ dans $e$ et $e_{v}^{j}$ sa colonne.
 On pose alors :
 $$
   h(e)
-  = \sum_{v = 0}^{15} | e_v^i - \left\lfloor \frac{v}{4} \right\rfloor |
+  = \sum_{v = 0}^{14} | e_v^i - \left\lfloor \frac{v}{4} \right\rfloor |
     + |e_v^j - (v \textnormal{ mod } 4)|
 $$
 
@@ -141,7 +141,7 @@ Plus $h(e)$ est petit, plus la grille semble proche de l'état finale. On peut m
 
 ```ocaml
 compute_h s; s.h;;
-- : int = 38
+- : int = 34
 ```
 
 4. Écrire une fonction `delta_h : state -> direction -> int` qui prend en entrée un état $e$ et une
