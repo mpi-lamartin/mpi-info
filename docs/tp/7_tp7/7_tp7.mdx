@@ -118,8 +118,7 @@ correspond à un déplacement de la case libre vers le haut :
 type direction = U | D | L | R
 ```
 
-2. Écrire une fonction `possible_moves : state -> direction list` qui renvoie la liste
-  des directions de déplacement légales à partir d'un certain état.
+2. Écrire une fonction `possible_moves : state -> direction list` qui renvoie la liste des directions de déplacement légales à partir d'un certain état.
 
 ```ocaml
 possible_moves s;;
@@ -127,11 +126,11 @@ possible_moves s;;
 ```
 
 Pour orienter la recherche, on définit une heuristique $h$ comme suit qui associe à chaque état du taquin un entier positif ou nul.
-Pour $e$ un état (grille) et $v \in \{0, ..., 14\}$, on note $e_{v}^{i}$ la ligne de l'entier $v$ dans $e$ et $e_{v}^{j}$ sa colonne.
+Pour $e$ un état (grille) et $v \in \{0, ..., 15\}$, on note $e_{v}^{i}$ la ligne de l'entier $v$ dans $e$ et $e_{v}^{j}$ sa colonne.
 On pose alors :
 $$
   h(e)
-  = \sum_{v = 0}^{14} | e_v^i - \left\lfloor \frac{v}{4} \right\rfloor |
+  = \sum_{v = 0}^{15} | e_v^i - \left\lfloor \frac{v}{4} \right\rfloor |
     + |e_v^j - (v \textnormal{ mod } 4)|
 $$
 
