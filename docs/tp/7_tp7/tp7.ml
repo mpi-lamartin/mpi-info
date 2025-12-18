@@ -32,7 +32,7 @@ let possible_moves s =
   if s.i > 0 then l := U::!l;
   if s.j < 3 then l := R::!l;
   if s.j > 0 then l := L::!l;
-  !l
+  !l;;
 
 let compute_h s =
   let h = ref 0 in
@@ -44,7 +44,7 @@ let compute_h s =
       done
   done;
   s.h <- !h;;
-compute_h s;;
+compute_h s; s.h;;
 
 let delta_h s d = 
     let (di, dj) = match d with
