@@ -142,3 +142,16 @@ let ten =
 
 let rs = random_state 10;;
 a_star rs;;
+
+let five =   
+  {grid = [|[|0; 15; 2; 3|]; [|4; 1; 5; 7|]; [|8; 9; 6; 11|]; [|12; 13; 10; 14|]|];
+  i = 0; j = 1; h = -5}
+
+let ten =
+  let moves = [U; U; L; L; U; R; D; D; L; L] in
+  let state = copy final in
+  List.iter (apply state) moves;
+  state
+
+a_star five;;
+a_star ten;;
