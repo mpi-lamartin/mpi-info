@@ -118,8 +118,7 @@ correspond à un déplacement de la case libre vers le haut :
 type direction = U | D | L | R
 ```
 
-2. Écrire une fonction `possible_moves : state -> direction list` qui renvoie la liste
-  des directions de déplacement légales à partir d'un certain état.
+2. Écrire une fonction `possible_moves : state -> direction list` qui renvoie la liste des directions de déplacement légales à partir d'un certain état.
 
 ```ocaml
 possible_moves s;;
@@ -142,7 +141,7 @@ Plus $h(e)$ est petit, plus la grille semble proche de l'état finale. On peut m
 
 ```ocaml
 compute_h s; s.h;;
-- : int = 38
+- : int = 34
 ```
 
 4. Écrire une fonction `delta_h : state -> direction -> int` qui prend en entrée un état $e$ et une

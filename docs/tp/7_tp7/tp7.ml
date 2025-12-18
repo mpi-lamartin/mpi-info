@@ -39,12 +39,12 @@ let compute_h s =
   for i = 0 to 3 do
       for j = 0 to 3 do
           let v = s.grid.(i).(j) in
+          if v <> 15 then
           h := !h + (abs (i - v/4)) + (abs (j - v mod 4))
       done
   done;
   s.h <- !h;;
 compute_h s;;
-
 
 let delta_h s d = 
     let (di, dj) = match d with
