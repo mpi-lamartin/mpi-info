@@ -2,6 +2,7 @@
 title: "LeetCode 5"
 authors: qfortier
 tags: [leetcode, devoir, programmation]
+cor: true
 ---
 
 Deux exercices LeetCode pour ces vacances.
@@ -20,3 +21,11 @@ Parcourir chaque indice du tableau en conservant la somme maximale se terminant 
 
 Utiliser un algorithme par programmation dynamique en calculant `b[i][j]` qui vaut vrai si la sous-chaîne d'indice `i` à `j` est un palindrome.
 </details>
+
+import Solution from '@site/src/components/Solution';
+import Code from '!!raw-loader!./leetcode/maxSubArray.c';
+import Code2 from '!!raw-loader!./leetcode/longestPalindrome.c';
+
+
+<Solution file={Code} lang='c' show={cor} />
+<Solution file={Code2} lang='c' show={cor} />
