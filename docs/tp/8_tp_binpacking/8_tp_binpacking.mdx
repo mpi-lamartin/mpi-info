@@ -1,0 +1,88 @@
+---
+hide_table_of_contents: true
+hide_title: false
+cor: true
+title: "TP 8 : Problème du bin packing"
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Solution from '@site/src/components/Solution';
+import TP from '!!raw-loader!./tp_bin_packing.c';
+
+<Solution file={TP} lang='c' show={frontMatter.cor}>
+</Solution>
+
+On s'intérèsse au problème `BIN-PACKING` : 
+- Instance : un ensemble d'entiers $X = \{x_1, \ldots, x_n\}$ et une capacité $C$.
+- Solution admissible : une partition de $X$ en sous-ensembles $X_1, \ldots, X_k$ telle que pour tout $i$, $\sum_{x \in X_i} x \leq C$.
+- Objectif : minimiser $k$.
+
+Autrement dit, il faut répartir les entiers de $X$ dans des boîtes de capacité $C$ de façon à minimiser le nombre de boîtes utilisées.
+
+1. Donner une solution optimale pour l'instance suivante : $X = \{2, 5, 4, 7, 1, 3, 8\}$ et $C = 10$.  
+
+## Théorie
+
+On admet que le problème `PARTITION` est NP-complet :
+- Instance : un ensemble d'entiers $A$.
+- Question : existe-t-il une partition de $A$ en deux sous-ensembles $A_1$ et $A_2$ telle que $\sum_{x \in A_1} x = \sum_{x \in A_2} x$ ?
+
+2. Définir le problème de décision `BPD` associé à `BIN-PACKING`.
+
+3. Montrer que `BPD` est NP-complet.
+
+## Algorithme glouton
+
+On va considérer trois algorithmes gloutons (non optimales) pour `BIN-PACKING`, qui considèrent les objets un par un :
+- `Next-fit` : Lorsque le prochain objet ne tient pas dans la boîte actuelle, fermer définitivement cette boîte et mettre l'objet dans une nouvelle boîte.
+- `First-fit` : Ajouter le prochain objet à la première boîte (c'est-à-dire la boîte la plus ancienne) dans laquelle il rentre. Si l'objet ne rentre dans aucune boîte, créer une nouvelle boîte et mettre l'objet dedans.
+- `First-fit decreasing` : Trier les objets par ordre décroissant et appliquer l'algorithme `First-fit`.
+
+4. Définir un type pour `instance` pour représenter une instance de `BIN-PACKING`, en C. Utiliser ce type pour définir l'instance donnée en question 1.
+
+5. Définir une fonction `int next_fit(instance *inst)` renvoyant le nombre de boîtes utilisées par l'algorithme `Next-fit` en C.
+
+5. Définir une fonction `int first_fit(instance *inst)` renvoyant le nombre de boîtes utilisées par l'algorithme `First-fit` en C.
+
+7. Définir une fonction `int first_fit_decr(instance *inst)` renvoyant le nombre de boîtes utilisées par l'algorithme `First-fit decreasing` en C. On pourra implémenter le [tri par sélection](https://fr.wikipedia.org/wiki/Tri_par_s%C3%A9lection).
+
+8. Vérifier ces trois algorithmes sur l'instance donnée en question 1.
+
+```c
+next_fit: 5
+first_fit: 4
+first_fit_decr: 3
+```
+
+9. Écrire une fonction `instance* random_instance(int n, int c)` qui génère une instance aléatoire de `BIN-PACKING` avec $n$ objets et une capacité $c$. On utilisera `srand(time(0));
+` pour initialiser le générateur aléatoire dans le `main` et `rand() % c` pour obtenir un entier uniformément au hasard entre `0` et `c - 1`.
+
+Utiliser cette fonction pour comparer les trois algorithmes sur des instances aléatoires. On pourra aussi les comparer en temps d'exécution :
+
+```c
+#include <time.h>
+...
+int t = clock();
+... // exécution d'un algorithme
+printf("Temps d'exécution : %f\n", (double)(clock() - t) / CLOCKS_PER_SEC);
+```
+
+## Algorithme exact par `Branch and Bound`
+
+10. Écrire une fonction récursive `int branch_and_bound(instance *inst, int i, int *bins, int nb_bins, int best)` qui renvoie le nombre minimum de boîtes possible pour l'instance `inst`. On utilisera un algorithme de Branch and Bound où `i` est l'indice de l'objet courant, `bins` est un tableau contenant le poids dans chaque boîte, `nb_bins` est le nombre de boîtes utilisées pour l'instant et `best` est le nombre minimum de boîtes trouvé jusqu'à présent.
+On arrêtera les appels récursifs lorsque tous les objets sont placés ou quand le nombre de boîtes utilisées dépasse `best`.
+
+11. Vérifier avec l'instance suivante :
+
+```c
+instance inst = {
+    .n = 30,
+    .w = {31, 18, 63, 28, 56, 1, 55, 74, 45, 10, 9, 24, 15, 61, 11, 38, 37, 71, 52, 38, 40, 26, 38, 72, 69, 96, 26, 5, 100, 78, },
+    .c = 100
+};
+// next_fit: 18
+// first_fit: 15
+// first_fit_decr: 14
+//branch_and_bound: 13
+```
