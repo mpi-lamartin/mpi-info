@@ -115,11 +115,11 @@ const config: Config = {
           docId: "algorithmique/complexite/complexite",
           label: "Algorithmique",
         },
-        // {
-        //   type: "doc",
-        //   docId: "ia/supervise/supervise",
-        //   label: "IA",
-        // },
+        {
+          type: "doc",
+          docId: "ia/supervise/supervise",
+          label: "IA",
+        },
         // {
         //   type: "doc",
         //   docId: "logique/deduction/deduction",
