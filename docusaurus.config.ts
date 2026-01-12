@@ -136,6 +136,12 @@ const config: Config = {
         //   label: "Révisions",
         // },
         {
+          href: 'https://prepas.org/index.php?document=73',
+          label: 'Programme',
+          position: 'right',
+        },
+
+        {
           href: 'https://mpi-lamartin.github.io',
           label: 'Classe',
           position: 'right',
