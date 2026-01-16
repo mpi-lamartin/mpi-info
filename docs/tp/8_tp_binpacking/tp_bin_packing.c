@@ -20,7 +20,7 @@ instance* random_instance(int n, int c) {
 
 int next_fit(instance *inst) {
     int nb_bins = 0;
-    int *bins = malloc(inst->n * sizeof(int));
+    int *bins = calloc(inst->n, sizeof(int));
     for(int i = 0; i < inst->n; i++) {
         if (bins[nb_bins] + inst->w[i] > inst->c)
             nb_bins++;
@@ -32,7 +32,7 @@ int next_fit(instance *inst) {
 
 int first_fit(instance *inst) {
     int nb_bins = 0;
-    int *bins = malloc(inst->n * sizeof(int));
+    int *bins = calloc(inst->n, sizeof(int));
     for (int i = 0; i < inst->n; i++) {
         int j = 0;
         while (j < nb_bins && bins[j] + inst->w[i] > inst->c)
@@ -121,5 +121,6 @@ int main() {
     free(inst);
     return 0;
 }
+
 
 
