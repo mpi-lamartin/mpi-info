@@ -1,0 +1,122 @@
+---
+title: "QCM - Couplage dans un graphe biparti"
+sidebar_position: 7
+---
+
+import QCM from '@site/src/components/QCM';
+
+<QCM
+  title="QCM - Couplage maximum dans un graphe biparti"
+  questions={[
+    {
+      question: "Un couplage d'un graphe est :",
+      answers: [
+        "Un ensemble de sommets sans arête entre eux",
+        "Un ensemble d'arêtes sans sommet commun",
+        "Un chemin passant par tous les sommets",
+        "Un cycle de longueur paire"
+      ],
+      correct: 1,
+      explanation: "Un couplage est un ensemble M d'arêtes tel qu'aucun sommet n'appartient à deux arêtes de M."
+    },
+    {
+      question: "Un sommet est couvert par un couplage M si :",
+      answers: [
+        "Il n'appartient à aucune arête de M",
+        "Il appartient à exactement une arête de M",
+        "Il appartient à au moins deux arêtes de M",
+        "Il est adjacent à tous les autres sommets"
+      ],
+      correct: 1,
+      explanation: "Un sommet est couvert s'il appartient à une arête du couplage. Sinon, il est dit libre."
+    },
+    {
+      question: "Un couplage parfait existe si :",
+      answers: [
+        "Tous les sommets sont couverts par le couplage",
+        "Le couplage contient n arêtes",
+        "Le couplage est maximal",
+        "Le graphe est complet"
+      ],
+      correct: 0,
+      explanation: "Un couplage est parfait si tous les sommets du graphe sont couverts (appartiennent à une arête du couplage)."
+    },
+    {
+      question: "Un chemin M-augmentant est un chemin :",
+      answers: [
+        "Dont toutes les arêtes sont dans M",
+        "Alternant entre arêtes de M et hors M, dont les extrémités sont libres",
+        "De longueur maximale",
+        "Passant par tous les sommets couverts"
+      ],
+      correct: 1,
+      explanation: "Un chemin M-augmentant est M-alternant (alterne arêtes dans/hors M) et ses deux extrémités sont libres pour M."
+    },
+    {
+      question: "Si P est un chemin M-augmentant, alors M Δ P est :",
+      answers: [
+        "Un couplage de taille |M| - 1",
+        "Un couplage de taille |M| + 1",
+        "Un chemin",
+        "Un cycle"
+      ],
+      correct: 1,
+      explanation: "La différence symétrique M Δ P échange les arêtes de M et hors M dans P, augmentant la taille du couplage de 1."
+    },
+    {
+      question: "M est un couplage maximum si et seulement si :",
+      answers: [
+        "M est maximal",
+        "Il n'existe pas de chemin M-augmentant",
+        "Tous les sommets sont couverts",
+        "M contient n-1 arêtes"
+      ],
+      correct: 1,
+      explanation: "Un couplage est maximum si et seulement s'il n'existe pas de chemin augmentant (théorème de Berge)."
+    },
+    {
+      question: "Un graphe est biparti si :",
+      answers: [
+        "Il possède un couplage parfait",
+        "Ses sommets peuvent être partitionnés en deux ensembles sans arête à l'intérieur de chaque ensemble",
+        "Il a un nombre pair de sommets",
+        "Il est connexe"
+      ],
+      correct: 1,
+      explanation: "Un graphe est biparti si ses sommets peuvent être colorés avec 2 couleurs sans que deux sommets adjacents aient la même couleur."
+    },
+    {
+      question: "Un graphe est biparti si et seulement si :",
+      answers: [
+        "Il est connexe",
+        "Il n'a pas de cycle de longueur impaire",
+        "Il a un couplage parfait",
+        "Il est planaire"
+      ],
+      correct: 1,
+      explanation: "Un graphe est biparti si et seulement s'il ne contient pas de cycle de longueur impaire."
+    },
+    {
+      question: "La complexité de l'algorithme de couplage maximum par chemins augmentants dans un graphe biparti est :",
+      answers: [
+        "O(n)",
+        "O(n + p)",
+        "O(n · p)",
+        "O(n²)"
+      ],
+      correct: 2,
+      explanation: "On peut trouver au plus n/2 chemins augmentants, chacun nécessitant un parcours en O(n + p) ≈ O(p), soit O(n · p) au total."
+    },
+    {
+      question: "La différence symétrique A Δ B est égale à :",
+      answers: [
+        "A ∩ B",
+        "A ∪ B",
+        "(A \\ B) ∪ (B \\ A)",
+        "A × B"
+      ],
+      correct: 2,
+      explanation: "A Δ B contient les éléments qui sont dans A ou dans B, mais pas dans les deux."
+    }
+  ]}
+/>

@@ -1,0 +1,122 @@
+---
+title: "QCM - Automates finis"
+sidebar_position: 3
+---
+
+import QCM from '@site/src/components/QCM';
+
+<QCM
+  title="QCM - Automates finis"
+  questions={[
+    {
+      question: "Un automate fini non déterministe (AFN) est composé de :",
+      answers: [
+        "(Σ, Q, q₀, F, δ) avec δ : Q × Σ → Q",
+        "(Σ, Q, I, F, E) avec E ⊆ Q × Σ × Q",
+        "Un ensemble de mots",
+        "Une expression régulière"
+      ],
+      correct: 1,
+      explanation: "Un AFN est un 5-uplet (Σ, Q, I, F, E) où Σ est l'alphabet, Q les états, I les états initiaux, F les états finaux, et E les transitions."
+    },
+    {
+      question: "Un automate est déterministe si :",
+      answers: [
+        "Il a plusieurs états initiaux",
+        "Il a un unique état initial et pour chaque état et lettre, au plus une transition",
+        "Il reconnaît un langage infini",
+        "Il a des ε-transitions"
+      ],
+      correct: 1,
+      explanation: "Un AFD a un unique état initial et sa fonction de transition δ associe à chaque (état, lettre) au plus un état."
+    },
+    {
+      question: "Un mot est accepté par un automate si :",
+      answers: [
+        "Il existe un chemin étiqueté par ce mot d'un état initial à un état final",
+        "Il passe par tous les états",
+        "Sa longueur est égale au nombre d'états",
+        "Il ne contient que des lettres de l'alphabet"
+      ],
+      correct: 0,
+      explanation: "Un mot w est accepté s'il existe un chemin dont l'étiquette est w, partant d'un état initial et arrivant dans un état final."
+    },
+    {
+      question: "Le langage reconnu par un automate A est :",
+      answers: [
+        "L'ensemble des états de A",
+        "L'ensemble des mots acceptés par A",
+        "L'alphabet de A",
+        "L'ensemble des transitions de A"
+      ],
+      correct: 1,
+      explanation: "L(A) est l'ensemble de tous les mots acceptés (reconnus) par l'automate A."
+    },
+    {
+      question: "Un automate est complet si :",
+      answers: [
+        "Tous les états sont finaux",
+        "Pour chaque état et chaque lettre, il existe au moins une transition",
+        "Il n'a pas d'état initial",
+        "Il reconnaît tous les mots"
+      ],
+      correct: 1,
+      explanation: "Un automate est complet si depuis chaque état, pour chaque lettre de l'alphabet, il existe au moins une transition."
+    },
+    {
+      question: "Pour déterminiser un AFN à n états, l'AFD résultant peut avoir au plus :",
+      answers: [
+        "n états",
+        "n² états",
+        "2ⁿ états",
+        "n! états"
+      ],
+      correct: 2,
+      explanation: "La déterminisation construit un AFD dont les états sont des sous-ensembles des états de l'AFN, soit au plus 2ⁿ états."
+    },
+    {
+      question: "L'algorithme de déterminisation utilise :",
+      answers: [
+        "La construction par sous-ensembles (powerset construction)",
+        "Un tri topologique",
+        "La programmation dynamique",
+        "Un parcours en profondeur"
+      ],
+      correct: 0,
+      explanation: "On construit l'AFD dont chaque état est un ensemble d'états de l'AFN, représentant tous les états accessibles simultanément."
+    },
+    {
+      question: "Le complémentaire d'un langage régulier est :",
+      answers: [
+        "Pas toujours régulier",
+        "Toujours régulier",
+        "Toujours vide",
+        "Toujours infini"
+      ],
+      correct: 1,
+      explanation: "Les langages réguliers sont clos par complémentation : on peut obtenir un automate pour le complémentaire en échangeant états finaux et non finaux (après déterminisation et complétion)."
+    },
+    {
+      question: "La complexité pour vérifier si un mot de longueur m est accepté par un AFD à n états est :",
+      answers: [
+        "O(n)",
+        "O(m)",
+        "O(nm)",
+        "O(2ⁿ)"
+      ],
+      correct: 1,
+      explanation: "Il suffit de suivre les transitions lettre par lettre, donc O(m) si les transitions sont accessibles en O(1)."
+    },
+    {
+      question: "Un automate minimal est :",
+      answers: [
+        "Un automate qui ne reconnaît rien",
+        "L'AFD avec le moins d'états reconnaissant un langage donné",
+        "Un automate sans état final",
+        "Un automate avec un seul état"
+      ],
+      correct: 1,
+      explanation: "L'automate minimal est l'AFD avec le nombre minimum d'états reconnaissant un langage régulier donné. Il est unique à isomorphisme près."
+    }
+  ]}
+/>
