@@ -28,29 +28,29 @@ import QCM from '@site/src/components/QCM';
         "Il n'y a pas de différence"
       ],
       correct: 1,
-      explanation: "En classification, Y est un ensemble fini de classes. En régression, Y est un ensemble continu (ex: ℝ)."
+      explanation: "En classification, $Y$ est un ensemble fini de classes. En régression, $Y$ est un ensemble continu (ex: $\\mathbb{R}$)."
     },
     {
-      question: "L'algorithme des k plus proches voisins (KNN) prédit la classe d'une donnée x en :",
+      question: "L'algorithme des $k$ plus proches voisins (KNN) prédit la classe d'une donnée $x$ en :",
       answers: [
-        "Calculant la moyenne des k données les plus proches",
-        "Trouvant la classe majoritaire parmi les k données d'entraînement les plus proches de x",
-        "Comparant x à une seule donnée d'entraînement",
+        "Calculant la moyenne des $k$ données les plus proches",
+        "Trouvant la classe majoritaire parmi les $k$ données d'entraînement les plus proches de $x$",
+        "Comparant $x$ à une seule donnée d'entraînement",
         "Utilisant un réseau de neurones"
       ],
       correct: 1,
-      explanation: "KNN trouve les k plus proches voisins de x dans les données d'entraînement et prédit la classe la plus fréquente parmi ces voisins."
+      explanation: "KNN trouve les $k$ plus proches voisins de $x$ dans les données d'entraînement et prédit la classe la plus fréquente parmi ces voisins."
     },
     {
-      question: "La complexité de KNN pour prédire la classe d'une donnée, avec n données d'entraînement de dimension p, est :",
+      question: "La complexité de KNN pour prédire la classe d'une donnée, avec $n$ données d'entraînement de dimension $p$, est :",
       answers: [
-        "O(1)",
-        "O(n)",
-        "O(np)",
-        "O(n²)"
+        "$O(1)$",
+        "$O(n)$",
+        "$O(np)$",
+        "$O(n^2)$"
       ],
       correct: 2,
-      explanation: "Il faut calculer la distance entre x et chacune des n données d'entraînement, chaque calcul de distance coûtant O(p)."
+      explanation: "Il faut calculer la distance entre $x$ et chacune des $n$ données d'entraînement, chaque calcul de distance coûtant $O(p)$."
     },
     {
       question: "Le surapprentissage (overfitting) se produit quand :",
@@ -67,23 +67,23 @@ import QCM from '@site/src/components/QCM';
       question: "Standardiser les données consiste à :",
       answers: [
         "Supprimer les valeurs extrêmes",
-        "Transformer les données pour avoir une moyenne de 0 et un écart-type de 1",
+        "Transformer les données pour avoir une moyenne de $0$ et un écart-type de $1$",
         "Trier les données par ordre croissant",
         "Dupliquer les données"
       ],
       correct: 1,
-      explanation: "La standardisation utilise la formule (x - μ)/σ pour que chaque attribut ait une espérance nulle et un écart-type de 1."
+      explanation: "La standardisation utilise la formule $(x - \\mu)/\\sigma$ pour que chaque attribut ait une espérance nulle et un écart-type de $1$."
     },
     {
-      question: "La distance euclidienne entre deux vecteurs x et y de ℝ^p est :",
+      question: "La distance euclidienne entre deux vecteurs $x$ et $y$ de $\\mathbb{R}^p$ est :",
       answers: [
-        "Σ|xᵢ - yᵢ|",
-        "√(Σ(xᵢ - yᵢ)²)",
-        "max|xᵢ - yᵢ|",
-        "Σxᵢyᵢ"
+        "$\\sum |x_i - y_i|$",
+        "$\\sqrt{\\sum(x_i - y_i)^2}$",
+        "$\\max|x_i - y_i|$",
+        "$\\sum x_i y_i$"
       ],
       correct: 1,
-      explanation: "La distance euclidienne est d(x,y) = √(Σᵢ(xᵢ - yᵢ)²)."
+      explanation: "La distance euclidienne est $d(x,y) = \\sqrt{\\sum_i(x_i - y_i)^2}$."
     },
     {
       question: "Pourquoi sépare-t-on les données en ensemble d'entraînement et ensemble de test ?",

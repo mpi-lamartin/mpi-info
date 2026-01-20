@@ -9,48 +9,48 @@ import QCM from '@site/src/components/QCM';
   title="QCM - Grammaires non-contextuelles"
   questions={[
     {
-      question: "Une grammaire non-contextuelle G = (Σ, V, R, S) est composée de :",
+      question: "Une grammaire non-contextuelle $G = (\\Sigma, V, R, S)$ est composée de :",
       answers: [
-        "Un alphabet Σ, un ensemble de variables V, des règles R, et un symbole initial S",
+        "Un alphabet $\\Sigma$, un ensemble de variables $V$, des règles $R$, et un symbole initial $S$",
         "Uniquement d'un alphabet et de règles",
         "D'un automate et d'une expression régulière",
         "D'un ensemble de mots"
       ],
       correct: 0,
-      explanation: "Une grammaire est un 4-uplet (Σ, V, R, S) avec Σ les terminaux, V les variables, R les règles de production, S le symbole initial."
+      explanation: "Une grammaire est un 4-uplet $(\\Sigma, V, R, S)$ avec $\\Sigma$ les terminaux, $V$ les variables, $R$ les règles de production, $S$ le symbole initial."
     },
     {
-      question: "Une règle de production X → α signifie que :",
+      question: "Une règle de production $X \\to \\alpha$ signifie que :",
       answers: [
-        "X peut être remplacé par α dans une dérivation",
-        "α est toujours égal à X",
-        "X est un terminal",
-        "α est le symbole initial"
+        "$X$ peut être remplacé par $\\alpha$ dans une dérivation",
+        "$\\alpha$ est toujours égal à $X$",
+        "$X$ est un terminal",
+        "$\\alpha$ est le symbole initial"
       ],
       correct: 0,
-      explanation: "Une règle X → α permet de remplacer la variable X par la chaîne α lors d'une dérivation."
+      explanation: "Une règle $X \\to \\alpha$ permet de remplacer la variable $X$ par la chaîne $\\alpha$ lors d'une dérivation."
     },
     {
-      question: "Le langage engendré par une grammaire G est :",
+      question: "Le langage engendré par une grammaire $G$ est :",
       answers: [
-        "L'ensemble des variables de G",
-        "L'ensemble des mots w ∈ Σ* tels que S ⇒* w",
-        "L'ensemble des règles de G",
-        "L'alphabet de G"
+        "L'ensemble des variables de $G$",
+        "L'ensemble des mots $w \\in \\Sigma^*$ tels que $S \\Rightarrow^* w$",
+        "L'ensemble des règles de $G$",
+        "L'alphabet de $G$"
       ],
       correct: 1,
-      explanation: "L(G) = {w ∈ Σ* | S ⇒* w} est l'ensemble des mots de terminaux dérivables depuis le symbole initial."
+      explanation: "$L(G) = \\{w \\in \\Sigma^* \\mid S \\Rightarrow^* w\\}$ est l'ensemble des mots de terminaux dérivables depuis le symbole initial."
     },
     {
-      question: "La grammaire S → aSb | ε engendre le langage :",
+      question: "La grammaire $S \\to aSb \\mid \\varepsilon$ engendre le langage :",
       answers: [
-        "(ab)*",
-        "{aⁿbⁿ | n ∈ ℕ}",
-        "a*b*",
-        "{aⁿbᵐ | n ≤ m}"
+        "$(ab)^*$",
+        "$\\{a^n b^n \\mid n \\in \\mathbb{N}\\}$",
+        "$a^* b^*$",
+        "$\\{a^n b^m \\mid n \\leq m\\}$"
       ],
       correct: 1,
-      explanation: "Cette grammaire engendre les mots avec n fois a suivi de n fois b, pour n ≥ 0."
+      explanation: "Cette grammaire engendre les mots avec $n$ fois $a$ suivi de $n$ fois $b$, pour $n \\geq 0$."
     },
     {
       question: "Un langage non-contextuel est :",
@@ -72,7 +72,7 @@ import QCM from '@site/src/components/QCM';
         "Ils sont disjoints"
       ],
       correct: 1,
-      explanation: "Les langages réguliers ⊂ langages non-contextuels. Ex: {aⁿbⁿ} est non-contextuel mais pas régulier."
+      explanation: "Les langages réguliers $\\subset$ langages non-contextuels. Ex: $\\{a^n b^n\\}$ est non-contextuel mais pas régulier."
     },
     {
       question: "Une grammaire est ambiguë si :",
@@ -88,13 +88,13 @@ import QCM from '@site/src/components/QCM';
     {
       question: "Une grammaire régulière (à droite) a des règles de la forme :",
       answers: [
-        "X → αY où α est un terminal et Y une variable (ou ε)",
-        "X → YZ où Y et Z sont des variables",
-        "X → αβ où α et β sont des terminaux",
+        "$X \\to aY$ où $a$ est un terminal et $Y$ une variable (ou $\\varepsilon$)",
+        "$X \\to YZ$ où $Y$ et $Z$ sont des variables",
+        "$X \\to ab$ où $a$ et $b$ sont des terminaux",
         "N'importe quelle forme"
       ],
       correct: 0,
-      explanation: "Les règles d'une grammaire régulière à droite sont X → aY, X → a, ou X → ε."
+      explanation: "Les règles d'une grammaire régulière à droite sont $X \\to aY$, $X \\to a$, ou $X \\to \\varepsilon$."
     },
     {
       question: "Un langage est régulier si et seulement s'il est engendré par :",

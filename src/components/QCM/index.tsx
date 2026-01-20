@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
+import katex from 'katex';
 
 interface Question {
   question: string;
@@ -11,6 +12,35 @@ interface Question {
 interface QCMProps {
   questions: Question[];
   title?: string;
+}
+
+// Function to render LaTeX in text using KaTeX
+function renderMath(text: string): string {
+  // Replace display math $$...$$ first
+  let result = text.replace(/\$\$([^$]+)\$\$/g, (_, tex) => {
+    try {
+      return katex.renderToString(tex, { throwOnError: false, displayMode: true });
+    } catch {
+      return `$$${tex}$$`;
+    }
+  });
+  
+  // Replace inline math $...$
+  result = result.replace(/\$([^$]+)\$/g, (_, tex) => {
+    try {
+      return katex.renderToString(tex, { throwOnError: false, displayMode: false });
+    } catch {
+      return `$${tex}$`;
+    }
+  });
+  
+  return result;
+}
+
+// Component to render text with math
+function MathText({ text }: { text: string }): JSX.Element {
+  const rendered = renderMath(text);
+  return <span dangerouslySetInnerHTML={{ __html: rendered }} />;
 }
 
 export default function QCM({ questions, title = "QCM" }: QCMProps): JSX.Element {
@@ -53,7 +83,7 @@ export default function QCM({ questions, title = "QCM" }: QCMProps): JSX.Element
       {questions.map((q, qIndex) => (
         <div key={qIndex} className={styles.questionCard}>
           <p className={styles.questionText}>
-            <strong>Question {qIndex + 1}.</strong> {q.question}
+            <strong>Question {qIndex + 1}.</strong> <MathText text={q.question} />
           </p>
           <div className={styles.answers}>
             {q.answers.map((answer, aIndex) => {
@@ -80,14 +110,14 @@ export default function QCM({ questions, title = "QCM" }: QCMProps): JSX.Element
                     onChange={() => handleAnswerSelect(qIndex, aIndex)}
                     disabled={showResults}
                   />
-                  <span className={styles.answerText}>{answer}</span>
+                  <span className={styles.answerText}><MathText text={answer} /></span>
                 </label>
               );
             })}
           </div>
           {showResults && q.explanation && (
             <div className={styles.explanation}>
-              <strong>Explication :</strong> {q.explanation}
+              <strong>Explication :</strong> <MathText text={q.explanation} />
             </div>
           )}
         </div>
