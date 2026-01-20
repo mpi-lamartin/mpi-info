@@ -1,0 +1,122 @@
+---
+title: "QCM - Algorithme de Kruskal"
+sidebar_position: 5
+---
+
+import QCM from '@site/src/components/QCM';
+
+<QCM
+  title="QCM - Arbre couvrant de poids minimum (Kruskal)"
+  questions={[
+    {
+      question: "Un arbre couvrant d'un graphe connexe G à n sommets possède :",
+      answers: [
+        "n arêtes",
+        "n-1 arêtes",
+        "n+1 arêtes",
+        "2n arêtes"
+      ],
+      correct: 1,
+      explanation: "Un arbre à n sommets possède toujours exactement n-1 arêtes."
+    },
+    {
+      question: "L'algorithme de Kruskal pour trouver un arbre couvrant de poids minimum procède en :",
+      answers: [
+        "Partant d'un sommet et ajoutant l'arête de poids minimum vers un sommet non visité",
+        "Triant les arêtes par poids croissant et ajoutant chaque arête si elle ne crée pas de cycle",
+        "Faisant un parcours BFS depuis le sommet de plus petit degré",
+        "Retirant les arêtes de poids maximum une par une"
+      ],
+      correct: 1,
+      explanation: "Kruskal trie les arêtes par poids croissant, puis ajoute chaque arête si elle ne forme pas de cycle avec les arêtes déjà sélectionnées."
+    },
+    {
+      question: "Pour détecter efficacement si une arête crée un cycle dans Kruskal, on utilise :",
+      answers: [
+        "Un parcours DFS à chaque ajout",
+        "Une structure Union-Find (ensemble disjoint)",
+        "Une matrice d'adjacence",
+        "Un tri topologique"
+      ],
+      correct: 1,
+      explanation: "La structure Union-Find permet de vérifier en temps quasi-constant si deux sommets sont dans la même composante connexe."
+    },
+    {
+      question: "La complexité de l'algorithme de Kruskal avec Union-Find est :",
+      answers: [
+        "O(n²)",
+        "O(p log p) ou O(p log n)",
+        "O(n³)",
+        "O(n + p)"
+      ],
+      correct: 1,
+      explanation: "Le tri des arêtes coûte O(p log p). Les opérations Union-Find ont une complexité amortie quasi-constante grâce à l'union par rang et la compression de chemins."
+    },
+    {
+      question: "L'opération Find dans Union-Find avec compression de chemins :",
+      answers: [
+        "Trouve le minimum d'un ensemble",
+        "Trouve le représentant de l'ensemble contenant un élément et aplatit l'arbre",
+        "Fusionne deux ensembles",
+        "Supprime un élément d'un ensemble"
+      ],
+      correct: 1,
+      explanation: "Find retourne le représentant (racine) de l'ensemble et la compression de chemins raccourcit les chemins vers la racine pour accélérer les requêtes futures."
+    },
+    {
+      question: "L'algorithme de Prim pour l'arbre couvrant minimum procède en :",
+      answers: [
+        "Triant toutes les arêtes par poids croissant",
+        "Partant d'un sommet et ajoutant l'arête de poids minimum reliant l'arbre à un sommet extérieur",
+        "Supprimant les arêtes de poids maximum",
+        "Faisant un parcours en largeur"
+      ],
+      correct: 1,
+      explanation: "Prim fait grossir l'arbre sommet par sommet en choisissant l'arête de poids minimum qui connecte l'arbre actuel à un nouveau sommet."
+    },
+    {
+      question: "Si un graphe connexe a toutes ses arêtes de poids distincts, son arbre couvrant minimum est :",
+      answers: [
+        "Non défini",
+        "Unique",
+        "Parmi exactement 2 arbres possibles",
+        "Quelconque"
+      ],
+      correct: 1,
+      explanation: "Si tous les poids sont distincts, il existe un unique arbre couvrant de poids minimum."
+    },
+    {
+      question: "L'union par rang dans Union-Find consiste à :",
+      answers: [
+        "Fusionner les deux ensembles dans l'ordre alphabétique",
+        "Rattacher l'arbre de plus petite hauteur sous la racine de l'arbre de plus grande hauteur",
+        "Trier les éléments par rang",
+        "Supprimer les éléments de rang faible"
+      ],
+      correct: 1,
+      explanation: "L'union par rang (ou par taille) rattache le plus petit arbre sous le plus grand pour limiter la profondeur des arbres."
+    },
+    {
+      question: "Un arbre couvrant de poids minimum d'un graphe G :",
+      answers: [
+        "Contient toujours l'arête de poids maximum de G",
+        "Ne contient jamais l'arête de poids minimum de G",
+        "Contient toujours l'arête de poids minimum de G",
+        "A toujours n arêtes"
+      ],
+      correct: 2,
+      explanation: "L'arête de poids minimum appartient toujours à un arbre couvrant de poids minimum (si le graphe est connexe)."
+    },
+    {
+      question: "La propriété de coupure (cut property) stipule que :",
+      answers: [
+        "On peut couper n'importe quelle arête de l'arbre",
+        "L'arête de poids minimum traversant une coupure appartient à un ACM",
+        "Toute arête de l'ACM peut être remplacée",
+        "L'ACM ne dépend pas des poids"
+      ],
+      correct: 1,
+      explanation: "Pour toute coupure du graphe (partition des sommets en deux ensembles), l'arête de poids minimum traversant cette coupure appartient à un ACM."
+    }
+  ]}
+/>

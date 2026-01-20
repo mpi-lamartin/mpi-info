@@ -1,0 +1,122 @@
+---
+title: "QCM - Langages réguliers"
+sidebar_position: 3
+---
+
+import QCM from '@site/src/components/QCM';
+
+<QCM
+  title="QCM - Langages réguliers et mots"
+  questions={[
+    {
+      question: "Un alphabet est :",
+      answers: [
+        "Un ensemble infini de lettres",
+        "Un ensemble fini de lettres",
+        "Une suite de mots",
+        "Un langage"
+      ],
+      correct: 1,
+      explanation: "Un alphabet Σ est un ensemble fini dont les éléments sont appelés lettres."
+    },
+    {
+      question: "Le mot vide est noté :",
+      answers: [
+        "∅",
+        "ε",
+        "0",
+        "λ"
+      ],
+      correct: 1,
+      explanation: "Le mot vide (ne contenant aucune lettre) est noté ε (epsilon)."
+    },
+    {
+      question: "Σ* désigne :",
+      answers: [
+        "L'alphabet sans le mot vide",
+        "L'ensemble de tous les mots sur Σ",
+        "L'ensemble des lettres de Σ",
+        "Le langage vide"
+      ],
+      correct: 1,
+      explanation: "Σ* est l'ensemble de tous les mots (suites finies de lettres) sur l'alphabet Σ, y compris le mot vide."
+    },
+    {
+      question: "La concaténation de deux mots u = abc et v = de donne :",
+      answers: [
+        "abcde",
+        "deabc",
+        "{abc, de}",
+        "abc + de"
+      ],
+      correct: 0,
+      explanation: "La concaténation uv met les lettres de v à la suite de celles de u : abcde."
+    },
+    {
+      question: "Si |u| = 3 et |v| = 4, alors |uv| = :",
+      answers: [
+        "7",
+        "12",
+        "3",
+        "4"
+      ],
+      correct: 0,
+      explanation: "La longueur de la concaténation est la somme des longueurs : |uv| = |u| + |v| = 3 + 4 = 7."
+    },
+    {
+      question: "Un langage sur Σ est :",
+      answers: [
+        "Un alphabet",
+        "Un sous-ensemble de Σ*",
+        "Un mot",
+        "Une lettre"
+      ],
+      correct: 1,
+      explanation: "Un langage est un ensemble de mots, c'est-à-dire un sous-ensemble de Σ*."
+    },
+    {
+      question: "L'expression régulière a*b dénote :",
+      answers: [
+        "L'ensemble des mots formés de a suivis de b",
+        "{b, ab, aab, aaab, ...}",
+        "{ab}",
+        "{a, b}"
+      ],
+      correct: 1,
+      explanation: "a* signifie zéro ou plusieurs a, suivi de b. Le langage est {b, ab, aab, aaab, ...}."
+    },
+    {
+      question: "L'opération L₁ | L₂ (ou L₁ ∪ L₂) dénote :",
+      answers: [
+        "L'intersection de L₁ et L₂",
+        "L'union de L₁ et L₂",
+        "La concaténation de L₁ et L₂",
+        "Le complémentaire de L₁"
+      ],
+      correct: 1,
+      explanation: "L'opérateur | (ou ∪) représente l'union : les mots appartenant à L₁ ou à L₂."
+    },
+    {
+      question: "u est un préfixe de m si :",
+      answers: [
+        "m = uv pour un certain mot v",
+        "m = vu pour un certain mot v",
+        "u est une sous-suite de m",
+        "m contient u comme facteur"
+      ],
+      correct: 0,
+      explanation: "u est un préfixe de m s'il existe un mot v tel que m = uv (u est au début de m)."
+    },
+    {
+      question: "Un langage est régulier s'il peut être décrit par :",
+      answers: [
+        "Une grammaire non-contextuelle",
+        "Une expression régulière",
+        "Une équation différentielle",
+        "Un algorithme polynomial"
+      ],
+      correct: 1,
+      explanation: "Les langages réguliers sont exactement ceux qui peuvent être décrits par une expression régulière (ou reconnus par un automate fini)."
+    }
+  ]}
+/>

@@ -1,0 +1,122 @@
+---
+title: "QCM - Algorithme de Kosaraju"
+sidebar_position: 6
+---
+
+import QCM from '@site/src/components/QCM';
+
+<QCM
+  title="QCM - Composantes fortement connexes et Kosaraju"
+  questions={[
+    {
+      question: "Une composante fortement connexe (CFC) d'un graphe orienté est :",
+      answers: [
+        "Un ensemble maximal de sommets tel que pour toute paire u, v, il existe un chemin de u à v ET de v à u",
+        "Un ensemble de sommets sans arc entre eux",
+        "Un cycle passant par tous les sommets",
+        "Un ensemble de sommets de même degré"
+      ],
+      correct: 0,
+      explanation: "Une CFC est un sous-ensemble maximal de sommets tel que pour toute paire de sommets, il existe un chemin dans les deux sens."
+    },
+    {
+      question: "Un ordre topologique d'un graphe orienté est :",
+      answers: [
+        "Un ordre des sommets tel que pour tout arc (u, v), u apparaît avant v",
+        "Un ordre des sommets par degré croissant",
+        "Un ordre alphabétique des sommets",
+        "Un ordre quelconque des sommets"
+      ],
+      correct: 0,
+      explanation: "Un ordre topologique liste les sommets de sorte que si (u, v) est un arc, alors u précède v dans la liste."
+    },
+    {
+      question: "Un graphe orienté admet un ordre topologique si et seulement si :",
+      answers: [
+        "Il est connexe",
+        "Il est fortement connexe",
+        "Il est acyclique (DAG)",
+        "Il a un nombre pair de sommets"
+      ],
+      correct: 2,
+      explanation: "Un graphe orienté admet un ordre topologique si et seulement s'il n'a pas de cycle (c'est un DAG)."
+    },
+    {
+      question: "L'inverse d'un parcours postfixe d'un graphe acyclique donne :",
+      answers: [
+        "Un ordre préfixe",
+        "Un ordre topologique",
+        "Les composantes connexes",
+        "Un chemin hamiltonien"
+      ],
+      correct: 1,
+      explanation: "Pour un graphe acyclique, l'inverse du parcours postfixe (DFS) donne un ordre topologique."
+    },
+    {
+      question: "L'algorithme de Kosaraju calcule les CFC en :",
+      answers: [
+        "O(n)",
+        "O(n + p)",
+        "O(n²)",
+        "O(n · p)"
+      ],
+      correct: 1,
+      explanation: "Kosaraju effectue deux parcours de graphe : un DFS pour obtenir l'ordre postfixe, un autre sur le graphe transposé. Complexité totale : O(n + p)."
+    },
+    {
+      question: "La première étape de l'algorithme de Kosaraju consiste à :",
+      answers: [
+        "Calculer le graphe transposé et faire un DFS pour obtenir l'ordre postfixe inverse",
+        "Trouver tous les cycles du graphe",
+        "Trier les sommets par degré",
+        "Calculer les distances entre tous les sommets"
+      ],
+      correct: 0,
+      explanation: "Kosaraju calcule d'abord le graphe transposé G^T, puis effectue un DFS sur G^T pour obtenir l'ordre postfixe inverse."
+    },
+    {
+      question: "Le graphe transposé G^T d'un graphe orienté G est obtenu en :",
+      answers: [
+        "Supprimant tous les arcs",
+        "Inversant le sens de tous les arcs",
+        "Ajoutant l'arc inverse pour chaque arc",
+        "Supprimant les cycles"
+      ],
+      correct: 1,
+      explanation: "Le graphe transposé G^T a les mêmes sommets que G, mais chaque arc (u, v) de G devient (v, u) dans G^T."
+    },
+    {
+      question: "Les CFC de G et de son graphe transposé G^T sont :",
+      answers: [
+        "Différentes",
+        "Les mêmes",
+        "Complémentaires",
+        "Inverses l'une de l'autre"
+      ],
+      correct: 1,
+      explanation: "G et G^T ont les mêmes CFC car si on peut aller de u à v et de v à u dans G, on peut aussi le faire dans G^T."
+    },
+    {
+      question: "Le graphe quotient (ou DAG des CFC) est :",
+      answers: [
+        "Toujours fortement connexe",
+        "Toujours acyclique",
+        "Toujours un arbre",
+        "Toujours complet"
+      ],
+      correct: 1,
+      explanation: "Le graphe des CFC (où chaque CFC est contractée en un sommet) est toujours acyclique (DAG)."
+    },
+    {
+      question: "Dans un parcours DFS, l'ordre postfixe ajoute un sommet :",
+      answers: [
+        "Au début de l'appel récursif (avant les voisins)",
+        "À la fin de l'appel récursif (après les voisins)",
+        "Quand il est découvert pour la première fois",
+        "Quand tous ses voisins sont visités"
+      ],
+      correct: 1,
+      explanation: "L'ordre postfixe ajoute un sommet à la liste à la fin de son appel récursif, c'est-à-dire après avoir exploré tous ses descendants."
+    }
+  ]}
+/>

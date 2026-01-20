@@ -1,0 +1,122 @@
+---
+title: "QCM - Apprentissage supervisé"
+sidebar_position: 3
+---
+
+import QCM from '@site/src/components/QCM';
+
+<QCM
+  title="QCM - Apprentissage supervisé"
+  questions={[
+    {
+      question: "L'apprentissage supervisé consiste à :",
+      answers: [
+        "Entraîner un modèle avec des données non étiquetées",
+        "Entraîner un modèle avec des données d'entraînement et leurs étiquettes connues",
+        "Laisser le modèle apprendre sans données",
+        "Utiliser uniquement des données de test"
+      ],
+      correct: 1,
+      explanation: "En apprentissage supervisé, on dispose de données d'entraînement avec leurs classes/étiquettes connues pour apprendre à prédire la classe de nouvelles données."
+    },
+    {
+      question: "La différence entre classification et régression est :",
+      answers: [
+        "La classification utilise plus de données",
+        "La classification prédit une classe (ensemble fini), la régression prédit une valeur continue",
+        "La régression est toujours plus précise",
+        "Il n'y a pas de différence"
+      ],
+      correct: 1,
+      explanation: "En classification, Y est un ensemble fini de classes. En régression, Y est un ensemble continu (ex: ℝ)."
+    },
+    {
+      question: "L'algorithme des k plus proches voisins (KNN) prédit la classe d'une donnée x en :",
+      answers: [
+        "Calculant la moyenne des k données les plus proches",
+        "Trouvant la classe majoritaire parmi les k données d'entraînement les plus proches de x",
+        "Comparant x à une seule donnée d'entraînement",
+        "Utilisant un réseau de neurones"
+      ],
+      correct: 1,
+      explanation: "KNN trouve les k plus proches voisins de x dans les données d'entraînement et prédit la classe la plus fréquente parmi ces voisins."
+    },
+    {
+      question: "La complexité de KNN pour prédire la classe d'une donnée, avec n données d'entraînement de dimension p, est :",
+      answers: [
+        "O(1)",
+        "O(n)",
+        "O(np)",
+        "O(n²)"
+      ],
+      correct: 2,
+      explanation: "Il faut calculer la distance entre x et chacune des n données d'entraînement, chaque calcul de distance coûtant O(p)."
+    },
+    {
+      question: "Le surapprentissage (overfitting) se produit quand :",
+      answers: [
+        "Le modèle généralise très bien sur de nouvelles données",
+        "Le modèle approxime trop bien les données d'entraînement et généralise mal",
+        "Le modèle n'apprend rien",
+        "Les données d'entraînement sont insuffisantes"
+      ],
+      correct: 1,
+      explanation: "Le surapprentissage signifie que le modèle a 'mémorisé' les données d'entraînement mais ne généralise pas bien à de nouvelles données."
+    },
+    {
+      question: "Standardiser les données consiste à :",
+      answers: [
+        "Supprimer les valeurs extrêmes",
+        "Transformer les données pour avoir une moyenne de 0 et un écart-type de 1",
+        "Trier les données par ordre croissant",
+        "Dupliquer les données"
+      ],
+      correct: 1,
+      explanation: "La standardisation utilise la formule (x - μ)/σ pour que chaque attribut ait une espérance nulle et un écart-type de 1."
+    },
+    {
+      question: "La distance euclidienne entre deux vecteurs x et y de ℝ^p est :",
+      answers: [
+        "Σ|xᵢ - yᵢ|",
+        "√(Σ(xᵢ - yᵢ)²)",
+        "max|xᵢ - yᵢ|",
+        "Σxᵢyᵢ"
+      ],
+      correct: 1,
+      explanation: "La distance euclidienne est d(x,y) = √(Σᵢ(xᵢ - yᵢ)²)."
+    },
+    {
+      question: "Pourquoi sépare-t-on les données en ensemble d'entraînement et ensemble de test ?",
+      answers: [
+        "Pour avoir plus de données",
+        "Pour évaluer la capacité du modèle à généraliser sur des données non vues",
+        "Pour accélérer l'entraînement",
+        "C'est une convention sans utilité"
+      ],
+      correct: 1,
+      explanation: "L'ensemble de test permet d'évaluer les performances du modèle sur des données qu'il n'a jamais vues pendant l'entraînement."
+    },
+    {
+      question: "La précision d'un classificateur est :",
+      answers: [
+        "Le nombre de données mal classées",
+        "La proportion de données de test correctement classées",
+        "Le temps d'exécution de l'algorithme",
+        "Le nombre de classes"
+      ],
+      correct: 1,
+      explanation: "La précision (accuracy) est le ratio entre le nombre de prédictions correctes et le nombre total de prédictions."
+    },
+    {
+      question: "La matrice de confusion permet de :",
+      answers: [
+        "Visualiser les erreurs de classification par classe",
+        "Calculer la distance entre deux données",
+        "Standardiser les données",
+        "Trouver les k plus proches voisins"
+      ],
+      correct: 0,
+      explanation: "La matrice de confusion montre pour chaque classe réelle combien de données ont été classées dans chaque classe prédite."
+    }
+  ]}
+/>

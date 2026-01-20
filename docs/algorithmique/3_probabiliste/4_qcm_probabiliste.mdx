@@ -1,0 +1,122 @@
+---
+title: "QCM - Algorithmes probabilistes"
+sidebar_position: 4
+---
+
+import QCM from '@site/src/components/QCM';
+
+<QCM
+  title="QCM - Algorithmes probabilistes"
+  questions={[
+    {
+      question: "Un algorithme probabiliste de type Las Vegas :",
+      answers: [
+        "Renvoie parfois un résultat incorrect",
+        "Renvoie toujours un résultat correct avec un temps d'exécution variable",
+        "A toujours le même temps d'exécution",
+        "Ne termine jamais"
+      ],
+      correct: 1,
+      explanation: "Un algorithme Las Vegas renvoie toujours un résultat correct mais son temps d'exécution est une variable aléatoire (moyen mnémotechnique : Las Vegas = La Vérité)."
+    },
+    {
+      question: "Un algorithme probabiliste de type Monte Carlo :",
+      answers: [
+        "Renvoie toujours un résultat correct",
+        "Peut renvoyer un résultat incorrect avec une probabilité contrôlée",
+        "Ne termine jamais",
+        "Est toujours plus rapide qu'un algorithme Las Vegas"
+      ],
+      correct: 1,
+      explanation: "Un algorithme Monte Carlo peut se tromper avec une certaine probabilité, mais son temps d'exécution est généralement déterministe ou borné."
+    },
+    {
+      question: "L'opération élémentaire `random()` d'un algorithme probabiliste renvoie :",
+      answers: [
+        "Un entier quelconque",
+        "Un bit uniformément au hasard (0 ou 1 avec probabilité 1/2)",
+        "Un réel entre 0 et 1",
+        "Toujours 0"
+      ],
+      correct: 1,
+      explanation: "Par définition, random() renvoie un bit (0 ou 1) uniformément au hasard, et plusieurs appels donnent des bits mutuellement indépendants."
+    },
+    {
+      question: "L'espérance du temps de calcul d'un algorithme probabiliste moyenne sur :",
+      answers: [
+        "Toutes les entrées possibles de taille n",
+        "Les différentes exécutions possibles pour une entrée fixée",
+        "Les différents algorithmes possibles",
+        "Rien, c'est une valeur déterministe"
+      ],
+      correct: 1,
+      explanation: "L'espérance du temps de calcul moyenne sur les différentes exécutions possibles de l'algorithme pour une entrée donnée, pas sur les entrées."
+    },
+    {
+      question: "Le tri rapide (quicksort) avec pivot aléatoire est de type :",
+      answers: [
+        "Monte Carlo",
+        "Las Vegas",
+        "Déterministe",
+        "Ni Las Vegas ni Monte Carlo"
+      ],
+      correct: 1,
+      explanation: "Le tri rapide avec pivot aléatoire est Las Vegas : il trie toujours correctement le tableau, mais son temps d'exécution dépend des choix aléatoires de pivots."
+    },
+    {
+      question: "Si X ~ Bernoulli(p), quelle est E[X] ?",
+      answers: [
+        "p²",
+        "1-p",
+        "p",
+        "1/p"
+      ],
+      correct: 2,
+      explanation: "L'espérance d'une loi de Bernoulli de paramètre p est E[X] = 1·p + 0·(1-p) = p."
+    },
+    {
+      question: "Pour simuler une loi de Bernoulli de paramètre p avec r() renvoyant un réel uniforme dans [0,1], on utilise :",
+      answers: [
+        "r() < p",
+        "r() > p",
+        "r() = p",
+        "r() / p"
+      ],
+      correct: 0,
+      explanation: "P(r() < p) = p car r() est uniforme sur [0,1], donc la condition r() < p simule une Bernoulli(p)."
+    },
+    {
+      question: "L'algorithme bogo_sort (mélanger tant que non trié) a une espérance du nombre d'itérations de :",
+      answers: [
+        "O(n)",
+        "O(n log n)",
+        "O(n!)",
+        "O(2^n)"
+      ],
+      correct: 2,
+      explanation: "La probabilité d'obtenir un tableau trié après un mélange est 1/n!, donc l'espérance du nombre d'itérations est n!."
+    },
+    {
+      question: "L'espérance de la complexité du tri rapide avec pivot aléatoire est :",
+      answers: [
+        "O(n)",
+        "O(n log n)",
+        "O(n²)",
+        "O(n!)"
+      ],
+      correct: 1,
+      explanation: "Avec un pivot aléatoire, l'espérance du nombre de comparaisons du tri rapide est O(n log n)."
+    },
+    {
+      question: "Un générateur pseudo-aléatoire :",
+      answers: [
+        "Génère des nombres vraiment aléatoires",
+        "Utilise une suite déterministe initialisée par une graine",
+        "Nécessite un accès à une source quantique",
+        "Ne peut pas être utilisé en pratique"
+      ],
+      correct: 1,
+      explanation: "Un générateur pseudo-aléatoire utilise une suite déterministe u_{n+1} = f(u_n) initialisée par une graine u_0, donnant des nombres qui 'semblent' aléatoires."
+    }
+  ]}
+/>

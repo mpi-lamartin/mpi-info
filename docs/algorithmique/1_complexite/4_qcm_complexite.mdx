@@ -1,0 +1,87 @@
+---
+title: "QCM - Décidabilité et complexité"
+sidebar_position: 4
+---
+
+import QCM from '@site/src/components/QCM';
+
+<QCM
+  title="QCM - Décidabilité et complexité"
+  questions={[
+    {
+      question: "Quelle est la classe de complexité d'un problème si on peut vérifier une solution en temps polynomial ?",
+      answers: ["P", "NP", "NP-complet", "EXPTIME"],
+      correct: 1,
+      explanation: "NP est la classe des problèmes dont on peut vérifier une solution en temps polynomial."
+    },
+    {
+      question: "Quelle relation est vraie concernant P et NP ?",
+      answers: ["P = NP", "P ⊂ NP", "NP ⊂ P", "P et NP sont disjoints"],
+      correct: 1,
+      explanation: "On sait que P ⊂ NP car un problème résoluble en temps polynomial peut évidemment être vérifié en temps polynomial. La question P = NP reste ouverte."
+    },
+    {
+      question: "Un problème est NP-complet si :",
+      answers: [
+        "Il appartient à P",
+        "Il appartient à NP et tout problème de NP se réduit à lui en temps polynomial",
+        "Il n'appartient pas à NP",
+        "Il est résoluble en temps exponentiel"
+      ],
+      correct: 1,
+      explanation: "Un problème est NP-complet s'il appartient à NP et que tout problème de NP se réduit polynomialement à lui."
+    },
+    {
+      question: "Quelle est la complexité de $18n^3 - n + 20$ en notation O ?",
+      answers: ["O(n)", "O(n²)", "O(n³)", "O(n⁴)"],
+      correct: 2,
+      explanation: "On conserve seulement le terme dominant sans la constante : O(n³)."
+    },
+    {
+      question: "Quelle est la complexité de $2^n + 25n^3$ en notation O ?",
+      answers: ["O(n³)", "O(2^n)", "O(n³ · 2^n)", "O(n)"],
+      correct: 1,
+      explanation: "Le terme $2^n$ domine $n^3$ pour $n$ assez grand, donc la complexité est O(2^n)."
+    },
+    {
+      question: "Un problème est décidable si :",
+      answers: [
+        "Il peut être résolu en temps polynomial",
+        "Il existe un algorithme qui termine toujours et répond correctement",
+        "Il appartient à NP",
+        "Il peut être vérifié en temps polynomial"
+      ],
+      correct: 1,
+      explanation: "Un problème est décidable s'il existe un algorithme (machine de Turing) qui termine toujours et donne la bonne réponse."
+    },
+    {
+      question: "Pour une boucle `for i in range(n): for j in range(i): ...`, quelle est la complexité ?",
+      answers: ["O(n)", "O(n log n)", "O(n²)", "O(2^n)"],
+      correct: 2,
+      explanation: "Le nombre d'itérations est $0 + 1 + 2 + ... + (n-1) = n(n-1)/2 = O(n²)$."
+    },
+    {
+      question: "Le problème SAT (satisfiabilité d'une formule booléenne) est :",
+      answers: ["Dans P", "NP-complet", "Non décidable", "Dans EXPTIME mais pas dans NP"],
+      correct: 1,
+      explanation: "SAT est le premier problème prouvé NP-complet (théorème de Cook-Levin)."
+    },
+    {
+      question: "Quelle opération n'est PAS une opération élémentaire en O(1) ?",
+      answers: [
+        "Addition de deux entiers",
+        "Comparaison de deux entiers",
+        "Tri d'un tableau de n éléments",
+        "Accès à un élément d'un tableau"
+      ],
+      correct: 2,
+      explanation: "Le tri d'un tableau de n éléments nécessite au minimum O(n log n) comparaisons."
+    },
+    {
+      question: "Si un problème A se réduit polynomialement à un problème B, et B ∈ P, alors :",
+      answers: ["A ∈ NP-complet", "A ∈ P", "A ∉ NP", "On ne peut rien conclure"],
+      correct: 1,
+      explanation: "Si B ∈ P et qu'on peut réduire A à B en temps polynomial, alors A ∈ P également."
+    }
+  ]}
+/>

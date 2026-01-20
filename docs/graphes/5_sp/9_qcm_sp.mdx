@@ -1,0 +1,122 @@
+---
+title: "QCM - Plus courts chemins"
+sidebar_position: 9
+---
+
+import QCM from '@site/src/components/QCM';
+
+<QCM
+  title="QCM - Plus courts chemins"
+  questions={[
+    {
+      question: "L'algorithme de Dijkstra permet de calculer :",
+      answers: [
+        "Les plus courts chemins avec poids négatifs",
+        "Les plus courts chemins depuis une source avec poids positifs ou nuls",
+        "Un arbre couvrant de poids minimum",
+        "Les composantes fortement connexes"
+      ],
+      correct: 1,
+      explanation: "Dijkstra calcule les plus courts chemins depuis une source unique, mais ne fonctionne qu'avec des poids positifs ou nuls."
+    },
+    {
+      question: "L'algorithme de Bellman-Ford permet de :",
+      answers: [
+        "Calculer les plus courts chemins avec poids négatifs (sans cycle négatif)",
+        "Trouver un cycle hamiltonien",
+        "Calculer un couplage maximum",
+        "Trier les sommets par degré"
+      ],
+      correct: 0,
+      explanation: "Bellman-Ford fonctionne avec des poids négatifs et peut détecter les cycles de poids négatif."
+    },
+    {
+      question: "La complexité de Dijkstra avec un tas binaire est :",
+      answers: [
+        "O(n²)",
+        "O(n + p)",
+        "O((n + p) log n)",
+        "O(n³)"
+      ],
+      correct: 2,
+      explanation: "Avec un tas binaire, chaque extraction du minimum coûte O(log n) et on fait O(n + p) opérations au total."
+    },
+    {
+      question: "La complexité de Bellman-Ford est :",
+      answers: [
+        "O(n + p)",
+        "O(n · p)",
+        "O(n²)",
+        "O(n³)"
+      ],
+      correct: 1,
+      explanation: "Bellman-Ford effectue n-1 passes, chacune examinant toutes les p arêtes, soit O(n · p)."
+    },
+    {
+      question: "L'algorithme de Floyd-Warshall calcule :",
+      answers: [
+        "Les plus courts chemins depuis une source",
+        "Les plus courts chemins entre toutes les paires de sommets",
+        "Un arbre couvrant minimum",
+        "Les composantes connexes"
+      ],
+      correct: 1,
+      explanation: "Floyd-Warshall calcule les distances entre toutes les paires de sommets en O(n³)."
+    },
+    {
+      question: "La complexité de Floyd-Warshall est :",
+      answers: [
+        "O(n²)",
+        "O(n · p)",
+        "O(n³)",
+        "O(n² log n)"
+      ],
+      correct: 2,
+      explanation: "Floyd-Warshall utilise trois boucles imbriquées sur les n sommets, d'où O(n³)."
+    },
+    {
+      question: "Dijkstra ne fonctionne pas avec des poids négatifs car :",
+      answers: [
+        "Il ne peut pas trier les arêtes",
+        "Une fois un sommet traité, sa distance peut encore diminuer avec un poids négatif",
+        "Il nécessite un graphe connexe",
+        "Il ne gère pas les cycles"
+      ],
+      correct: 1,
+      explanation: "Dijkstra suppose qu'une fois un sommet extrait du tas, sa distance est définitive. Un poids négatif pourrait la réduire plus tard."
+    },
+    {
+      question: "Pour détecter un cycle de poids négatif avec Bellman-Ford, on effectue :",
+      answers: [
+        "n-1 passes de relaxation",
+        "Une n-ième passe qui ne devrait rien modifier s'il n'y a pas de cycle négatif",
+        "Un parcours BFS",
+        "Une recherche de composantes fortement connexes"
+      ],
+      correct: 1,
+      explanation: "Si une n-ième passe modifie encore une distance, c'est qu'il existe un cycle de poids négatif."
+    },
+    {
+      question: "L'opération de relaxation d'une arête (u, v) consiste à :",
+      answers: [
+        "Supprimer l'arête (u, v)",
+        "Mettre à jour d[v] = min(d[v], d[u] + w(u,v))",
+        "Inverser le sens de l'arête",
+        "Ajouter un nouveau sommet"
+      ],
+      correct: 1,
+      explanation: "La relaxation met à jour la distance estimée de v si passer par u donne un chemin plus court."
+    },
+    {
+      question: "L'algorithme de Johnson pour les plus courts chemins entre toutes paires utilise :",
+      answers: [
+        "Uniquement Dijkstra",
+        "Uniquement Bellman-Ford",
+        "Bellman-Ford puis n appels à Dijkstra après repondération",
+        "Floyd-Warshall puis Dijkstra"
+      ],
+      correct: 2,
+      explanation: "Johnson utilise Bellman-Ford pour calculer une fonction de potentiel, puis repondère les arêtes pour avoir des poids positifs et applique Dijkstra depuis chaque sommet."
+    }
+  ]}
+/>
