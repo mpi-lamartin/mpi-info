@@ -1,7 +1,7 @@
 ---
 hide_table_of_contents: true
 hide_title: false
-cor: false
+cor: true
 title: "TP 8 : Problème du bin packing"
 ---
 
@@ -78,7 +78,7 @@ On arrêtera les appels récursifs lorsque tous les objets sont placés ou quand
 ```c
 instance inst = {
     .n = 30,
-    .w = {31, 18, 63, 28, 56, 1, 55, 74, 45, 10, 9, 24, 15, 61, 11, 38, 37, 71, 52, 38, 40, 26, 38, 72, 69, 96, 26, 5, 100, 78, },
+    .w = (int[]){31, 18, 63, 28, 56, 1, 55, 74, 45, 10, 9, 24, 15, 61, 11, 38, 37, 71, 52, 38, 40, 26, 38, 72, 69, 96, 26, 5, 100, 78, },
     .c = 100
 };
 // next_fit: 18
