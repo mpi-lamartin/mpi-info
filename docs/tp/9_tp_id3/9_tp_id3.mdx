@@ -220,20 +220,9 @@ val accuracy : decision_tree -> passenger list -> float
 accuracy tree train (* = 0.8530, soit 85.30% de précision *)
 ```
 
-14. Tester l'arbre de décision avec le code suivant :
-
-```ocaml
-let () =
-  let train = load_train () in
-  let all_attrs = [Sex; Pclass; AgeGroup; FamilySize; Embarked; FareGroup] in
-  let tree = build_tree train all_attrs in
-  print_tree tree 0;
-  Printf.printf "Précision: %.2f%%\n" (accuracy tree train *. 100.0)
-```
-
 ## Partie 6 : Génération de soumission
 
-15. Écrire une fonction `generate_submission` qui génère un fichier CSV de soumission au format Kaggle. Vous pouvez vous inspirer de `woman_survive.ml`. Utilisez le lien Kaggle envoyé par mail pour soumettre votre fichier et obtenir votre score.
+14. Écrire une fonction `generate_submission` qui génère un fichier CSV de soumission au format Kaggle. Vous pouvez vous inspirer de `woman_survive.ml`. Utilisez le lien Kaggle envoyé par mail pour soumettre votre fichier et obtenir votre score.
 
 ```ocaml
 val generate_submission : decision_tree -> passenger list -> string -> unit
@@ -256,61 +245,70 @@ generate_submission tree test "submission_id3.csv"
 
 ## Pour aller plus loin
 
-### Question 16 : Validation croisée
+15. Quand on mesure la précision sur les données d'entraînement (85%), on obtient une estimation optimiste car le modèle a été construit sur ces mêmes données. C'est le problème du surapprentissage (overfitting). La validation croisée k-fold permet d'estimer la performance réelle du modèle sur des données non vues.
 
-**Problème :** Quand on mesure la précision sur les données d'entraînement (85%), on obtient une estimation **optimiste** car le modèle a été construit sur ces mêmes données. C'est le problème du **surapprentissage** (overfitting).
+Principe de la validation croisée k-fold :
 
-**Solution :** La **validation croisée k-fold** permet d'estimer la performance réelle du modèle sur des données non vues.
-
-**Principe de la validation croisée 5-fold :**
-
-```
-Données : [████████████████████████████████████████]
-           
-Fold 1 :  [VALID][  TRAIN  ][  TRAIN  ][  TRAIN  ][  TRAIN  ] → Score 1
-Fold 2 :  [TRAIN][  VALID  ][  TRAIN  ][  TRAIN  ][  TRAIN  ] → Score 2
-Fold 3 :  [TRAIN][  TRAIN  ][  VALID  ][  TRAIN  ][  TRAIN  ] → Score 3
-Fold 4 :  [TRAIN][  TRAIN  ][  TRAIN  ][  VALID  ][  TRAIN  ] → Score 4
-Fold 5 :  [TRAIN][  TRAIN  ][  TRAIN  ][  TRAIN  ][  VALID  ] → Score 5
-
-Score final = moyenne(Score 1, ..., Score 5) ± écart-type
-```
-
-**Algorithme :**
-1. **Mélanger** aléatoirement les données
-2. **Diviser** en $k$ parties (folds) de taille égale
-3. **Pour chaque fold $i$** de 1 à $k$ :
-   - Utiliser le fold $i$ comme ensemble de **validation**
-   - Utiliser les $k-1$ autres folds comme ensemble d'**entraînement**
+Algorithme :
+- Mélanger aléatoirement les données
+- Diviser en $k$ parties (folds) de taille égale
+- Pour chaque fold $i$ de 1 à $k$ :
+   - Utiliser le fold $i$ comme ensemble de validation
+   - Utiliser les $k-1$ autres folds comme ensemble d'entraînement
    - Construire l'arbre sur l'entraînement
    - Calculer la précision sur la validation → Score $i$
-4. **Retourner** la moyenne et l'écart-type des $k$ scores
+- Retourner la moyenne et l'écart-type des $k$ scores
 
-**Signature :**
+Signature :
 ```ocaml
 val cross_validation : passenger list -> int -> (passenger list -> decision_tree) -> float * float * float list
 (* cross_validation data k build_fn retourne (moyenne, écart_type, liste_scores) *)
 ```
 
-**Indication :** Pour séparer les données en train/validation pour le fold $i$ :
+16. Forêt aléatoire
+
+Un arbre de décision a tendance à surapprendre. La **forêt aléatoire** construit plusieurs arbres indépendants et les fait voter pour obtenir une prédiction plus robuste.
+
+**Principe :**
+1. **Pour chaque arbre** (sur `n_trees` arbres) :
+   - **Bootstrap** : tirer $n$ données avec remplacement (certaines répétées, d'autres absentes)
+   - **Sous-espace** : sélectionner aléatoirement quelques attributs
+   - Construire l'arbre sur cet échantillon
+
+2. **Prédiction** : vote majoritaire de tous les arbres
+
+**Fonctions à implémenter :**
+
 ```ocaml
-let fold_size = n / k in
-let start_idx = i * fold_size in
-let end_idx = if i = k - 1 then n else (i + 1) * fold_size in
-(* Les éléments d'index start_idx à end_idx-1 vont dans validation *)
-(* Les autres vont dans train *)
+(** Échantillonnage bootstrap *)
+val bootstrap_sample : passenger list -> passenger list
+
+(** Construit une forêt *)
+val build_forest : passenger list -> attribute list -> int -> int option -> decision_tree list
+
+(** Prédiction par vote majoritaire *)
+val predict_forest : decision_tree list -> passenger -> int
 ```
 
-```
-Scores par fold : 83.15% 78.09% 78.09% 77.53% 79.89% 
-Moyenne : 79.35% (+/- 4.12%)
+**Indication** pour le bootstrap :
+```ocaml
+let bootstrap_sample data =
+  let n = List.length data in
+  let arr = Array.of_list data in
+  List.init n (fun _ -> arr.(Random.int n))
 ```
 
-*Remarque :* La précision en validation croisée (~79%) est plus basse que sur l'entraînement (~85%), ce qui confirme un léger surapprentissage.
+**Paramètres recommandés :** 100-200 arbres, 4-5 attributs par arbre, profondeur max 6-8.
+
+```
+Résultats attendus (200 arbres, 4 attrs, depth=6) :
+Précision (entraînement) : ~83-85%
+Validation croisée : ~80-82%
+```
 
 ---
 
-### Question 17 : Algorithme C4.5
+17. Algorithme C4.5
 
 Implémenter l'algorithme C4.5, une amélioration d'ID3 qui utilise le ratio de gain au lieu du gain d'information pour éviter de favoriser les attributs avec beaucoup de valeurs :
 
@@ -329,87 +327,16 @@ gain_ratio train Embarked  (* = 0.0215 *)
 gain_ratio train AgeGroup  (* = 0.0118 *)
 ```
 
----
-
-### Question 18 : Forêt aléatoire
-
-**Problème :** Un seul arbre de décision peut être instable : de petites variations dans les données peuvent produire des arbres très différents.
-
-**Solution :** Construire une **forêt** de plusieurs arbres et les faire **voter**.
-
-**Principe de la forêt aléatoire (Random Forest) :**
-
-```
-                    ┌─────────┐
-                    │ Données │
-                    └────┬────┘
-                         │
-         ┌───────────────┼───────────────┐
-         ▼               ▼               ▼
-    ┌─────────┐     ┌─────────┐     ┌─────────┐
-    │Bootstrap│     │Bootstrap│     │Bootstrap│
-    │Sample 1 │     │Sample 2 │ ... │Sample N │
-    └────┬────┘     └────┬────┘     └────┬────┘
-         │               │               │
-    ┌────▼────┐     ┌────▼────┐     ┌────▼────┐
-    │ Arbre 1 │     │ Arbre 2 │ ... │ Arbre N │
-    │(attrs 1)│     │(attrs 2)│     │(attrs N)│
-    └────┬────┘     └────┬────┘     └────┬────┘
-         │               │               │
-         └───────────────┼───────────────┘
-                         ▼
-                   Vote majoritaire
-```
-
-**Algorithme :**
-
-1. **Pour chaque arbre** $t$ de 1 à `n_trees` :
-   - **Bootstrap** : échantillonner $n$ données **avec remplacement**
-   - **Sous-espace aléatoire** : sélectionner aléatoirement quelques attributs
-   - **Construire** l'arbre sur cet échantillon avec ces attributs
-
-2. **Pour prédire** la classe d'un passager :
-   - Faire prédire chaque arbre
-   - Retourner la classe majoritaire (vote)
-
-**Paramètres importants à ajuster :**
-
-| Paramètre | Valeur classique | Impact |
-|-----------|------------------|--------|
-| `n_trees` | 100-500 | Plus = meilleur mais plus lent |
-| `max_features` | $\sqrt{m}$ à $m-1$ | Trop peu = arbres faibles, trop = arbres corrélés |
-| `max_depth` | 5-10 | Limite le surapprentissage |
-
-**Attention :** Avec seulement 6 attributs, utiliser $\sqrt{6} \approx 2$ attributs par arbre donne des arbres trop faibles. Préférer 4-5 attributs.
-
-**Fonctions à implémenter :**
+Implémenter `build_tree_c45` qui utilise `best_attribute_c45` au lieu de `best_attribute` :
 
 ```ocaml
-(** Construction d'un arbre avec profondeur maximale *)
-val build_tree_with_depth : passenger list -> attribute list -> int -> int -> decision_tree
-(* build_tree_with_depth data attrs max_depth current_depth *)
-
-(** Construit une forêt aléatoire améliorée *)
-val build_forest_improved : passenger list -> attribute list -> int -> int option -> int option -> float -> decision_tree list
-(* build_forest_improved data attrs n_trees max_features max_depth sample_ratio *)
+val build_tree_c45 : passenger list -> attribute list -> decision_tree
 ```
 
-**Indications :**
-
-Pour limiter la profondeur, ajouter un paramètre `max_depth` à `build_tree` :
-```ocaml
-let rec build_tree_with_depth data attributes max_depth current_depth =
-  (* Si profondeur maximale atteinte, retourner une feuille *)
-  if current_depth >= max_depth then
-    Leaf (majority_class data)
-  else
-    (* ... reste de l'algorithme ID3 avec current_depth + 1 ... *)
+Résultats attendus :
+```
+Précision C4.5 (entraînement) : ~85%
+Validation croisée C4.5 (5-fold) : ~80%
 ```
 
-**Résultats attendus avec configuration optimisée (200 arbres, 4 attrs, depth=6) :**
-```
-Précision (entraînement) : ~85-87%
-Validation croisée (5-fold) : ~80-82%
-```
-
-*Remarque :* La forêt aléatoire bien paramétrée donne des résultats plus stables (écart-type plus faible) que l'arbre unique.
+*Remarque :* Sur ce jeu de données avec peu d'attributs, C4.5 donne des résultats similaires à ID3 mais avec un écart-type plus faible en validation croisée.
