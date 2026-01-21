@@ -75,15 +75,15 @@ import QCM from '@site/src/components/QCM';
       explanation: "L'espérance d'une loi de Bernoulli de paramètre $p$ est $\\mathbb{E}[X] = 1 \\cdot p + 0 \\cdot (1-p) = p$."
     },
     {
-      question: "Pour simuler une loi de Bernoulli de paramètre $p$ avec `r()` renvoyant un réel uniforme dans $[0,1]$, on utilise :",
+      question: "Pour simuler une loi de Bernoulli de paramètre $p$ avec une fonction $r()$ renvoyant un réel uniforme dans $[0,1]$, on utilise :",
       answers: [
-        "`r() < p`",
-        "`r() > p`",
-        "`r() = p`",
-        "`r() / p`"
+        "$r() < p$",
+        "$r() > p$",
+        "$r() = p$",
+        "$r() / p$"
       ],
       correct: 0,
-      explanation: "$P(r() < p) = p$ car `r()` est uniforme sur $[0,1]$, donc la condition `r() < p` simule une Bernoulli$(p)$."
+      explanation: "$P(r() < p) = p$ car $r()$ est uniforme sur $[0,1]$, donc la condition $r() < p$ simule une Bernoulli$(p)$."
     },
     {
       question: "L'algorithme bogo_sort (mélanger tant que non trié) a une espérance du nombre d'itérations de :",
