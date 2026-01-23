@@ -93,7 +93,7 @@ $$
 H(S) = -\sum_{c \in \{0, 1\}} p_c \log_2(p_c)
 $$
 
-où $p_c$ est la proportion d'éléments de classe $c$ dans $S$. Par convention, $0 \log_2(0) = 0$.
+où $p_c$ est la proportion d'éléments de classe $c$ (`survived`) dans $S$. Par convention, $0 \log_2(0) = 0$.
 
 6. Écrire une fonction `entropy` qui calcule l'entropie d'une liste de passagers :
 
@@ -106,7 +106,7 @@ val entropy : passenger list -> float
 entropy train (* = 0.9607 *)
 ```
 
-*Indication :* On peut calculer $\log_2(x)$ avec `log x /. log 2.0`.
+*Indication :* On peut calculer $\log_2(x)$ avec `log x /. log 2.0` et convertir un entier `n` en float avec `float_of_int n`.
 
 Le gain d'information d'un attribut $A$ par rapport à un ensemble $S$ mesure la réduction d'entropie obtenue en divisant $S$ selon les valeurs de $A$ :
 
