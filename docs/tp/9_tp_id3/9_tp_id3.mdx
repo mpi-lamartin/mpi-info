@@ -93,7 +93,7 @@ $$
 H(S) = -\sum_{c \in \{0, 1\}} p_c \log_2(p_c)
 $$
 
-où $p_c$ est la proportion d'éléments de classe $c$ (`survived`) dans $S$. Par convention, $0 \log_2(0) = 0$.
+où $p_c$ est la proportion d'éléments de classe $c$ (`survived` = `Some 0` ou `Some 1`) dans $S$. Par convention, $0 \log_2(0) = 0$.
 
 6. Écrire une fonction `entropy` qui calcule l'entropie d'une liste de passagers :
 
