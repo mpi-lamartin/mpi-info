@@ -53,7 +53,7 @@ Dans cette partie, les fonctions seront écrites dans un nouveau fichier `knn.c`
 
 7. Écrire une fonction `int knn(data x, data* X, int n, int k)` renvoyant la classe majoritaire des `k` plus proches voisins de `x` dans `X`, où `n` est la taille de `X`.
 
-8. Tester avec le code suivant, avec `gcc -fsanitize=address -Wall knn.c utils.c && ./a.out` :
+8. Tester avec le code suivant, avec `gcc -fsanitize=address -g -Wall knn.c utils.c && ./a.out` :
 ```c
 int main() {
     int n_train = 10000;
