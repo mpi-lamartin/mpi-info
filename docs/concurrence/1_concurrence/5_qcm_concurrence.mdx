@@ -1,0 +1,131 @@
+---
+title: "QCM - Concurrence"
+---
+
+import QCM from "@site/src/components/QCM";
+
+<QCM
+  title="QCM - Programmation concurrente"
+  questions={[
+    {
+      question: "Quelle est la différence entre un processus et un thread ?",
+      answers: [
+        "Un thread a son propre espace mémoire, un processus non",
+        "Un thread est une unité d'exécution plus petite qu'un processus ; plusieurs threads partagent le même espace mémoire",
+        "Un processus est plus rapide qu'un thread",
+        "Il n'y a aucune différence",
+      ],
+      correct: 1,
+      explanation:
+        "Un thread (fil d'exécution) est une unité d'exécution plus petite qu'un processus. Les threads d'un même processus partagent le même programme, le même tas et les mêmes variables globales, mais ont chacun leur propre pile.",
+    },
+    {
+      question:
+        "Quelles ressources sont partagées entre les threads d'un même processus ?",
+      answers: [
+        "La pile",
+        "Le tas",
+        "Les variables globales",
+        "Le compteur de programme (PC)",
+      ],
+      correct: [1, 2],
+      explanation:
+        "Les threads partagent le même programme, le même tas et les mêmes variables globales. Par contre, chaque thread a sa propre pile et son propre compteur de programme.",
+    },
+    {
+      question: "La programmation parallèle consiste à :",
+      answers: [
+        "Exécuter des threads sur un seul processeur à tour de rôle",
+        "Exécuter des threads sur plusieurs processeurs en même temps",
+        "Exécuter un seul thread très rapidement",
+        "Compiler un programme plus rapidement",
+      ],
+      correct: 1,
+      explanation:
+        "Un programme s'exécute en parallèle s'il exécute des threads sur plusieurs processeurs (ou cœurs) en même temps, dans le but d'accélérer l'exécution.",
+    },
+    {
+      question: "L'asynchronisme se distingue du parallélisme car :",
+      answers: [
+        "Il est plus rapide",
+        "Il exécute des threads sur un processeur à tour de rôle, sans accélération",
+        "Il utilise plusieurs processeurs",
+        "Il ne nécessite pas de threads",
+      ],
+      correct: 1,
+      explanation:
+        "Un programme asynchrone exécute des threads sur un processeur à tour de rôle. Il n'y a pas d'accélération, mais cela permet par exemple d'éviter qu'une interface graphique ne se fige.",
+    },
+    {
+      question:
+        "Dans un programme concurrent, l'ordre d'exécution des instructions est :",
+      answers: [
+        "Un ordre total, comme dans un programme séquentiel",
+        "Un ordre partiel : certaines instructions n'ont pas d'ordre relatif défini",
+        "Aléatoire à chaque exécution",
+        "Toujours le même d'une exécution à l'autre",
+      ],
+      correct: 1,
+      explanation:
+        "Dans un programme concurrent, on a seulement un ordre partiel défini par le graphe d'exécution, contrairement à un programme séquentiel qui a un ordre total.",
+    },
+    {
+      question:
+        "Combien y a-t-il de traces possibles pour $k = 2$ threads exécutant chacun $m = 3$ instructions atomiques ?",
+      answers: ["$6$", "$9$", "$20$", "$720$"],
+      correct: 2,
+      explanation:
+        "Le nombre de traces est le coefficient multinomial $\\frac{(km)!}{(m!)^k} = \\frac{6!}{(3!)^2} = \\frac{720}{36} = 20$.",
+    },
+    {
+      question: "Une opération atomique est :",
+      answers: [
+        "Une opération très rapide",
+        "Une opération exécutée en une seule fois, sans être interrompue",
+        "Une opération qui utilise peu de mémoire",
+        "Une opération qui ne peut pas échouer",
+      ],
+      correct: 1,
+      explanation:
+        "Une opération est atomique si elle est exécutée en une seule fois, sans être interrompue par un autre thread.",
+    },
+    {
+      question: "L'opération `counter++` en C est-elle atomique ?",
+      answers: [
+        "Oui, c'est une seule instruction",
+        "Non, elle se décompose en lecture, calcul et écriture",
+        "Oui, si counter est de type int",
+        "Cela dépend du compilateur",
+      ],
+      correct: 1,
+      explanation:
+        "L'opération counter++ se décompose en trois instructions : lecture de counter dans un registre, incrémentation, écriture dans counter. Des entrelacements entre threads peuvent provoquer des résultats incorrects.",
+    },
+    {
+      question:
+        "Deux threads exécutent chacun `counter++` avec `counter = 0` initialement. Quelles sont les valeurs finales possibles de `counter` ?",
+      answers: [
+        "Uniquement $2$",
+        "$1$ ou $2$",
+        "$0$, $1$ ou $2$",
+        "$0$ ou $2$",
+      ],
+      correct: 1,
+      explanation:
+        "La valeur $2$ correspond à l'exécution séquentielle. La valeur $1$ est possible si les deux threads lisent $0$, incrémentent à $1$, puis écrivent $1$. La valeur $0$ n'est pas possible car au moins un thread écrit une valeur incrémentée.",
+    },
+    {
+      question:
+        "On considère $n = 0$, $T_1$ : $n = n + 2$ et $T_2$ : $n = n \\times 3$, chaque opération n'étant pas atomique. Quelles sont les valeurs finales possibles de $n$ ?",
+      answers: [
+        "$\\{0, 2, 6\\}$",
+        "$\\{2, 6\\}$",
+        "$\\{0, 2, 3, 6\\}$",
+        "$\\{0, 6\\}$",
+      ],
+      correct: 0,
+      explanation:
+        "Exécutions séquentielles : $(0+2) \\times 3 = 6$ ou $0 \\times 3 + 2 = 2$. Avec entrelacement, si les deux lisent $0$, celui qui écrit en dernier détermine la valeur : $T_2$ écrit $0$ ou $T_1$ écrit $2$. Les valeurs possibles sont donc $\\{0, 2, 6\\}$.",
+    },
+  ]}
+/>
