@@ -47,19 +47,6 @@ import QCM from "@site/src/components/QCM";
     },
     {
       question:
-        "Dans l'algorithme min-max, le joueur 0 (maximisant) choisit le coup qui :",
-      answers: [
-        "Minimise la valeur parmi les successeurs",
-        "Maximise la valeur parmi les successeurs",
-        "Choisit aléatoirement",
-        "Choisit le premier successeur",
-      ],
-      correct: 1,
-      explanation:
-        "Le joueur 0 cherche à maximiser l'heuristique, il choisit donc le successeur ayant la valeur la plus élevée. Le joueur 1 fait l'inverse (minimise).",
-    },
-    {
-      question:
         "Si la profondeur $p = 0$ dans min-max, que renvoie l'algorithme ?",
       answers: [
         "La valeur du premier successeur",
@@ -119,18 +106,6 @@ import QCM from "@site/src/components/QCM";
       correct: [0, 1, 3],
       explanation:
         "La mémoïsation évite de recalculer des configurations identiques. L'élagage $\\alpha$-$\\beta$ coupe les branches inutiles (d'autant plus efficace que les successeurs sont bien ordonnés). Augmenter la profondeur ralentit l'algorithme.",
-    },
-    {
-      question: "Pour le jeu du domineering, une heuristique raisonnable est :",
-      answers: [
-        "Le nombre total de cases du plateau",
-        "Le nombre de coups possibles pour le joueur 0 moins le nombre de coups possibles pour le joueur 1",
-        "Le numéro du tour actuel",
-        "La taille du plateau",
-      ],
-      correct: 1,
-      explanation:
-        "Une bonne heuristique mesure la mobilité relative : le nombre de coups possibles pour le joueur 0 (vertical) moins le nombre de coups possibles pour le joueur 1 (horizontal). Plus cette valeur est grande, plus la position est favorable au joueur 0.",
     },
     {
       question:
