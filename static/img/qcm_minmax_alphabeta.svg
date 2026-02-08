@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 290" font-family="serif" font-size="15">
+  <!-- Tree structure: Max root, 2 Min children, 4 Max grandchildren, 8 leaves -->
+
+  <!-- Edges level 0→1 -->
+  <line x1="310" y1="55" x2="155" y2="95" stroke="#333" stroke-width="1.5"/>
+  <line x1="310" y1="55" x2="465" y2="95" stroke="#333" stroke-width="1.5"/>
+  <!-- Edges level 1→2 -->
+  <line x1="155" y1="125" x2="80" y2="165" stroke="#333" stroke-width="1.5"/>
+  <line x1="155" y1="125" x2="230" y2="165" stroke="#333" stroke-width="1.5"/>
+  <line x1="465" y1="125" x2="390" y2="165" stroke="#333" stroke-width="1.5"/>
+  <line x1="465" y1="125" x2="540" y2="165" stroke="#333" stroke-width="1.5"/>
+  <!-- Edges level 2→3 -->
+  <line x1="80" y1="195" x2="45" y2="235" stroke="#333" stroke-width="1.5"/>
+  <line x1="80" y1="195" x2="115" y2="235" stroke="#333" stroke-width="1.5"/>
+  <line x1="230" y1="195" x2="195" y2="235" stroke="#333" stroke-width="1.5"/>
+  <line x1="230" y1="195" x2="265" y2="235" stroke="#333" stroke-width="1.5"/>
+  <line x1="390" y1="195" x2="355" y2="235" stroke="#333" stroke-width="1.5"/>
+  <line x1="390" y1="195" x2="425" y2="235" stroke="#333" stroke-width="1.5"/>
+  <line x1="540" y1="195" x2="505" y2="235" stroke="#333" stroke-width="1.5"/>
+  <line x1="540" y1="195" x2="575" y2="235" stroke="#333" stroke-width="1.5"/>
+
+  <!-- Level 0: Root Max -->
+  <polygon points="290,22 310,50 330,22" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="310" y="16" text-anchor="middle" font-size="13" fill="#555">Max</text>
+  <text x="310" y="42" text-anchor="middle" font-weight="bold" font-size="14">?</text>
+
+  <!-- Level 1: Min nodes -->
+  <polygon points="135,127 155,99 175,127" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="155" y="93" text-anchor="middle" font-size="13" fill="#555">Min</text>
+
+  <polygon points="445,127 465,99 485,127" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="465" y="93" text-anchor="middle" font-size="13" fill="#555">Min</text>
+
+  <!-- Level 2: Max nodes -->
+  <polygon points="60,167 80,195 100,167" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="80" y="163" text-anchor="middle" font-size="12" fill="#555">Max</text>
+
+  <polygon points="210,167 230,195 250,167" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="230" y="163" text-anchor="middle" font-size="12" fill="#555">Max</text>
+
+  <polygon points="370,167 390,195 410,167" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="390" y="163" text-anchor="middle" font-size="12" fill="#555">Max</text>
+
+  <polygon points="520,167 540,195 560,167" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="540" y="163" text-anchor="middle" font-size="12" fill="#555">Max</text>
+
+  <!-- Level 3: Leaves -->
+  <circle cx="45" cy="250" r="16" fill="white" stroke="#333" stroke-width="1.5"/>
+  <text x="45" y="255" text-anchor="middle" font-weight="bold">3</text>
+
+  <circle cx="115" cy="250" r="16" fill="white" stroke="#333" stroke-width="1.5"/>
+  <text x="115" y="255" text-anchor="middle" font-weight="bold">7</text>
+
+  <circle cx="195" cy="250" r="16" fill="white" stroke="#333" stroke-width="1.5"/>
+  <text x="195" y="255" text-anchor="middle" font-weight="bold">8</text>
+
+  <circle cx="265" cy="250" r="16" fill="white" stroke="#333" stroke-width="1.5"/>
+  <text x="265" y="255" text-anchor="middle" font-weight="bold">2</text>
+
+  <circle cx="355" cy="250" r="16" fill="white" stroke="#333" stroke-width="1.5"/>
+  <text x="355" y="255" text-anchor="middle" font-weight="bold">1</text>
+
+  <circle cx="425" cy="250" r="16" fill="white" stroke="#333" stroke-width="1.5"/>
+  <text x="425" y="255" text-anchor="middle" font-weight="bold">5</text>
+
+  <circle cx="505" cy="250" r="16" fill="white" stroke="#333" stroke-width="1.5"/>
+  <text x="505" y="255" text-anchor="middle" font-weight="bold">9</text>
+
+  <circle cx="575" cy="250" r="16" fill="white" stroke="#333" stroke-width="1.5"/>
+  <text x="575" y="255" text-anchor="middle" font-weight="bold">6</text>
+
+  <text x="310" y="285" font-size="13" text-anchor="middle" fill="#555">Valeur de la racine = ?  Quelles feuilles sont élaguées ?</text>
+</svg>

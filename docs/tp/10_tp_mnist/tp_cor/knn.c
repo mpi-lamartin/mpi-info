@@ -40,14 +40,14 @@ float precision(data* test, int n_test, data* train, int n_train, int k) {
 
 int main() {
     int n_train = 10000;
-    int n_test = 100;
+    int n_test = 200;
     int k = 3;
-    data *train = read_dataset("data/fashion-train.txt", n_train);
-    printf("Read %d training samples\n", n_train);
-    data *test = read_dataset("data/fashion-test.txt", n_test);
-    printf("Read %d testing samples\n", n_test);
+    data *train = read_dataset("data/digit-train.txt", n_train);
+    printf("Read %d training data\n", n_train);
+    data *test = read_dataset("data/digit-test.txt", n_test);
+    printf("Read %d testing data\n", n_test);
     int c = knn(test[0], train, n_train, k);
-    printf("Predicted class: %d (class is %d)\n", c, test[0].class);
+    printf("Predicted class: %d (class is %d)\n", c, test[0].class); // doit afficher 7
     float p = precision(test, n_test, train, n_train, k);
     printf("Precision: %f\n", p);
     free(train);

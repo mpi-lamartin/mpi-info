@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340" font-family="serif" font-size="16">
+  <defs>
+    <marker id="arrow2" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#333"/></marker>
+  </defs>
+  <!-- Legend -->
+  <circle cx="20" cy="20" r="10" fill="none" stroke="#333" stroke-width="1.5"/>
+  <text x="36" y="25" font-size="13" fill="#333">= Joueur 0</text>
+  <rect x="150" y="10" width="20" height="20" fill="none" stroke="#333" stroke-width="1.5"/>
+  <text x="176" y="25" font-size="13" fill="#333">= Joueur 1</text>
+  <circle cx="310" cy="20" r="10" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+  <text x="326" y="25" font-size="13" fill="#1565c0">= A(0)</text>
+  <!-- Edges -->
+  <line x1="80" y1="95" x2="48" y2="145" stroke="#333" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="80" y1="95" x2="152" y2="145" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <line x1="40" y1="175" x2="40" y2="225" stroke="#333" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="160" y1="175" x2="155" y2="225" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <line x1="160" y1="175" x2="272" y2="225" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <line x1="40" y1="255" x2="40" y2="305" stroke="#333" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="160" y1="255" x2="160" y2="305" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <line x1="160" y1="255" x2="50" y2="305" stroke="#333" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="280" y1="255" x2="280" y2="305" stroke="#333" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="280" y1="255" x2="168" y2="305" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <!-- Node 0: circle, S0, IN A(0) -->
+  <circle cx="80" cy="80" r="18" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="80" y="85" text-anchor="middle" font-weight="bold">0</text>
+  <!-- Node 1: square, S1, NOT in A(0) -->
+  <rect x="22" y="142" width="36" height="36" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="40" y="165" text-anchor="middle" font-weight="bold">1</text>
+  <!-- Node 2: square, S1, IN A(0) — all successors in A(0) -->
+  <rect x="142" y="142" width="36" height="36" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="160" y="165" text-anchor="middle" font-weight="bold">2</text>
+  <!-- Node 3: circle, S0, NOT in A(0) -->
+  <circle cx="40" cy="240" r="18" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="40" y="245" text-anchor="middle" font-weight="bold">3</text>
+  <!-- Node 4: circle, S0, IN A(0) — has successor 7 in A(0) -->
+  <circle cx="160" cy="240" r="18" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="160" y="245" text-anchor="middle" font-weight="bold">4</text>
+  <!-- Node 5: circle, S0, IN A(0) — has successor 7 in A(0) -->
+  <circle cx="280" cy="240" r="18" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="280" y="245" text-anchor="middle" font-weight="bold">5</text>
+  <!-- Node 6: square, S1, T1 -->
+  <rect x="22" y="302" width="36" height="36" fill="#fdd" stroke="#c33" stroke-width="2.5"/>
+  <text x="40" y="325" text-anchor="middle" font-weight="bold" fill="#c33">6</text>
+  <text x="40" y="296" text-anchor="middle" font-size="12" fill="#c33">T₁</text>
+  <!-- Node 7: square, S1, T0, IN A(0) -->
+  <rect x="142" y="302" width="36" height="36" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="160" y="325" text-anchor="middle" font-weight="bold" fill="#2a2">7</text>
+  <text x="160" y="296" text-anchor="middle" font-size="12" fill="#2a2">T₀</text>
+  <!-- Node 8: square, S1, T1 -->
+  <rect x="262" y="302" width="36" height="36" fill="#fdd" stroke="#c33" stroke-width="2.5"/>
+  <text x="280" y="325" text-anchor="middle" font-weight="bold" fill="#c33">8</text>
+  <text x="280" y="296" text-anchor="middle" font-size="12" fill="#c33">T₁</text>
+  <!-- Annotations -->
+  <text x="380" y="85" font-size="13" fill="#1565c0" font-weight="bold">A(0) = {0, 2, 4, 5, 7}</text>
+  <text x="380" y="110" font-size="13" fill="#555">A₀(0) = {7}</text>
+  <text x="380" y="130" font-size="13" fill="#555">A₁(0) = {7, 4, 5}</text>
+  <text x="380" y="150" font-size="13" fill="#555">A₂(0) = {7, 4, 5, 2}</text>
+  <text x="380" y="170" font-size="13" fill="#555">A₃(0) = {7, 4, 5, 2, 0}</text>
+</svg>
