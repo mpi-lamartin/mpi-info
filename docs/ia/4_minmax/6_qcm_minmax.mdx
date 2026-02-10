@@ -1,0 +1,124 @@
+---
+title: "QCM - Algorithme min-max"
+---
+
+import QCM from "@site/src/components/QCM";
+
+<QCM
+  title="QCM - Algorithme min-max et élagage α-β"
+  questions={[
+    {
+      question:
+        "Pourquoi l'algorithme de calcul des attracteurs n'est-il pas applicable directement aux échecs ou au go ?",
+      answers: [
+        "Il ne fonctionne pas sur les graphes bipartis",
+        "Le nombre de configurations est beaucoup trop grand ($\\approx 10^{44}$ aux échecs)",
+        "Il ne gère pas les puits",
+        "Il nécessite un graphe non orienté",
+      ],
+      correct: 1,
+      explanation:
+        "L'algorithme de calcul des attracteurs demande de parcourir chaque sommet du graphe des configurations. Pour les échecs ($\\approx 10^{44}$ sommets) ou le go ($\\approx 10^{170}$), c'est impossible en pratique.",
+    },
+    {
+      question: "L'heuristique $h(s)$ utilisée par min-max mesure :",
+      answers: [
+        "La distance entre $s$ et l'état initial",
+        "Le nombre de coups restants",
+        "À quel point la configuration $s$ est favorable au joueur 0",
+        "Le nombre de successeurs de $s$",
+      ],
+      correct: 2,
+      explanation:
+        "L'heuristique $h$ estime à quel point la configuration est favorable au joueur 0 : plus $h(s)$ est grand, plus c'est favorable au joueur 0. On prend $h(s) = \\infty$ si $s$ est gagnant pour le joueur 0, $-\\infty$ sinon.",
+    },
+    {
+      question:
+        "Quelles affirmations sont vraies concernant min-max et le calcul des attracteurs ?",
+      answers: [
+        "Min-max utilise une profondeur limitée, les attracteurs parcourent tout le graphe",
+        "Min-max nécessite un graphe acyclique, les attracteurs fonctionnent aussi avec des cycles",
+        "Min-max fonctionne en top-down, les attracteurs en bottom-up",
+        "Les deux algorithmes donnent toujours le même résultat",
+      ],
+      correct: [0, 1, 2],
+      explanation:
+        "Le calcul des attracteurs parcourt tout le graphe (profondeur illimitée) et fonctionne même avec des cycles, en bottom-up. Min-max se limite à une profondeur $p$, nécessite un graphe acyclique et fonctionne en top-down. Avec une profondeur illimitée, les résultats coïncident.",
+    },
+    {
+      question:
+        "Si la profondeur $p = 0$ dans min-max, que renvoie l'algorithme ?",
+      answers: [
+        "La valeur du premier successeur",
+        "La valeur de l'heuristique $h(s)$ de la configuration courante",
+        "0",
+        "$+\\infty$ ou $-\\infty$",
+      ],
+      correct: 1,
+      explanation:
+        "À profondeur $0$ (ou si le sommet n'a pas de successeur), min-max renvoie directement la valeur de l'heuristique $h(s)$ de la configuration.",
+    },
+    {
+      question: "L'élagage $\\alpha$-$\\beta$ permet de :",
+      answers: [
+        "Changer l'heuristique utilisée",
+        "Couper des branches inutiles pour accélérer min-max sans changer le résultat",
+        "Augmenter la profondeur de recherche automatiquement",
+        "Garantir la solution optimale avec n'importe quelle heuristique",
+      ],
+      correct: 1,
+      explanation:
+        "L'élagage $\\alpha$-$\\beta$ conserve des bornes $\\alpha \\leq \\beta$ encadrant la valeur de la racine. Il coupe les branches qui ne peuvent pas modifier le résultat final, accélérant le calcul sans en changer le résultat.",
+    },
+    {
+      question:
+        "Dans l'élagage $\\alpha$-$\\beta$, on coupe une branche d'un sommet Max quand on trouve une valeur :",
+      answers: [
+        "Inférieure à $\\alpha$",
+        "Supérieure à $\\beta$",
+        "Égale à $0$",
+        "Supérieure à $\\alpha$",
+      ],
+      correct: 1,
+      explanation:
+        "Sur un sommet Max, si on trouve une valeur $\\geq \\beta$, on sait que le sommet Min parent ne choisira pas cette branche (il a déjà une meilleure option $\\leq \\beta$). On peut donc arrêter l'exploration.",
+    },
+    {
+      question: "Les bornes $\\alpha$ et $\\beta$ sont initialisées à :",
+      answers: [
+        "$\\alpha = 0$, $\\beta = 0$",
+        "$\\alpha = -\\infty$, $\\beta = +\\infty$",
+        "$\\alpha = +\\infty$, $\\beta = -\\infty$",
+        "$\\alpha = -1$, $\\beta = 1$",
+      ],
+      correct: 1,
+      explanation:
+        "On initialise $\\alpha = -\\infty$ et $\\beta = +\\infty$ pour ne rien couper au départ, puis on resserre les bornes au fil de l'exploration.",
+    },
+    {
+      question: "Quelles techniques peuvent accélérer l'algorithme min-max ?",
+      answers: [
+        "Mémoïsation des configurations déjà rencontrées",
+        "Élagage $\\alpha$-$\\beta$",
+        "Augmenter la profondeur de recherche",
+        "Utiliser une bonne heuristique pour ordonner les successeurs",
+      ],
+      correct: [0, 1, 3],
+      explanation:
+        "La mémoïsation évite de recalculer des configurations identiques. L'élagage $\\alpha$-$\\beta$ coupe les branches inutiles (d'autant plus efficace que les successeurs sont bien ordonnés). Augmenter la profondeur ralentit l'algorithme.",
+    },
+    {
+      question:
+        "<center><img src='/img/qcm_minmax_alphabeta.svg' alt='Arbre α-β' style='max-width:600px; width:100%; margin: 10px 0;' /></center>\nEn appliquant l'élagage $\\alpha$-$\\beta$ sur l'arbre ci-dessus (parcours de gauche à droite), quelle est la valeur de la racine et quelles feuilles sont élaguées ?",
+      answers: [
+        "Valeur 7, feuilles 2, 9 et 6 élaguées",
+        "Valeur 8, feuille 2 élaguée",
+        "Valeur 7, feuille 2 élaguée uniquement",
+        "Valeur 5, feuilles 9 et 6 élaguées",
+      ],
+      correct: 0,
+      explanation:
+        "<img src='/img/qcm_minmax_alphabeta_cor.svg' alt='Correction α-β' style='max-width:600px; width:100%; margin: 10px 0;' />\nParcours de gauche à droite :\n• Max LL = max(3, 7) = 7\n• Min L reçoit 7, pose $\\beta = 7$\n• Max LR évalue 8 : $8 \\geq \\beta = 7$ → $\\beta$-coupure, feuille 2 élaguée\n• Min L = min(7, 8) = 7. Racine pose $\\alpha = 7$\n• Max RL = max(1, 5) = 5. Min R reçoit 5, $\\beta = 5$. Or $\\alpha = 7 \\geq \\beta = 5$ → $\\alpha$-coupure, sous-arbre RR (feuilles 9, 6) élagué\n• Racine = max(7, 5) = $\\boxed{7}$",
+    },
+  ]}
+/>

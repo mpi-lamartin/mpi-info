@@ -42,37 +42,37 @@ import QCM from '@site/src/components/QCM';
       explanation: "Une expression régulière est linéaire si aucune lettre n'apparaît plus d'une fois dans l'expression."
     },
     {
-      question: "Pour une expression régulière e, P(L(e)) représente :",
+      question: "Pour une expression régulière $e$, $P(L(e))$ représente :",
       answers: [
-        "Les dernières lettres possibles des mots de L(e)",
-        "Les premières lettres possibles des mots de L(e)",
+        "Les dernières lettres possibles des mots de $L(e)$",
+        "Les premières lettres possibles des mots de $L(e)$",
         "Les facteurs de longueur 2",
-        "L'ensemble des puissances de L(e)"
+        "L'ensemble des puissances de $L(e)$"
       ],
       correct: 1,
-      explanation: "P(L) est l'ensemble des premières lettres des mots non vides de L."
+      explanation: "$P(L)$ est l'ensemble des premières lettres des mots non vides de $L$."
     },
     {
-      question: "Un langage L est local si un mot u ≠ ε appartient à L ssi :",
+      question: "Un langage $L$ est local si un mot $u \\neq \\varepsilon$ appartient à $L$ ssi :",
       answers: [
-        "u a une longueur paire",
-        "La première lettre est dans P(L), la dernière dans S(L), et tous les facteurs de longueur 2 sont dans F(L)",
-        "u est un palindrome",
-        "u ne contient pas de répétition"
+        "$u$ a une longueur paire",
+        "La première lettre est dans $P(L)$, la dernière dans $S(L)$, et tous les facteurs de longueur 2 sont dans $F(L)$",
+        "$u$ est un palindrome",
+        "$u$ ne contient pas de répétition"
       ],
       correct: 1,
-      explanation: "Un langage local est entièrement caractérisé par ses premières lettres P(L), dernières lettres S(L), et facteurs de longueur 2 F(L)."
+      explanation: "Un langage local est entièrement caractérisé par ses premières lettres $P(L)$, dernières lettres $S(L)$, et facteurs de longueur 2 $F(L)$."
     },
     {
-      question: "L'automate de Glushkov pour une expression régulière à k lettres (avec multiplicité) a :",
+      question: "L'automate de Glushkov pour une expression régulière à $k$ lettres (avec multiplicité) a :",
       answers: [
-        "k états",
-        "k + 1 états",
-        "2k états",
-        "k² états"
+        "$k$ états",
+        "$k + 1$ états",
+        "$2k$ états",
+        "$k^2$ états"
       ],
       correct: 1,
-      explanation: "L'automate de Glushkov a k + 1 états : un état initial plus un état pour chaque position de lettre dans l'expression."
+      explanation: "L'automate de Glushkov a $k + 1$ états : un état initial plus un état pour chaque position de lettre dans l'expression."
     },
     {
       question: "Pour montrer qu'un langage régulier est reconnaissable, on utilise :",
@@ -110,13 +110,13 @@ import QCM from '@site/src/components/QCM';
     {
       question: "Le lemme d'Arden permet de résoudre des équations de la forme :",
       answers: [
-        "X = AX + B où A et B sont des langages, avec ε ∉ A",
-        "X = X²",
-        "X + Y = Z",
-        "X = ∅"
+        "$X = AX \\cup B$ où $A$ et $B$ sont des langages, avec $\\varepsilon \\notin A$",
+        "$X = X^2$",
+        "$X + Y = Z$",
+        "$X = \\emptyset$"
       ],
       correct: 0,
-      explanation: "Arden : si ε ∉ A, alors X = AX ∪ B a pour unique solution X = A*B."
+      explanation: "Arden : si $\\varepsilon \\notin A$, alors $X = AX \\cup B$ a pour unique solution $X = A^*B$."
     }
   ]}
 />

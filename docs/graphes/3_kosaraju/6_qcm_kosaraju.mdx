@@ -55,13 +55,13 @@ import QCM from '@site/src/components/QCM';
     {
       question: "L'algorithme de Kosaraju calcule les CFC en :",
       answers: [
-        "O(n)",
-        "O(n + p)",
-        "O(n²)",
-        "O(n · p)"
+        "$O(n)$",
+        "$O(n + p)$",
+        "$O(n^2)$",
+        "$O(n \\cdot p)$"
       ],
       correct: 1,
-      explanation: "Kosaraju effectue deux parcours de graphe : un DFS pour obtenir l'ordre postfixe, un autre sur le graphe transposé. Complexité totale : O(n + p)."
+      explanation: "Kosaraju effectue deux parcours de graphe : un DFS pour obtenir l'ordre postfixe, un autre sur le graphe transposé. Complexité totale : $O(n + p)$."
     },
     {
       question: "La première étape de l'algorithme de Kosaraju consiste à :",
@@ -72,10 +72,10 @@ import QCM from '@site/src/components/QCM';
         "Calculer les distances entre tous les sommets"
       ],
       correct: 0,
-      explanation: "Kosaraju calcule d'abord le graphe transposé G^T, puis effectue un DFS sur G^T pour obtenir l'ordre postfixe inverse."
+      explanation: "Kosaraju calcule d'abord le graphe transposé $G^T$, puis effectue un DFS sur $G^T$ pour obtenir l'ordre postfixe inverse."
     },
     {
-      question: "Le graphe transposé G^T d'un graphe orienté G est obtenu en :",
+      question: "Le graphe transposé $G^T$ d'un graphe orienté $G$ est obtenu en :",
       answers: [
         "Supprimant tous les arcs",
         "Inversant le sens de tous les arcs",
@@ -83,10 +83,10 @@ import QCM from '@site/src/components/QCM';
         "Supprimant les cycles"
       ],
       correct: 1,
-      explanation: "Le graphe transposé G^T a les mêmes sommets que G, mais chaque arc (u, v) de G devient (v, u) dans G^T."
+      explanation: "Le graphe transposé $G^T$ a les mêmes sommets que $G$, mais chaque arc $(u, v)$ de $G$ devient $(v, u)$ dans $G^T$."
     },
     {
-      question: "Les CFC de G et de son graphe transposé G^T sont :",
+      question: "Les CFC de $G$ et de son graphe transposé $G^T$ sont :",
       answers: [
         "Différentes",
         "Les mêmes",
@@ -94,7 +94,7 @@ import QCM from '@site/src/components/QCM';
         "Inverses l'une de l'autre"
       ],
       correct: 1,
-      explanation: "G et G^T ont les mêmes CFC car si on peut aller de u à v et de v à u dans G, on peut aussi le faire dans G^T."
+      explanation: "$G$ et $G^T$ ont les mêmes CFC car si on peut aller de $u$ à $v$ et de $v$ à $u$ dans $G$, on peut aussi le faire dans $G^T$."
     },
     {
       question: "Le graphe quotient (ou DAG des CFC) est :",

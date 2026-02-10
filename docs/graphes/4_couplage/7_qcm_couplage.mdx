@@ -17,7 +17,7 @@ import QCM from '@site/src/components/QCM';
         "Un cycle de longueur paire"
       ],
       correct: 1,
-      explanation: "Un couplage est un ensemble M d'arêtes tel qu'aucun sommet n'appartient à deux arêtes de M."
+      explanation: "Un couplage est un ensemble $M$ d'arêtes tel qu'aucun sommet n'appartient à deux arêtes de $M$."
     },
     {
       question: "Un sommet est couvert par un couplage M si :",
@@ -34,7 +34,7 @@ import QCM from '@site/src/components/QCM';
       question: "Un couplage parfait existe si :",
       answers: [
         "Tous les sommets sont couverts par le couplage",
-        "Le couplage contient n arêtes",
+        "Le couplage contient $n$ arêtes",
         "Le couplage est maximal",
         "Le graphe est complet"
       ],
@@ -42,34 +42,34 @@ import QCM from '@site/src/components/QCM';
       explanation: "Un couplage est parfait si tous les sommets du graphe sont couverts (appartiennent à une arête du couplage)."
     },
     {
-      question: "Un chemin M-augmentant est un chemin :",
+      question: "Un chemin $M$-augmentant est un chemin :",
       answers: [
-        "Dont toutes les arêtes sont dans M",
-        "Alternant entre arêtes de M et hors M, dont les extrémités sont libres",
+        "Dont toutes les arêtes sont dans $M$",
+        "Alternant entre arêtes de $M$ et hors $M$, dont les extrémités sont libres",
         "De longueur maximale",
         "Passant par tous les sommets couverts"
       ],
       correct: 1,
-      explanation: "Un chemin M-augmentant est M-alternant (alterne arêtes dans/hors M) et ses deux extrémités sont libres pour M."
+      explanation: "Un chemin $M$-augmentant est $M$-alternant (alterne arêtes dans/hors $M$) et ses deux extrémités sont libres pour $M$."
     },
     {
-      question: "Si P est un chemin M-augmentant, alors M Δ P est :",
+      question: "Si $P$ est un chemin $M$-augmentant, alors $M \\Delta P$ est :",
       answers: [
-        "Un couplage de taille |M| - 1",
-        "Un couplage de taille |M| + 1",
+        "Un couplage de taille $|M| - 1$",
+        "Un couplage de taille $|M| + 1$",
         "Un chemin",
         "Un cycle"
       ],
       correct: 1,
-      explanation: "La différence symétrique M Δ P échange les arêtes de M et hors M dans P, augmentant la taille du couplage de 1."
+      explanation: "La différence symétrique $M \\Delta P$ échange les arêtes de $M$ et hors $M$ dans $P$, augmentant la taille du couplage de $1$."
     },
     {
-      question: "M est un couplage maximum si et seulement si :",
+      question: "$M$ est un couplage maximum si et seulement si :",
       answers: [
-        "M est maximal",
-        "Il n'existe pas de chemin M-augmentant",
+        "$M$ est maximal",
+        "Il n'existe pas de chemin $M$-augmentant",
         "Tous les sommets sont couverts",
-        "M contient n-1 arêtes"
+        "$M$ contient $n-1$ arêtes"
       ],
       correct: 1,
       explanation: "Un couplage est maximum si et seulement s'il n'existe pas de chemin augmentant (théorème de Berge)."
@@ -99,24 +99,24 @@ import QCM from '@site/src/components/QCM';
     {
       question: "La complexité de l'algorithme de couplage maximum par chemins augmentants dans un graphe biparti est :",
       answers: [
-        "O(n)",
-        "O(n + p)",
-        "O(n · p)",
-        "O(n²)"
+        "$O(n)$",
+        "$O(n + p)$",
+        "$O(n \\cdot p)$",
+        "$O(n^2)$"
       ],
       correct: 2,
-      explanation: "On peut trouver au plus n/2 chemins augmentants, chacun nécessitant un parcours en O(n + p) ≈ O(p), soit O(n · p) au total."
+      explanation: "On peut trouver au plus $n/2$ chemins augmentants, chacun nécessitant un parcours en $O(n + p) \\approx O(p)$, soit $O(n \\cdot p)$ au total."
     },
     {
-      question: "La différence symétrique A Δ B est égale à :",
+      question: "La différence symétrique $A \\Delta B$ est égale à :",
       answers: [
-        "A ∩ B",
-        "A ∪ B",
-        "(A \\ B) ∪ (B \\ A)",
-        "A × B"
+        "$A \\cap B$",
+        "$A \\cup B$",
+        "$(A \\setminus B) \\cup (B \\setminus A)$",
+        "$A \\times B$"
       ],
       correct: 2,
-      explanation: "A Δ B contient les éléments qui sont dans A ou dans B, mais pas dans les deux."
+      explanation: "$A \\Delta B$ contient les éléments qui sont dans $A$ ou dans $B$, mais pas dans les deux."
     }
   ]}
 />

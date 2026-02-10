@@ -9,15 +9,15 @@ import QCM from '@site/src/components/QCM';
   title="QCM - Arbre couvrant de poids minimum (Kruskal)"
   questions={[
     {
-      question: "Un arbre couvrant d'un graphe connexe G à n sommets possède :",
+      question: "Un arbre couvrant d'un graphe connexe $G$ à $n$ sommets possède :",
       answers: [
-        "n arêtes",
-        "n-1 arêtes",
-        "n+1 arêtes",
-        "2n arêtes"
+        "$n$ arêtes",
+        "$n-1$ arêtes",
+        "$n+1$ arêtes",
+        "$2n$ arêtes"
       ],
       correct: 1,
-      explanation: "Un arbre à n sommets possède toujours exactement n-1 arêtes."
+      explanation: "Un arbre à $n$ sommets possède toujours exactement $n-1$ arêtes."
     },
     {
       question: "L'algorithme de Kruskal pour trouver un arbre couvrant de poids minimum procède en :",
@@ -44,13 +44,13 @@ import QCM from '@site/src/components/QCM';
     {
       question: "La complexité de l'algorithme de Kruskal avec Union-Find est :",
       answers: [
-        "O(n²)",
-        "O(p log p) ou O(p log n)",
-        "O(n³)",
-        "O(n + p)"
+        "$O(n^2)$",
+        "$O(p \\log p)$ ou $O(p \\log n)$",
+        "$O(n^3)$",
+        "$O(n + p)$"
       ],
       correct: 1,
-      explanation: "Le tri des arêtes coûte O(p log p). Les opérations Union-Find ont une complexité amortie quasi-constante grâce à l'union par rang et la compression de chemins."
+      explanation: "Le tri des arêtes coûte $O(p \\log p)$. Les opérations Union-Find ont une complexité amortie quasi-constante grâce à l'union par rang et la compression de chemins."
     },
     {
       question: "L'opération Find dans Union-Find avec compression de chemins :",
@@ -97,12 +97,12 @@ import QCM from '@site/src/components/QCM';
       explanation: "L'union par rang (ou par taille) rattache le plus petit arbre sous le plus grand pour limiter la profondeur des arbres."
     },
     {
-      question: "Un arbre couvrant de poids minimum d'un graphe G :",
+      question: "Un arbre couvrant de poids minimum d'un graphe $G$ :",
       answers: [
-        "Contient toujours l'arête de poids maximum de G",
-        "Ne contient jamais l'arête de poids minimum de G",
-        "Contient toujours l'arête de poids minimum de G",
-        "A toujours n arêtes"
+        "Contient toujours l'arête de poids maximum de $G$",
+        "Ne contient jamais l'arête de poids minimum de $G$",
+        "Contient toujours l'arête de poids minimum de $G$",
+        "A toujours $n$ arêtes"
       ],
       correct: 2,
       explanation: "L'arête de poids minimum appartient toujours à un arbre couvrant de poids minimum (si le graphe est connexe)."
