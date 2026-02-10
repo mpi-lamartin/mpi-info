@@ -15,7 +15,12 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
     {
       question:
         "Quel algorithme calcule les plus courts chemins depuis un sommet source dans un graphe pondéré à poids positifs, en explorant les sommets par ordre croissant de distance ?",
-      answers: ["Bellman-Ford", "Dijkstra", "Floyd-Warshall", "BFS"],
+      answers: [
+        "Bellman-Ford",
+        "Dijkstra",
+        "Floyd-Warshall",
+        "Parcours en largeur",
+      ],
       correct: 1,
       explanation:
         "L'algorithme de Dijkstra explore les sommets par ordre croissant de distance à la source en utilisant une file de priorité.",
@@ -98,7 +103,7 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
       answers: ["Kruskal", "Dijkstra", "Kosaraju", "Prim"],
       correct: 2,
       explanation:
-        "Kosaraju effectue un premier DFS pour obtenir un ordre de traitement, puis un second DFS sur le graphe transposé.",
+        "Kosaraju effectue un premier parcours en profondeur pour obtenir un ordre de traitement, puis un second parcours en profondeur sur le graphe transposé.",
     },
     {
       question: "L'algorithme de Kosaraju permet de :",
@@ -110,7 +115,7 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
       ],
       correct: 2,
       explanation:
-        "Kosaraju identifie les composantes fortement connexes en utilisant deux parcours DFS.",
+        "Kosaraju identifie les composantes fortement connexes en utilisant deux parcours en profondeur.",
     },
     {
       question:
@@ -153,11 +158,10 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Prim construit un ACM en partant d'un sommet et en ajoutant l'arête de poids minimum vers un sommet non encore dans l'arbre.",
     },
     {
-      question:
-        "Quel algorithme calcule un couplage maximum dans un graphe en cherchant itérativement des chemins augmentants ?",
+      question: "Quel algorithme utilise des chemins augmentants ?",
       answers: [
         "Kruskal",
-        "Algorithme de couplage par chemin augmentant",
+        "Algorithme de recherche de couplage maximum",
         "Kosaraju",
         "Bellman-Ford",
       ],
@@ -180,13 +184,18 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
     {
       question:
         "Quel parcours de graphe visite les sommets le plus profondément possible avant de revenir en arrière, implémenté récursivement ?",
-      answers: ["BFS", "Dijkstra", "DFS (parcours en profondeur)", "A*"],
+      answers: [
+        "Parcours en largeur",
+        "Dijkstra",
+        "Parcours en profondeur",
+        "A*",
+      ],
       correct: 2,
       explanation:
-        "Le DFS (Depth-First Search) explore chaque branche aussi loin que possible avant de revenir en arrière.",
+        "Le parcours en profondeur explore chaque branche aussi loin que possible avant de revenir en arrière.",
     },
     {
-      question: "Le parcours DFS (en profondeur) permet de :",
+      question: "Le parcours en profondeur permet de :",
       answers: [
         "Visiter les sommets par distance croissante à la source",
         "Explorer les sommets le plus profondément possible avant de revenir en arrière",
@@ -195,18 +204,23 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
       ],
       correct: 1,
       explanation:
-        "Le DFS explore récursivement en allant le plus loin possible dans chaque branche.",
+        "Le parcours en profondeur explore récursivement en allant le plus loin possible dans chaque branche.",
     },
     {
       question:
         "Quel parcours de graphe visite les sommets par distance croissante depuis une racine, en utilisant une file ?",
-      answers: ["DFS", "BFS (parcours en largeur)", "Dijkstra", "Kosaraju"],
+      answers: [
+        "Parcours en profondeur",
+        "Parcours en largeur",
+        "Dijkstra",
+        "Kosaraju",
+      ],
       correct: 1,
       explanation:
-        "Le BFS (Breadth-First Search) utilise une file pour explorer les sommets couche par couche.",
+        "Le parcours en largeur utilise une file pour explorer les sommets couche par couche.",
     },
     {
-      question: "Le parcours BFS (en largeur) permet de :",
+      question: "Le parcours en largeur permet de :",
       answers: [
         "Explorer les sommets le plus profondément possible",
         "Calculer un arbre couvrant de poids minimum",
@@ -215,7 +229,7 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
       ],
       correct: 2,
       explanation:
-        "Le BFS visite les sommets couche par couche, ce qui donne les distances dans un graphe non pondéré.",
+        "Le parcours en largeur visite les sommets couche par couche, ce qui donne les distances dans un graphe non pondéré.",
     },
     {
       question:
@@ -264,7 +278,7 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
     },
     {
       question:
-        "Quel type d'algorithme polynomial garantit une solution dont la valeur est à un facteur $\\alpha$ constant de la solution optimale, pour un problème NP-difficile ?",
+        "Quel type d'algorithme polynomial garantit une solution dont la valeur est à un facteur $\\alpha$ constant de la solution optimale ?",
       answers: [
         "Algorithme de Las Vegas",
         "Algorithme glouton",
@@ -344,13 +358,13 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
       question: "L'algorithme des K-moyennes (K-means) permet de :",
       answers: [
         "Classifier une donnée en utilisant ses voisins les plus proches",
-        "Partitionner des données en k groupes en minimisant la variance intra-classe",
+        "Partitionner des données en k classes",
         "Construire un arbre de décision",
         "Calculer les composantes connexes d'un graphe",
       ],
       correct: 1,
       explanation:
-        "K-means est un algorithme non supervisé qui partitionne les données en minimisant la distance aux centres des classes.",
+        "K-means est un algorithme de classification non supervisé qui partitionne les données en essayant de minimiser la distance aux centres des classes.",
     },
     {
       question:
@@ -399,7 +413,7 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
     },
     {
       question:
-        "Quel algorithme construit un automate (de Glushkov) reconnaissant le langage d'une expression régulière en linéarisant l'expression ?",
+        "Quel algorithme construit un automate reconnaissant le langage d'une expression régulière en linéarisant l'expression ?",
       answers: [
         "Déterminisation",
         "Berry-Sethi (Glushkov)",
@@ -408,7 +422,7 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
       ],
       correct: 1,
       explanation:
-        "Berry-Sethi (ou Glushkov) linéarise l'expression régulière et construit un automate local reconnaissant le même langage.",
+        "Berry-Sethi linéarise l'expression régulière et construit un automate local reconnaissant le même langage.",
     },
     {
       question: "L'algorithme de Berry-Sethi (Glushkov) permet de :",
@@ -416,7 +430,7 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Déterminiser un automate non déterministe",
         "Construire un automate reconnaissant le langage d'une expression régulière",
         "Minimiser un automate déterministe",
-        "Calculer le complément d'un langage",
+        "Calculer le complémentaire d'un langage",
       ],
       correct: 1,
       explanation:
