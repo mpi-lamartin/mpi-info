@@ -1,13 +1,11 @@
 ---
-title: "QCM Révisions - Algorithmes et Structures de données"
+title: "QCM Révisions"
+hide_title: true
 sidebar_position: 1
 ---
 
 import QCMRandom from '@site/src/components/QCMRandom';
 
-# QCM Révisions — Algorithmes et Structures de données
-
-Les questions sont posées une par une dans un ordre aléatoire. Pour chaque question, il s'agit d'identifier un algorithme ou une structure de données à partir de sa description, ou inversement.
 
 <QCMRandom
   title="QCM — Algorithmes et Structures de données"
@@ -742,37 +740,10 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
       explanation: "La matrice d'adjacence utilise un tableau $n \\times n$. Elle est adaptée aux graphes denses."
     },
     {
-      question: "Quels algorithmes sont naturellement adaptés à une matrice d'adjacence ?",
-      answers: [
-        "Floyd-Warshall",
-        "Exponentiation de matrice ($A^k$)",
-        "BFS",
-        "DFS",
-        "Dijkstra",
-        "Kruskal"
-      ],
-      correct: [0, 1],
-      explanation: "Floyd-Warshall travaille directement sur une matrice de distances. L'exponentiation de matrice ($A^k$) compte les chemins de longueur $k$."
-    },
-    {
       question: "Quelle structure de données représente un graphe avec un espace $O(n + m)$ et un parcours des voisins de $u$ en $O(\\deg(u))$ ?",
       answers: ["Matrice d'adjacence", "Liste d'adjacence", "Tas binaire", "Union-Find"],
       correct: 1,
       explanation: "La liste d'adjacence stocke pour chaque sommet la liste de ses voisins. Elle est adaptée aux graphes creux."
-    },
-    {
-      question: "Quels algorithmes sont plus efficaces avec des listes d'adjacence qu'avec une matrice d'adjacence ?",
-      answers: [
-        "DFS",
-        "BFS",
-        "Dijkstra",
-        "Bellman-Ford",
-        "Kosaraju",
-        "Floyd-Warshall",
-        "Exponentiation de matrice"
-      ],
-      correct: [0, 1, 2, 3, 4],
-      explanation: "DFS et BFS sont en $O(n + m)$ avec listes d'adjacence contre $O(n^2)$ avec matrice. Dijkstra, Bellman-Ford et Kosaraju parcourent aussi les voisins."
     },
     {
       question: "Quelle structure de données est un arbre binaire tel que pour chaque nœud $r$, toutes les étiquettes du sous-arbre gauche sont $\\leq r$ et toutes celles du sous-arbre droit sont $\\geq r$ ?",
@@ -798,54 +769,20 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
       explanation: "L'arbre rouge-noir impose des règles de coloration qui garantissent $h \\leq 2 \\log_2(n+1)$. Il est utilisé dans les modules Set et Map d'OCaml."
     },
     {
-      question: "Les modules `Set` et `Map` d'OCaml sont implémentés par :",
-      answers: [
-        "Des tables de hachage",
-        "Des arbres rouge-noir (ABR équilibrés)",
-        "Des tas binaires",
-        "Des listes triées"
-      ],
-      correct: 1,
-      explanation: "OCaml utilise des arbres rouge-noir pour Set et Map, garantissant des opérations en $O(\\log n)$."
-    },
-    {
-      question: "Qu'est-ce qu'un treap (arbretas) ?",
-      answers: [
-        "Un arbre binaire qui est un ABR sur les éléments et un tas sur des priorités aléatoires",
-        "Un arbre rouge-noir randomisé",
-        "Un tas dont les éléments sont des arbres",
-        "Un ABR stocké dans un tableau"
-      ],
-      correct: 0,
-      explanation: "Le treap combine ABR (sur les clés) et tas min (sur les priorités aléatoires). La hauteur moyenne est $O(\\log n)$ grâce au choix aléatoire."
-    },
-    {
-      question: "Quelle structure de données associe des clés à des valeurs avec ajout, recherche et suppression en $O(1)$ en moyenne ?",
+      question: "Quelles structures de données permet d'implémenter un dictionnaire ?",
       answers: ["ABR", "Table de hachage", "Tas binaire", "File"],
-      correct: 1,
-      explanation: "La table de hachage utilise une fonction $h(k)$ pour ranger les éléments. Les collisions sont résolues par chaînage ou adressage ouvert."
-    },
-    {
-      question: "La table de hachage a une complexité en $O(1)$ en moyenne pour ses opérations. Son pire cas est :",
-      answers: ["$O(1)$", "$O(\\log n)$", "$O(n)$", "$O(n \\log n)$"],
-      correct: 2,
-      explanation: "Si toutes les clés entrent en collision (même indice), la recherche parcourt toute la liste chaînée : $O(n)$."
-    },
-    {
-      question: "Quelle structure de données est construite par l'algorithme de Huffman pour obtenir un codage préfixe optimal ?",
-      answers: ["ABR", "Tas binaire", "Arbre de Huffman", "Arbre rouge-noir"],
-      correct: 2,
-      explanation: "L'arbre de Huffman est un arbre binaire dont les feuilles sont les lettres. Le chemin racine→feuille (0/1) donne le code de chaque lettre."
+      correct: [1, 2],
+      explanation: "On peut utiliser un ABR dont les étiquettes sont des couples (clé, valeur), avec des opérations O($h$). On peut aussi utiliser une table de hachage avec du O(1) en moyenne."
     },
     {
       question: "L'arbre de Huffman garantit que :",
       answers: [
         "Toutes les lettres ont un code de même longueur",
-        "Les lettres fréquentes ont un code court et c'est un codage préfixe optimal",
-        "L'arbre est toujours parfaitement équilibré",
+        "Les lettres fréquentes ont un code court et c'est une compression préfixe optimal",
+        "L'arbre est équilibré",
         "Le décodage nécessite la table de codage complète"
       ],
-      correct: 1,
+      correct: 2,
       explanation: "Le codage de Huffman est un codage préfixe (aucun code n'est préfixe d'un autre) qui minimise la longueur moyenne."
     },
     {
@@ -858,17 +795,6 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
       ],
       correct: 1,
       explanation: "Hashtbl implémente une table de hachage avec chaînage pour résoudre les collisions."
-    },
-    {
-      question: "Quelle structure de données utilise-t-on pour stocker les sommets visités dans un parcours DFS ou BFS ?",
-      answers: [
-        "Un tableau de booléens",
-        "Un tas binaire",
-        "Un arbre de Huffman",
-        "Une file de priorité"
-      ],
-      correct: 0,
-      explanation: "Un tableau de booléens `visited` indexé par les sommets permet de vérifier en $O(1)$ si un sommet a déjà été visité."
     },
     {
       question: "L'algorithme de Dijkstra utilise comme structure de données principale :",
