@@ -68,9 +68,9 @@ int t = clock();
 printf("Temps d'exécution : %f\n", (double)(clock() - t) / CLOCKS_PER_SEC);
 ```
 
-## Algorithme exact par `Branch and Bound`
+## Algorithme exact par `branch-and-bound`
 
-10. Écrire une fonction récursive `int branch_and_bound(instance *inst, int i, int *bins, int nb_bins, int best)` qui renvoie le nombre minimum de boîtes possible pour l'instance `inst`. On utilisera un algorithme de Branch and Bound où `i` est l'indice de l'objet courant, `bins` est un tableau contenant le poids dans chaque boîte, `nb_bins` est le nombre de boîtes utilisées pour l'instant et `best` est le nombre minimum de boîtes trouvé jusqu'à présent.
+10. Écrire une fonction récursive `int branch_and_bound(instance *inst, int i, int *bins, int nb_bins, int best)` qui renvoie le nombre minimum de boîtes possible pour l'instance `inst`. On utilisera un algorithme de branch-and-bound où `i` est l'indice de l'objet courant, `bins` est un tableau contenant le poids dans chaque boîte, `nb_bins` est le nombre de boîtes utilisées pour l'instant et `best` est le nombre minimum de boîtes trouvé jusqu'à présent.
 On arrêtera les appels récursifs lorsque tous les objets sont placés ou quand le nombre de boîtes utilisées dépasse `best`.
 
 11. Vérifier avec l'instance suivante :
