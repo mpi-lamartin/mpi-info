@@ -130,11 +130,11 @@ const config: Config = {
           docId: "concurrence/concurrence/concurrence",
           label: "Concurrence",
         },
-        // {
-        //   type: "doc",
-        //   docId: "revision/search/search",
-        //   label: "Révisions",
-        // },
+        {
+          type: "doc",
+          docId: "revisions/qcm_algorithmes",
+          label: "Révisions",
+        },
         {
           href: 'https://prepas.org/index.php?document=73',
           label: 'Programme',
