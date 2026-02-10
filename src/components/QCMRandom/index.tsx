@@ -25,13 +25,23 @@ function renderMath(text: string, baseUrl: string): string {
   });
   result = result.replace(/\$\$([^$]+)\$\$/g, (_, tex) => {
     try {
-      return katex.renderToString(tex, { throwOnError: false, displayMode: true });
-    } catch { return `$$${tex}$$`; }
+      return katex.renderToString(tex, {
+        throwOnError: false,
+        displayMode: true,
+      });
+    } catch {
+      return `$$${tex}$$`;
+    }
   });
   result = result.replace(/\$([^$]+)\$/g, (_, tex) => {
     try {
-      return katex.renderToString(tex, { throwOnError: false, displayMode: false });
-    } catch { return `$${tex}$`; }
+      return katex.renderToString(tex, {
+        throwOnError: false,
+        displayMode: false,
+      });
+    } catch {
+      return `$${tex}$`;
+    }
   });
   result = result.replace(/`([^`]+)`/g, (_, code) => `<code>${code}</code>`);
   result = result.replace(/\n/g, "<br>");
@@ -42,7 +52,9 @@ function renderMath(text: string, baseUrl: string): string {
 
 function MathText({ text }: { text: string }): JSX.Element {
   const baseUrl = useBaseUrl("/");
-  return <span dangerouslySetInnerHTML={{ __html: renderMath(text, baseUrl) }} />;
+  return (
+    <span dangerouslySetInnerHTML={{ __html: renderMath(text, baseUrl) }} />
+  );
 }
 
 function shuffle<T>(arr: T[]): T[] {
@@ -54,8 +66,13 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-export default function QCMRandom({ questions, title = "QCM Algorithmes" }: QCMRandomProps): JSX.Element {
-  const [order, setOrder] = useState<number[]>(() => shuffle(questions.map((_, i) => i)));
+export default function QCMRandom({
+  questions,
+  title = "QCM Algorithmes",
+}: QCMRandomProps): JSX.Element {
+  const [order, setOrder] = useState<number[]>(() =>
+    shuffle(questions.map((_, i) => i)),
+  );
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [validated, setValidated] = useState(false);
@@ -98,16 +115,21 @@ export default function QCMRandom({ questions, title = "QCM Algorithmes" }: QCMR
     setFinished(false);
   };
 
-  const pct = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+  const pct =
+    answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
 
   if (finished) {
     return (
       <div className={styles.container}>
-        <h3 className={styles.title}>{title}</h3>
+        {/* <h3 className={styles.title}>{title}</h3> */}
         <div className={styles.finalScore}>
           <p>QCM terminé !</p>
           <p className={styles.scoreText}>
-            Score final : <strong>{correctCount}/{answeredCount}</strong> ({pct}%)
+            Score final :{" "}
+            <strong>
+              {correctCount}/{answeredCount}
+            </strong>{" "}
+            ({pct}%)
           </p>
           <button className={styles.btnPrimary} onClick={handleRestart}>
             Recommencer
@@ -122,10 +144,14 @@ export default function QCMRandom({ questions, title = "QCM Algorithmes" }: QCMR
       <h3 className={styles.title}>{title}</h3>
 
       <div className={styles.progressBar}>
-        <div className={styles.progressFill} style={{ width: `${((current + 1) / order.length) * 100}%` }} />
+        <div
+          className={styles.progressFill}
+          style={{ width: `${((current + 1) / order.length) * 100}%` }}
+        />
       </div>
       <div className={styles.progressLabel}>
-        Question {current + 1} / {order.length} &nbsp;—&nbsp; Score : {correctCount}/{answeredCount} ({pct}%)
+        Question {current + 1} / {order.length} &nbsp;—&nbsp; Score :{" "}
+        {correctCount}/{answeredCount} ({pct}%)
       </div>
 
       <div className={styles.questionCard}>
@@ -136,13 +162,19 @@ export default function QCMRandom({ questions, title = "QCM Algorithmes" }: QCMR
           {q.answers.map((answer, aIdx) => {
             let cls = styles.answer;
             if (validated) {
-              if (aIdx === q.correct) cls = `${styles.answer} ${styles.correct}`;
-              else if (aIdx === selected) cls = `${styles.answer} ${styles.incorrect}`;
+              if (aIdx === q.correct)
+                cls = `${styles.answer} ${styles.correct}`;
+              else if (aIdx === selected)
+                cls = `${styles.answer} ${styles.incorrect}`;
             } else if (aIdx === selected) {
               cls = `${styles.answer} ${styles.selected}`;
             }
             return (
-              <label key={aIdx} className={cls} onClick={() => handleSelect(aIdx)}>
+              <label
+                key={aIdx}
+                className={cls}
+                onClick={() => handleSelect(aIdx)}
+              >
                 <input
                   type="radio"
                   name="qcm-random-answer"
@@ -150,7 +182,9 @@ export default function QCMRandom({ questions, title = "QCM Algorithmes" }: QCMR
                   onChange={() => handleSelect(aIdx)}
                   disabled={validated}
                 />
-                <span className={styles.answerText}><MathText text={answer} /></span>
+                <span className={styles.answerText}>
+                  <MathText text={answer} />
+                </span>
               </label>
             );
           })}
@@ -164,12 +198,18 @@ export default function QCMRandom({ questions, title = "QCM Algorithmes" }: QCMR
 
       <div className={styles.actions}>
         {!validated ? (
-          <button className={styles.btnPrimary} onClick={handleValidate} disabled={selected === null}>
+          <button
+            className={styles.btnPrimary}
+            onClick={handleValidate}
+            disabled={selected === null}
+          >
             Valider
           </button>
         ) : (
           <button className={styles.btnPrimary} onClick={handleNext}>
-            {current + 1 >= order.length ? "Voir le résultat" : "Question suivante →"}
+            {current + 1 >= order.length
+              ? "Voir le résultat"
+              : "Question suivante →"}
           </button>
         )}
         <button className={styles.btnSecondary} onClick={handleRestart}>
