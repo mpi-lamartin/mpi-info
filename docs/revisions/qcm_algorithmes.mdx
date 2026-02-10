@@ -1,13 +1,16 @@
 ---
-hide_title: true
-title: "QCM Révisions"
+title: "QCM Révisions - Algorithmes et Structures de données"
 sidebar_position: 1
 ---
 
-import QCMRandom from "@site/src/components/QCMRandom";
+import QCMRandom from '@site/src/components/QCMRandom';
+
+# QCM Révisions — Algorithmes et Structures de données
+
+Les questions sont posées une par une dans un ordre aléatoire. Pour chaque question, il s'agit d'identifier un algorithme ou une structure de données à partir de sa description, ou inversement.
 
 <QCMRandom
-  title="QCM Révisions"
+  title="QCM — Algorithmes et Structures de données"
   questions={[
     {
       question:
@@ -656,8 +659,301 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Calcule le couplage dans un graphe biparti",
       ],
       correct: 1,
-      explanation:
-        "Alpha-bêta élague les branches inutiles de l'arbre de jeu en maintenant des bornes $\\alpha$ et $\\beta$.",
+      explanation: "Alpha-bêta élague les branches inutiles de l'arbre de jeu en maintenant des bornes $\\alpha$ et $\\beta$."
     },
+    {
+      question: "Quelle structure de données permet d'ajouter et extraire le maximum (ou minimum) en $O(\\log n)$, et d'accéder au maximum en $O(1)$ ?",
+      answers: ["Pile", "File", "Tas binaire (file de priorité)", "Table de hachage"],
+      correct: 2,
+      explanation: "Le tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction en $O(\\log n)$."
+    },
+    {
+      question: "Le tas binaire (binary heap) supporte les opérations suivantes :",
+      answers: [
+        "push, pop, is_empty en $O(1)$",
+        "ajouter en $O(\\log n)$, extraire le max en $O(\\log n)$, valeur du max en $O(1)$",
+        "ajout en $O(1)$, extraction en $O(1)$ amorti",
+        "recherche, ajout, suppression en $O(\\log n)$"
+      ],
+      correct: 1,
+      explanation: "Le tas offre l'accès au max en $O(1)$ (racine), l'insertion et l'extraction en $O(\\log n)$ via les opérations up et down."
+    },
+    {
+      question: "Quels algorithmes du cours utilisent un tas binaire (file de priorité) ?",
+      answers: [
+        "Dijkstra, A*, tri par tas, Huffman",
+        "BFS, Kosaraju, Floyd-Warshall",
+        "Kruskal, Bellman-Ford, DFS",
+        "Peterson, Lamport, KNN"
+      ],
+      correct: 0,
+      explanation: "Le tas (file de priorité) est utilisé par Dijkstra et A* pour extraire le sommet le plus proche, par le tri par tas (heapsort), et par Huffman pour fusionner les arbres de fréquences minimales."
+    },
+    {
+      question: "Quelle structure de données représente une partition en classes disjointes avec les opérations `find` (trouver le représentant) et `union` (fusionner deux classes) ?",
+      answers: ["Tas binaire", "ABR", "Union-Find", "Table de hachage"],
+      correct: 2,
+      explanation: "Union-Find stocke une partition dans un tableau de pères. Avec compression de chemins et union par rang, find et union sont en $O(\\alpha(n))$ amorti."
+    },
+    {
+      question: "Quel algorithme du cours utilise la structure Union-Find ?",
+      answers: ["Kruskal"],
+      correct: 0,
+      explanation: "Kruskal utilise Union-Find pour vérifier efficacement si une arête crée un cycle (si ses deux extrémités sont dans la même composante)."
+    },
+    {
+      question: "Avec les heuristiques d'union par rang et compression de chemins, la complexité amortie de `find` et `union` dans Union-Find est :",
+      answers: ["$O(n)$", "$O(\\log n)$", "$O(\\alpha(n)) \\approx O(1)$", "$O(n \\log n)$"],
+      correct: 2,
+      explanation: "$\\alpha$ est la fonction inverse d'Ackermann, qui croît extrêmement lentement : $\\alpha(n) \\leq 4$ pour tout $n$ pratique."
+    },
+    {
+      question: "Quelle structure de données de type LIFO (dernier entré, premier sorti) supporte `push` et `pop` en $O(1)$ ?",
+      answers: ["File", "Pile", "Tas", "ABR"],
+      correct: 1,
+      explanation: "La pile (stack) est une structure LIFO. En OCaml, elle s'implémente naturellement avec une liste (tête = sommet)."
+    },
+    {
+      question: "Quel algorithme du cours utilise une pile (ou la pile d'appels récursifs) ?",
+      answers: ["DFS (parcours en profondeur)"],
+      correct: 0,
+      explanation: "Le DFS utilise la pile d'appels récursifs, ou une pile explicite dans sa version itérative."
+    },
+    {
+      question: "Quelle structure de données de type FIFO (premier entré, premier sorti) supporte l'ajout et l'extraction en $O(1)$ amorti ?",
+      answers: ["Pile", "File", "Tas", "ABR"],
+      correct: 1,
+      explanation: "La file (queue) est FIFO. Implémentable avec deux listes : ajout dans l'une, extraction dans l'autre, renversement si nécessaire."
+    },
+    {
+      question: "Quel algorithme du cours utilise une file ?",
+      answers: ["BFS (parcours en largeur)"],
+      correct: 0,
+      explanation: "Le BFS utilise une file pour traiter les sommets par distance croissante à la source."
+    },
+    {
+      question: "Quelle structure de données représente un graphe avec un espace $O(n^2)$, un test d'adjacence en $O(1)$ mais un parcours des voisins en $O(n)$ ?",
+      answers: ["Liste d'adjacence", "Matrice d'adjacence", "Dictionnaire d'adjacence", "Table de hachage"],
+      correct: 1,
+      explanation: "La matrice d'adjacence utilise un tableau $n \\times n$. Elle est adaptée aux graphes denses."
+    },
+    {
+      question: "Quels algorithmes sont naturellement adaptés à une matrice d'adjacence ?",
+      answers: [
+        "Floyd-Warshall, exponentiation de matrice",
+        "BFS, DFS, Dijkstra",
+        "Kruskal, Kosaraju",
+        "KNN, K-moyennes"
+      ],
+      correct: 0,
+      explanation: "Floyd-Warshall travaille directement sur une matrice de distances. L'exponentiation de matrice ($A^k$) compte les chemins de longueur $k$."
+    },
+    {
+      question: "Quelle structure de données représente un graphe avec un espace $O(n + m)$ et un parcours des voisins de $u$ en $O(\\deg(u))$ ?",
+      answers: ["Matrice d'adjacence", "Liste d'adjacence", "Tas binaire", "Union-Find"],
+      correct: 1,
+      explanation: "La liste d'adjacence stocke pour chaque sommet la liste de ses voisins. Elle est adaptée aux graphes creux."
+    },
+    {
+      question: "Quels algorithmes sont plus efficaces avec des listes d'adjacence qu'avec une matrice d'adjacence ?",
+      answers: [
+        "DFS, BFS, Dijkstra, Bellman-Ford, Kosaraju",
+        "Floyd-Warshall, exponentiation de matrice",
+        "K-moyennes, KNN",
+        "Peterson, Lamport"
+      ],
+      correct: 0,
+      explanation: "DFS et BFS sont en $O(n + m)$ avec listes d'adjacence contre $O(n^2)$ avec matrice. Dijkstra, Bellman-Ford et Kosaraju parcourent aussi les voisins."
+    },
+    {
+      question: "Quelle structure de données est un arbre binaire tel que pour chaque nœud $r$, toutes les étiquettes du sous-arbre gauche sont $\\leq r$ et toutes celles du sous-arbre droit sont $\\geq r$ ?",
+      answers: ["Tas binaire", "Arbre binaire de recherche (ABR)", "Arbre de Huffman", "Arbre rouge-noir"],
+      correct: 1,
+      explanation: "L'ABR est défini par cette propriété héréditaire. Son parcours infixe donne les éléments triés."
+    },
+    {
+      question: "L'arbre binaire de recherche (ABR) supporte les opérations suivantes :",
+      answers: [
+        "recherche, ajout, suppression en $O(h)$ (hauteur de l'arbre)",
+        "extraction du max en $O(1)$, ajout en $O(\\log n)$",
+        "push, pop en $O(1)$",
+        "find, union en $O(\\alpha(n))$"
+      ],
+      correct: 0,
+      explanation: "Toutes les opérations d'un ABR parcourent une branche, donc en $O(h)$. Si l'arbre est équilibré, $h = O(\\log n)$."
+    },
+    {
+      question: "Quelle variante d'ABR garantit une hauteur $h = O(\\log n)$ grâce à un coloriage rouge/noir des nœuds ?",
+      answers: ["Treap", "Arbre de Huffman", "Arbre rouge-noir (ARN)", "Tas binaire"],
+      correct: 2,
+      explanation: "L'arbre rouge-noir impose des règles de coloration qui garantissent $h \\leq 2 \\log_2(n+1)$. Il est utilisé dans les modules Set et Map d'OCaml."
+    },
+    {
+      question: "Les modules `Set` et `Map` d'OCaml sont implémentés par :",
+      answers: [
+        "Des tables de hachage",
+        "Des arbres rouge-noir (ABR équilibrés)",
+        "Des tas binaires",
+        "Des listes triées"
+      ],
+      correct: 1,
+      explanation: "OCaml utilise des arbres rouge-noir pour Set et Map, garantissant des opérations en $O(\\log n)$."
+    },
+    {
+      question: "Qu'est-ce qu'un treap (arbretas) ?",
+      answers: [
+        "Un arbre binaire qui est un ABR sur les éléments et un tas sur des priorités aléatoires",
+        "Un arbre rouge-noir randomisé",
+        "Un tas dont les éléments sont des arbres",
+        "Un ABR stocké dans un tableau"
+      ],
+      correct: 0,
+      explanation: "Le treap combine ABR (sur les clés) et tas min (sur les priorités aléatoires). La hauteur moyenne est $O(\\log n)$ grâce au choix aléatoire."
+    },
+    {
+      question: "Quelle structure de données associe des clés à des valeurs avec ajout, recherche et suppression en $O(1)$ en moyenne ?",
+      answers: ["ABR", "Table de hachage", "Tas binaire", "File"],
+      correct: 1,
+      explanation: "La table de hachage utilise une fonction $h(k)$ pour ranger les éléments. Les collisions sont résolues par chaînage ou adressage ouvert."
+    },
+    {
+      question: "La table de hachage a une complexité en $O(1)$ en moyenne pour ses opérations. Son pire cas est :",
+      answers: ["$O(1)$", "$O(\\log n)$", "$O(n)$", "$O(n \\log n)$"],
+      correct: 2,
+      explanation: "Si toutes les clés entrent en collision (même indice), la recherche parcourt toute la liste chaînée : $O(n)$."
+    },
+    {
+      question: "Quelle structure de données est construite par l'algorithme de Huffman pour obtenir un codage préfixe optimal ?",
+      answers: ["ABR", "Tas binaire", "Arbre de Huffman", "Arbre rouge-noir"],
+      correct: 2,
+      explanation: "L'arbre de Huffman est un arbre binaire dont les feuilles sont les lettres. Le chemin racine→feuille (0/1) donne le code de chaque lettre."
+    },
+    {
+      question: "L'arbre de Huffman garantit que :",
+      answers: [
+        "Toutes les lettres ont un code de même longueur",
+        "Les lettres fréquentes ont un code court et c'est un codage préfixe optimal",
+        "L'arbre est toujours parfaitement équilibré",
+        "Le décodage nécessite la table de codage complète"
+      ],
+      correct: 1,
+      explanation: "Le codage de Huffman est un codage préfixe (aucun code n'est préfixe d'un autre) qui minimise la longueur moyenne."
+    },
+    {
+      question: "Le module `Hashtbl` d'OCaml implémente :",
+      answers: [
+        "Un arbre binaire de recherche",
+        "Une table de hachage",
+        "Un tas binaire",
+        "Un arbre rouge-noir"
+      ],
+      correct: 1,
+      explanation: "Hashtbl implémente une table de hachage avec chaînage pour résoudre les collisions."
+    },
+    {
+      question: "Quelle structure de données utilise-t-on pour stocker les sommets visités dans un parcours DFS ou BFS ?",
+      answers: [
+        "Un tableau de booléens",
+        "Un tas binaire",
+        "Un arbre de Huffman",
+        "Une file de priorité"
+      ],
+      correct: 0,
+      explanation: "Un tableau de booléens `visited` indexé par les sommets permet de vérifier en $O(1)$ si un sommet a déjà été visité."
+    },
+    {
+      question: "L'algorithme de Dijkstra utilise comme structure de données principale :",
+      answers: [
+        "Une pile",
+        "Une file (FIFO)",
+        "Une file de priorité (tas min)",
+        "Un Union-Find"
+      ],
+      correct: 2,
+      explanation: "Dijkstra extrait à chaque étape le sommet de distance minimale grâce à une file de priorité (tas min)."
+    },
+    {
+      question: "L'algorithme de Kruskal utilise comme structure de données principale :",
+      answers: [
+        "Une file de priorité",
+        "Un Union-Find",
+        "Un ABR",
+        "Une pile"
+      ],
+      correct: 1,
+      explanation: "Kruskal utilise Union-Find pour tester si une arête relie deux composantes distinctes (find) et les fusionner (union)."
+    },
+    {
+      question: "L'algorithme BFS utilise comme structure de données principale :",
+      answers: [
+        "Une file (FIFO)"],
+      correct: 0,
+      explanation: "Le BFS utilise une file pour parcourir les sommets par distance croissante à la source."
+    },
+    {
+      question: "L'algorithme DFS utilise comme structure de données principale :",
+      answers: [
+        "Une pile (ou la pile d'appels récursifs)"],
+      correct: 0,
+      explanation: "Le DFS utilise la pile d'appels récursifs (ou une pile explicite en version itérative) pour explorer en profondeur."
+    },
+    {
+      question: "L'algorithme de Huffman utilise comme structure de données principale :",
+      answers: [
+        "Une file de priorité (tas min)"],
+      correct: 0,
+      explanation: "Huffman extrait les deux arbres de fréquences minimales à chaque étape, ce qui nécessite une file de priorité."
+    },
+    {
+      question: "Pour implémenter un dictionnaire, on peut utiliser :",
+      answers: [
+        "Une table de hachage ($O(1)$ en moyenne) ou un ABR équilibré ($O(\\log n)$)",
+        "Un tas binaire",
+        "Une pile",
+        "Un Union-Find"
+      ],
+      correct: 0,
+      explanation: "Les deux implémentations classiques d'un dictionnaire sont la table de hachage (Hashtbl) et l'ABR équilibré (Map)."
+    },
+    {
+      question: "Un arbre binaire presque complet dont chaque nœud est supérieur ou égal à ses fils est :",
+      answers: ["Un ABR", "Un tas max", "Un arbre rouge-noir", "Un arbre de Huffman"],
+      correct: 1,
+      explanation: "C'est la définition d'un tas max : arbre presque complet + propriété de tas (nœud ≥ fils)."
+    },
+    {
+      question: "Le parcours infixe d'un ABR donne :",
+      answers: [
+        "Les éléments dans un ordre aléatoire",
+        "Les éléments triés par ordre croissant",
+        "Les éléments par niveau (largeur)",
+        "Uniquement les feuilles"
+      ],
+      correct: 1,
+      explanation: "La propriété ABR (gauche ≤ racine ≤ droite) implique que le parcours infixe visite les éléments dans l'ordre croissant."
+    },
+    {
+      question: "Dans un tas binaire stocké dans un tableau, les fils du nœud à l'indice $i$ sont aux indices :",
+      answers: ["$i-1$ et $i+1$", "$2i+1$ et $2i+2$", "$i/2$ et $i/2+1$", "$i^2$ et $i^2+1$"],
+      correct: 1,
+      explanation: "Dans un tas stocké dans un tableau (à partir de l'indice 0), les fils de $a[i]$ sont $a[2i+1]$ et $a[2i+2]$. Le père de $a[j]$ est $a[\\lfloor(j-1)/2\\rfloor]$."
+    },
+    {
+      question: "La compression de chemins dans Union-Find consiste à :",
+      answers: [
+        "Trier les éléments de chaque classe",
+        "Rattacher tous les nœuds du chemin directement à la racine lors d'un `find`",
+        "Fusionner les deux plus petites classes",
+        "Doubler la taille du tableau interne"
+      ],
+      correct: 1,
+      explanation: "Lors d'un find, la compression de chemins rattache chaque nœud traversé directement à la racine, aplatissant l'arbre pour les requêtes futures."
+    },
+    {
+      question: "La construction d'un tas à partir d'un tableau de $n$ éléments par la méthode bottom-up (down depuis les nœuds internes) a une complexité de :",
+      answers: ["$O(n \\log n)$", "$O(n^2)$", "$O(n)$", "$O(\\log n)$"],
+      correct: 2,
+      explanation: "La méthode bottom-up applique down sur chaque nœud interne, du dernier au premier. La somme des hauteurs donne $O(n)$."
+    }
   ]}
 />
