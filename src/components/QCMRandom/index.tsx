@@ -91,7 +91,7 @@ export default function QCMRandom({
   const q = questions[order[current]];
   const correctSet = getCorrectSet(q.correct);
   const multi = isMultiple(q.correct);
-  const singleChoice = q.answers.length === 1;
+  const singleChoice = !multi;
 
   const isAnswerCorrect = (sel: Set<number>): boolean => {
     if (sel.size !== correctSet.size) return false;
