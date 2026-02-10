@@ -667,12 +667,16 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
     {
       question: "Quels algorithmes du cours utilisent un tas binaire (file de priorité) ?",
       answers: [
-        "Dijkstra, A*, tri par tas, Huffman",
-        "BFS, Kosaraju, Floyd-Warshall",
-        "Kruskal, Bellman-Ford, DFS",
-        "Peterson, Lamport, KNN"
+        "Dijkstra",
+        "A*",
+        "Tri par tas (heapsort)",
+        "Huffman",
+        "BFS",
+        "Floyd-Warshall",
+        "Kruskal",
+        "KNN"
       ],
-      correct: 0,
+      correct: [0, 1, 2, 3],
       explanation: "Le tas (file de priorité) est utilisé par Dijkstra et A* pour extraire le sommet le plus proche, par le tri par tas (heapsort), et par Huffman pour fusionner les arbres de fréquences minimales."
     },
     {
@@ -726,12 +730,14 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
     {
       question: "Quels algorithmes sont naturellement adaptés à une matrice d'adjacence ?",
       answers: [
-        "Floyd-Warshall, exponentiation de matrice",
-        "BFS, DFS, Dijkstra",
-        "Kruskal, Kosaraju",
-        "KNN, K-moyennes"
+        "Floyd-Warshall",
+        "Exponentiation de matrice ($A^k$)",
+        "BFS",
+        "DFS",
+        "Dijkstra",
+        "Kruskal"
       ],
-      correct: 0,
+      correct: [0, 1],
       explanation: "Floyd-Warshall travaille directement sur une matrice de distances. L'exponentiation de matrice ($A^k$) compte les chemins de longueur $k$."
     },
     {
@@ -743,12 +749,15 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
     {
       question: "Quels algorithmes sont plus efficaces avec des listes d'adjacence qu'avec une matrice d'adjacence ?",
       answers: [
-        "DFS, BFS, Dijkstra, Bellman-Ford, Kosaraju",
-        "Floyd-Warshall, exponentiation de matrice",
-        "K-moyennes, KNN",
-        "Peterson, Lamport"
+        "DFS",
+        "BFS",
+        "Dijkstra",
+        "Bellman-Ford",
+        "Kosaraju",
+        "Floyd-Warshall",
+        "Exponentiation de matrice"
       ],
-      correct: 0,
+      correct: [0, 1, 2, 3, 4],
       explanation: "DFS et BFS sont en $O(n + m)$ avec listes d'adjacence contre $O(n^2)$ avec matrice. Dijkstra, Bellman-Ford et Kosaraju parcourent aussi les voisins."
     },
     {
