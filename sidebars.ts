@@ -19,4 +19,16 @@ sidebars["concurrence"].push({
   label: 'The Deadlock Empire', 
 });
 
+sidebars["revision"].push({
+  type: "link",
+  href: 'https://sql-exercices.github.io/',
+  label: 'Exercices SQL', 
+});
+
+sidebars["revision"].push({
+  type: "link",
+  href: 'https://fortierq.github.io/ocaml-exercices',
+  label: 'Exercices OCaml', 
+});
+
 module.exports = sidebars;
