@@ -1,0 +1,100 @@
+---
+title: "QCM - Jeux à deux joueurs"
+---
+
+import QCM from "@site/src/components/QCM";
+
+<QCM
+  title="QCM - Jeux à deux joueurs et attracteurs"
+  questions={[
+    {
+      question:
+        "Dans la modélisation d'un jeu à deux joueurs, le graphe $G = (S, A)$ est :",
+      answers: [
+        "Un graphe non orienté quelconque",
+        "Un graphe orienté biparti",
+        "Un arbre binaire",
+        "Un graphe complet",
+      ],
+      correct: 1,
+      explanation:
+        "Le graphe est orienté biparti : les sommets sont partitionnés en $S_0$ (positions où le joueur 0 joue) et $S_1$ (positions où le joueur 1 joue), avec des arcs de $S_0$ vers $S_1$ et inversement.",
+    },
+    {
+      question: "Tout graphe orienté acyclique possède :",
+      answers: [
+        "Un cycle",
+        "Un puits",
+        "Un chemin hamiltonien",
+        "Un sommet de degré pair",
+      ],
+      correct: 1,
+      explanation:
+        "Si un graphe acyclique n'avait pas de puits, on pourrait construire un chemin de longueur arbitraire, ce qui impliquerait un cycle par le principe des tiroirs. Contradiction.",
+    },
+    {
+      question: "Une stratégie pour le joueur $i$ est :",
+      answers: [
+        "Un chemin du graphe",
+        "Une fonction",
+        "Un ordre sur les sommets",
+        "Un sous-graphe",
+      ],
+      correct: 1,
+      explanation:
+        "Une stratégie pour le joueur $i$ choisit, pour chaque position non terminale de $S_i$, le sommet successeur vers lequel jouer. C'est une stratégie sans mémoire (le choix ne dépend que de l'état actuel).",
+    },
+    {
+      question:
+        "On note $S_i$ l'ensemble des sommets où le joueur $i$ joue. Dans l'algorithme de calcul des attracteurs, $A_{n}(i)$ contient :",
+      answers: [
+        "Les sommets de $S_i$ ayant au moins un successeur dans $A_n(i)$",
+        "Les sommets de $S_i$ ayant tous les successeurs dans $A_n(i)$",
+        "Les sommets de $S_{1-i} \\setminus T$ dont au moins un successeur est dans $A_n(i)$",
+        "Les sommets de $S_{1-i} \\setminus T$ dont tous les successeurs sont dans $A_n(i)$",
+      ],
+      correct: [1, 4],
+      explanation:
+        "On ajoute les sommets de $S_i$ ayant au moins un successeur dans $A_n(i)$ (le joueur $i$ peut choisir d'y aller) ET les sommets de $S_{1-i} \\setminus T$ dont tous les successeurs sont dans $A_n(i)$ (le joueur $1-i$ ne peut pas éviter $A(i)$).",
+    },
+    {
+      question:
+        "Si un jeu n'a ni état nul ni cycle, que peut-on dire de $A(0)$ et $A(1)$ ?",
+      answers: [
+        "$A(0) = A(1)$",
+        "$A(0) \\cup A(1) = S$",
+        "$A(0) \\cap A(1) = S$",
+        "On ne peut rien dire",
+      ],
+      correct: 1,
+      explanation:
+        "Si pas d'état nul et pas de cycle, alors $A(0) \\cup A(1) = S$ : depuis n'importe quelle position, l'un des deux joueurs a une stratégie gagnante. Cela se montre par l'absurde en construisant un chemin infini, impossible dans un graphe fini acyclique.",
+    },
+    {
+      question:
+        "Quelle est la complexité du calcul des attracteurs sur un graphe $G = (S, A)$ ?",
+      answers: [
+        "$O(|S|)$",
+        "$O(|S| + |A|)$",
+        "$O(|S|^2)$",
+        "$O(|S| \\cdot |A|)$",
+      ],
+      correct: 1,
+      explanation:
+        "Le calcul des attracteurs par mémoïsation parcourt chaque sommet et chaque arc au plus une fois, d'où une complexité en $O(|S| + |A|)$ avec des tables de hachage.",
+    },
+    {
+      question:
+        "<center><img src='/img/qcm_jeux_attracteurs.svg' alt='Graphe de jeu' style='max-width:500px; width:100%; margin: 10px 0;' /></center>\nÀ partir du graphe ci-dessus (avec $s_0 = 0$), quels sommets appartiennent à l'attracteur $A(0)$ ?",
+      answers: [
+        "$\\{0, 2, 4, 5, 7\\}$",
+        "$\\{0, 1, 2, 4, 5, 7\\}$",
+        "$\\{0, 2, 3, 4, 5, 7\\}$",
+        "$\\{2, 4, 5, 7\\}$",
+      ],
+      correct: 0,
+      explanation:
+        "<center><img src='/img/qcm_jeux_attracteurs_cor.svg' alt='Attracteur A(0)' style='max-width:500px; width:100%; margin: 10px 0;' /></center>\nCalcul de $A(0)$ :\n$A_0 = T_0 = \\{7\\}$\n$A_1 = \\{7, 4, 5\\}$ : sommets de $S_0$ avec un successeur dans $A_0$\n$A_2 = \\{7, 4, 5, 2\\}$ : le sommet 2 ($S_1$) a tous ses successeurs (4, 5) dans $A_1$\n$A_3 = \\{7, 4, 5, 2, 0\\}$ : le sommet 0 ($S_0$) a un successeur (2) dans $A_2$",
+    },
+  ]}
+/>

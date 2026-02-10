@@ -20,26 +20,26 @@ import QCM from '@site/src/components/QCM';
       explanation: "Un algorithme d'approximation permet d'obtenir une solution approchée (mais pas optimale) d'un problème d'optimisation NP-difficile en temps polynomial."
     },
     {
-      question: "Pour un problème de minimisation, une 2-approximation garantit que :",
+      question: "Pour un problème de minimisation, une $2$-approximation garantit que :",
       answers: [
-        "La solution est au moins 2 fois meilleure que l'optimale",
-        "La solution est au plus 2 fois plus grande que l'optimale",
-        "La solution est exactement 2 fois l'optimale",
-        "La solution est au plus 1/2 de l'optimale"
+        "La solution est au moins $2$ fois meilleure que l'optimale",
+        "La solution est au plus $2$ fois plus grande que l'optimale",
+        "La solution est exactement $2$ fois l'optimale",
+        "La solution est au plus $1/2$ de l'optimale"
       ],
       correct: 1,
-      explanation: "Pour un problème de minimisation, une α-approximation garantit que la solution trouvée est au plus α fois la solution optimale."
+      explanation: "Pour un problème de minimisation, une $\\alpha$-approximation garantit que la solution trouvée est au plus $\\alpha$ fois la solution optimale."
     },
     {
-      question: "Pour un problème de maximisation, une 0.5-approximation garantit que :",
+      question: "Pour un problème de maximisation, une $0.5$-approximation garantit que :",
       answers: [
         "La solution est au moins la moitié de l'optimale",
         "La solution est au plus la moitié de l'optimale",
         "La solution est exactement la moitié de l'optimale",
-        "La solution est au plus 2 fois l'optimale"
+        "La solution est au plus $2$ fois l'optimale"
       ],
       correct: 0,
-      explanation: "Pour un problème de maximisation, une α-approximation (avec α ≤ 1) garantit que la solution trouvée est au moins α fois la solution optimale."
+      explanation: "Pour un problème de maximisation, une $\\alpha$-approximation (avec $\\alpha \\leq 1$) garantit que la solution trouvée est au moins $\\alpha$ fois la solution optimale."
     },
     {
       question: "Quelle est la différence entre un problème d'optimisation et un problème de décision ?",
@@ -61,18 +61,18 @@ import QCM from '@site/src/components/QCM';
         "Un ensemble de sommets indépendants"
       ],
       correct: 0,
-      explanation: "Une couverture par sommets est un ensemble S' de sommets tel que pour toute arête {u, v}, u ∈ S' ou v ∈ S'."
+      explanation: "Une couverture par sommets est un ensemble $S'$ de sommets tel que pour toute arête $\\{u, v\\}$, $u \\in S'$ ou $v \\in S'$."
     },
     {
       question: "L'algorithme glouton qui ajoute les deux extrémités d'une arête pour COUVERTURE-OPT est une :",
       answers: [
-        "1-approximation",
-        "2-approximation",
-        "3-approximation",
+        "$1$-approximation",
+        "$2$-approximation",
+        "$3$-approximation",
         "Il n'y a pas de garantie d'approximation"
       ],
       correct: 1,
-      explanation: "Cet algorithme est une 2-approximation car les arêtes choisies forment un couplage, et toute couverture doit contenir au moins un sommet par arête du couplage."
+      explanation: "Cet algorithme est une $2$-approximation car les arêtes choisies forment un couplage, et toute couverture doit contenir au moins un sommet par arête du couplage."
     },
     {
       question: "La méthode branch-and-bound est :",
@@ -97,18 +97,18 @@ import QCM from '@site/src/components/QCM';
       explanation: "Un ensemble stable (ou indépendant) est un ensemble de sommets tel qu'aucune paire de sommets n'est reliée par une arête."
     },
     {
-      question: "Le rapport d'approximation α doit être :",
+      question: "Le rapport d'approximation $\\alpha$ doit être :",
       answers: [
         "Une variable dépendant de l'instance",
         "Une constante indépendante de l'instance",
-        "Toujours égal à 2",
-        "Toujours inférieur à 1"
+        "Toujours égal à $2$",
+        "Toujours inférieur à $1$"
       ],
       correct: 1,
-      explanation: "Le rapport d'approximation α doit être une constante qui ne dépend pas de l'instance du problème."
+      explanation: "Le rapport d'approximation $\\alpha$ doit être une constante qui ne dépend pas de l'instance du problème."
     },
     {
-      question: "Si S est un ensemble stable maximal de G, alors S̄ (le complémentaire de S) est :",
+      question: "Si $S$ est un ensemble stable maximal de $G$, alors $\\bar{S}$ (le complémentaire de $S$) est :",
       answers: [
         "Un ensemble stable",
         "Une couverture par sommets",

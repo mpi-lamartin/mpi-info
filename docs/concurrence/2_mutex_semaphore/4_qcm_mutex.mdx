@@ -1,0 +1,163 @@
+---
+title: "QCM - Mutex et sémaphore"
+---
+
+import QCM from "@site/src/components/QCM";
+
+<QCM
+  title="QCM - Mutex et sémaphore"
+  questions={[
+    {
+      question: "Une section critique doit vérifier :",
+      answers: [
+        "L'exclusion mutuelle uniquement",
+        "L'absence de famine uniquement",
+        "L'exclusion mutuelle et l'absence de famine",
+        "Qu'aucun thread ne puisse y accéder",
+      ],
+      correct: 2,
+      explanation:
+        "Une section critique doit vérifier l'exclusion mutuelle (un seul thread à la fois) et l'absence de famine (un thread ne doit pas attendre indéfiniment).",
+    },
+    {
+      question:
+        "Quel est le lien entre l'absence de famine et l'absence d'interblocage ?",
+      answers: [
+        "Ce sont des notions équivalentes",
+        "L'absence de famine implique l'absence d'interblocage, mais pas l'inverse",
+        "L'absence d'interblocage implique l'absence de famine, mais pas l'inverse",
+        "Il n'y a aucun lien",
+      ],
+      correct: 1,
+      explanation:
+        "L'absence de famine implique l'absence d'interblocage : si tout thread finit par entrer en section critique, alors au moins un y parvient. La réciproque est fausse : un algorithme peut éviter l'interblocage tout en favorisant un thread au détriment d'un autre.",
+    },
+    {
+      question: "Quelles sont les opérations d'un mutex ?",
+      answers: [
+        "create, lock, unlock",
+        "init, wait, post",
+        "open, close, destroy",
+        "acquire, release, reset",
+      ],
+      correct: 0,
+      explanation:
+        "Un mutex (mutual exclusion) a trois opérations : create (création), lock (verrouillage) et unlock (déverrouillage).",
+    },
+    {
+      question:
+        "Deux threads verrouillent deux mutex dans un ordre différent ($T_1$ : m1 puis m2 ; $T_2$ : m2 puis m1). Que peut-il se passer ?",
+      answers: [
+        "Aucun problème",
+        "Un interblocage (deadlock) peut se produire",
+        "La famine est garantie",
+        "Un des mutex est ignoré",
+      ],
+      correct: 1,
+      explanation:
+        "Si $T_1$ verrouille m1 et $T_2$ verrouille m2 simultanément, chacun attend le mutex détenu par l'autre : c'est un cycle d'attente (interblocage). La règle est de toujours verrouiller les mutex dans le même ordre.",
+    },
+    {
+      question:
+        "Dans la tentative d'implémentation 1 du mutex (tableau `critic`), quelles propriétés sont vérifiées ?\n```lock(i) :\n  tant que critic[1-i], attendre\n  critic[i] = true\nunlock(i) :\n  critic[i] = false```",
+      answers: [
+        "Exclusion mutuelle et absence de famine",
+        "Exclusion mutuelle seulement",
+        "Absence de famine seulement",
+        "Aucune des deux",
+      ],
+      correct: 2,
+      explanation:
+        "L'absence de famine est vérifiée, mais l'exclusion mutuelle ne l'est pas : les deux threads peuvent sortir du while avant de mettre leur critic[i] à true.",
+    },
+    {
+      question:
+        "Dans la tentative 2 (tableau `want`), quelles propriétés sont vérifiées ?\n```lock(i) :\n  want[i] = true\n  tant que want[1-i], attendre\nunlock(i) :\n  want[i] = false```",
+      answers: [
+        "Exclusion mutuelle et absence de famine",
+        "Exclusion mutuelle seulement",
+        "Absence de famine seulement",
+        "Aucune des deux",
+      ],
+      correct: 1,
+      explanation:
+        "L'exclusion mutuelle est vérifiée, mais l'absence de famine ne l'est pas : si les deux threads exécutent want[i] = true en même temps, ils restent bloqués dans le while indéfiniment.",
+    },
+    {
+      question:
+        "L'algorithme de Peterson garantit :\n```lock(i) :\n  want[i] = true\n  turn = 1 - i\n  tant que turn = 1 - i et want[1-i], attendre\nunlock(i) :\n  want[i] = false```",
+      answers: [
+        "L'exclusion mutuelle seulement",
+        "L'absence de famine seulement",
+        "L'exclusion mutuelle et l'absence de famine",
+        "Aucune des deux propriétés",
+      ],
+      correct: 2,
+      explanation:
+        "L'algorithme de Peterson garantit à la fois l'exclusion mutuelle et l'absence de famine pour deux threads.",
+    },
+    {
+      question:
+        "Dans la tentative 3 (variable `turn`), quelles propriétés sont vérifiées ?\n```lock(i) :\n  tant que turn = 1 - i, attendre\nunlock(i) :\n  turn = 1 - i```",
+      answers: [
+        "Exclusion mutuelle et absence de famine",
+        "Exclusion mutuelle seulement",
+        "Absence de famine seulement",
+        "Aucune des deux",
+      ],
+      correct: 1,
+      explanation:
+        "L'exclusion mutuelle est vérifiée (turn ne peut valoir 0 et 1 en même temps). L'absence de famine ne l'est pas : si le thread 0 n'appelle pas lock, le thread 1 attend indéfiniment.",
+    },
+    {
+      question:
+        "Quelle est la différence clé entre la tentative 4 et l'algorithme de Peterson ?\n```Tentative 4 — lock(i) :\n  want[i] = true\n  turn = i\n  tant que turn = 1 - i et want[1-i], attendre\n\nPeterson — lock(i) :\n  want[i] = true\n  turn = 1 - i\n  tant que turn = 1 - i et want[1-i], attendre```",
+      answers: [
+        "Peterson utilise un tableau want en plus",
+        "Peterson utilise turn = 1 - i (cède la priorité) au lieu de turn = i",
+        "Peterson utilise trois mutex",
+        "Il n'y a pas de différence",
+      ],
+      correct: 1,
+      explanation:
+        "Dans Peterson, chaque thread cède la priorité à l'autre (turn = 1 - i), tandis que dans la tentative 4, chaque thread se donne la priorité (turn = i), ce qui ne résout pas le conflit.",
+    },
+    {
+      question:
+        "L'algorithme de la boulangerie de Lamport généralise Peterson pour :",
+      answers: [
+        "Deux threads avec plus de variables",
+        "Un nombre arbitraire $n$ de threads",
+        "Des programmes distribués sur plusieurs machines",
+        "Des threads sans variables partagées",
+      ],
+      correct: 1,
+      explanation:
+        "L'algorithme de Peterson ne fonctionne que pour deux threads. L'algorithme de Lamport utilise des tableaux want et ticket pour $n$ threads, en donnant la priorité au thread avec le plus petit ticket.",
+    },
+    {
+      question: "Quelles sont les opérations d'un sémaphore ?",
+      answers: [
+        "create, lock, unlock",
+        "init, wait (P), post (V)",
+        "open, close, signal",
+        "acquire, release, notify",
+      ],
+      correct: 1,
+      explanation:
+        "Un sémaphore a trois opérations : init (initialisation du compteur), wait/P (attendre et décrémenter) et post/V (incrémenter et réveiller un thread en attente).",
+    },
+    {
+      question: "Comment implémenter un mutex à l'aide d'un sémaphore ?",
+      answers: [
+        "Sémaphore initialisé à $0$, lock = post, unlock = wait",
+        "Sémaphore initialisé à $1$, lock = wait, unlock = post",
+        "Sémaphore initialisé à $2$, lock = wait, unlock = post",
+        "Ce n'est pas possible",
+      ],
+      correct: 1,
+      explanation:
+        "Un sémaphore initialisé à $1$ fonctionne comme un mutex : wait décrémente à $0$ (verrouillage), post incrémente à $1$ (déverrouillage).",
+    },
+  ]}
+/>

@@ -11,13 +11,13 @@ import QCM from '@site/src/components/QCM';
     {
       question: "Un automate fini non déterministe (AFN) est composé de :",
       answers: [
-        "(Σ, Q, q₀, F, δ) avec δ : Q × Σ → Q",
-        "(Σ, Q, I, F, E) avec E ⊆ Q × Σ × Q",
+        "$(\\Sigma, Q, q_0, F, \\delta)$ avec $\\delta : Q \\times \\Sigma \\to Q$",
+        "$(\\Sigma, Q, I, F, E)$ avec $E \\subseteq Q \\times \\Sigma \\times Q$",
         "Un ensemble de mots",
         "Une expression régulière"
       ],
       correct: 1,
-      explanation: "Un AFN est un 5-uplet (Σ, Q, I, F, E) où Σ est l'alphabet, Q les états, I les états initiaux, F les états finaux, et E les transitions."
+      explanation: "Un AFN est un 5-uplet $(\\Sigma, Q, I, F, E)$ où $\\Sigma$ est l'alphabet, $Q$ les états, $I$ les états initiaux, $F$ les états finaux, et $E$ les transitions."
     },
     {
       question: "Un automate est déterministe si :",
@@ -25,10 +25,10 @@ import QCM from '@site/src/components/QCM';
         "Il a plusieurs états initiaux",
         "Il a un unique état initial et pour chaque état et lettre, au plus une transition",
         "Il reconnaît un langage infini",
-        "Il a des ε-transitions"
+        "Il a des $\\varepsilon$-transitions"
       ],
       correct: 1,
-      explanation: "Un AFD a un unique état initial et sa fonction de transition δ associe à chaque (état, lettre) au plus un état."
+      explanation: "Un AFD a un unique état initial et sa fonction de transition $\\delta$ associe à chaque (état, lettre) au plus un état."
     },
     {
       question: "Un mot est accepté par un automate si :",
@@ -39,18 +39,18 @@ import QCM from '@site/src/components/QCM';
         "Il ne contient que des lettres de l'alphabet"
       ],
       correct: 0,
-      explanation: "Un mot w est accepté s'il existe un chemin dont l'étiquette est w, partant d'un état initial et arrivant dans un état final."
+      explanation: "Un mot $w$ est accepté s'il existe un chemin dont l'étiquette est $w$, partant d'un état initial et arrivant dans un état final."
     },
     {
-      question: "Le langage reconnu par un automate A est :",
+      question: "Le langage reconnu par un automate $A$ est :",
       answers: [
-        "L'ensemble des états de A",
-        "L'ensemble des mots acceptés par A",
-        "L'alphabet de A",
-        "L'ensemble des transitions de A"
+        "L'ensemble des états de $A$",
+        "L'ensemble des mots acceptés par $A$",
+        "L'alphabet de $A$",
+        "L'ensemble des transitions de $A$"
       ],
       correct: 1,
-      explanation: "L(A) est l'ensemble de tous les mots acceptés (reconnus) par l'automate A."
+      explanation: "$L(A)$ est l'ensemble de tous les mots acceptés (reconnus) par l'automate $A$."
     },
     {
       question: "Un automate est complet si :",
@@ -64,15 +64,15 @@ import QCM from '@site/src/components/QCM';
       explanation: "Un automate est complet si depuis chaque état, pour chaque lettre de l'alphabet, il existe au moins une transition."
     },
     {
-      question: "Pour déterminiser un AFN à n états, l'AFD résultant peut avoir au plus :",
+      question: "Pour déterminiser un AFN à $n$ états, l'AFD résultant peut avoir au plus :",
       answers: [
-        "n états",
-        "n² états",
-        "2ⁿ états",
-        "n! états"
+        "$n$ états",
+        "$n^2$ états",
+        "$2^n$ états",
+        "$n!$ états"
       ],
       correct: 2,
-      explanation: "La déterminisation construit un AFD dont les états sont des sous-ensembles des états de l'AFN, soit au plus 2ⁿ états."
+      explanation: "La déterminisation construit un AFD dont les états sont des sous-ensembles des états de l'AFN, soit au plus $2^n$ états."
     },
     {
       question: "L'algorithme de déterminisation utilise :",
@@ -97,15 +97,15 @@ import QCM from '@site/src/components/QCM';
       explanation: "Les langages réguliers sont clos par complémentation : on peut obtenir un automate pour le complémentaire en échangeant états finaux et non finaux (après déterminisation et complétion)."
     },
     {
-      question: "La complexité pour vérifier si un mot de longueur m est accepté par un AFD à n états est :",
+      question: "La complexité pour vérifier si un mot de longueur $m$ est accepté par un AFD à $n$ états est :",
       answers: [
-        "O(n)",
-        "O(m)",
-        "O(nm)",
-        "O(2ⁿ)"
+        "$O(n)$",
+        "$O(m)$",
+        "$O(nm)$",
+        "$O(2^n)$"
       ],
       correct: 1,
-      explanation: "Il suffit de suivre les transitions lettre par lettre, donc O(m) si les transitions sont accessibles en O(1)."
+      explanation: "Il suffit de suivre les transitions lettre par lettre, donc $O(m)$ si les transitions sont accessibles en $O(1)$."
     },
     {
       question: "Un automate minimal est :",

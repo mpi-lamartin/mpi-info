@@ -64,48 +64,48 @@ import QCM from '@site/src/components/QCM';
       explanation: "Le tri rapide avec pivot aléatoire est Las Vegas : il trie toujours correctement le tableau, mais son temps d'exécution dépend des choix aléatoires de pivots."
     },
     {
-      question: "Si X ~ Bernoulli(p), quelle est E[X] ?",
+      question: "Si $X \\sim \\text{Bernoulli}(p)$, quelle est $\\mathbb{E}[X]$ ?",
       answers: [
-        "p²",
-        "1-p",
-        "p",
-        "1/p"
+        "$p^2$",
+        "$1-p$",
+        "$p$",
+        "$1/p$"
       ],
       correct: 2,
-      explanation: "L'espérance d'une loi de Bernoulli de paramètre p est E[X] = 1·p + 0·(1-p) = p."
+      explanation: "L'espérance d'une loi de Bernoulli de paramètre $p$ est $\\mathbb{E}[X] = 1 \\cdot p + 0 \\cdot (1-p) = p$."
     },
     {
-      question: "Pour simuler une loi de Bernoulli de paramètre p avec r() renvoyant un réel uniforme dans [0,1], on utilise :",
+      question: "Pour simuler une loi de Bernoulli de paramètre $p$ avec une fonction $r()$ renvoyant un réel uniforme dans $[0,1]$, on utilise :",
       answers: [
-        "r() < p",
-        "r() > p",
-        "r() = p",
-        "r() / p"
+        "$r() < p$",
+        "$r() > p$",
+        "$r() = p$",
+        "$r() / p$"
       ],
       correct: 0,
-      explanation: "P(r() < p) = p car r() est uniforme sur [0,1], donc la condition r() < p simule une Bernoulli(p)."
+      explanation: "$P(r() < p) = p$ car $r()$ est uniforme sur $[0,1]$, donc la condition $r() < p$ simule une Bernoulli$(p)$."
     },
     {
       question: "L'algorithme bogo_sort (mélanger tant que non trié) a une espérance du nombre d'itérations de :",
       answers: [
-        "O(n)",
-        "O(n log n)",
-        "O(n!)",
-        "O(2^n)"
+        "$O(n)$",
+        "$O(n \\log n)$",
+        "$O(n!)$",
+        "$O(2^n)$"
       ],
       correct: 2,
-      explanation: "La probabilité d'obtenir un tableau trié après un mélange est 1/n!, donc l'espérance du nombre d'itérations est n!."
+      explanation: "La probabilité d'obtenir un tableau trié après un mélange est $1/n!$, donc l'espérance du nombre d'itérations est $n!$."
     },
     {
       question: "L'espérance de la complexité du tri rapide avec pivot aléatoire est :",
       answers: [
-        "O(n)",
-        "O(n log n)",
-        "O(n²)",
-        "O(n!)"
+        "$O(n)$",
+        "$O(n \\log n)$",
+        "$O(n^2)$",
+        "$O(n!)$"
       ],
       correct: 1,
-      explanation: "Avec un pivot aléatoire, l'espérance du nombre de comparaisons du tri rapide est O(n log n)."
+      explanation: "Avec un pivot aléatoire, l'espérance du nombre de comparaisons du tri rapide est $O(n \\log n)$."
     },
     {
       question: "Un générateur pseudo-aléatoire :",
@@ -116,7 +116,7 @@ import QCM from '@site/src/components/QCM';
         "Ne peut pas être utilisé en pratique"
       ],
       correct: 1,
-      explanation: "Un générateur pseudo-aléatoire utilise une suite déterministe u_{n+1} = f(u_n) initialisée par une graine u_0, donnant des nombres qui 'semblent' aléatoires."
+      explanation: "Un générateur pseudo-aléatoire utilise une suite déterministe $u_{n+1} = f(u_n)$ initialisée par une graine $u_0$, donnant des nombres qui 'semblent' aléatoires."
     }
   ]}
 />
