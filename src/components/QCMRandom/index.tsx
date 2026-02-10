@@ -65,17 +65,25 @@ export default function QCMRandom({ questions, title = "QCM Algorithmes" }: QCMR
 
   const q = questions[order[current]];
 
+  const doValidate = (answerIdx: number) => {
+    setValidated(true);
+    const isCorrect = answerIdx === q.correct;
+    setAnsweredCount((c) => c + 1);
+    if (isCorrect) setCorrectCount((c) => c + 1);
+  };
+
   const handleSelect = (idx: number) => {
     if (validated) return;
     setSelected(idx);
+    // Auto-validate when there is only one answer choice
+    if (q.answers.length === 1) {
+      setTimeout(() => doValidate(idx), 300);
+    }
   };
 
   const handleValidate = () => {
     if (selected === null) return;
-    setValidated(true);
-    const isCorrect = selected === q.correct;
-    setAnsweredCount((c) => c + 1);
-    if (isCorrect) setCorrectCount((c) => c + 1);
+    doValidate(selected);
   };
 
   const handleNext = () => {
