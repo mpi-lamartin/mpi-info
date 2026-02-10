@@ -6,13 +6,21 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 interface Question {
   question: string;
   answers: string[];
-  correct: number;
+  correct: number | number[]; // single index or array of indices (0-based)
   explanation?: string;
 }
 
 interface QCMRandomProps {
   questions: Question[];
   title?: string;
+}
+
+function isMultiple(correct: number | number[]): correct is number[] {
+  return Array.isArray(correct);
+}
+
+function getCorrectSet(correct: number | number[]): Set<number> {
+  return new Set(isMultiple(correct) ? correct : [correct]);
 }
 
 function renderMath(text: string, baseUrl: string): string {
@@ -74,33 +82,57 @@ export default function QCMRandom({
     shuffle(questions.map((_, i) => i)),
   );
   const [current, setCurrent] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selectedSet, setSelectedSet] = useState<Set<number>>(new Set());
   const [validated, setValidated] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [answeredCount, setAnsweredCount] = useState(0);
   const [finished, setFinished] = useState(false);
 
   const q = questions[order[current]];
+  const correctSet = getCorrectSet(q.correct);
+  const multi = isMultiple(q.correct);
+  const singleChoice = q.answers.length === 1;
 
-  const doValidate = (answerIdx: number) => {
+  const isAnswerCorrect = (sel: Set<number>): boolean => {
+    if (sel.size !== correctSet.size) return false;
+    let ok = true;
+    correctSet.forEach((idx) => {
+      if (!sel.has(idx)) ok = false;
+    });
+    return ok;
+  };
+
+  const doValidate = (sel: Set<number>) => {
     setValidated(true);
-    const isCorrect = answerIdx === q.correct;
     setAnsweredCount((c) => c + 1);
-    if (isCorrect) setCorrectCount((c) => c + 1);
+    if (isAnswerCorrect(sel)) setCorrectCount((c) => c + 1);
   };
 
   const handleSelect = (idx: number) => {
     if (validated) return;
-    setSelected(idx);
-    // Auto-validate when there is only one answer choice
-    if (q.answers.length === 1) {
-      setTimeout(() => doValidate(idx), 300);
+    if (multi) {
+      // Checkbox toggle
+      const next = new Set(selectedSet);
+      if (next.has(idx)) next.delete(idx);
+      else next.add(idx);
+      setSelectedSet(next);
+    } else {
+      // Radio: single selection
+      setSelectedSet(new Set([idx]));
     }
   };
 
+  // Instant button click for single-choice questions
+  const handleInstantSelect = (idx: number) => {
+    if (validated) return;
+    const sel = new Set([idx]);
+    setSelectedSet(sel);
+    doValidate(sel);
+  };
+
   const handleValidate = () => {
-    if (selected === null) return;
-    doValidate(selected);
+    if (selectedSet.size === 0) return;
+    doValidate(selectedSet);
   };
 
   const handleNext = () => {
@@ -109,14 +141,14 @@ export default function QCMRandom({
       return;
     }
     setCurrent((c) => c + 1);
-    setSelected(null);
+    setSelectedSet(new Set());
     setValidated(false);
   };
 
   const handleRestart = () => {
     setOrder(shuffle(questions.map((_, i) => i)));
     setCurrent(0);
-    setSelected(null);
+    setSelectedSet(new Set());
     setValidated(false);
     setCorrectCount(0);
     setAnsweredCount(0);
@@ -129,7 +161,6 @@ export default function QCMRandom({
   if (finished) {
     return (
       <div className={styles.container}>
-        {/* <h3 className={styles.title}>{title}</h3> */}
         <div className={styles.finalScore}>
           <p>QCM terminé !</p>
           <p className={styles.scoreText}>
@@ -165,37 +196,73 @@ export default function QCMRandom({
       <div className={styles.questionCard}>
         <p className={styles.questionText}>
           <MathText text={q.question} />
+          {multi && (
+            <span className={styles.multiHint}>
+              {" "}
+              (plusieurs réponses possibles)
+            </span>
+          )}
         </p>
         <div className={styles.answers}>
-          {q.answers.map((answer, aIdx) => {
-            let cls = styles.answer;
-            if (validated) {
-              if (aIdx === q.correct)
-                cls = `${styles.answer} ${styles.correct}`;
-              else if (aIdx === selected)
-                cls = `${styles.answer} ${styles.incorrect}`;
-            } else if (aIdx === selected) {
-              cls = `${styles.answer} ${styles.selected}`;
-            }
-            return (
-              <label
-                key={aIdx}
-                className={cls}
-                onClick={() => handleSelect(aIdx)}
-              >
-                <input
-                  type="radio"
-                  name="qcm-random-answer"
-                  checked={selected === aIdx}
-                  onChange={() => handleSelect(aIdx)}
+          {singleChoice ? (
+            // Single-choice: render as instant button
+            q.answers.map((answer, aIdx) => {
+              let cls = styles.answerBtn;
+              if (validated) {
+                cls = correctSet.has(aIdx)
+                  ? `${styles.answerBtn} ${styles.correct}`
+                  : `${styles.answerBtn} ${styles.incorrect}`;
+              }
+              return (
+                <button
+                  key={aIdx}
+                  className={cls}
+                  onClick={() => handleInstantSelect(aIdx)}
                   disabled={validated}
-                />
-                <span className={styles.answerText}>
+                >
                   <MathText text={answer} />
-                </span>
-              </label>
-            );
-          })}
+                </button>
+              );
+            })
+          ) : (
+            // Multiple choices: radio or checkbox
+            q.answers.map((answer, aIdx) => {
+              const isSelected = selectedSet.has(aIdx);
+              const isCorrectAnswer = correctSet.has(aIdx);
+              let cls = styles.answer;
+
+              if (validated) {
+                if (isSelected && isCorrectAnswer) {
+                  cls = `${styles.answer} ${styles.correct}`;
+                } else if (isSelected && !isCorrectAnswer) {
+                  cls = `${styles.answer} ${styles.incorrect}`;
+                } else if (!isSelected && isCorrectAnswer) {
+                  cls = `${styles.answer} ${styles.missed}`;
+                }
+              } else if (isSelected) {
+                cls = `${styles.answer} ${styles.selected}`;
+              }
+
+              return (
+                <label
+                  key={aIdx}
+                  className={cls}
+                  onClick={() => handleSelect(aIdx)}
+                >
+                  <input
+                    type={multi ? "checkbox" : "radio"}
+                    name="qcm-random-answer"
+                    checked={isSelected}
+                    onChange={() => handleSelect(aIdx)}
+                    disabled={validated}
+                  />
+                  <span className={styles.answerText}>
+                    <MathText text={answer} />
+                  </span>
+                </label>
+              );
+            })
+          )}
         </div>
         {validated && q.explanation && (
           <div className={styles.explanation}>
@@ -206,13 +273,15 @@ export default function QCMRandom({
 
       <div className={styles.actions}>
         {!validated ? (
-          <button
-            className={styles.btnPrimary}
-            onClick={handleValidate}
-            disabled={selected === null}
-          >
-            Valider
-          </button>
+          !singleChoice && (
+            <button
+              className={styles.btnPrimary}
+              onClick={handleValidate}
+              disabled={selectedSet.size === 0}
+            >
+              Valider
+            </button>
+          )
         ) : (
           <button className={styles.btnPrimary} onClick={handleNext}>
             {current + 1 >= order.length
