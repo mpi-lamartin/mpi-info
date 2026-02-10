@@ -13,10 +13,12 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
   title="QCM — Algorithmes et Structures de données"
   questions={[
     {
-      question: "Quel algorithme calcule les plus courts chemins depuis un sommet source dans un graphe pondéré à poids positifs, en explorant les sommets par ordre croissant de distance ?",
+      question:
+        "Quel algorithme calcule les plus courts chemins depuis un sommet source dans un graphe pondéré à poids positifs, en explorant les sommets par ordre croissant de distance ?",
       answers: ["Bellman-Ford", "Dijkstra", "Floyd-Warshall", "BFS"],
       correct: 1,
-      explanation: "L'algorithme de Dijkstra explore les sommets par ordre croissant de distance à la source en utilisant une file de priorité."
+      explanation:
+        "L'algorithme de Dijkstra explore les sommets par ordre croissant de distance à la source en utilisant une file de priorité.",
     },
     {
       question: "L'algorithme de Dijkstra permet de :",
@@ -24,16 +26,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Calculer un arbre couvrant de poids minimum",
         "Trouver les composantes fortement connexes",
         "Calculer les plus courts chemins depuis une source dans un graphe à poids positifs",
-        "Trier les arêtes d'un graphe"
+        "Trier les arêtes d'un graphe",
       ],
       correct: 2,
-      explanation: "Dijkstra calcule les plus courts chemins depuis un sommet source dans un graphe pondéré dont les poids sont positifs."
+      explanation:
+        "Dijkstra calcule les plus courts chemins depuis un sommet source dans un graphe pondéré dont les poids sont positifs.",
     },
     {
-      question: "Quel algorithme est une variante de Dijkstra utilisant une heuristique $h(v)$ estimant la distance restante au sommet cible pour explorer en priorité les sommets les plus prometteurs ?",
+      question:
+        "Quel algorithme est une variante de Dijkstra utilisant une heuristique $h(v)$ estimant la distance restante au sommet cible pour explorer en priorité les sommets les plus prometteurs ?",
       answers: ["Bellman-Ford", "Kruskal", "A*", "Floyd-Warshall"],
       correct: 2,
-      explanation: "A* utilise une heuristique pour guider la recherche vers le sommet cible plus efficacement que Dijkstra."
+      explanation:
+        "A* utilise une heuristique pour guider la recherche vers le sommet cible plus efficacement que Dijkstra.",
     },
     {
       question: "L'algorithme A* permet de :",
@@ -41,16 +46,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Trouver le plus court chemin entre deux sommets en utilisant une heuristique",
         "Calculer les composantes connexes d'un graphe",
         "Trouver un arbre couvrant de poids minimum",
-        "Déterminer si un graphe est planaire"
+        "Déterminer si un graphe est planaire",
       ],
       correct: 0,
-      explanation: "A* combine le coût réel du chemin avec une heuristique estimant le coût restant pour guider efficacement la recherche."
+      explanation:
+        "A* combine le coût réel du chemin avec une heuristique estimant le coût restant pour guider efficacement la recherche.",
     },
     {
-      question: "Quel algorithme de programmation dynamique calcule les plus courts chemins depuis une source dans un graphe pouvant contenir des poids négatifs, en relâchant les arêtes $n-1$ fois ?",
+      question:
+        "Quel algorithme de programmation dynamique calcule les plus courts chemins depuis une source dans un graphe pouvant contenir des poids négatifs, en relâchant les arêtes $n-1$ fois ?",
       answers: ["Dijkstra", "Floyd-Warshall", "Bellman-Ford", "Kruskal"],
       correct: 2,
-      explanation: "Bellman-Ford gère les poids négatifs en relâchant toutes les arêtes $n-1$ fois successivement."
+      explanation:
+        "Bellman-Ford gère les poids négatifs en relâchant toutes les arêtes $n-1$ fois successivement.",
     },
     {
       question: "L'algorithme de Bellman-Ford permet de :",
@@ -58,16 +66,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Calculer les distances depuis une source dans un graphe à poids négatifs",
         "Trouver le plus grand couplage d'un graphe",
         "Calculer un arbre couvrant de poids minimum",
-        "Trier un tableau"
+        "Trier un tableau",
       ],
       correct: 0,
-      explanation: "Bellman-Ford peut traiter des graphes avec des poids négatifs, contrairement à Dijkstra."
+      explanation:
+        "Bellman-Ford peut traiter des graphes avec des poids négatifs, contrairement à Dijkstra.",
     },
     {
-      question: "Quel algorithme de programmation dynamique calcule les distances entre toutes les paires de sommets d'un graphe en considérant progressivement chaque sommet comme intermédiaire ?",
+      question:
+        "Quel algorithme de programmation dynamique calcule les distances entre toutes les paires de sommets d'un graphe en considérant progressivement chaque sommet comme intermédiaire ?",
       answers: ["Dijkstra", "Bellman-Ford", "Kosaraju", "Floyd-Warshall"],
       correct: 3,
-      explanation: "Floyd-Warshall considère chaque sommet comme intermédiaire potentiel dans les chemins entre toutes les paires."
+      explanation:
+        "Floyd-Warshall considère chaque sommet comme intermédiaire potentiel dans les chemins entre toutes les paires.",
     },
     {
       question: "L'algorithme de Floyd-Warshall permet de :",
@@ -75,16 +86,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Calculer les plus courts chemins depuis un sommet source",
         "Calculer les distances entre toutes les paires de sommets",
         "Trouver un cycle eulérien",
-        "Détecter les composantes fortement connexes"
+        "Détecter les composantes fortement connexes",
       ],
       correct: 1,
-      explanation: "Floyd-Warshall résout le problème des plus courts chemins entre toutes les paires de sommets en $O(n^3)$."
+      explanation:
+        "Floyd-Warshall résout le problème des plus courts chemins entre toutes les paires de sommets en $O(n^3)$.",
     },
     {
-      question: "Quel algorithme trouve les composantes fortement connexes d'un graphe orienté en effectuant deux parcours en profondeur (un sur le graphe et un sur le graphe transposé) ?",
+      question:
+        "Quel algorithme trouve les composantes fortement connexes d'un graphe orienté en effectuant deux parcours en profondeur (un sur le graphe et un sur le graphe transposé) ?",
       answers: ["Kruskal", "Dijkstra", "Kosaraju", "Prim"],
       correct: 2,
-      explanation: "Kosaraju effectue un premier DFS pour obtenir un ordre de traitement, puis un second DFS sur le graphe transposé."
+      explanation:
+        "Kosaraju effectue un premier DFS pour obtenir un ordre de traitement, puis un second DFS sur le graphe transposé.",
     },
     {
       question: "L'algorithme de Kosaraju permet de :",
@@ -92,16 +106,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Trouver un arbre couvrant de poids minimum",
         "Calculer un couplage maximum",
         "Trouver les composantes fortement connexes d'un graphe orienté",
-        "Calculer les plus courts chemins"
+        "Calculer les plus courts chemins",
       ],
       correct: 2,
-      explanation: "Kosaraju identifie les composantes fortement connexes en utilisant deux parcours DFS."
+      explanation:
+        "Kosaraju identifie les composantes fortement connexes en utilisant deux parcours DFS.",
     },
     {
-      question: "Quel algorithme glouton calcule un arbre couvrant de poids minimum en triant les arêtes par poids croissant et en ajoutant chaque arête qui ne crée pas de cycle ?",
+      question:
+        "Quel algorithme glouton calcule un arbre couvrant de poids minimum en triant les arêtes par poids croissant et en ajoutant chaque arête qui ne crée pas de cycle ?",
       answers: ["Prim", "Dijkstra", "Kruskal", "Bellman-Ford"],
       correct: 2,
-      explanation: "Kruskal trie les arêtes puis les ajoute une par une si elles ne créent pas de cycle, en utilisant Union-Find."
+      explanation:
+        "Kruskal trie les arêtes puis les ajoute une par une si elles ne créent pas de cycle, en utilisant Union-Find.",
     },
     {
       question: "L'algorithme de Kruskal permet de :",
@@ -109,16 +126,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Trouver le plus court chemin entre deux sommets",
         "Calculer un arbre couvrant de poids minimum",
         "Détecter les cycles dans un graphe",
-        "Trier les sommets par degré"
+        "Trier les sommets par degré",
       ],
       correct: 1,
-      explanation: "Kruskal construit un arbre couvrant de poids minimum en ajoutant les arêtes par poids croissant sans créer de cycle."
+      explanation:
+        "Kruskal construit un arbre couvrant de poids minimum en ajoutant les arêtes par poids croissant sans créer de cycle.",
     },
     {
-      question: "Quel algorithme glouton calcule un arbre couvrant de poids minimum en partant d'un sommet et en ajoutant à chaque étape l'arête sortante de l'arbre de poids minimum ?",
+      question:
+        "Quel algorithme glouton calcule un arbre couvrant de poids minimum en partant d'un sommet et en ajoutant à chaque étape l'arête sortante de l'arbre de poids minimum ?",
       answers: ["Kruskal", "Prim", "Dijkstra", "Floyd-Warshall"],
       correct: 1,
-      explanation: "Prim fait grossir l'arbre sommet par sommet en choisissant l'arête de poids minimum connectant l'arbre à un nouveau sommet."
+      explanation:
+        "Prim fait grossir l'arbre sommet par sommet en choisissant l'arête de poids minimum connectant l'arbre à un nouveau sommet.",
     },
     {
       question: "L'algorithme de Prim permet de :",
@@ -126,21 +146,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Calculer un arbre couvrant de poids minimum",
         "Trouver les composantes fortement connexes",
         "Calculer les plus courts chemins depuis une source",
-        "Trouver un couplage parfait"
+        "Trouver un couplage parfait",
       ],
       correct: 0,
-      explanation: "Prim construit un ACM en partant d'un sommet et en ajoutant l'arête de poids minimum vers un sommet non encore dans l'arbre."
+      explanation:
+        "Prim construit un ACM en partant d'un sommet et en ajoutant l'arête de poids minimum vers un sommet non encore dans l'arbre.",
     },
     {
-      question: "Quel algorithme calcule un couplage maximum dans un graphe en cherchant itérativement des chemins augmentants ?",
+      question:
+        "Quel algorithme calcule un couplage maximum dans un graphe en cherchant itérativement des chemins augmentants ?",
       answers: [
         "Kruskal",
         "Algorithme de couplage par chemin augmentant",
         "Kosaraju",
-        "Bellman-Ford"
+        "Bellman-Ford",
       ],
       correct: 1,
-      explanation: "L'algorithme cherche des chemins augmentants et applique la différence symétrique avec le couplage courant pour l'agrandir."
+      explanation:
+        "L'algorithme cherche des chemins augmentants et applique la différence symétrique avec le couplage courant pour l'agrandir.",
     },
     {
       question: "L'algorithme de couplage par chemin augmentant permet de :",
@@ -148,16 +171,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Trouver un cycle hamiltonien",
         "Calculer un couplage maximum dans un graphe",
         "Trouver un arbre couvrant de poids minimum",
-        "Déterminer la connexité d'un graphe"
+        "Déterminer la connexité d'un graphe",
       ],
       correct: 1,
-      explanation: "En cherchant itérativement des chemins augmentants, on construit un couplage de taille maximale."
+      explanation:
+        "En cherchant itérativement des chemins augmentants, on construit un couplage de taille maximale.",
     },
     {
-      question: "Quel parcours de graphe visite les sommets le plus profondément possible avant de revenir en arrière, implémenté récursivement ?",
+      question:
+        "Quel parcours de graphe visite les sommets le plus profondément possible avant de revenir en arrière, implémenté récursivement ?",
       answers: ["BFS", "Dijkstra", "DFS (parcours en profondeur)", "A*"],
       correct: 2,
-      explanation: "Le DFS (Depth-First Search) explore chaque branche aussi loin que possible avant de revenir en arrière."
+      explanation:
+        "Le DFS (Depth-First Search) explore chaque branche aussi loin que possible avant de revenir en arrière.",
     },
     {
       question: "Le parcours DFS (en profondeur) permet de :",
@@ -165,16 +191,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Visiter les sommets par distance croissante à la source",
         "Explorer les sommets le plus profondément possible avant de revenir en arrière",
         "Calculer les plus courts chemins dans un graphe pondéré",
-        "Trier les sommets par degré"
+        "Trier les sommets par degré",
       ],
       correct: 1,
-      explanation: "Le DFS explore récursivement en allant le plus loin possible dans chaque branche."
+      explanation:
+        "Le DFS explore récursivement en allant le plus loin possible dans chaque branche.",
     },
     {
-      question: "Quel parcours de graphe visite les sommets par distance croissante depuis une racine, en utilisant une file ?",
+      question:
+        "Quel parcours de graphe visite les sommets par distance croissante depuis une racine, en utilisant une file ?",
       answers: ["DFS", "BFS (parcours en largeur)", "Dijkstra", "Kosaraju"],
       correct: 1,
-      explanation: "Le BFS (Breadth-First Search) utilise une file pour explorer les sommets couche par couche."
+      explanation:
+        "Le BFS (Breadth-First Search) utilise une file pour explorer les sommets couche par couche.",
     },
     {
       question: "Le parcours BFS (en largeur) permet de :",
@@ -182,16 +211,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Explorer les sommets le plus profondément possible",
         "Calculer un arbre couvrant de poids minimum",
         "Visiter les sommets par distance croissante depuis la source",
-        "Détecter les composantes fortement connexes"
+        "Détecter les composantes fortement connexes",
       ],
       correct: 2,
-      explanation: "Le BFS visite les sommets couche par couche, ce qui donne les distances dans un graphe non pondéré."
+      explanation:
+        "Le BFS visite les sommets couche par couche, ce qui donne les distances dans un graphe non pondéré.",
     },
     {
-      question: "Quel type d'algorithme probabiliste renvoie toujours un résultat correct mais avec un temps d'exécution variable ?",
-      answers: ["Monte-Carlo", "Las Vegas", "Algorithme d'approximation", "Algorithme glouton"],
+      question:
+        "Quel type d'algorithme probabiliste renvoie toujours un résultat correct mais avec un temps d'exécution variable ?",
+      answers: [
+        "Monte-Carlo",
+        "Las Vegas",
+        "Algorithme d'approximation",
+        "Algorithme glouton",
+      ],
       correct: 1,
-      explanation: "Un algorithme de Las Vegas est toujours correct mais son temps d'exécution est aléatoire. Exemple : tri rapide randomisé."
+      explanation:
+        "Un algorithme de Las Vegas est toujours correct mais son temps d'exécution est aléatoire. Exemple : tri rapide randomisé.",
     },
     {
       question: "Un algorithme de Las Vegas est un algorithme qui :",
@@ -199,16 +236,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Peut renvoyer un résultat incorrect mais s'exécute en temps déterministe",
         "Renvoie toujours un résultat correct mais avec un temps d'exécution aléatoire",
         "Garantit un facteur d'approximation constant",
-        "Fonctionne uniquement sur des graphes"
+        "Fonctionne uniquement sur des graphes",
       ],
       correct: 1,
-      explanation: "Las Vegas = toujours correct, temps variable. Exemple : quicksort randomisé."
+      explanation:
+        "Las Vegas = toujours correct, temps variable. Exemple : quicksort randomisé.",
     },
     {
-      question: "Quel type d'algorithme probabiliste peut renvoyer un résultat incorrect mais s'exécute toujours en temps déterministe ?",
+      question:
+        "Quel type d'algorithme probabiliste peut renvoyer un résultat incorrect mais s'exécute toujours en temps déterministe ?",
       answers: ["Las Vegas", "Monte-Carlo", "Backtracking", "Branch and Bound"],
       correct: 1,
-      explanation: "Un algorithme de Monte-Carlo a un temps d'exécution fixe mais peut se tromper. Exemple : test de primalité de Fermat."
+      explanation:
+        "Un algorithme de Monte-Carlo a un temps d'exécution fixe mais peut se tromper. Exemple : test de primalité de Fermat.",
     },
     {
       question: "Un algorithme de Monte-Carlo est un algorithme qui :",
@@ -216,16 +256,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Renvoie toujours un résultat correct en temps aléatoire",
         "Peut renvoyer un résultat incorrect mais avec un temps d'exécution déterministe",
         "Calcule un résultat exact en temps polynomial",
-        "Résout un problème NP-complet en temps polynomial"
+        "Résout un problème NP-complet en temps polynomial",
       ],
       correct: 1,
-      explanation: "Monte-Carlo = temps fixe, résultat potentiellement faux. Exemple : test de Fermat."
+      explanation:
+        "Monte-Carlo = temps fixe, résultat potentiellement faux. Exemple : test de Fermat.",
     },
     {
-      question: "Quel type d'algorithme polynomial garantit une solution dont la valeur est à un facteur $\\alpha$ constant de la solution optimale, pour un problème NP-difficile ?",
-      answers: ["Algorithme de Las Vegas", "Algorithme glouton", "Algorithme d'approximation", "Algorithme de Monte-Carlo"],
+      question:
+        "Quel type d'algorithme polynomial garantit une solution dont la valeur est à un facteur $\\alpha$ constant de la solution optimale, pour un problème NP-difficile ?",
+      answers: [
+        "Algorithme de Las Vegas",
+        "Algorithme glouton",
+        "Algorithme d'approximation",
+        "Algorithme de Monte-Carlo",
+      ],
       correct: 2,
-      explanation: "Un algorithme d'approximation est polynomial et garantit que sa solution est au plus $\\alpha$ fois pire que l'optimal."
+      explanation:
+        "Un algorithme d'approximation est polynomial et garantit que sa solution est au plus $\\alpha$ fois pire que l'optimal.",
     },
     {
       question: "Un algorithme d'approximation permet de :",
@@ -233,16 +281,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Résoudre exactement un problème NP-difficile",
         "Obtenir une solution polynomiale à facteur garanti de l'optimum pour un problème NP-difficile",
         "Trouver la solution optimale en temps exponentiel",
-        "Vérifier si un problème est NP-complet"
+        "Vérifier si un problème est NP-complet",
       ],
       correct: 1,
-      explanation: "Les algorithmes d'approximation fournissent une solution avec un ratio de performance garanti en temps polynomial."
+      explanation:
+        "Les algorithmes d'approximation fournissent une solution avec un ratio de performance garanti en temps polynomial.",
     },
     {
-      question: "Quel algorithme explore un arbre de jeu en utilisant une heuristique pour estimer la valeur des configurations, dans les jeux à deux joueurs ?",
+      question:
+        "Quel algorithme explore un arbre de jeu en utilisant une heuristique pour estimer la valeur des configurations, dans les jeux à deux joueurs ?",
       answers: ["K-moyennes", "Dijkstra", "Min-Max", "Kosaraju"],
       correct: 2,
-      explanation: "Min-Max évalue les positions de jeu en alternant maximisation (joueur) et minimisation (adversaire)."
+      explanation:
+        "Min-Max évalue les positions de jeu en alternant maximisation (joueur) et minimisation (adversaire).",
     },
     {
       question: "L'algorithme Min-Max permet de :",
@@ -250,16 +301,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Trouver le plus court chemin dans un graphe",
         "Jouer de manière optimale dans un jeu à deux joueurs à information complète",
         "Classifier des données par apprentissage",
-        "Compresser un fichier"
+        "Compresser un fichier",
       ],
       correct: 1,
-      explanation: "Min-Max explore l'arbre de jeu en alternant min et max pour déterminer le meilleur coup."
+      explanation:
+        "Min-Max explore l'arbre de jeu en alternant min et max pour déterminer le meilleur coup.",
     },
     {
-      question: "Quel algorithme de classification supervisée prédit la classe d'une donnée à partir des $k$ données les plus proches dans l'ensemble d'entraînement ?",
-      answers: ["K-moyennes", "ID3", "K plus proches voisins (KNN)", "Classification hiérarchique"],
+      question:
+        "Quel algorithme de classification supervisée prédit la classe d'une donnée à partir des $k$ données les plus proches dans l'ensemble d'entraînement ?",
+      answers: [
+        "K-moyennes",
+        "ID3",
+        "K plus proches voisins (KNN)",
+        "Classification hiérarchique",
+      ],
       correct: 2,
-      explanation: "KNN classe une donnée en trouvant les k plus proches voisins et en renvoyant la classe majoritaire."
+      explanation:
+        "KNN classe une donnée en trouvant les k plus proches voisins et en renvoyant la classe majoritaire.",
     },
     {
       question: "L'algorithme des K plus proches voisins (KNN) permet de :",
@@ -267,16 +326,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Partitionner des données en k groupes sans supervision",
         "Prédire la classe d'une donnée en cherchant ses k voisins les plus proches",
         "Construire un arbre de décision",
-        "Calculer un couplage maximum"
+        "Calculer un couplage maximum",
       ],
       correct: 1,
-      explanation: "KNN est un algorithme supervisé : il utilise les classes connues des voisins pour prédire celle de la nouvelle donnée."
+      explanation:
+        "KNN est un algorithme supervisé : il utilise les classes connues des voisins pour prédire celle de la nouvelle donnée.",
     },
     {
-      question: "Quel algorithme de classification non supervisée partitionne des données en $k$ groupes en recalculant itérativement les centres des classes ?",
+      question:
+        "Quel algorithme de classification non supervisée partitionne des données en $k$ groupes en recalculant itérativement les centres des classes ?",
       answers: ["KNN", "K-moyennes (K-means)", "ID3", "Min-Max"],
       correct: 1,
-      explanation: "K-means attribue chaque donnée au centre le plus proche puis recalcule les centres, jusqu'à convergence."
+      explanation:
+        "K-means attribue chaque donnée au centre le plus proche puis recalcule les centres, jusqu'à convergence.",
     },
     {
       question: "L'algorithme des K-moyennes (K-means) permet de :",
@@ -284,21 +346,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Classifier une donnée en utilisant ses voisins les plus proches",
         "Partitionner des données en k groupes en minimisant la variance intra-classe",
         "Construire un arbre de décision",
-        "Calculer les composantes connexes d'un graphe"
+        "Calculer les composantes connexes d'un graphe",
       ],
       correct: 1,
-      explanation: "K-means est un algorithme non supervisé qui partitionne les données en minimisant la distance aux centres des classes."
+      explanation:
+        "K-means est un algorithme non supervisé qui partitionne les données en minimisant la distance aux centres des classes.",
     },
     {
-      question: "Quel algorithme de classification non supervisée fusionne itérativement les deux classes les plus proches, en partant d'une classe par donnée ?",
+      question:
+        "Quel algorithme de classification non supervisée fusionne itérativement les deux classes les plus proches, en partant d'une classe par donnée ?",
       answers: [
         "K-moyennes",
         "KNN",
         "Classification hiérarchique ascendante (CHA)",
-        "ID3"
+        "ID3",
       ],
       correct: 2,
-      explanation: "La CHA construit une hiérarchie de classes en fusionnant les plus proches à chaque étape."
+      explanation:
+        "La CHA construit une hiérarchie de classes en fusionnant les plus proches à chaque étape.",
     },
     {
       question: "La classification hiérarchique ascendante (CHA) permet de :",
@@ -306,16 +371,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Prédire la classe d'une donnée par ses voisins",
         "Fusionner itérativement les classes les plus proches pour former une hiérarchie",
         "Construire un arbre de décision par gain d'information",
-        "Résoudre un problème de plus court chemin"
+        "Résoudre un problème de plus court chemin",
       ],
       correct: 1,
-      explanation: "La CHA part de n classes (une par donnée) et fusionne les deux plus proches à chaque étape."
+      explanation:
+        "La CHA part de n classes (une par donnée) et fusionne les deux plus proches à chaque étape.",
     },
     {
-      question: "Quel algorithme de classification supervisée construit un arbre de décision en choisissant à chaque nœud l'attribut maximisant le gain d'information ?",
+      question:
+        "Quel algorithme de classification supervisée construit un arbre de décision en choisissant à chaque nœud l'attribut maximisant le gain d'information ?",
       answers: ["KNN", "K-moyennes", "Min-Max", "ID3"],
       correct: 3,
-      explanation: "ID3 construit un arbre de décision de manière gloutonne en maximisant le gain d'entropie à chaque nœud."
+      explanation:
+        "ID3 construit un arbre de décision de manière gloutonne en maximisant le gain d'entropie à chaque nœud.",
     },
     {
       question: "L'algorithme ID3 permet de :",
@@ -323,16 +391,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Partitionner des données en k groupes",
         "Construire un arbre de décision par maximisation du gain d'information",
         "Classifier une donnée par ses k plus proches voisins",
-        "Explorer un arbre de jeu"
+        "Explorer un arbre de jeu",
       ],
       correct: 1,
-      explanation: "ID3 choisit à chaque nœud l'attribut qui réduit le plus l'entropie pour construire un arbre de décision."
+      explanation:
+        "ID3 choisit à chaque nœud l'attribut qui réduit le plus l'entropie pour construire un arbre de décision.",
     },
     {
-      question: "Quel algorithme construit un automate (de Glushkov) reconnaissant le langage d'une expression régulière en linéarisant l'expression ?",
-      answers: ["Déterminisation", "Berry-Sethi (Glushkov)", "Kleene", "Floyd-Warshall"],
+      question:
+        "Quel algorithme construit un automate (de Glushkov) reconnaissant le langage d'une expression régulière en linéarisant l'expression ?",
+      answers: [
+        "Déterminisation",
+        "Berry-Sethi (Glushkov)",
+        "Kleene",
+        "Floyd-Warshall",
+      ],
       correct: 1,
-      explanation: "Berry-Sethi (ou Glushkov) linéarise l'expression régulière et construit un automate local reconnaissant le même langage."
+      explanation:
+        "Berry-Sethi (ou Glushkov) linéarise l'expression régulière et construit un automate local reconnaissant le même langage.",
     },
     {
       question: "L'algorithme de Berry-Sethi (Glushkov) permet de :",
@@ -340,38 +416,45 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Déterminiser un automate non déterministe",
         "Construire un automate reconnaissant le langage d'une expression régulière",
         "Minimiser un automate déterministe",
-        "Calculer le complément d'un langage"
+        "Calculer le complément d'un langage",
       ],
       correct: 1,
-      explanation: "Berry-Sethi construit un automate à partir d'une expression régulière en passant par la linéarisation."
+      explanation:
+        "Berry-Sethi construit un automate à partir d'une expression régulière en passant par la linéarisation.",
     },
     {
-      question: "Quel algorithme transforme un automate non déterministe en automate déterministe équivalent par construction des parties ?",
+      question:
+        "Quel algorithme transforme un automate non déterministe en automate déterministe équivalent par construction des parties ?",
       answers: [
         "Berry-Sethi",
         "Algorithme de déterminisation (construction par sous-ensembles)",
         "Kleene",
-        "Kosaraju"
+        "Kosaraju",
       ],
       correct: 1,
-      explanation: "La déterminisation construit l'automate des parties : chaque état de l'automate déterministe est un sous-ensemble d'états de l'AFN."
+      explanation:
+        "La déterminisation construit l'automate des parties : chaque état de l'automate déterministe est un sous-ensemble d'états de l'AFN.",
     },
     {
-      question: "L'algorithme de déterminisation (construction par sous-ensembles) permet de :",
+      question:
+        "L'algorithme de déterminisation (construction par sous-ensembles) permet de :",
       answers: [
         "Construire une expression régulière à partir d'un automate",
         "Transformer un automate non déterministe en automate déterministe équivalent",
         "Trouver le plus court mot reconnu par un automate",
-        "Vérifier si un langage est régulier"
+        "Vérifier si un langage est régulier",
       ],
       correct: 1,
-      explanation: "La construction par sous-ensembles produit un AFD dont chaque état correspond à un ensemble d'états de l'AFN."
+      explanation:
+        "La construction par sous-ensembles produit un AFD dont chaque état correspond à un ensemble d'états de l'AFN.",
     },
     {
-      question: "Quel algorithme d'exclusion mutuelle pour deux threads utilise un tableau `want` et une variable `turn` ?",
+      question:
+        "Quel algorithme d'exclusion mutuelle pour deux threads utilise un tableau `want` et une variable `turn` ?",
       answers: ["Lamport", "Dekker", "Peterson", "Dijkstra"],
       correct: 2,
-      explanation: "Peterson utilise deux variables want (indiquant le souhait d'entrer en section critique) et turn (cédant la priorité)."
+      explanation:
+        "Peterson utilise deux variables want (indiquant le souhait d'entrer en section critique) et turn (cédant la priorité).",
     },
     {
       question: "L'algorithme de Peterson permet de :",
@@ -379,16 +462,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Trouver le plus court chemin dans un graphe",
         "Assurer l'exclusion mutuelle entre deux threads",
         "Trier un tableau en parallèle",
-        "Détecter les interblocages"
+        "Détecter les interblocages",
       ],
       correct: 1,
-      explanation: "Peterson garantit l'exclusion mutuelle et l'absence de famine pour deux processus concurrents."
+      explanation:
+        "Peterson garantit l'exclusion mutuelle et l'absence de famine pour deux processus concurrents.",
     },
     {
-      question: "Quel algorithme d'exclusion mutuelle généralisé à $n$ threads utilise un système de tickets de priorité ?",
+      question:
+        "Quel algorithme d'exclusion mutuelle généralisé à $n$ threads utilise un système de tickets de priorité ?",
       answers: ["Peterson", "Dekker", "Boulangerie de Lamport", "Min-Max"],
       correct: 2,
-      explanation: "La boulangerie de Lamport : chaque thread prend un ticket et attend que tous les threads de ticket inférieur aient fini."
+      explanation:
+        "La boulangerie de Lamport : chaque thread prend un ticket et attend que tous les threads de ticket inférieur aient fini.",
     },
     {
       question: "L'algorithme de la boulangerie de Lamport permet de :",
@@ -396,16 +482,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Assurer l'exclusion mutuelle entre n threads grâce à un système de tickets",
         "Calculer les composantes connexes en parallèle",
         "Optimiser l'ordonnancement des processus",
-        "Classifier des données par apprentissage"
+        "Classifier des données par apprentissage",
       ],
       correct: 0,
-      explanation: "Lamport généralise l'exclusion mutuelle à n processus avec un mécanisme de prise de ticket."
+      explanation:
+        "Lamport généralise l'exclusion mutuelle à n processus avec un mécanisme de prise de ticket.",
     },
     {
-      question: "Quelle méthode algorithmique résout un problème en combinant une équation de récurrence avec le stockage des résultats intermédiaires pour éviter les recalculs ?",
-      answers: ["Backtracking", "Algorithme glouton", "Programmation dynamique", "Diviser pour régner"],
+      question:
+        "Quelle méthode algorithmique résout un problème en combinant une équation de récurrence avec le stockage des résultats intermédiaires pour éviter les recalculs ?",
+      answers: [
+        "Backtracking",
+        "Algorithme glouton",
+        "Programmation dynamique",
+        "Diviser pour régner",
+      ],
       correct: 2,
-      explanation: "La programmation dynamique mémorise les sous-problèmes déjà résolus pour éviter de les recalculer."
+      explanation:
+        "La programmation dynamique mémorise les sous-problèmes déjà résolus pour éviter de les recalculer.",
     },
     {
       question: "La programmation dynamique consiste à :",
@@ -413,16 +507,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Explorer toutes les solutions et revenir en arrière",
         "Choisir localement le meilleur choix à chaque étape",
         "Combiner récurrence et stockage des résultats intermédiaires pour éviter les recalculs",
-        "Diviser le problème en sous-problèmes indépendants"
+        "Diviser le problème en sous-problèmes indépendants",
       ],
       correct: 2,
-      explanation: "La programmation dynamique utilise une relation de récurrence et du stockage (mémoïsation ou tableau) pour éviter les calculs redondants."
+      explanation:
+        "La programmation dynamique utilise une relation de récurrence et du stockage (mémoïsation ou tableau) pour éviter les calculs redondants.",
     },
     {
-      question: "Quel algorithme glouton de compression construit un arbre binaire optimal où les lettres fréquentes ont un code court ?",
+      question:
+        "Quel algorithme glouton de compression construit un arbre binaire optimal où les lettres fréquentes ont un code court ?",
       answers: ["LZW", "Rabin-Karp", "Huffman", "Boyer-Moore-Horspool"],
       correct: 2,
-      explanation: "Huffman construit un arbre de codage préfixe optimal en fusionnant les deux symboles les moins fréquents à chaque étape."
+      explanation:
+        "Huffman construit un arbre de codage préfixe optimal en fusionnant les deux symboles les moins fréquents à chaque étape.",
     },
     {
       question: "L'algorithme de Huffman permet de :",
@@ -430,16 +527,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Rechercher un motif dans un texte",
         "Compresser des données en construisant un code préfixe optimal basé sur les fréquences",
         "Trier un texte par ordre alphabétique",
-        "Calculer la distance d'édition entre deux mots"
+        "Calculer la distance d'édition entre deux mots",
       ],
       correct: 1,
-      explanation: "Huffman produit un codage sans perte où les caractères fréquents ont un code court."
+      explanation:
+        "Huffman produit un codage sans perte où les caractères fréquents ont un code court.",
     },
     {
-      question: "Quel algorithme de compression en ligne construit un dictionnaire de motifs au fur et à mesure de la lecture du texte ?",
-      answers: ["Huffman", "Rabin-Karp", "Boyer-Moore-Horspool", "LZW (Lempel-Ziv-Welch)"],
+      question:
+        "Quel algorithme de compression en ligne construit un dictionnaire de motifs au fur et à mesure de la lecture du texte ?",
+      answers: [
+        "Huffman",
+        "Rabin-Karp",
+        "Boyer-Moore-Horspool",
+        "LZW (Lempel-Ziv-Welch)",
+      ],
       correct: 3,
-      explanation: "LZW construit dynamiquement un dictionnaire et remplace les motifs déjà vus par des codes plus courts."
+      explanation:
+        "LZW construit dynamiquement un dictionnaire et remplace les motifs déjà vus par des codes plus courts.",
     },
     {
       question: "L'algorithme LZW (Lempel-Ziv-Welch) permet de :",
@@ -447,16 +552,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Construire un arbre de Huffman",
         "Compresser un texte en construisant un dictionnaire de motifs au fur et à mesure",
         "Rechercher un motif dans un texte",
-        "Coder un texte en base 64"
+        "Coder un texte en base 64",
       ],
       correct: 1,
-      explanation: "LZW est un algorithme de compression en ligne : il enrichit le dictionnaire à chaque caractère lu."
+      explanation:
+        "LZW est un algorithme de compression en ligne : il enrichit le dictionnaire à chaque caractère lu.",
     },
     {
-      question: "Quel algorithme de recherche de motif dans un texte utilise une fonction de hachage glissante (rolling hash) ?",
+      question:
+        "Quel algorithme de recherche de motif dans un texte utilise une fonction de hachage glissante (rolling hash) ?",
       answers: ["Boyer-Moore-Horspool", "Huffman", "Rabin-Karp", "LZW"],
       correct: 2,
-      explanation: "Rabin-Karp utilise un hash glissant pour comparer le motif à chaque fenêtre du texte en $O(n)$ en moyenne."
+      explanation:
+        "Rabin-Karp utilise un hash glissant pour comparer le motif à chaque fenêtre du texte en $O(n)$ en moyenne.",
     },
     {
       question: "L'algorithme de Rabin-Karp permet de :",
@@ -464,16 +572,19 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Compresser un texte",
         "Rechercher un motif dans un texte en utilisant une fonction de hachage glissante",
         "Trier un tableau de chaînes",
-        "Construire un automate à partir d'un motif"
+        "Construire un automate à partir d'un motif",
       ],
       correct: 1,
-      explanation: "Rabin-Karp compare le hash du motif avec le hash de chaque fenêtre du texte, recalculé en $O(1)$."
+      explanation:
+        "Rabin-Karp compare le hash du motif avec le hash de chaque fenêtre du texte, recalculé en $O(1)$.",
     },
     {
-      question: "Quel algorithme de recherche de motif compare les caractères de droite à gauche et utilise une table de décalage précalculée ?",
+      question:
+        "Quel algorithme de recherche de motif compare les caractères de droite à gauche et utilise une table de décalage précalculée ?",
       answers: ["Rabin-Karp", "Boyer-Moore-Horspool", "Huffman", "KMP"],
       correct: 1,
-      explanation: "Boyer-Moore-Horspool compare de droite à gauche et saute des positions grâce à une table de décalage."
+      explanation:
+        "Boyer-Moore-Horspool compare de droite à gauche et saute des positions grâce à une table de décalage.",
     },
     {
       question: "L'algorithme de Boyer-Moore-Horspool permet de :",
@@ -481,16 +592,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Compresser un texte par dictionnaire",
         "Rechercher un motif dans un texte en comparant de droite à gauche avec des sauts optimisés",
         "Construire un arbre de suffixes",
-        "Calculer la distance de Levenshtein"
+        "Calculer la distance de Levenshtein",
       ],
       correct: 1,
-      explanation: "Boyer-Moore-Horspool est efficace en pratique grâce aux sauts lors des non-correspondances."
+      explanation:
+        "Boyer-Moore-Horspool est efficace en pratique grâce aux sauts lors des non-correspondances.",
     },
     {
-      question: "Quelle méthode algorithmique explore récursivement les solutions possibles et revient en arrière dès qu'une branche ne peut mener à une solution valide ?",
-      answers: ["Programmation dynamique", "Algorithme glouton", "Backtracking (retour sur trace)", "Algorithme d'approximation"],
+      question:
+        "Quelle méthode algorithmique explore récursivement les solutions possibles et revient en arrière dès qu'une branche ne peut mener à une solution valide ?",
+      answers: [
+        "Programmation dynamique",
+        "Algorithme glouton",
+        "Backtracking (retour sur trace)",
+        "Algorithme d'approximation",
+      ],
       correct: 2,
-      explanation: "Le backtracking explore l'arbre des solutions et élague les branches invalides pour réduire l'espace de recherche."
+      explanation:
+        "Le backtracking explore l'arbre des solutions et élague les branches invalides pour réduire l'espace de recherche.",
     },
     {
       question: "Le backtracking (retour sur trace) consiste à :",
@@ -498,16 +617,24 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Choisir localement le meilleur choix",
         "Explorer récursivement les solutions et revenir en arrière si une branche est invalide",
         "Mémoriser les résultats intermédiaires",
-        "Diviser le problème en deux sous-problèmes"
+        "Diviser le problème en deux sous-problèmes",
       ],
       correct: 1,
-      explanation: "Le backtracking est une exploration systématique avec élagage des branches sans issue."
+      explanation:
+        "Le backtracking est une exploration systématique avec élagage des branches sans issue.",
     },
     {
-      question: "Quel algorithme résout le problème SAT par backtracking sur une formule en FNC, en affectant successivement chaque variable ?",
-      answers: ["Kosaraju", "Min-Max", "Quine (DPLL simplifié)", "Floyd-Warshall"],
+      question:
+        "Quel algorithme résout le problème SAT par backtracking sur une formule en FNC, en affectant successivement chaque variable ?",
+      answers: [
+        "Kosaraju",
+        "Min-Max",
+        "Quine (DPLL simplifié)",
+        "Floyd-Warshall",
+      ],
       correct: 2,
-      explanation: "L'algorithme de Quine affecte chaque variable à vrai ou faux et simplifie les clauses à chaque étape par backtracking."
+      explanation:
+        "L'algorithme de Quine affecte chaque variable à vrai ou faux et simplifie les clauses à chaque étape par backtracking.",
     },
     {
       question: "L'élagage alpha-bêta est une optimisation de Min-Max qui :",
@@ -515,7 +642,7 @@ Les questions sont posées une par une dans un ordre aléatoire. Pour chaque que
         "Explore tous les nœuds de l'arbre de jeu",
         "Coupe les branches qui ne peuvent pas influencer le résultat final",
         "Utilise une heuristique pour évaluer les feuilles",
-        "Calcule le couplage dans un graphe biparti"
+        "Calcule le couplage dans un graphe biparti",
       ],
       correct: 1,
       explanation: "Alpha-bêta élague les branches inutiles de l'arbre de jeu en maintenant des bornes $\\alpha$ et $\\beta$."
