@@ -1,50 +1,50 @@
 {
-	"name": "MPI Info - Docusaurus",
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:18-bookworm",
-	"features": {
-		"ghcr.io/devcontainers/features/git:1": {},
-		"ghcr.io/devcontainers/features/github-cli:1": {}
-	},
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"dbaeumer.vscode-eslint",
-				"esbenp.prettier-vscode",
-				"YoavBZ.pretty-ts-errors",
-				"bradlc.vscode-tailwindcss",
-				"unifiedjs.vscode-mdx",
-				"ban.spellright",
-				"ms-vscode.makefile-tools"
-			],
-			"settings": {
-				"editor.defaultFormatter": "esbenp.prettier-vscode",
-				"editor.formatOnSave": true,
-				"editor.codeActionsOnSave": {
-					"source.fixAll.eslint": "explicit"
-				},
-				"typescript.tsdk": "node_modules/typescript/lib",
-				"typescript.enablePromptUseWorkspaceTsdk": true
-			}
-		}
-	},
-	"forwardPorts": [3000, 3001],
-	"portsAttributes": {
-		"3000": {
-			"label": "Docusaurus Dev Server",
-			"onAutoForward": "notify"
-		},
-		"3001": {
-			"label": "Alternative Port",
-			"onAutoForward": "notify"
-		}
-	},
-	"mounts": [
-		"source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached"
-	],
-	"postCreateCommand": "git config --global credential.helper store && npm install && npm run typecheck",
-	"remoteUser": "node",
-	"remoteEnv": {
-		"NODE_ENV": "development"
-	}
+  "name": "MPI Info - Docusaurus",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:22-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "YoavBZ.pretty-ts-errors",
+        "bradlc.vscode-tailwindcss",
+        "unifiedjs.vscode-mdx",
+        "ban.spellright",
+        "ms-vscode.makefile-tools"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "typescript.enablePromptUseWorkspaceTsdk": true
+      }
+    }
+  },
+  "forwardPorts": [3000, 3001],
+  "portsAttributes": {
+    "3000": {
+      "label": "Docusaurus Dev Server",
+      "onAutoForward": "notify"
+    },
+    "3001": {
+      "label": "Alternative Port",
+      "onAutoForward": "notify"
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "git config --global credential.helper store && npm install && npm run typecheck",
+  "remoteUser": "node",
+  "remoteEnv": {
+    "NODE_ENV": "development"
+  }
 }
