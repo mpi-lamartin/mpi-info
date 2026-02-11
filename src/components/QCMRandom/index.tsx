@@ -203,65 +203,36 @@ export default function QCMRandom({
           )}
         </p>
         <div className={styles.answers}>
-          {singleChoice ? (
-            // Single-choice: render as instant button
-            q.answers.map((answer, aIdx) => {
-              let cls = styles.answerBtn;
-              if (validated) {
-                cls = correctSet.has(aIdx)
-                  ? `${styles.answerBtn} ${styles.correct}`
-                  : `${styles.answerBtn} ${styles.incorrect}`;
-              }
-              return (
-                <button
-                  key={aIdx}
-                  className={cls}
-                  onClick={() => handleInstantSelect(aIdx)}
-                  disabled={validated}
-                >
-                  <MathText text={answer} />
-                </button>
-              );
-            })
-          ) : (
-            // Multiple choices: radio or checkbox
-            q.answers.map((answer, aIdx) => {
-              const isSelected = selectedSet.has(aIdx);
-              const isCorrectAnswer = correctSet.has(aIdx);
-              let cls = styles.answer;
+          {q.answers.map((answer, aIdx) => {
+            const isSelected = selectedSet.has(aIdx);
+            const isCorrectAnswer = correctSet.has(aIdx);
+            let cls = styles.answerBtn;
 
-              if (validated) {
-                if (isSelected && isCorrectAnswer) {
-                  cls = `${styles.answer} ${styles.correct}`;
-                } else if (isSelected && !isCorrectAnswer) {
-                  cls = `${styles.answer} ${styles.incorrect}`;
-                } else if (!isSelected && isCorrectAnswer) {
-                  cls = `${styles.answer} ${styles.missed}`;
-                }
+            if (validated) {
+              if (isCorrectAnswer) {
+                cls = `${styles.answerBtn} ${styles.correct}`;
               } else if (isSelected) {
-                cls = `${styles.answer} ${styles.selected}`;
+                cls = `${styles.answerBtn} ${styles.incorrect}`;
               }
+            } else if (isSelected) {
+              cls = `${styles.answerBtn} ${styles.selected}`;
+            }
 
-              return (
-                <label
-                  key={aIdx}
-                  className={cls}
-                  onClick={() => handleSelect(aIdx)}
-                >
-                  <input
-                    type={multi ? "checkbox" : "radio"}
-                    name="qcm-random-answer"
-                    checked={isSelected}
-                    onChange={() => handleSelect(aIdx)}
-                    disabled={validated}
-                  />
-                  <span className={styles.answerText}>
-                    <MathText text={answer} />
-                  </span>
-                </label>
-              );
-            })
-          )}
+            return (
+              <button
+                key={aIdx}
+                className={cls}
+                onClick={() =>
+                  singleChoice
+                    ? handleInstantSelect(aIdx)
+                    : handleSelect(aIdx)
+                }
+                disabled={validated}
+              >
+                <MathText text={answer} />
+              </button>
+            );
+          })}
         </div>
         {validated && q.explanation && (
           <div className={styles.explanation}>
