@@ -283,12 +283,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question:
         "Quel est le nombre d'arêtes d'un graphe complet non-orienté à $n$ sommets ?",
-      answers: [
-        "$n!$",
-        "$n^2$",
-        "n - 1",
-        "$\\frac{n(n-1)}{2}$",
-      ],
+      answers: ["$n!$", "$n^2$", "n - 1", "$\\frac{n(n-1)}{2}$"],
       correct: 3,
       explanation:
         "Un graphe complet non orienté à $n$ sommets a une arête entre chaque paire de sommets, soit $\\binom{n}{2} = \\frac{n(n-1)}{2}$ arêtes.",
@@ -361,7 +356,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       correct: 1,
       explanation:
         "Boyer-Moore-Horspool compare de droite à gauche et saute des positions grâce à une table de décalage.",
-    }, 
+    },
     {
       question:
         "Quel algorithme résout le problème SAT par backtracking en affectant les variables et en simplifiant les clauses à chaque étape ?",
@@ -430,132 +425,85 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Le tas (file de priorité) est utilisé par Dijkstra et A* pour extraire le sommet le plus proche, par le tri par tas (heapsort), et par Huffman pour fusionner les arbres de fréquences minimales.",
     },
     {
-      question:
-        "Quelles sont des applications possibles d'Union-Find ?",
-      answers: ["Gestion de classes d'équivalence", "Prim", "Kruskal", "Tester la connexité d'un graphe"],
+      question: "Quelles sont des applications possibles d'Union-Find ?",
+      answers: [
+        "Gestion de classes d'équivalence",
+        "Prim",
+        "Kruskal",
+        "Tester la connexité d'un graphe",
+      ],
       correct: 2,
       explanation:
         "Union-Find stocke une partition dans un tableau de pères. Il est utilisé par Kruskal pour vérifier si une arête relie deux composantes distinctes (find) et pour les fusionner (union). On peut aussi l'utiliser pour gérer des classes d'équivalence ou tester la connexité d'un graphe en vérifiant que tous les sommets sont dans la même classe.",
     },
     {
-      question:
-        "Le lemme de l'étoile :",
-      answers: ["Permet de choisir la décomposition $u = xyz$", "S'applique aux langages hors-contextes", "Permet de prouver qu'un langage n'est pas régulier", "Permet de prouver qu'un langage est régulier"],
+      question: "Le lemme de l'étoile :",
+      answers: [
+        "Permet de choisir la décomposition $u = xyz$",
+        "S'applique aux langages hors-contextes",
+        "Permet de prouver qu'un langage n'est pas régulier",
+        "Permet de prouver qu'un langage est régulier",
+      ],
       correct: 2,
       explanation:
         "Le lemme de l'étoile est utilisé par l'absurde pour prouver qu'un langage n'est pas régulier. La réciproque est fausse donc on ne peut pas prouver qu'un langage est régulier avec ce lemme. Il est faux pour les langages hors-contextes généraux, qui ont un lemme de l'étoile différent (avec $u = vwx$ et $|vx| > 0$).",
     },
     {
       question: "Tout automate est équivalent à :",
-      answers: ["Une expression régulière", "Un automate déterministe", "Un automate émondé (dont tous les états sont accessibles et co-accessibles)", "Un automate local", "Un automate sans $\\epsilon$-transition"],
-      correct: [0, 1, 2],
-      explanation:
-        "Tout automate est équivalent à une expression régulière par le théorème de Kleene. Tout automate est équivalent à un automate déterministe par déterminisation. Tout automate est équivalent à un automate émondé en supprimant les états inaccessibles ou non co-accessibles. Seuls les langages locaux sont reconnus par des automates locaux. Un automate sans $\\epsilon$-transition est plus restreint que les automates généraux, mais il est équivalent à un automate déterministe.",
-    },
-    {
-      question: "L'algorithme d'élimination des états :",
-      answers: ["Une expression régulière", "Un automate déterministe", "Un automate émondé (dont tous les états sont accessibles et co-accessibles)", "Un automate local"],
-      correct: [0, 1, 2],
+      answers: [
+        "Une expression régulière",
+        "Un automate déterministe",
+        "Un automate émondé (dont tous les états sont accessibles et co-accessibles)",
+        "Un automate local",
+        "Un automate sans $\\epsilon$-transition",
+      ],
+      correct: [0, 1, 2, 4],
       explanation:
         "Tout automate est équivalent à une expression régulière par le théorème de Kleene. Tout automate est équivalent à un automate déterministe par déterminisation. Tout automate est équivalent à un automate émondé en supprimant les états inaccessibles ou non co-accessibles. Seuls les langages locaux sont reconnus par des automates locaux.",
     },
     {
-      question:
-        "Quel algorithme du cours utilise une pile (ou la pile d'appels récursifs) ?",
+      question: "L'algorithme d'élimination des états :",
       answers: [
-        "DFS (parcours en profondeur)",
-        "BFS (parcours en largeur)",
-        "Dijkstra",
-        "Kruskal",
+        "Permet d'obtenir un automate minimal",
+        "Permet d'obtenir une expression régulière",
+        "Permet d'obtenir un automate émondé (dont tous les états sont accessibles et co-accessibles)",
+        "Permet d'obtenir un automate local",
+      ],
+      correct: 1,
+      explanation:
+        "L'algorithme d'élimination des états permet de transformer un automate en une expression régulière équivalente en éliminant les états un par un et en mettant à jour les transitions avec des expressions régulières.",
+    },
+    {
+      question:
+        "Quelle est la structure de donnée utilisée dans le cours pour représenter un tas ?",
+      answers: [
+        "Tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`",
+        "Tableau `T` où `T[i]` est le père de `i`",
+        "Type OCaml `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+        "Dictionnaire associant à chaque sommet la liste de ses fils",
       ],
       correct: 0,
       explanation:
-        "Le DFS utilise la pile d'appels récursifs, ou une pile explicite dans sa version itérative.",
+        "Un tas binaire est un arbre binaire presque complet, qui peut être représenté par un tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`. Le père de `T[j]` est `T[⌊(j-1)/2⌋]`.\\n Remarque : on peut aussi définir un tas persistant (skew heap).",
     },
     {
       question:
-        "Quelle structure de données de type FIFO (premier entré, premier sorti) supporte l'ajout et l'extraction en $O(1)$ amorti ?",
-      answers: ["Pile", "File", "Tas", "ABR"],
+        "Quelle est la structure de donnée utilisée pour représenter un Union-Find ?",
+      answers: [
+        "Tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`",
+        "Tableau `T` où `T[i]` est le père de `i`",
+        "Type OCaml `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+        "Dictionnaire associant à chaque sommet la liste de ses fils",
+      ],
       correct: 1,
       explanation:
-        "La file (queue) est FIFO. Implémentable avec deux listes : ajout dans l'une, extraction dans l'autre, renversement si nécessaire.",
+        "Union-Find est représenté par un tableau `T` où `T[i]` est le père de `i`. Les éléments d'une même classe d'équivalence forment un arbre dont la racine est un représentant de la classe.",
     },
     {
-      question: "Quel algorithme du cours utilise une file ?",
-      answers: [
-        "BFS (parcours en largeur)",
-        "DFS (parcours en profondeur)",
-        "Dijkstra",
-        "Bellman-Ford",
-      ],
+      question: "Quel est le nombre d'arêtes d'un arbre à $n$ sommets ?",
+      answers: ["$n-1$", "$n$", "$2n-1$", "$2n$"],
       correct: 0,
-      explanation:
-        "Le BFS utilise une file pour traiter les sommets par distance croissante à la source.",
-    },
-    {
-      question:
-        "Quelle structure de données représente un graphe avec un espace $O(n^2)$, un test d'adjacence en $O(1)$ mais un parcours des voisins en $O(n)$ ?",
-      answers: [
-        "Liste d'adjacence",
-        "Matrice d'adjacence",
-        "Dictionnaire d'adjacence",
-        "Table de hachage",
-      ],
-      correct: 1,
-      explanation:
-        "La matrice d'adjacence utilise un tableau $n \\times n$. Elle est adaptée aux graphes denses.",
-    },
-    {
-      question:
-        "Quelle structure de données représente un graphe avec un espace $O(n + m)$ et un parcours des voisins de $u$ en $O(\\deg(u))$ ?",
-      answers: [
-        "Matrice d'adjacence",
-        "Liste d'adjacence",
-        "Tas binaire",
-        "Union-Find",
-      ],
-      correct: 1,
-      explanation:
-        "La liste d'adjacence stocke pour chaque sommet la liste de ses voisins. Elle est adaptée aux graphes creux.",
-    },
-    {
-      question:
-        "Quelle structure de données est un arbre binaire tel que pour chaque nœud $r$, toutes les étiquettes du sous-arbre gauche sont $\\leq r$ et toutes celles du sous-arbre droit sont $\\geq r$ ?",
-      answers: [
-        "Tas binaire",
-        "Arbre binaire de recherche (ABR)",
-        "Arbre de Huffman",
-        "Arbre rouge-noir",
-      ],
-      correct: 1,
-      explanation:
-        "L'ABR est défini par cette propriété héréditaire. Son parcours infixe donne les éléments triés.",
-    },
-    {
-      question:
-        "L'arbre binaire de recherche (ABR) supporte les opérations suivantes :",
-      answers: [
-        "recherche, ajout, suppression en $O(h)$ (hauteur de l'arbre)",
-        "extraction du max en $O(1)$, ajout en $O(\\log n)$",
-        "push, pop en $O(1)$",
-        "find, union en $O(\\alpha(n))$",
-      ],
-      correct: 0,
-      explanation:
-        "Toutes les opérations d'un ABR parcourent une branche, donc en $O(h)$. Si l'arbre est équilibré, $h = O(\\log n)$.",
-    },
-    {
-      question:
-        "Quelle variante d'ABR garantit une hauteur $h = O(\\log n)$ grâce à un coloriage rouge/noir des nœuds ?",
-      answers: [
-        "Treap",
-        "Arbre de Huffman",
-        "Arbre rouge-noir (ARN)",
-        "Tas binaire",
-      ],
-      correct: 2,
-      explanation:
-        "L'arbre rouge-noir impose des règles de coloration qui garantissent $h \\leq 2 \\log_2(n+1)$. Il est utilisé dans les modules Set et Map d'OCaml.",
+      explanation: "Un arbre à $n$ sommets a toujours $n-1$ arêtes.",
     },
     {
       question:
@@ -569,51 +517,23 @@ import QCMRandom from "@site/src/components/QCMRandom";
       question: "L'arbre de Huffman garantit que :",
       answers: [
         "Toutes les lettres ont un code de même longueur",
-        "Les lettres fréquentes ont un code court et c'est une compression préfixe optimal",
+        "Les lettres fréquentes ont un code court et c'est une compression préfixe optimale",
         "L'arbre est équilibré",
         "Le décodage nécessite la table de codage complète",
       ],
-      correct: 2,
+      correct: 1,
       explanation:
         "Le codage de Huffman est un codage préfixe (aucun code n'est préfixe d'un autre) qui minimise la longueur moyenne.",
     },
     {
-      question: "Le module `Hashtbl` d'OCaml implémente :",
-      answers: [
-        "Un arbre binaire de recherche",
-        "Une table de hachage",
-        "Un tas binaire",
-        "Un arbre rouge-noir",
-      ],
-      correct: 1,
-      explanation:
-        "Hashtbl implémente une table de hachage avec chaînage pour résoudre les collisions.",
-    },
-    {
-      question:
-        "L'algorithme de Kruskal utilise comme structure de données principale :",
-      answers: ["Une file de priorité", "Un Union-Find", "Un ABR", "Une pile"],
-      correct: 1,
-      explanation:
-        "Kruskal utilise Union-Find pour tester si une arête relie deux composantes distinctes (find) et les fusionner (union).",
-    },
-    {
-      question:
-        "L'algorithme BFS utilise comme structure de données principale :",
-      answers: ["Une file (FIFO)"],
-      correct: 0,
-      explanation:
-        "Le BFS utilise une file pour parcourir les sommets par distance croissante à la source.",
-    },
-    {
       question: "Pour implémenter un dictionnaire, on peut utiliser :",
       answers: [
-        "Une table de hachage ABR équilibré ($O(\\log n)$)",
+        "Un arbre binaire de recherche",
         "Un tas binaire",
-        "Une pile",
+        "Une table de hachage",
         "Un Union-Find",
       ],
-      correct: 0,
+      correct: [0, 2],
       explanation:
         "Les deux implémentations classiques d'un dictionnaire sont la table de hachage (Hashtbl) et l'ABR équilibré (Map).",
     },
@@ -621,26 +541,14 @@ import QCMRandom from "@site/src/components/QCMRandom";
       question:
         "Un arbre binaire presque complet dont chaque nœud est supérieur ou égal à ses fils est :",
       answers: [
-        "Un ABR",
+        "Un arbre binaire de recherche",
         "Un tas max",
-        "Un arbre rouge-noir",
+        "Un arbre min-max",
         "Un arbre de Huffman",
       ],
       correct: 1,
       explanation:
         "C'est la définition d'un tas max : arbre presque complet + propriété de tas (nœud ≥ fils).",
-    },
-    {
-      question: "Le parcours infixe d'un ABR donne :",
-      answers: [
-        "Les éléments dans un ordre aléatoire",
-        "Les éléments triés par ordre croissant",
-        "Les éléments par niveau (largeur)",
-        "Uniquement les feuilles",
-      ],
-      correct: 1,
-      explanation:
-        "La propriété ABR (gauche ≤ racine ≤ droite) implique que le parcours infixe visite les éléments dans l'ordre croissant.",
     },
     {
       question:
@@ -669,12 +577,22 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "La construction d'un tas à partir d'un tableau de $n$ éléments par la méthode bottom-up (down depuis les nœuds internes) a une complexité de :",
-      answers: ["$O(n \\log n)$", "$O(n^2)$", "$O(n)$", "$O(\\log n)$"],
-      correct: 2,
-      explanation:
-        "La méthode bottom-up applique down sur chaque nœud interne, du dernier au premier. La somme des hauteurs donne $O(n)$.",
+        "Dans un arbre binaire strict (chaque nœud a soit 0 soit 2 fils) avec $f$ feuilles et $n_i$ nœuds internes (non feuilles) :",
+      answers: ["$f = n_i$", "$f = n_i + 1$", "$f = 2n_i$", "$f = 2n_i + 1$"],
+      correct: 1,
+      explanation: "Par induction structurelle.",
     },
-
-]}
+    {
+      question: "Dans un arbre binaire de hauteur $h$ et à $n$ nœuds :",
+      answers: [
+        "$n \\leq 2^h - 1$",
+        "$n \\leq 2^{h+1} - 1$",
+        "$n \\geq h$",
+        "$n \\geq h + 1$",
+      ],
+      correct: [1, 3],
+      explanation:
+        "Il y a entre $1$ et $2^p$ nœuds à la profondeur $p$, qu'on peut sommer.",
+    },
+  ]}
 />
