@@ -63,7 +63,9 @@
   padding: 0.6rem 0.75rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
   border: 1px solid transparent;
 }
 
@@ -135,7 +137,9 @@
   padding: 0.6rem 0.75rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
   border: 1px solid var(--ifm-color-emphasis-300);
   background-color: var(--ifm-background-color);
   font-size: 1rem;
@@ -150,6 +154,18 @@
 
 .answerBtn:disabled {
   cursor: default;
+}
+
+.answerBtn.correct {
+  background-color: #d4edda;
+  border-color: #28a745;
+  color: #155724;
+}
+
+.answerBtn.incorrect {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
 }
 
 .explanation {
