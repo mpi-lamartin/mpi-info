@@ -9,19 +9,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
 <QCMRandom
   title="QCM Révisions"
   questions={[
-    {
-      question:
-        "<center><img src='/img/qcm_minmax_alphabeta.svg' alt='Arbre α-β' style='max-width:600px; width:100%; margin: 10px 0;' /></center>\nEn appliquant l'élagage $\\alpha$-$\\beta$ sur l'arbre ci-dessus (parcours de gauche à droite), quelle est la valeur de la racine et quelles feuilles sont élaguées ?",
-      answers: [
-        "Valeur 7, feuilles 2, 9 et 6 élaguées",
-        "Valeur 8, feuille 2 élaguée",
-        "Valeur 7, feuille 2 élaguée uniquement",
-        "Valeur 5, feuilles 9 et 6 élaguées",
-      ],
-      correct: 0,
-      explanation:
-        "<img src='/img/qcm_minmax_alphabeta_cor.svg' alt='Correction α-β' style='max-width:600px; width:100%; margin: 10px 0;' />\nParcours de gauche à droite :\n• Max LL = max(3, 7) = 7\n• Min L reçoit 7, pose $\\beta = 7$\n• Max LR évalue 8 : $8 \\geq \\beta = 7$ → $\\beta$-coupure, feuille 2 élaguée\n• Min L = min(7, 8) = 7. Racine pose $\\alpha = 7$\n• Max RL = max(1, 5) = 5. Min R reçoit 5, $\\beta = 5$. Or $\\alpha = 7 \\geq \\beta = 5$ → $\\alpha$-coupure, sous-arbre RR (feuilles 9, 6) élagué\n• Racine = max(7, 5) = $\\boxed{7}$",
-    },
+
     {
       question:
         "Quel algorithme calcule les plus courts chemins depuis un sommet source dans un graphe pondéré à poids positifs, en explorant les sommets par ordre croissant de distance ?",
@@ -61,7 +49,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Trouver un plus court chemin entre deux sommets en utilisant une heuristique",
         "Calculer les composantes connexes d'un graphe",
         "Trouver un arbre couvrant de poids minimum",
-        "partitionner des données en classes",
+        "Partitionner des données en classes",
       ],
       correct: 0,
       explanation:
@@ -70,7 +58,12 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question:
         "Lesquels de ces algorithmes utilisent la programmation dynamique (ou mémoïsation) ?",
-      answers: ["Dijkstra", "Calcul des attracteurs", "Quine", "Floyd-Warshall"],
+      answers: [
+        "Boyer-Moore",
+        "Calcul des attracteurs",
+        "Quine",
+        "Floyd-Warshall",
+      ],
       correct: [1, 3],
       explanation:
         "Dans le calcul des attracteurs, pour éviter de calculer plusieurs fois le même sommet. Dans Floyd-Warshall, avec une équation de récurrence.",
@@ -81,7 +74,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Utilise une récurrence sur le nombre de sommets utilisable dans un plus court chemin",
         "Utilise une récurrence sur la longueur d'un plus court chemin",
         "Est en O($n^3$)",
-        "Est en O($n\log(n)$)"
+        "Est en O($n\log(n)$)",
       ],
       correct: [0, 2],
       explanation:
@@ -108,23 +101,19 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Kosaraju identifie les composantes fortement connexes en utilisant deux parcours en profondeur.",
     },
     {
-      question:
-        "Quel algorithme utilise la structure d'Union-Find ?",
+      question: "Quel algorithme utilise la structure d'Union-Find ?",
       answers: ["Prim", "Dijkstra", "Kruskal", "Kosaraju"],
       correct: 2,
       explanation:
         "Kruskal trie les arêtes puis les ajoute une par une si elles ne créent pas de cycle, en utilisant Union-Find.",
     },
     {
-      question: "La complexité de l'algorithme de Kruskal avec Union-Find sur un graphe à $n$ sommets et $p$ arêtes est :",
-      answers: [
-        "$O(np)$",
-        "$O(p \\log p)$",
-        "$O(np \\log p)$",
-        "$O(n + p)$"
-      ],
+      question:
+        "La complexité de l'algorithme de Kruskal avec Union-Find sur un graphe à $n$ sommets et $p$ arêtes est :",
+      answers: ["$O(np)$", "$O(p \\log p)$", "$O(np \\log p)$", "$O(n + p)$"],
       correct: 1,
-      explanation: "Le tri des arêtes coûte $O(p \\log p)$ ($= O(p \\log n)$). Les opérations Union-Find ont une complexité amortie quasi-constante grâce à l'union par rang et la compression de chemins."
+      explanation:
+        "Le tri des arêtes coûte $O(p \\log p)$ ($= O(p \\log n)$). Les opérations Union-Find ont une complexité amortie quasi-constante grâce à l'union par rang et la compression de chemins.",
     },
     {
       question: "Quel algorithme utilise des chemins augmentants ?",
@@ -139,11 +128,12 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "L'algorithme cherche des chemins augmentants et applique la différence symétrique avec le couplage courant pour l'agrandir.",
     },
     {
-      question: "Un couplage $M$ dans un graphe $G = (S, A)$ est maximum si et seulement si :",
+      question:
+        "Un couplage $M$ dans un graphe $G = (S, A)$ est maximum si et seulement si :",
       answers: [
         "Il n'y a pas de chemin alternant pour $M$",
         "Il n'y a pas de chemin augmentant pour $M$",
-        "$\forall e\in A$, $M\cup\{e\}$ n'est pas un couplage",
+        "$\\forall e\\in A$, $M\\cup\\{e\\}$ n'est pas un couplage",
         "Tous les sommets de $G$ sont couverts par $M$",
       ],
       correct: 1,
@@ -161,11 +151,10 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: 0,
       explanation:
-        "Le parcours en largeur visite les sommets par distance croissante (en nombre d'arêtes) depuis un sommet de départ."
+        "Le parcours en largeur visite les sommets par distance croissante (en nombre d'arêtes) depuis un sommet de départ.",
     },
     {
-      question:
-        "Quels algorithmes utilisent une file ?",
+      question: "Quels algorithmes utilisent une file ?",
       answers: [
         "Parcours en profondeur",
         "Parcours en largeur",
@@ -191,12 +180,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question:
         "Quel type d'algorithme probabiliste renvoie toujours un résultat correct mais avec un temps d'exécution variable ?",
-      answers: [
-        "Monaco",
-        "Monte-Carlo",
-        "Las Vegas",
-        "Los Angeles"
-      ],
+      answers: ["Monaco", "Monte-Carlo", "Las Vegas", "Los Angeles"],
       correct: 2,
       explanation:
         "Un algorithme de Las Vegas est toujours correct mais son temps d'exécution est aléatoire. Exemple : tri rapide randomisé.",
@@ -216,14 +200,18 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question:
         "Quels algorithmes permettent d'explorer seulement une partie du graphe des configurations ?",
-      answers: ["Calcul des attracteurs", "Branch-and-bound", "Alpha-beta", "Quine"],
+      answers: [
+        "Calcul des attracteurs",
+        "Branch-and-bound",
+        "Alpha-beta",
+        "Quine",
+      ],
       correct: [1, 2, 3],
       explanation:
-        "Le calcul des attracteurs est optimal mais explore toutes les configurations. Branch-and-bound coupe les branches dont l'heuristique est moins bonne que la meilleure solution trouvée. Alpha-beta coupe les branches en dehors de l'intervalle $\alpha \leq \beta$". Quine s'implifie la formule pour éviter de parcourir toutes les valuations.
+        "Le calcul des attracteurs est optimal mais explore toutes les configurations. Branch-and-bound coupe les branches dont l'heuristique est moins bonne que la meilleure solution trouvée. Alpha-beta coupe les branches en dehors de l'intervalle $\alpha \leq \beta$. Quine s'implifie la formule pour éviter de parcourir toutes les valuations.",
     },
     {
-      question:
-        "Quels sont les algorithmes de classification supervisée ?",
+      question: "Quels sont les algorithmes de classification supervisée ?",
       answers: [
         "$k$-moyennes",
         "ID3",
@@ -294,24 +282,14 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question:
         "Quel algorithme construit un automate reconnaissant le langage d'une expression régulière en linéarisant l'expression ?",
-      answers: [
-        "Automate produit",
-        "Berry-Sethi",
-        "Kleene",
-        "Thompson",
-      ],
+      answers: ["Automate produit", "Berry-Sethi", "Kleene", "Thompson"],
       correct: 1,
       explanation:
         "Berry-Sethi linéarise l'expression régulière et construit un automate local reconnaissant le même langage.",
     },
     {
       question: "Les langages réguliers sont stables par :",
-      answers: [
-        "Complémentaire",
-        "Différence",
-        "Intersection",
-        "Inclusion",
-      ],
+      answers: ["Complémentaire", "Différence", "Intersection", "Inclusion"],
       correct: [0, 1, 2],
       explanation:
         "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux. Différence et intersection : automate produit. Inclusion : faux car tout langage contient $\emptyset$ et est inclus dans $\Sigma^*$.",
@@ -330,92 +308,46 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "Quel algorithme transforme un automate non déterministe en automate déterministe équivalent par construction des parties ?",
+        "Quel est le nombre d'arêtes d'un graphe complet non-orienté à $n$ sommets ?",
       answers: [
-        "Berry-Sethi",
-        "Algorithme de déterminisation (construction par sous-ensembles)",
-        "Kleene",
-        "Kosaraju",
+        "$n!$",
+        "$n^2$",
+        "n - 1",
+        "$\\frac{n(n-1)}{2}$",
       ],
-      correct: 1,
+      correct: 3,
       explanation:
-        "La déterminisation construit l'automate des parties : chaque état de l'automate déterministe est un sous-ensemble d'états de l'AFN.",
-    },
-    {
-      question:
-        "L'algorithme de déterminisation (construction par sous-ensembles) permet de :",
-      answers: [
-        "Construire une expression régulière à partir d'un automate",
-        "Transformer un automate non déterministe en automate déterministe équivalent",
-        "Trouver le plus court mot reconnu par un automate",
-        "Vérifier si un langage est régulier",
-      ],
-      correct: 1,
-      explanation:
-        "La construction par sous-ensembles produit un AFD dont chaque état correspond à un ensemble d'états de l'AFN.",
+        "Un graphe complet non orienté à $n$ sommets a une arête entre chaque paire de sommets, soit $\\binom{n}{2} = \\frac{n(n-1)}{2}$ arêtes.",
     },
     {
       question:
         "Quel algorithme d'exclusion mutuelle pour deux threads utilise un tableau `want` et une variable `turn` ?",
-      answers: ["Lamport", "Dekker", "Peterson", "Dijkstra"],
+      answers: ["Boulangerie de Lamport", "Dekker", "Peterson", "Dijkstra"],
       correct: 2,
       explanation:
         "Peterson utilise deux variables want (indiquant le souhait d'entrer en section critique) et turn (cédant la priorité).",
     },
     {
-      question: "L'algorithme de Peterson permet de :",
+      question: "L'algorithme de la boulangerie de Lamport :",
       answers: [
-        "Trouver le plus court chemin dans un graphe",
-        "Assurer l'exclusion mutuelle entre deux threads",
-        "Trier un tableau en parallèle",
-        "Détecter les interblocages",
+        "Implémente un mutex pour $n$ threads",
+        "Implémente un sémaphore pour $n$ threads",
+        "Utilise un tableau `want` et une variable `turn`",
+        "Utilise un système de tickets pour gérer l'accès à la section critique",
       ],
-      correct: 1,
+      correct: [0, 3],
       explanation:
-        "Peterson garantit l'exclusion mutuelle et l'absence de famine pour deux processus concurrents.",
+        "Lamport généralise l'exclusion mutuelle à $n$ threads avec un mécanisme de prise de ticket.",
     },
     {
-      question:
-        "Quel algorithme d'exclusion mutuelle généralisé à $n$ threads utilise un système de tickets de priorité ?",
-      answers: ["Peterson", "Dekker", "Boulangerie de Lamport", "Min-Max"],
-      correct: 2,
-      explanation:
-        "La boulangerie de Lamport : chaque thread prend un ticket et attend que tous les threads de ticket inférieur aient fini.",
-    },
-    {
-      question: "L'algorithme de la boulangerie de Lamport permet de :",
+      question: "La programmation dynamique :",
       answers: [
-        "Assurer l'exclusion mutuelle entre n threads grâce à un système de tickets",
-        "Calculer les composantes connexes en parallèle",
-        "Optimiser l'ordonnancement des processus",
-        "Classifier des données par apprentissage",
-      ],
-      correct: 0,
-      explanation:
-        "Lamport généralise l'exclusion mutuelle à n processus avec un mécanisme de prise de ticket.",
-    },
-    {
-      question:
-        "Quelle méthode algorithmique résout un problème en combinant une équation de récurrence avec le stockage des résultats intermédiaires pour éviter les recalculs ?",
-      answers: [
-        "Backtracking",
-        "Algorithme glouton",
-        "Programmation dynamique",
-        "Diviser pour régner",
-      ],
-      correct: 2,
-      explanation:
-        "La programmation dynamique mémorise les sous-problèmes déjà résolus pour éviter de les recalculer.",
-    },
-    {
-      question: "La programmation dynamique consiste à :",
-      answers: [
-        "Explorer toutes les solutions et revenir en arrière",
-        "Choisir localement le meilleur choix à chaque étape",
-        "Combiner récurrence et stockage des résultats intermédiaires pour éviter les recalculs",
         "Diviser le problème en sous-problèmes indépendants",
+        "Choisit localement le meilleur choix à chaque étape",
+        "Utilise une relation de récurrence",
+        "Stocke les résultats intermédiaires",
       ],
-      correct: 2,
+      correct: [2, 3],
       explanation:
         "La programmation dynamique utilise une relation de récurrence et du stockage (mémoïsation ou tableau) pour éviter les calculs redondants.",
     },
@@ -426,18 +358,6 @@ import QCMRandom from "@site/src/components/QCMRandom";
       correct: 2,
       explanation:
         "Huffman construit un arbre de codage préfixe optimal en fusionnant les deux symboles les moins fréquents à chaque étape.",
-    },
-    {
-      question: "L'algorithme de Huffman permet de :",
-      answers: [
-        "Rechercher un motif dans un texte",
-        "Compresser des données en construisant un code préfixe optimal basé sur les fréquences",
-        "Trier un texte par ordre alphabétique",
-        "Calculer la distance d'édition entre deux mots",
-      ],
-      correct: 1,
-      explanation:
-        "Huffman produit un codage sans perte où les caractères fréquents ont un code court.",
     },
     {
       question:
@@ -453,18 +373,6 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "LZW construit dynamiquement un dictionnaire et remplace les motifs déjà vus par des codes plus courts.",
     },
     {
-      question: "L'algorithme LZW (Lempel-Ziv-Welch) permet de :",
-      answers: [
-        "Construire un arbre de Huffman",
-        "Compresser un texte en construisant un dictionnaire de motifs au fur et à mesure",
-        "Rechercher un motif dans un texte",
-        "Coder un texte en base 64",
-      ],
-      correct: 1,
-      explanation:
-        "LZW est un algorithme de compression en ligne : il enrichit le dictionnaire à chaque caractère lu.",
-    },
-    {
       question:
         "Quel algorithme de recherche de motif dans un texte utilise une fonction de hachage glissante (rolling hash) ?",
       answers: ["Boyer-Moore-Horspool", "Huffman", "Rabin-Karp", "LZW"],
@@ -473,62 +381,13 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Rabin-Karp utilise un hash glissant pour comparer le motif à chaque fenêtre du texte en $O(n)$ en moyenne.",
     },
     {
-      question: "L'algorithme de Rabin-Karp permet de :",
-      answers: [
-        "Compresser un texte",
-        "Rechercher un motif dans un texte en utilisant une fonction de hachage glissante",
-        "Trier un tableau de chaînes",
-        "Construire un automate à partir d'un motif",
-      ],
-      correct: 1,
-      explanation:
-        "Rabin-Karp compare le hash du motif avec le hash de chaque fenêtre du texte, recalculé en $O(1)$.",
-    },
-    {
       question:
         "Quel algorithme de recherche de motif compare les caractères de droite à gauche et utilise une table de décalage précalculée ?",
       answers: ["Rabin-Karp", "Boyer-Moore-Horspool", "Huffman", "KMP"],
       correct: 1,
       explanation:
         "Boyer-Moore-Horspool compare de droite à gauche et saute des positions grâce à une table de décalage.",
-    },
-    {
-      question: "L'algorithme de Boyer-Moore-Horspool permet de :",
-      answers: [
-        "Compresser un texte en utilisant un dictionnaire",
-        "Compresser un texte en utilisant un arbre",
-        "Rechercher un motif dans un texte en comparant de droite à gauche",
-        "Rechercher un motif dans un texte en utilisant un dictionnaire",
-      ],
-      correct: 2,
-      explanation:
-        "Boyer-Moore-Horspool est efficace en pratique grâce aux sauts lors des non-correspondances.",
-    },
-    {
-      question:
-        "Quelle méthode algorithmique explore récursivement les solutions possibles et revient en arrière dès qu'une branche ne peut mener à une solution valide ?",
-      answers: [
-        "Programmation dynamique",
-        "Algorithme glouton",
-        "Backtracking (retour sur trace)",
-        "Algorithme d'approximation",
-      ],
-      correct: 2,
-      explanation:
-        "Le backtracking explore l'arbre des solutions et élague les branches invalides pour réduire l'espace de recherche.",
-    },
-    {
-      question: "Le backtracking (retour sur trace) consiste à :",
-      answers: [
-        "Choisir localement le meilleur choix",
-        "Explorer récursivement les solutions et revenir en arrière si une branche est invalide",
-        "Mémoriser les résultats intermédiaires",
-        "Diviser le problème en deux sous-problèmes",
-      ],
-      correct: 1,
-      explanation:
-        "Le backtracking est une exploration systématique avec élagage des branches sans issue.",
-    },
+    }, // TODO
     {
       question:
         "Quel algorithme résout le problème SAT par backtracking sur une formule en FNC, en affectant successivement chaque variable ?",
@@ -555,21 +414,30 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Alpha-bêta élague les branches inutiles de l'arbre de jeu en maintenant des bornes $\\alpha$ et $\\beta$.",
     },
     {
-      question: "Quelle structure de données permet d'ajouter et extraire le maximum (ou minimum) en $O(\\log n)$, et d'accéder au maximum en $O(1)$ ?",
-      answers: ["Pile", "File", "Tas binaire (file de priorité)", "Table de hachage"],
+      question:
+        "Quelle structure de données permet d'ajouter et extraire le maximum (ou minimum) en $O(\\log n)$, et d'accéder au maximum en $O(1)$ ?",
+      answers: [
+        "Pile",
+        "File",
+        "Tas binaire (file de priorité)",
+        "Table de hachage",
+      ],
       correct: 2,
-      explanation: "Le tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction en $O(\\log n)$."
+      explanation:
+        "Le tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction en $O(\\log n)$.",
     },
     {
-      question: "Le tas binaire (binary heap) supporte les opérations suivantes :",
+      question:
+        "Le tas binaire (binary heap) supporte les opérations suivantes :",
       answers: [
         "push, pop, is_empty en $O(1)$",
         "ajouter en $O(\\log n)$, extraire le max en $O(\\log n)$, valeur du max en $O(1)$",
         "ajout en $O(1)$, extraction en $O(1)$ amorti",
-        "recherche, ajout, suppression en $O(\\log n)$"
+        "recherche, ajout, suppression en $O(\\log n)$",
       ],
       correct: 1,
-      explanation: "Le tas offre l'accès au max en $O(1)$ (racine), l'insertion et l'extraction en $O(\\log n)$ via les opérations up et down."
+      explanation:
+        "Le tas offre l'accès au max en $O(1)$ (racine), l'insertion et l'extraction en $O(\\log n)$ via les opérations up et down.",
     },
     {
       question: "Quels algorithmes du cours utilisent une file de priorité ?",
@@ -581,93 +449,153 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "BFS",
         "Floyd-Warshall",
         "Kruskal",
-        "KNN"
+        "KNN",
       ],
       correct: [0, 1, 2, 3],
-      explanation: "Le tas (file de priorité) est utilisé par Dijkstra et A* pour extraire le sommet le plus proche, par le tri par tas (heapsort), et par Huffman pour fusionner les arbres de fréquences minimales."
+      explanation:
+        "Le tas (file de priorité) est utilisé par Dijkstra et A* pour extraire le sommet le plus proche, par le tri par tas (heapsort), et par Huffman pour fusionner les arbres de fréquences minimales.",
     },
     {
-      question: "Quelle structure de données représente une partition en classes disjointes avec les opérations `find` (trouver le représentant) et `union` (fusionner deux classes) ?",
+      question:
+        "Quelle structure de données représente une partition en classes disjointes avec les opérations `find` (trouver le représentant) et `union` (fusionner deux classes) ?",
       answers: ["Tas binaire", "ABR", "Union-Find", "Table de hachage"],
       correct: 2,
-      explanation: "Union-Find stocke une partition dans un tableau de pères. Avec compression de chemins et union par rang, find et union sont en $O(\\alpha(n))$ amorti."
+      explanation:
+        "Union-Find stocke une partition dans un tableau de pères. Avec compression de chemins et union par rang, find et union sont en $O(\\alpha(n))$ amorti.",
     },
     {
       question: "Quel algorithme du cours utilise la structure Union-Find ?",
       answers: ["Kruskal", "Dijkstra", "Floyd-Warshall", "BFS"],
       correct: 0,
-      explanation: "Kruskal utilise Union-Find pour vérifier efficacement si une arête crée un cycle (si ses deux extrémités sont dans la même composante)."
+      explanation:
+        "Kruskal utilise Union-Find pour vérifier efficacement si une arête crée un cycle (si ses deux extrémités sont dans la même composante).",
     },
     {
-      question: "Avec les heuristiques d'union par rang et compression de chemins, la complexité amortie de `find` et `union` dans Union-Find est :",
-      answers: ["$O(n)$", "$O(\\log n)$", "$O(\\alpha(n)) \\approx O(1)$", "$O(n \\log n)$"],
+      question:
+        "Avec les heuristiques d'union par rang et compression de chemins, la complexité amortie de `find` et `union` dans Union-Find est :",
+      answers: [
+        "$O(n)$",
+        "$O(\\log n)$",
+        "$O(\\alpha(n)) \\approx O(1)$",
+        "$O(n \\log n)$",
+      ],
       correct: 2,
-      explanation: "$\\alpha$ est la fonction inverse d'Ackermann, qui croît extrêmement lentement : $\\alpha(n) \\leq 4$ pour tout $n$ pratique."
+      explanation:
+        "$\\alpha$ est la fonction inverse d'Ackermann, qui croît extrêmement lentement : $\\alpha(n) \\leq 4$ pour tout $n$ pratique.",
     },
     {
-      question: "Quelle structure de données de type LIFO (dernier entré, premier sorti) supporte `push` et `pop` en $O(1)$ ?",
+      question:
+        "Quelle structure de données de type LIFO (dernier entré, premier sorti) supporte `push` et `pop` en $O(1)$ ?",
       answers: ["File", "Pile", "Tas", "ABR"],
       correct: 1,
-      explanation: "La pile (stack) est une structure LIFO. En OCaml, elle s'implémente naturellement avec une liste (tête = sommet)."
+      explanation:
+        "La pile (stack) est une structure LIFO. En OCaml, elle s'implémente naturellement avec une liste (tête = sommet).",
     },
     {
-      question: "Quel algorithme du cours utilise une pile (ou la pile d'appels récursifs) ?",
-      answers: ["DFS (parcours en profondeur)", "BFS (parcours en largeur)", "Dijkstra", "Kruskal"],
+      question:
+        "Quel algorithme du cours utilise une pile (ou la pile d'appels récursifs) ?",
+      answers: [
+        "DFS (parcours en profondeur)",
+        "BFS (parcours en largeur)",
+        "Dijkstra",
+        "Kruskal",
+      ],
       correct: 0,
-      explanation: "Le DFS utilise la pile d'appels récursifs, ou une pile explicite dans sa version itérative."
+      explanation:
+        "Le DFS utilise la pile d'appels récursifs, ou une pile explicite dans sa version itérative.",
     },
     {
-      question: "Quelle structure de données de type FIFO (premier entré, premier sorti) supporte l'ajout et l'extraction en $O(1)$ amorti ?",
+      question:
+        "Quelle structure de données de type FIFO (premier entré, premier sorti) supporte l'ajout et l'extraction en $O(1)$ amorti ?",
       answers: ["Pile", "File", "Tas", "ABR"],
       correct: 1,
-      explanation: "La file (queue) est FIFO. Implémentable avec deux listes : ajout dans l'une, extraction dans l'autre, renversement si nécessaire."
+      explanation:
+        "La file (queue) est FIFO. Implémentable avec deux listes : ajout dans l'une, extraction dans l'autre, renversement si nécessaire.",
     },
     {
       question: "Quel algorithme du cours utilise une file ?",
-      answers: ["BFS (parcours en largeur)", "DFS (parcours en profondeur)", "Dijkstra", "Bellman-Ford"],
+      answers: [
+        "BFS (parcours en largeur)",
+        "DFS (parcours en profondeur)",
+        "Dijkstra",
+        "Bellman-Ford",
+      ],
       correct: 0,
-      explanation: "Le BFS utilise une file pour traiter les sommets par distance croissante à la source."
+      explanation:
+        "Le BFS utilise une file pour traiter les sommets par distance croissante à la source.",
     },
     {
-      question: "Quelle structure de données représente un graphe avec un espace $O(n^2)$, un test d'adjacence en $O(1)$ mais un parcours des voisins en $O(n)$ ?",
-      answers: ["Liste d'adjacence", "Matrice d'adjacence", "Dictionnaire d'adjacence", "Table de hachage"],
+      question:
+        "Quelle structure de données représente un graphe avec un espace $O(n^2)$, un test d'adjacence en $O(1)$ mais un parcours des voisins en $O(n)$ ?",
+      answers: [
+        "Liste d'adjacence",
+        "Matrice d'adjacence",
+        "Dictionnaire d'adjacence",
+        "Table de hachage",
+      ],
       correct: 1,
-      explanation: "La matrice d'adjacence utilise un tableau $n \\times n$. Elle est adaptée aux graphes denses."
+      explanation:
+        "La matrice d'adjacence utilise un tableau $n \\times n$. Elle est adaptée aux graphes denses.",
     },
     {
-      question: "Quelle structure de données représente un graphe avec un espace $O(n + m)$ et un parcours des voisins de $u$ en $O(\\deg(u))$ ?",
-      answers: ["Matrice d'adjacence", "Liste d'adjacence", "Tas binaire", "Union-Find"],
+      question:
+        "Quelle structure de données représente un graphe avec un espace $O(n + m)$ et un parcours des voisins de $u$ en $O(\\deg(u))$ ?",
+      answers: [
+        "Matrice d'adjacence",
+        "Liste d'adjacence",
+        "Tas binaire",
+        "Union-Find",
+      ],
       correct: 1,
-      explanation: "La liste d'adjacence stocke pour chaque sommet la liste de ses voisins. Elle est adaptée aux graphes creux."
+      explanation:
+        "La liste d'adjacence stocke pour chaque sommet la liste de ses voisins. Elle est adaptée aux graphes creux.",
     },
     {
-      question: "Quelle structure de données est un arbre binaire tel que pour chaque nœud $r$, toutes les étiquettes du sous-arbre gauche sont $\\leq r$ et toutes celles du sous-arbre droit sont $\\geq r$ ?",
-      answers: ["Tas binaire", "Arbre binaire de recherche (ABR)", "Arbre de Huffman", "Arbre rouge-noir"],
+      question:
+        "Quelle structure de données est un arbre binaire tel que pour chaque nœud $r$, toutes les étiquettes du sous-arbre gauche sont $\\leq r$ et toutes celles du sous-arbre droit sont $\\geq r$ ?",
+      answers: [
+        "Tas binaire",
+        "Arbre binaire de recherche (ABR)",
+        "Arbre de Huffman",
+        "Arbre rouge-noir",
+      ],
       correct: 1,
-      explanation: "L'ABR est défini par cette propriété héréditaire. Son parcours infixe donne les éléments triés."
+      explanation:
+        "L'ABR est défini par cette propriété héréditaire. Son parcours infixe donne les éléments triés.",
     },
     {
-      question: "L'arbre binaire de recherche (ABR) supporte les opérations suivantes :",
+      question:
+        "L'arbre binaire de recherche (ABR) supporte les opérations suivantes :",
       answers: [
         "recherche, ajout, suppression en $O(h)$ (hauteur de l'arbre)",
         "extraction du max en $O(1)$, ajout en $O(\\log n)$",
         "push, pop en $O(1)$",
-        "find, union en $O(\\alpha(n))$"
+        "find, union en $O(\\alpha(n))$",
       ],
       correct: 0,
-      explanation: "Toutes les opérations d'un ABR parcourent une branche, donc en $O(h)$. Si l'arbre est équilibré, $h = O(\\log n)$."
+      explanation:
+        "Toutes les opérations d'un ABR parcourent une branche, donc en $O(h)$. Si l'arbre est équilibré, $h = O(\\log n)$.",
     },
     {
-      question: "Quelle variante d'ABR garantit une hauteur $h = O(\\log n)$ grâce à un coloriage rouge/noir des nœuds ?",
-      answers: ["Treap", "Arbre de Huffman", "Arbre rouge-noir (ARN)", "Tas binaire"],
+      question:
+        "Quelle variante d'ABR garantit une hauteur $h = O(\\log n)$ grâce à un coloriage rouge/noir des nœuds ?",
+      answers: [
+        "Treap",
+        "Arbre de Huffman",
+        "Arbre rouge-noir (ARN)",
+        "Tas binaire",
+      ],
       correct: 2,
-      explanation: "L'arbre rouge-noir impose des règles de coloration qui garantissent $h \\leq 2 \\log_2(n+1)$. Il est utilisé dans les modules Set et Map d'OCaml."
+      explanation:
+        "L'arbre rouge-noir impose des règles de coloration qui garantissent $h \\leq 2 \\log_2(n+1)$. Il est utilisé dans les modules Set et Map d'OCaml.",
     },
     {
-      question: "Quelles structures de données permettent d'implémenter un dictionnaire ?",
+      question:
+        "Quelles structures de données permettent d'implémenter un dictionnaire ?",
       answers: ["ABR", "Table de hachage", "Tas binaire", "File"],
       correct: [0, 1],
-      explanation: "On peut utiliser un ABR dont les étiquettes sont des couples (clé, valeur), avec des opérations O($h$). On peut aussi utiliser une table de hachage avec du O(1) en moyenne."
+      explanation:
+        "On peut utiliser un ABR dont les étiquettes sont des couples (clé, valeur), avec des opérations O($h$). On peut aussi utiliser une table de hachage avec du O(1) en moyenne.",
     },
     {
       question: "L'arbre de Huffman garantit que :",
@@ -675,10 +603,11 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Toutes les lettres ont un code de même longueur",
         "Les lettres fréquentes ont un code court et c'est une compression préfixe optimal",
         "L'arbre est équilibré",
-        "Le décodage nécessite la table de codage complète"
+        "Le décodage nécessite la table de codage complète",
       ],
       correct: 2,
-      explanation: "Le codage de Huffman est un codage préfixe (aucun code n'est préfixe d'un autre) qui minimise la longueur moyenne."
+      explanation:
+        "Le codage de Huffman est un codage préfixe (aucun code n'est préfixe d'un autre) qui minimise la longueur moyenne.",
     },
     {
       question: "Le module `Hashtbl` d'OCaml implémente :",
@@ -686,28 +615,27 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Un arbre binaire de recherche",
         "Une table de hachage",
         "Un tas binaire",
-        "Un arbre rouge-noir"
+        "Un arbre rouge-noir",
       ],
       correct: 1,
-      explanation: "Hashtbl implémente une table de hachage avec chaînage pour résoudre les collisions."
+      explanation:
+        "Hashtbl implémente une table de hachage avec chaînage pour résoudre les collisions.",
     },
     {
-      question: "L'algorithme de Kruskal utilise comme structure de données principale :",
-      answers: [
-        "Une file de priorité",
-        "Un Union-Find",
-        "Un ABR",
-        "Une pile"
-      ],
+      question:
+        "L'algorithme de Kruskal utilise comme structure de données principale :",
+      answers: ["Une file de priorité", "Un Union-Find", "Un ABR", "Une pile"],
       correct: 1,
-      explanation: "Kruskal utilise Union-Find pour tester si une arête relie deux composantes distinctes (find) et les fusionner (union)."
+      explanation:
+        "Kruskal utilise Union-Find pour tester si une arête relie deux composantes distinctes (find) et les fusionner (union).",
     },
     {
-      question: "L'algorithme BFS utilise comme structure de données principale :",
-      answers: [
-        "Une file (FIFO)"],
+      question:
+        "L'algorithme BFS utilise comme structure de données principale :",
+      answers: ["Une file (FIFO)"],
       correct: 0,
-      explanation: "Le BFS utilise une file pour parcourir les sommets par distance croissante à la source."
+      explanation:
+        "Le BFS utilise une file pour parcourir les sommets par distance croissante à la source.",
     },
     {
       question: "Pour implémenter un dictionnaire, on peut utiliser :",
@@ -715,16 +643,24 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Une table de hachage ABR équilibré ($O(\\log n)$)",
         "Un tas binaire",
         "Une pile",
-        "Un Union-Find"
+        "Un Union-Find",
       ],
       correct: 0,
-      explanation: "Les deux implémentations classiques d'un dictionnaire sont la table de hachage (Hashtbl) et l'ABR équilibré (Map)."
+      explanation:
+        "Les deux implémentations classiques d'un dictionnaire sont la table de hachage (Hashtbl) et l'ABR équilibré (Map).",
     },
     {
-      question: "Un arbre binaire presque complet dont chaque nœud est supérieur ou égal à ses fils est :",
-      answers: ["Un ABR", "Un tas max", "Un arbre rouge-noir", "Un arbre de Huffman"],
+      question:
+        "Un arbre binaire presque complet dont chaque nœud est supérieur ou égal à ses fils est :",
+      answers: [
+        "Un ABR",
+        "Un tas max",
+        "Un arbre rouge-noir",
+        "Un arbre de Huffman",
+      ],
       correct: 1,
-      explanation: "C'est la définition d'un tas max : arbre presque complet + propriété de tas (nœud ≥ fils)."
+      explanation:
+        "C'est la définition d'un tas max : arbre presque complet + propriété de tas (nœud ≥ fils).",
     },
     {
       question: "Le parcours infixe d'un ABR donne :",
@@ -732,16 +668,24 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Les éléments dans un ordre aléatoire",
         "Les éléments triés par ordre croissant",
         "Les éléments par niveau (largeur)",
-        "Uniquement les feuilles"
+        "Uniquement les feuilles",
       ],
       correct: 1,
-      explanation: "La propriété ABR (gauche ≤ racine ≤ droite) implique que le parcours infixe visite les éléments dans l'ordre croissant."
+      explanation:
+        "La propriété ABR (gauche ≤ racine ≤ droite) implique que le parcours infixe visite les éléments dans l'ordre croissant.",
     },
     {
-      question: "Dans un tas binaire stocké dans un tableau, les fils du nœud à l'indice $i$ sont aux indices :",
-      answers: ["$i-1$ et $i+1$", "$2i+1$ et $2i+2$", "$i/2$ et $i/2+1$", "$i^2$ et $i^2+1$"],
+      question:
+        "Dans un tas binaire stocké dans un tableau, les fils du nœud à l'indice $i$ sont aux indices :",
+      answers: [
+        "$i-1$ et $i+1$",
+        "$2i+1$ et $2i+2$",
+        "$i/2$ et $i/2+1$",
+        "$i^2$ et $i^2+1$",
+      ],
       correct: 1,
-      explanation: "Dans un tas stocké dans un tableau (à partir de l'indice 0), les fils de $a[i]$ sont $a[2i+1]$ et $a[2i+2]$. Le père de $a[j]$ est $a[\\lfloor(j-1)/2\\rfloor]$."
+      explanation:
+        "Dans un tas stocké dans un tableau (à partir de l'indice 0), les fils de $a[i]$ sont $a[2i+1]$ et $a[2i+2]$. Le père de $a[j]$ est $a[\\lfloor(j-1)/2\\rfloor]$.",
     },
     {
       question: "La compression de chemins dans Union-Find consiste à :",
@@ -749,16 +693,20 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Trier les éléments de chaque classe",
         "Rattacher tous les nœuds du chemin directement à la racine lors d'un `find`",
         "Fusionner les deux plus petites classes",
-        "Doubler la taille du tableau interne"
+        "Doubler la taille du tableau interne",
       ],
       correct: 1,
-      explanation: "Lors d'un find, la compression de chemins rattache chaque nœud traversé directement à la racine, aplatissant l'arbre pour les requêtes futures."
+      explanation:
+        "Lors d'un find, la compression de chemins rattache chaque nœud traversé directement à la racine, aplatissant l'arbre pour les requêtes futures.",
     },
     {
-      question: "La construction d'un tas à partir d'un tableau de $n$ éléments par la méthode bottom-up (down depuis les nœuds internes) a une complexité de :",
+      question:
+        "La construction d'un tas à partir d'un tableau de $n$ éléments par la méthode bottom-up (down depuis les nœuds internes) a une complexité de :",
       answers: ["$O(n \\log n)$", "$O(n^2)$", "$O(n)$", "$O(\\log n)$"],
       correct: 2,
-      explanation: "La méthode bottom-up applique down sur chaque nœud interne, du dernier au premier. La somme des hauteurs donne $O(n)$."
-    }
-  ]}
+      explanation:
+        "La méthode bottom-up applique down sur chaque nœud interne, du dernier au premier. La somme des hauteurs donne $O(n)$.",
+    },
+
+]}
 />
