@@ -147,13 +147,18 @@
   color: var(--ifm-font-color-base);
 }
 
-.answerBtn:hover:not(:disabled) {
+.answerBtn:hover:not(:disabled):not(.selected) {
   background-color: var(--ifm-color-emphasis-100);
   border-color: var(--ifm-color-primary);
 }
 
 .answerBtn:disabled {
   cursor: default;
+}
+
+.answerBtn.selected {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
 }
 
 .answerBtn.correct {
@@ -166,6 +171,18 @@
   background-color: #f8d7da;
   border-color: #dc3545;
   color: #721c24;
+}
+
+[data-theme="dark"] .answerBtn.correct {
+  background-color: #1e4620;
+  border-color: #28a745;
+  color: #d4edda;
+}
+
+[data-theme="dark"] .answerBtn.incorrect {
+  background-color: #4a1a1d;
+  border-color: #dc3545;
+  color: #f8d7da;
 }
 
 .explanation {

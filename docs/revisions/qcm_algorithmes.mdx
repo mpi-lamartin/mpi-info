@@ -10,18 +10,6 @@ import QCMRandom from "@site/src/components/QCMRandom";
   title="QCM Révisions"
   questions={[
     {
-      question: "L'algorithme de Dijkstra permet de :",
-      answers: [
-        "Calculer un arbre couvrant de poids minimum",
-        "Trouver les composantes fortement connexes",
-        "Calculer les plus courts chemins depuis une source dans un graphe à poids positifs",
-        "Trier les arêtes d'un graphe",
-      ],
-      correct: 2,
-      explanation:
-        "Dijkstra calcule les plus courts chemins depuis un sommet source dans un graphe pondéré dont les poids sont positifs.",
-    },
-    {
       question:
         "Quel algorithme est une variante de Dijkstra utilisant une heuristique $h(v)$ estimant la distance restante au sommet cible pour explorer en priorité les sommets les plus prometteurs ?",
       answers: ["Bellman-Ford", "Kruskal", "A*", "LZW"],
@@ -255,7 +243,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: 1,
       explanation:
-        "CHA part de n classes (une par donnée) et fusionne les deux plus proches à chaque étape.",
+        "CHA part de $n$ classes (une par donnée) et fusionne les deux plus proches à chaque étape.",
     },
     {
       question:
@@ -373,27 +361,27 @@ import QCMRandom from "@site/src/components/QCMRandom";
       correct: 1,
       explanation:
         "Boyer-Moore-Horspool compare de droite à gauche et saute des positions grâce à une table de décalage.",
-    }, // TODO
+    }, 
     {
       question:
-        "Quel algorithme résout le problème SAT par backtracking sur une formule en FNC, en affectant successivement chaque variable ?",
+        "Quel algorithme résout le problème SAT par backtracking en affectant les variables et en simplifiant les clauses à chaque étape ?",
       answers: [
-        "Kosaraju",
-        "Min-Max",
-        "Quine (DPLL simplifié)",
-        "Floyd-Warshall",
+        "Branch-and-bound",
+        "Alpha-beta",
+        "Quine",
+        "Calcul des attracteurs",
       ],
       correct: 2,
       explanation:
         "L'algorithme de Quine affecte chaque variable à vrai ou faux et simplifie les clauses à chaque étape par backtracking.",
     },
     {
-      question: "L'élagage alpha-bêta est une optimisation de Min-Max qui :",
+      question: "L'élagage alpha-bêta est une variante de min-max qui :",
       answers: [
-        "Explore tous les nœuds de l'arbre de jeu",
+        "Explore en priorité les branches d'heuristique la plus prometteuses",
         "Coupe les branches qui ne peuvent pas influencer le résultat final",
-        "Utilise une heuristique pour évaluer les feuilles",
-        "Calcule le couplage dans un graphe biparti",
+        "Parcourt toutes les configurations du jeu",
+        "Mémorise les résultats intermédiaires pour éviter les calculs redondants",
       ],
       correct: 1,
       explanation:
@@ -401,29 +389,29 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "Quelle structure de données permet d'ajouter et extraire le maximum (ou minimum) en $O(\\log n)$, et d'accéder au maximum en $O(1)$ ?",
+        "Quelles sont les implémentations efficaces d'une file de priorité ?",
       answers: [
-        "Pile",
-        "File",
-        "Tas binaire (file de priorité)",
+        "Arbre binaire de recherche",
+        "Arbre $k$-dimensionnel",
+        "Tas",
         "Table de hachage",
       ],
-      correct: 2,
+      correct: [0, 2],
       explanation:
-        "Le tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction en $O(\\log n)$.",
+        "Un tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction du minimum en $O(\\log n)$. On peut aussi utiliser un ABR (équilibré éventuellement) en cherchant le minimum tout à gauche",
     },
     {
       question:
-        "Le tas binaire (binary heap) supporte les opérations suivantes :",
+        "Soit $a = N(g, r, d)$ un arbre. $a$ est un arbre binaire de recherche (ABR) si et seulement si :",
       answers: [
-        "push, pop, is_empty en $O(1)$",
-        "ajouter en $O(\\log n)$, extraire le max en $O(\\log n)$, valeur du max en $O(1)$",
-        "ajout en $O(1)$, extraction en $O(1)$ amorti",
-        "recherche, ajout, suppression en $O(\\log n)$",
+        "Les étiquettes de $g$ sont inférieures à $r$ et celles de $d$ supérieures à $r$",
+        "La racine de $g$ est inférieure à $r$ et celle de $d$ supérieure à $r$",
+        "Le parcours préfixe de $a$ est trié par ordre croissant",
+        "Le parcours infixe de $a$ est trié par ordre croissant",
       ],
-      correct: 1,
+      correct: 3,
       explanation:
-        "Le tas offre l'accès au max en $O(1)$ (racine), l'insertion et l'extraction en $O(\\log n)$ via les opérations up et down.",
+        "Un arbre est un ABR si et seulement si son parcours infixe donne les éléments triés par ordre croissant. La 1ère condition sur les étiquettes de $g$ et $d$ n'est pas suffisante pour garantir la propriété ABR, elle doit être vérifiée pour tous les nœuds du sous-arbre.",
     },
     {
       question: "Quels algorithmes du cours utilisent une file de priorité ?",
@@ -443,39 +431,33 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "Quelle structure de données représente une partition en classes disjointes avec les opérations `find` (trouver le représentant) et `union` (fusionner deux classes) ?",
-      answers: ["Tas binaire", "ABR", "Union-Find", "Table de hachage"],
+        "Quelles sont des applications possibles d'Union-Find ?",
+      answers: ["Gestion de classes d'équivalence", "Prim", "Kruskal", "Tester la connexité d'un graphe"],
       correct: 2,
       explanation:
-        "Union-Find stocke une partition dans un tableau de pères. Avec compression de chemins et union par rang, find et union sont en $O(\\alpha(n))$ amorti.",
-    },
-    {
-      question: "Quel algorithme du cours utilise la structure Union-Find ?",
-      answers: ["Kruskal", "Dijkstra", "Floyd-Warshall", "BFS"],
-      correct: 0,
-      explanation:
-        "Kruskal utilise Union-Find pour vérifier efficacement si une arête crée un cycle (si ses deux extrémités sont dans la même composante).",
+        "Union-Find stocke une partition dans un tableau de pères. Il est utilisé par Kruskal pour vérifier si une arête relie deux composantes distinctes (find) et pour les fusionner (union). On peut aussi l'utiliser pour gérer des classes d'équivalence ou tester la connexité d'un graphe en vérifiant que tous les sommets sont dans la même classe.",
     },
     {
       question:
-        "Avec les heuristiques d'union par rang et compression de chemins, la complexité amortie de `find` et `union` dans Union-Find est :",
-      answers: [
-        "$O(n)$",
-        "$O(\\log n)$",
-        "$O(\\alpha(n)) \\approx O(1)$",
-        "$O(n \\log n)$",
-      ],
+        "Le lemme de l'étoile :",
+      answers: ["Permet de choisir la décomposition $u = xyz$", "S'applique aux langages hors-contextes", "Permet de prouver qu'un langage n'est pas régulier", "Permet de prouver qu'un langage est régulier"],
       correct: 2,
       explanation:
-        "$\\alpha$ est la fonction inverse d'Ackermann, qui croît extrêmement lentement : $\\alpha(n) \\leq 4$ pour tout $n$ pratique.",
+        "Le lemme de l'étoile est utilisé par l'absurde pour prouver qu'un langage n'est pas régulier. La réciproque est fausse donc on ne peut pas prouver qu'un langage est régulier avec ce lemme. Il est faux pour les langages hors-contextes généraux, qui ont un lemme de l'étoile différent (avec $u = vwx$ et $|vx| > 0$).",
     },
     {
-      question:
-        "Quelle structure de données de type LIFO (dernier entré, premier sorti) supporte `push` et `pop` en $O(1)$ ?",
-      answers: ["File", "Pile", "Tas", "ABR"],
-      correct: 1,
+      question: "Tout automate est équivalent à :",
+      answers: ["Une expression régulière", "Un automate déterministe", "Un automate émondé (dont tous les états sont accessibles et co-accessibles)", "Un automate local", "Un automate sans $\\epsilon$-transition"],
+      correct: [0, 1, 2],
       explanation:
-        "La pile (stack) est une structure LIFO. En OCaml, elle s'implémente naturellement avec une liste (tête = sommet).",
+        "Tout automate est équivalent à une expression régulière par le théorème de Kleene. Tout automate est équivalent à un automate déterministe par déterminisation. Tout automate est équivalent à un automate émondé en supprimant les états inaccessibles ou non co-accessibles. Seuls les langages locaux sont reconnus par des automates locaux. Un automate sans $\\epsilon$-transition est plus restreint que les automates généraux, mais il est équivalent à un automate déterministe.",
+    },
+    {
+      question: "L'algorithme d'élimination des états :",
+      answers: ["Une expression régulière", "Un automate déterministe", "Un automate émondé (dont tous les états sont accessibles et co-accessibles)", "Un automate local"],
+      correct: [0, 1, 2],
+      explanation:
+        "Tout automate est équivalent à une expression régulière par le théorème de Kleene. Tout automate est équivalent à un automate déterministe par déterminisation. Tout automate est équivalent à un automate émondé en supprimant les états inaccessibles ou non co-accessibles. Seuls les langages locaux sont reconnus par des automates locaux.",
     },
     {
       question:
