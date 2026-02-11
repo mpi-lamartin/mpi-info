@@ -33,35 +33,35 @@ import QCM from '@site/src/components/QCM';
     {
       question: "Pour détecter efficacement si une arête crée un cycle dans Kruskal, on utilise :",
       answers: [
-        "Un parcours DFS à chaque ajout",
-        "Une structure Union-Find (ensemble disjoint)",
-        "Une matrice d'adjacence",
+        "Un parcours en profondeur",
+        "Une structure Union-Find",
+        "Une file de priorité",
         "Un tri topologique"
       ],
       correct: 1,
       explanation: "La structure Union-Find permet de vérifier en temps quasi-constant si deux sommets sont dans la même composante connexe."
     },
     {
-      question: "La complexité de l'algorithme de Kruskal avec Union-Find est :",
+      question: "La complexité de l'algorithme de Kruskal avec Union-Find sur un graphe à $n$ sommets et $p$ arêtes est :",
       answers: [
-        "$O(n^2)$",
-        "$O(p \\log p)$ ou $O(p \\log n)$",
-        "$O(n^3)$",
+        "$O(np)$",
+        "$O(p \\log p)$",
+        "$O(np \\log p)$",
         "$O(n + p)$"
       ],
       correct: 1,
-      explanation: "Le tri des arêtes coûte $O(p \\log p)$. Les opérations Union-Find ont une complexité amortie quasi-constante grâce à l'union par rang et la compression de chemins."
+      explanation: "Le tri des arêtes coûte $O(p \\log p)$ ($= O(p \\log n)$). Les opérations Union-Find ont une complexité amortie quasi-constante grâce à l'union par rang et la compression de chemins."
     },
     {
-      question: "L'opération Find dans Union-Find avec compression de chemins :",
+      question: "L'opération Find dans Union-Find :",
       answers: [
-        "Trouve le minimum d'un ensemble",
-        "Trouve le représentant de l'ensemble contenant un élément et aplatit l'arbre",
+        "Renvoie le minimum d'un ensemble",
+        "Renvoie le représentant d'un ensemble",
         "Fusionne deux ensembles",
-        "Supprime un élément d'un ensemble"
+        "Renvoie l'ensemble contenant un élément"
       ],
       correct: 1,
-      explanation: "Find retourne le représentant (racine) de l'ensemble et la compression de chemins raccourcit les chemins vers la racine pour accélérer les requêtes futures."
+      explanation: "Find retourne le représentant (racine) de l'ensemble (sous forme d'arbre) contenant un élément donné."
     },
     {
       question: "L'algorithme de Prim pour l'arbre couvrant minimum procède en :",
