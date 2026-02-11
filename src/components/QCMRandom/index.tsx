@@ -180,7 +180,6 @@ export default function QCMRandom({
 
   return (
     <div className={styles.container}>
-
       <div className={styles.progressBar}>
         <div
           className={styles.progressFill}
@@ -223,9 +222,7 @@ export default function QCMRandom({
                 key={aIdx}
                 className={cls}
                 onClick={() =>
-                  singleChoice
-                    ? handleInstantSelect(aIdx)
-                    : handleSelect(aIdx)
+                  singleChoice ? handleInstantSelect(aIdx) : handleSelect(aIdx)
                 }
                 disabled={validated}
               >
