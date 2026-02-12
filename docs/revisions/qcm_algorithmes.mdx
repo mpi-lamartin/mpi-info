@@ -594,5 +594,81 @@ import QCMRandom from "@site/src/components/QCMRandom";
       explanation:
         "Il y a entre $1$ et $2^p$ nœuds à la profondeur $p$, qu'on peut sommer.",
     },
+    {
+      question: "Si $\\Pi_1 \\leq_p \\Pi_2$ alors :",
+      answers: [
+        "Si $\\Pi_1 \\in$ P alors $\\Pi_2 \\in$ P",
+        "Si $\\Pi_2 \\in$ P alors $\\Pi_1 \\in$ P",
+        "Si $\\Pi_1 \\in$ NP alors $\\Pi_2 \\in$ NP",
+        "Si $\\Pi_2 \\in$ NP alors $\\Pi_1 \\in$ NP",
+        "Si $\\Pi_2\\in$ NP et $\\Pi_1$ est NP-complet alors $\\Pi_2$ est NP-complet",
+        "Si $\\Pi_1\\in$ NP et $\\Pi_2$ est NP-complet alors $\\Pi_1$ est NP-complet",
+      ],
+      correct: [1, 3, 5],
+      explanation:
+        "Soit $\\phi$ une réduction de $\\Pi_1$ à $\\Pi_2$. Si $\\Pi_2 \\in P$, alors $\\Pi_1$ est dans $P$ car on peut résoudre $\\Pi_1$ en résolvant $\\Pi_2$ sur l'instance transformée. De même pour NP. Si $\\Pi_2$ est NP-complet et $\\Pi_1 \\in NP$, alors $\\Pi_1$ est NP-complet par transitivité.",
+    },
+    {
+      question: "Un problème est décidable si :",
+      answers: [
+        "Il peut être résolu en temps polynomial",
+        "Il existe un algorithme qui termine toujours et répond correctement",
+        "Il appartient à $NP$",
+        "Il peut être vérifié en temps polynomial",
+      ],
+      correct: 1,
+      explanation:
+        "Un problème est décidable s'il existe un algorithme (machine de Turing) qui termine toujours et donne la bonne réponse.",
+    },
+    {
+      question: "Quelle relation est vraie concernant $P$ et $NP$ ?",
+      answers: [
+        "$P = NP$",
+        "$P \\subset NP$",
+        "$NP \\subset P$",
+        "$P$ et $NP$ sont disjoints",
+      ],
+      correct: 1,
+      explanation:
+        "On sait que $P \\subset NP$ car un problème résoluble en temps polynomial peut évidemment être vérifié en temps polynomial. La question $P = NP$ reste ouverte.",
+    },
+    {
+      question: "Quels sont les problèmes NP-complets ?",
+      answers: [
+        "`SAT`",
+        "`2-SAT`",
+        "`3-SAT`",
+        "Couplage maximum",
+        "Clique maximum",
+        "Arbre couvrant de poids maximum",
+        "Chemin de poids maximum",
+      ],
+      correct: [0, 2, 4, 6],
+      explanation:
+        "`SAT` est est NP-complet d'après le théorème de Cook-Levin. `2-SAT` $\\in$ P. `3-SAT` est NP-complet par réduction depuis `SAT`. Couplage maximum $\\in$ P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général). Clique maximum est NP-complet par réduction depuis `SAT` (ou `STABLE` comme dans le cours). Un arbre couvrant de poids max peut être trouvé en triant les arêtes par poids décroissant dans Kruskal. Chemin de poids maximum est NP-complet par réduction depuis `HAMILTONIEN`.",
+    },
+    {
+      question:
+        "Si $\\Pi$ est un problème de décision, on note $\\bar{\\Pi}$ le problème de décision qui à une instance de $\\Pi$ répond `oui` si et seulement si $\\Pi$ répond `non` sur cette instance.",
+      answers: ["$\\Pi \\in P \Longleftrightarrow \\bar{\\Pi} \\in P$"],
+      correct: [0],
+      explanation:
+        "`SAT` est est NP-complet d'après le théorème de Cook-Levin. `2-SAT` $\\in$ P. `3-SAT` est NP-complet par réduction depuis `SAT`. Couplage maximum $\\in$ P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général). Clique maximum est NP-complet par réduction depuis `SAT` (ou `STABLE` comme dans le cours). Un arbre couvrant de poids max peut être trouvé en triant les arêtes par poids décroissant dans Kruskal. Chemin de poids maximum est NP-complet par réduction depuis `HAMILTONIEN`.",
+    },
+    {
+      question:
+        "On note $\\phi \\equiv \\psi$ lorsque $\\phi$ et $\\psi$ ont les mêmes valuations positives. Lesquelles de ces identités sont vraies ?",
+      answers: [
+        "$\\lnot \\lnot \\varphi \\equiv \\varphi$",
+        "$\\varphi_1 \\lor (\\varphi_2 \\land \\varphi_3) \\equiv (\\varphi_1 \\lor \\varphi_2) \\land (\\varphi_1 \\lor \\varphi_3)$",
+        "$\\varphi_1 \\land (\\varphi_2 \\lor \\varphi_3) \\equiv (\\varphi_1 \\land \\varphi_2) \\lor (\\varphi_1 \\land \\varphi_3)$",
+        "$\\varphi_1 \\longrightarrow \\varphi_2 \\equiv \\lnot \\varphi_2 \\longrightarrow \\lnot \\varphi_1$",
+        "$\\lnot(\\varphi_1 \\land \\varphi_2) \\equiv \\lnot \\varphi_1 \\lor \\lnot \\varphi_2$",
+        "$\\lnot(\\varphi_1 \\lor \\varphi_2) \\equiv \\lnot \\varphi_1 \\land \\lnot \\varphi_2$",
+      ],
+      correct: [0, 1, 2, 3, 4, 5],
+      explanation:
+        "Par table de vérité ou utilisation de la définition de l'évaluation d'une formule.",
+    },
   ]}
 />
