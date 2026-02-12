@@ -650,7 +650,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question:
         "Si $\\Pi$ est un problème de décision, on note $\\bar{\\Pi}$ le problème de décision qui à une instance de $\\Pi$ répond `oui` si et seulement si $\\Pi$ répond `non` sur cette instance.",
-      answers: ["$\\Pi \\in P \Longleftrightarrow \\bar{\\Pi} \\in P$"],
+      answers: ["$\\Pi \\in$ P $\\Longleftrightarrow \\bar{\\Pi} \\in$ P"],
       correct: [0],
       explanation:
         "`SAT` est est NP-complet d'après le théorème de Cook-Levin. `2-SAT` $\\in$ P. `3-SAT` est NP-complet par réduction depuis `SAT`. Couplage maximum $\\in$ P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général). Clique maximum est NP-complet par réduction depuis `SAT` (ou `STABLE` comme dans le cours). Un arbre couvrant de poids max peut être trouvé en triant les arêtes par poids décroissant dans Kruskal. Chemin de poids maximum est NP-complet par réduction depuis `HAMILTONIEN`.",
