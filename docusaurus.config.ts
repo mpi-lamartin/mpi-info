@@ -5,7 +5,7 @@ const math = require("remark-math");
 const katex = require("rehype-katex");
 
 const config: Config = {
-  title: "Informatique en MPI/MPI* au lycée la Martinière Monplaisir",
+  title: "Cours d'informatique en MPI/MPI* au lycée la Martinière Monplaisir",
   // tagline: 'Dinosaurs are cool',
   favicon: "img/logo.png",
 
@@ -57,8 +57,11 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
-    // image: 'img/docusaurus-social-card.jpg',
+    metadata: [
+      { name: "keywords", content: "mpi, informatique, cours" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    image: "img/logo.png",
     docs: {
       sidebar: {
         autoCollapseCategories: true,
