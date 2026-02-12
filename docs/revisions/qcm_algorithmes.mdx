@@ -670,5 +670,16 @@ import QCMRandom from "@site/src/components/QCMRandom";
       explanation:
         "Par table de vérité ou utilisation de la définition de l'évaluation d'une formule.",
     },
+    {
+      question: "$\\Pi_1$ se réduit à $\\Pi_2$ est équivalent à :",
+      answers: [
+        "$\\Pi_2 \\leq \\Pi_1$",
+        "Il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$",
+        "$\\Pi_1$ indécidable $\\Rightarrow \\Pi_2$ indécidable",
+      ],
+      correct: [1, 2],
+      explanation:
+        "$\\Pi_1 \\leq_p \\Pi_2$ signifie que $\\Pi_1$ se réduit à $\\Pi_2$, c'est-à-dire qu'il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$. Par conséquent, si $\\Pi_1$ est indécidable, alors $\\Pi_2$ doit également être indécidable, car sinon on pourrait résoudre $\\Pi_1$ en utilisant la réduction vers $\\Pi_2$.",
+    },
   ]}
 />
