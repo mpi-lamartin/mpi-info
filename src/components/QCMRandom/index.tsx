@@ -149,6 +149,14 @@ export default function QCMRandom({
   const pct =
     answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
 
+  const handleTouchAction = (
+    event: React.TouchEvent<HTMLButtonElement>,
+    action: () => void,
+  ) => {
+    event.preventDefault();
+    action();
+  };
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const isValidateShortcut =
@@ -182,7 +190,12 @@ export default function QCMRandom({
             </strong>{" "}
             ({pct}%)
           </p>
-          <button className={styles.btnPrimary} onClick={handleRestart}>
+          <button
+            type="button"
+            className={styles.btnPrimary}
+            onClick={handleRestart}
+            onTouchEnd={(event) => handleTouchAction(event, handleRestart)}
+          >
             Recommencer
           </button>
         </div>
@@ -237,6 +250,9 @@ export default function QCMRandom({
                 type="button"
                 className={cls}
                 onClick={() => handleSelect(aIdx)}
+                onTouchEnd={(event) =>
+                  handleTouchAction(event, () => handleSelect(aIdx))
+                }
                 disabled={validated}
               >
                 <span className={styles.answerContent}>
@@ -263,13 +279,19 @@ export default function QCMRandom({
             type="button"
             className={styles.btnPrimary}
             onClick={handleValidate}
+            onTouchEnd={(event) => handleTouchAction(event, handleValidate)}
           >
             {singleChoice
               ? "Voir solution (Ctrl+Enter)"
               : "Valider (Ctrl+Enter)"}
           </button>
         ) : (
-          <button type="button" className={styles.btnPrimary} onClick={handleNext}>
+          <button
+            type="button"
+            className={styles.btnPrimary}
+            onClick={handleNext}
+            onTouchEnd={(event) => handleTouchAction(event, handleNext)}
+          >
             {current + 1 >= order.length
               ? "Voir le résultat"
               : "Question suivante (Ctrl+Enter) →"}
@@ -279,6 +301,7 @@ export default function QCMRandom({
           type="button"
           className={styles.btnSecondary}
           onClick={handleRestart}
+          onTouchEnd={(event) => handleTouchAction(event, handleRestart)}
         >
           Recommencer
         </button>
