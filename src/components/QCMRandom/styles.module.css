@@ -148,6 +148,7 @@
   font-size: 1rem;
   text-align: left;
   color: var(--ifm-font-color-base);
+  touch-action: manipulation;
 }
 
 .answerContent {
@@ -229,6 +230,7 @@
   background-color: var(--ifm-color-primary);
   color: white;
   transition: background-color 0.2s;
+  touch-action: manipulation;
 }
 
 .btnPrimary:hover:not(:disabled) {
@@ -250,6 +252,7 @@
   background-color: var(--ifm-color-emphasis-200);
   color: var(--ifm-font-color-base);
   transition: background-color 0.2s;
+  touch-action: manipulation;
 }
 
 .btnSecondary:hover {

@@ -234,6 +234,7 @@ export default function QCMRandom({
             return (
               <button
                 key={aIdx}
+                type="button"
                 className={cls}
                 onClick={() => handleSelect(aIdx)}
                 disabled={validated}
@@ -258,19 +259,27 @@ export default function QCMRandom({
 
       <div className={styles.actions}>
         {!validated ? (
-          <button className={styles.btnPrimary} onClick={handleValidate}>
+          <button
+            type="button"
+            className={styles.btnPrimary}
+            onClick={handleValidate}
+          >
             {singleChoice
               ? "Voir solution (Ctrl+Enter)"
               : "Valider (Ctrl+Enter)"}
           </button>
         ) : (
-          <button className={styles.btnPrimary} onClick={handleNext}>
+          <button type="button" className={styles.btnPrimary} onClick={handleNext}>
             {current + 1 >= order.length
               ? "Voir le résultat"
               : "Question suivante (Ctrl+Enter) →"}
           </button>
         )}
-        <button className={styles.btnSecondary} onClick={handleRestart}>
+        <button
+          type="button"
+          className={styles.btnSecondary}
+          onClick={handleRestart}
+        >
           Recommencer
         </button>
       </div>
