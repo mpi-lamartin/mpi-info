@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmpi_info=self.webpackChunkmpi_info||[]).push([[2376],{6452:s=>{s.exports=JSON.parse('{"tags":[{"label":"concours","permalink":"/mpi-info/docs/tags/concours","count":1}]}')}}]);
