@@ -5,19 +5,19 @@ cor: true
 title: "TP 4 : Algorithme CYK (Cocke-Younger-Kasami)"
 ---
 
-import Solution from '@site/src/components/Solution';
-import TP from '!!raw-loader!./tp4.ml';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import ThemedImage from '@theme/ThemedImage';
+import Solution from "@site/src/components/Solution";
+import TP from "!!raw-loader!./tp4.ml";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
 
-<Solution file={TP} lang='ocaml' show={frontMatter.cor}>
-<ThemedImage
-  alt="CYK"
-  sources={{
-    light: useBaseUrl('/img/tp4.png'),
-    dark: useBaseUrl('/img/tp4_inv.png'),
-  }}
-/>
+<Solution file={TP} lang="ocaml" show={frontMatter.cor}>
+  <ThemedImage
+    alt="CYK"
+    sources={{
+      light: useBaseUrl("/img/tp4.png"),
+      dark: useBaseUrl("/img/tp4_inv.png"),
+    }}
+  />
 </Solution>
 
 L'algorithme CYK permet de déterminer, par programmation dynamique, si un mot est généré par une grammaire non contextuelle.  
@@ -39,13 +39,14 @@ t[l][d][i] &= \text{ faux sinon }
 \end{align*}
 $$
 
-1. À quelle condition a t-on $u \in L(G)$ ?  
-2. Que vaut $t[0][d][i]$ ?  
+1. À quelle condition a t-on $u \in L(G)$ ?
+2. Que vaut $t[0][d][i]$ ?
 3. Que vaut $t[1][d][i]$ ?
 
-Pour avoir $X_i \Rightarrow^* u_{d} \ldots u_{d + l - 1}$, il faut que $X_i \to X_j X_k$ avec $X_j \Rightarrow^* u_{d} \ldots u_{d + p - 1}$ et $X_k \Rightarrow^* u_{d + p} \ldots u_{d + l - 1}$.  
+Pour avoir $X_i \Rightarrow^* u_{d} \ldots u_{d + l - 1}$, il faut que $X_i \to X_j X_k$ avec $X_j \Rightarrow^* u_{d} \ldots u_{d + p - 1}$ et $X_k \Rightarrow^* u_{d + p} \ldots u_{d + l - 1}$.
 
-4. En déduire une équation de récurrence pour $t[l][d][i]$. 
+4. En déduire une équation de récurrence pour $t[l][d][i]$.
+
 <details>
 <summary>Solution (pour vérifier votre réponse)</summary>
 
@@ -60,6 +61,7 @@ $$
 ## Implémentation
 
 On définit le type suivant :
+
 ```ocaml
 type grammaire = {
     n_variables : int;
@@ -93,7 +95,7 @@ init g0 "aba";;
 [|[|[|false; false; false; false; false|];
     [|false; false; false; false; false|];
     [|false; false; false; false; false|]|];
-  [|[|false; true; false; false; true|]; 
+  [|[|false; true; false; false; true|];
     [|true; false; true; false; false|];
     [|false; true; false; false; true|]|];
   [|[|false; false; false; false; false|];
@@ -122,16 +124,19 @@ cyk g0 "aababa";;
 ## Arbre de dérivation
 
 On définit le type suivant pour modéliser un arbre de dérivation :
+
 ```ocaml
 type arbre = Vide | Un of int * char | Deux of int * arbre * arbre
 ```
 
 où :
+
 - `Vide` correspond à une dérivation $S \to \epsilon$,
 - `Un (i, a)` correspond à une dérivation $X_i \to a$,
 - `Deux (i, j, k)` correspond à une dérivation $X_i \to X_j X_k$.
 
 On rappelle que le type `option` est défini nativement en OCaml par :
+
 ```ocaml
 type 'a option = None | Some of 'a
 ```

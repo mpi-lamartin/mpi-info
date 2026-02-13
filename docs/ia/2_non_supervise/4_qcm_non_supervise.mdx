@@ -3,32 +3,36 @@ title: "QCM - Apprentissage non supervisé"
 sidebar_position: 3
 ---
 
-import QCM from '@site/src/components/QCM';
+import QCM from "@site/src/components/QCM";
 
 <QCM
   title="QCM - Apprentissage non supervisé"
   questions={[
     {
-      question: "Quelle est la différence principale entre classification supervisée et non supervisée ?",
+      question:
+        "Quelle est la différence principale entre classification supervisée et non supervisée ?",
       answers: [
         "La classification supervisée est plus rapide",
         "En classification non supervisée, on ne connaît pas les classes à l'avance",
         "La classification non supervisée utilise plus de données",
-        "Il n'y a pas de différence"
+        "Il n'y a pas de différence",
       ],
       correct: 1,
-      explanation: "En classification non supervisée, il n'y a pas de données d'entraînement étiquetées et l'ensemble des classes possibles n'est pas connu à l'avance."
+      explanation:
+        "En classification non supervisée, il n'y a pas de données d'entraînement étiquetées et l'ensemble des classes possibles n'est pas connu à l'avance.",
     },
     {
-      question: "Le centre (isobarycentre) d'un ensemble de vecteurs $x_1, \\ldots, x_n$ est :",
+      question:
+        "Le centre (isobarycentre) d'un ensemble de vecteurs $x_1, \\ldots, x_n$ est :",
       answers: [
         "$\\max_{i} x_i$",
         "$\\frac{1}{n} \\sum_{i=1}^n x_i$",
         "$\\sum_{i=1}^n x_i$",
-        "$x_1 + x_n$"
+        "$x_1 + x_n$",
       ],
       correct: 1,
-      explanation: "Le centre d'un ensemble de vecteurs est la moyenne de ces vecteurs : $\\bar{x} = \\frac{1}{n} \\sum_{i=1}^n x_i$."
+      explanation:
+        "Le centre d'un ensemble de vecteurs est la moyenne de ces vecteurs : $\\bar{x} = \\frac{1}{n} \\sum_{i=1}^n x_i$.",
     },
     {
       question: "L'inertie d'un clustering mesure :",
@@ -36,10 +40,11 @@ import QCM from '@site/src/components/QCM';
         "Le nombre de classes",
         "La somme des variances de chaque classe",
         "Le temps d'exécution de l'algorithme",
-        "Le nombre de données"
+        "Le nombre de données",
       ],
       correct: 1,
-      explanation: "L'inertie $I = \\sum_{i=1}^k V(X_i)$ est la somme des variances de chaque classe. Plus elle est petite, meilleur est le clustering."
+      explanation:
+        "L'inertie $I = \\sum_{i=1}^k V(X_i)$ est la somme des variances de chaque classe. Plus elle est petite, meilleur est le clustering.",
     },
     {
       question: "Dans l'algorithme des $k$-moyennes, que représente $k$ ?",
@@ -47,32 +52,37 @@ import QCM from '@site/src/components/QCM';
         "Le nombre de voisins",
         "Le nombre de classes souhaitées",
         "La dimension des données",
-        "Le nombre d'itérations"
+        "Le nombre d'itérations",
       ],
       correct: 1,
-      explanation: "Dans l'algorithme des $k$-moyennes, $k$ est le nombre de classes (clusters) dans lesquelles on souhaite partitionner les données."
+      explanation:
+        "Dans l'algorithme des $k$-moyennes, $k$ est le nombre de classes (clusters) dans lesquelles on souhaite partitionner les données.",
     },
     {
-      question: "Quelle est l'étape initiale de l'algorithme des $k$-moyennes ?",
+      question:
+        "Quelle est l'étape initiale de l'algorithme des $k$-moyennes ?",
       answers: [
         "Calculer l'inertie",
         "Choisir $k$ centres aléatoirement",
         "Fusionner les classes les plus proches",
-        "Trier les données"
+        "Trier les données",
       ],
       correct: 1,
-      explanation: "L'algorithme commence par choisir $k$ centres (ou centroïdes) aléatoirement, puis itère en réassignant les données et recalculant les centres."
+      explanation:
+        "L'algorithme commence par choisir $k$ centres (ou centroïdes) aléatoirement, puis itère en réassignant les données et recalculant les centres.",
     },
     {
-      question: "Pourquoi l'algorithme des $k$-moyennes termine-t-il toujours ?",
+      question:
+        "Pourquoi l'algorithme des $k$-moyennes termine-t-il toujours ?",
       answers: [
         "Parce qu'il y a un nombre maximal d'itérations fixé",
         "Parce que l'inertie décroît strictement à chaque itération et ne peut prendre qu'un nombre fini de valeurs",
         "Parce que les données sont triées",
-        "Parce que $k$ est petit"
+        "Parce que $k$ est petit",
       ],
       correct: 1,
-      explanation: "L'inertie est un variant de boucle : elle décroît strictement à chaque itération et, comme il n'existe qu'un nombre fini de partitions possibles, l'algorithme finit par converger."
+      explanation:
+        "L'inertie est un variant de boucle : elle décroît strictement à chaque itération et, comme il n'existe qu'un nombre fini de partitions possibles, l'algorithme finit par converger.",
     },
     {
       question: "La méthode du coude (elbow method) permet de :",
@@ -80,10 +90,11 @@ import QCM from '@site/src/components/QCM';
         "Calculer la distance entre deux points",
         "Choisir le nombre $k$ de classes",
         "Accélérer l'algorithme",
-        "Visualiser les données"
+        "Visualiser les données",
       ],
       correct: 1,
-      explanation: "La méthode du coude consiste à tracer l'inertie en fonction de $k$ et à choisir la valeur de $k$ où l'inertie cesse de diminuer significativement."
+      explanation:
+        "La méthode du coude consiste à tracer l'inertie en fonction de $k$ et à choisir la valeur de $k$ où l'inertie cesse de diminuer significativement.",
     },
     {
       question: "L'algorithme des $k$-moyennes converge toujours vers :",
@@ -91,54 +102,63 @@ import QCM from '@site/src/components/QCM';
         "Un minimum global de l'inertie",
         "Un minimum local de l'inertie (pas forcément global)",
         "Un maximum de l'inertie",
-        "Une inertie nulle"
+        "Une inertie nulle",
       ],
       correct: 1,
-      explanation: "L'algorithme des $k$-moyennes converge vers un minimum local de l'inertie, mais pas forcément vers le minimum global. Le résultat dépend de l'initialisation aléatoire des centres."
+      explanation:
+        "L'algorithme des $k$-moyennes converge vers un minimum local de l'inertie, mais pas forcément vers le minimum global. Le résultat dépend de l'initialisation aléatoire des centres.",
     },
     {
-      question: "L'algorithme des $k$-moyennes ne fonctionne bien que sur des données :",
+      question:
+        "L'algorithme des $k$-moyennes ne fonctionne bien que sur des données :",
       answers: [
         "De grande dimension",
         "Linéairement séparables",
         "Entières",
-        "Triées"
+        "Triées",
       ],
       correct: 1,
-      explanation: "L'algorithme des $k$-moyennes ne marche bien que sur des données linéairement séparables, c'est-à-dire pouvant être séparées par des hyperplans."
+      explanation:
+        "L'algorithme des $k$-moyennes ne marche bien que sur des données linéairement séparables, c'est-à-dire pouvant être séparées par des hyperplans.",
     },
     {
-      question: "Dans la classification hiérarchique ascendante (CHA), l'algorithme commence par :",
+      question:
+        "Dans la classification hiérarchique ascendante (CHA), l'algorithme commence par :",
       answers: [
         "Mettre toutes les données dans une seule classe",
         "Mettre chaque donnée dans une classe différente",
         "Choisir $k$ centres aléatoirement",
-        "Calculer l'inertie"
+        "Calculer l'inertie",
       ],
       correct: 1,
-      explanation: "La CHA commence par placer chaque donnée dans sa propre classe, puis fusionne itérativement les deux classes les plus proches jusqu'à obtenir le nombre de classes souhaité."
+      explanation:
+        "La CHA commence par placer chaque donnée dans sa propre classe, puis fusionne itérativement les deux classes les plus proches jusqu'à obtenir le nombre de classes souhaité.",
     },
     {
-      question: "Laquelle de ces distances entre classes $A$ et $B$ n'existe pas en CHA ?",
+      question:
+        "Laquelle de ces distances entre classes $A$ et $B$ n'existe pas en CHA ?",
       answers: [
         "Distance minimum : $\\min_{a\\in A, b\\in B} d(a, b)$",
         "Distance maximum : $\\max_{a\\in A, b\\in B} d(a, b)$",
         "Distance moyenne : $\\frac{1}{|A||B|}\\sum_{a\\in A, b\\in B} d(a, b)$",
-        "Distance produit : $d(a, b) \\times |A| \\times |B|$"
+        "Distance produit : $d(a, b) \\times |A| \\times |B|$",
       ],
       correct: 3,
-      explanation: "Les distances classiques entre classes sont la distance minimum (single linkage), maximum (complete linkage) et moyenne (average linkage). La distance produit n'existe pas."
+      explanation:
+        "Les distances classiques entre classes sont la distance minimum (single linkage), maximum (complete linkage) et moyenne (average linkage). La distance produit n'existe pas.",
     },
     {
-      question: "L'application des $k$-moyennes à la compression d'images consiste à :",
+      question:
+        "L'application des $k$-moyennes à la compression d'images consiste à :",
       answers: [
         "Réduire la taille de l'image en pixels",
         "Réduire le nombre de couleurs différentes en remplaçant chaque pixel par la couleur du centre le plus proche",
         "Supprimer les pixels sombres",
-        "Trier les pixels par couleur"
+        "Trier les pixels par couleur",
       ],
       correct: 1,
-      explanation: "On applique $k$-moyennes sur les couleurs des pixels pour obtenir $k$ couleurs représentatives (les centres), puis on remplace chaque pixel par la couleur du centre le plus proche."
-    }
+      explanation:
+        "On applique $k$-moyennes sur les couleurs des pixels pour obtenir $k$ couleurs représentatives (les centres), puis on remplace chaque pixel par la couleur du centre le plus proche.",
+    },
   ]}
 />

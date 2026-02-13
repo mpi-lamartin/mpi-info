@@ -1,11 +1,16 @@
 {
-    "files.associations": {
-        "stdlib.h": "c",
-        "array": "c",
-        "string": "c",
-        "string_view": "c",
-        "vector": "c"
-    },
-    "python-envs.defaultEnvManager": "ms-python.python:system",
-    "python-envs.pythonProjects": []
+  "files.associations": {
+    "stdlib.h": "c",
+    "array": "c",
+    "string": "c",
+    "string_view": "c",
+    "vector": "c"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[mdx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "python-envs.defaultEnvManager": "ms-python.python:system",
+  "python-envs.pythonProjects": []
 }

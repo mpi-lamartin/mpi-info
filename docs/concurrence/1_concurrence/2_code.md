@@ -33,6 +33,7 @@ int main() {
     pthread_join(t2, NULL); // Attendre la fin de t2
 }
 ```
+
 Compilation : `gcc -pthread exemple.c`
 
 </TabItem>

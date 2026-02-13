@@ -7,6 +7,7 @@ title: Codespace Github
 import img from './codespace.jpeg';
 
 Pour pouvoir utiliser un environnement de développement en ligne avec Visual Code, OCaml, utop, gcc :
+
 - S'incrire sur [GitHub](https://github.com) (Sign Up).
 - Si vous n'avez pas encore de codespace : aller sur https://github.com/mpi-lamartin/environnement et cliquer sur le bouton Code puis "Create codespace on main".
 - Sinon, retrouver votre codespace en cliquant sur le menu en haut à gauche puis "Codespaces".

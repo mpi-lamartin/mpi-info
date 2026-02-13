@@ -5,6 +5,7 @@ tags: [github, programmation]
 ---
 
 Pour pouvoir utiliser un environnement de développement en ligne avec Visual Code, OCaml, utop, gcc :
+
 - S'incrire sur [GitHub](https://github.com) (Sign Up).
 - Aller sur https://github.com/mpi-lamartin/environnement et cliquer sur le bouton Code puis "Create codespace on main".
 - Vous pouvez retrouver votre codespace en cliquant sur le menu en haut à gauche puis "Codespaces".

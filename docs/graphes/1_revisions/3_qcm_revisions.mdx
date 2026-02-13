@@ -3,43 +3,34 @@ title: "QCM - Révisions graphes"
 sidebar_position: 3
 ---
 
-import QCM from '@site/src/components/QCM';
+import QCM from "@site/src/components/QCM";
 
 <QCM
   title="QCM - Révisions graphes"
   questions={[
     {
-      question: "Dans un graphe non orienté à $n$ sommets, le nombre maximum d'arêtes est :",
-      answers: [
-        "$n$",
-        "$n^2$",
-        "$\\frac{n(n-1)}{2}$",
-        "$2^n$"
-      ],
+      question:
+        "Dans un graphe non orienté à $n$ sommets, le nombre maximum d'arêtes est :",
+      answers: ["$n$", "$n^2$", "$\\frac{n(n-1)}{2}$", "$2^n$"],
       correct: 2,
-      explanation: "Dans un graphe complet non orienté, chaque paire de sommets est reliée par une arête, soit $\\binom{n}{2} = \\frac{n(n-1)}{2}$ arêtes."
+      explanation:
+        "Dans un graphe complet non orienté, chaque paire de sommets est reliée par une arête, soit $\\binom{n}{2} = \\frac{n(n-1)}{2}$ arêtes.",
     },
     {
-      question: "La complexité d'un parcours en largeur (BFS) sur un graphe représenté par liste d'adjacence est :",
-      answers: [
-        "$O(n)$",
-        "$O(n + p)$",
-        "$O(n^2)$",
-        "$O(n \\cdot p)$"
-      ],
+      question:
+        "La complexité d'un parcours en largeur (BFS) sur un graphe représenté par liste d'adjacence est :",
+      answers: ["$O(n)$", "$O(n + p)$", "$O(n^2)$", "$O(n \\cdot p)$"],
       correct: 1,
-      explanation: "Le BFS visite chaque sommet une fois $O(n)$ et examine chaque arête une fois $O(p)$, d'où $O(n + p)$."
+      explanation:
+        "Le BFS visite chaque sommet une fois $O(n)$ et examine chaque arête une fois $O(p)$, d'où $O(n + p)$.",
     },
     {
-      question: "La complexité d'un parcours en profondeur (DFS) sur un graphe représenté par matrice d'adjacence est :",
-      answers: [
-        "$O(n)$",
-        "$O(n + p)$",
-        "$O(n^2)$",
-        "$O(n \\cdot p)$"
-      ],
+      question:
+        "La complexité d'un parcours en profondeur (DFS) sur un graphe représenté par matrice d'adjacence est :",
+      answers: ["$O(n)$", "$O(n + p)$", "$O(n^2)$", "$O(n \\cdot p)$"],
       correct: 2,
-      explanation: "Avec une matrice d'adjacence, trouver les voisins d'un sommet prend $O(n)$, donc pour $n$ sommets : $O(n^2)$."
+      explanation:
+        "Avec une matrice d'adjacence, trouver les voisins d'un sommet prend $O(n)$, donc pour $n$ sommets : $O(n^2)$.",
     },
     {
       question: "Un graphe est connexe si :",
@@ -47,10 +38,11 @@ import QCM from '@site/src/components/QCM';
         "Il existe un chemin entre toute paire de sommets",
         "Tous les sommets ont le même degré",
         "Il n'a pas de cycle",
-        "Il a exactement $n-1$ arêtes"
+        "Il a exactement $n-1$ arêtes",
       ],
       correct: 0,
-      explanation: "Un graphe non orienté est connexe si pour toute paire de sommets $u$, $v$, il existe un chemin de $u$ à $v$."
+      explanation:
+        "Un graphe non orienté est connexe si pour toute paire de sommets $u$, $v$, il existe un chemin de $u$ à $v$.",
     },
     {
       question: "Un arbre est un graphe :",
@@ -58,21 +50,24 @@ import QCM from '@site/src/components/QCM';
         "Connexe avec des cycles",
         "Connexe et acyclique",
         "Non connexe et acyclique",
-        "Ayant exactement $n$ arêtes"
+        "Ayant exactement $n$ arêtes",
       ],
       correct: 1,
-      explanation: "Un arbre est un graphe connexe et acyclique. Il possède exactement $n-1$ arêtes pour $n$ sommets."
+      explanation:
+        "Un arbre est un graphe connexe et acyclique. Il possède exactement $n-1$ arêtes pour $n$ sommets.",
     },
     {
-      question: "Dans un graphe orienté, un sommet de degré sortant 0 est appelé :",
+      question:
+        "Dans un graphe orienté, un sommet de degré sortant 0 est appelé :",
       answers: [
         "Une source",
         "Un puits",
         "Un sommet isolé",
-        "Un point d'articulation"
+        "Un point d'articulation",
       ],
       correct: 1,
-      explanation: "Un puits est un sommet sans arc sortant (degré sortant = 0). Une source est un sommet sans arc entrant."
+      explanation:
+        "Un puits est un sommet sans arc sortant (degré sortant = 0). Une source est un sommet sans arc entrant.",
     },
     {
       question: "Le BFS depuis un sommet s permet de calculer :",
@@ -80,21 +75,24 @@ import QCM from '@site/src/components/QCM';
         "Les distances pondérées depuis s",
         "Les distances non pondérées (nombre d'arêtes) depuis s",
         "Un tri topologique",
-        "Les composantes fortement connexes"
+        "Les composantes fortement connexes",
       ],
       correct: 1,
-      explanation: "Le BFS explore les sommets par ordre de distance (en nombre d'arêtes) depuis la source, permettant de calculer les plus courts chemins non pondérés."
+      explanation:
+        "Le BFS explore les sommets par ordre de distance (en nombre d'arêtes) depuis la source, permettant de calculer les plus courts chemins non pondérés.",
     },
     {
-      question: "La représentation par liste d'adjacence est préférable quand :",
+      question:
+        "La représentation par liste d'adjacence est préférable quand :",
       answers: [
         "Le graphe est dense ($p \\approx n^2$)",
         "Le graphe est creux ($p \\ll n^2$)",
         "On veut tester rapidement si une arête existe",
-        "Le graphe est complet"
+        "Le graphe est complet",
       ],
       correct: 1,
-      explanation: "La liste d'adjacence utilise $O(n + p)$ mémoire, ce qui est avantageux pour les graphes creux. La matrice utilise $O(n^2)$."
+      explanation:
+        "La liste d'adjacence utilise $O(n + p)$ mémoire, ce qui est avantageux pour les graphes creux. La matrice utilise $O(n^2)$.",
     },
     {
       question: "Le degré d'un sommet dans un graphe non orienté est :",
@@ -102,21 +100,19 @@ import QCM from '@site/src/components/QCM';
         "Le nombre de sommets adjacents",
         "Le nombre de chemins passant par ce sommet",
         "La distance maximale à un autre sommet",
-        "Le nombre de composantes connexes"
+        "Le nombre de composantes connexes",
       ],
       correct: 0,
-      explanation: "Le degré d'un sommet est le nombre d'arêtes incidentes à ce sommet, soit le nombre de voisins."
+      explanation:
+        "Le degré d'un sommet est le nombre d'arêtes incidentes à ce sommet, soit le nombre de voisins.",
     },
     {
-      question: "Dans un graphe non orienté, la somme des degrés de tous les sommets vaut :",
-      answers: [
-        "$n$",
-        "$p$",
-        "$2p$",
-        "$n^2$"
-      ],
+      question:
+        "Dans un graphe non orienté, la somme des degrés de tous les sommets vaut :",
+      answers: ["$n$", "$p$", "$2p$", "$n^2$"],
       correct: 2,
-      explanation: "Chaque arête contribue $1$ au degré de chacune de ses extrémités, donc la somme des degrés vaut $2p$ (deux fois le nombre d'arêtes)."
-    }
+      explanation:
+        "Chaque arête contribue $1$ au degré de chacune de ses extrémités, donc la somme des degrés vaut $2p$ (deux fois le nombre d'arêtes).",
+    },
   ]}
 />

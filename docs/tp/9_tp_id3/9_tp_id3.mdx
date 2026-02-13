@@ -5,13 +5,12 @@ cor: false
 title: "TP 9 : Arbres de décision ID3"
 ---
 
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
 
 ## Introduction
 
 Dans ce TP, nous allons implémenter l'algorithme ID3 pour classifier les survivants du Titanic. On rappelle que c'est un algorithme de classification supervisée : à partir de données d'entraînement connues, il construit un arbre de décision permettant de prédire la classe d'une nouvelle donnée.
-
 
 ## Partie 1 : Découverte des données
 
@@ -19,7 +18,7 @@ Dans ce TP, nous allons implémenter l'algorithme ID3 pour classifier les surviv
 
 2. Créer un fichier `src/id3.ml` dans lequel vous allez écrire le code du TP. Ajouter `open Csv_loader` et chargez les données d'entraînement et de test. Vous pouvez vous inspirer de `woman_survive.ml`.
 
-3. Écrire une fonction `stats` qui affiche le nombre de survivants et de décédés dans les données d'entraînement. On rappelle qu'on peut afficher une variable `x` avec : `Printf.printf "valeur de x : %d\n" x`. 
+3. Écrire une fonction `stats` qui affiche le nombre de survivants et de décédés dans les données d'entraînement. On rappelle qu'on peut afficher une variable `x` avec : `Printf.printf "valeur de x : %d\n" x`.
 
 ```ocaml
 val stats : passenger list -> unit
@@ -71,11 +70,13 @@ val get_attribute_value : attribute -> passenger -> string
 ```
 
 Les règles de conversion sont :
+
 - `AgeGroup` : "child" si $\text{age} < 18$, "adult" si $18 \leq \text{age} \leq 60$, "senior" sinon
 - `FamilySize` : "alone" si $\text{sibsp} + \text{parch} = 0$, "small" si $\leq 3$, "large" sinon
 - `FareGroup` : "low" si $\text{fare} < 10$, "medium" si $10 \leq \text{fare} \leq 50$, "high" sinon
 
- Pour le passager n°1 (Braund, Mr. Owen Harris - homme, 22 ans, classe 3, sibsp=1, parch=0, fare=7.25, embarqué à S) :
+Pour le passager n°1 (Braund, Mr. Owen Harris - homme, 22 ans, classe 3, sibsp=1, parch=0, fare=7.25, embarqué à S) :
+
 ```ocaml
 get_attribute_value Sex p1        (* = "male" *)
 get_attribute_value Pclass p1     (* = "3" *)
@@ -101,12 +102,11 @@ où $p_c$ est la proportion d'éléments de classe $c$ (`survived` = `Some 0` ou
 val entropy : passenger list -> float
 ```
 
-
 ```ocaml
 entropy train (* = 0.9607 *)
 ```
 
-*Indication :* On peut calculer $\log_2(x)$ avec `log x /. log 2.0` et convertir un entier `n` en float avec `float_of_int n`.
+_Indication :_ On peut calculer $\log_2(x)$ avec `log x /. log 2.0` et convertir un entier `n` en float avec `float_of_int n`.
 
 Le gain d'information d'un attribut $A$ par rapport à un ensemble $S$ mesure la réduction d'entropie obtenue en divisant $S$ selon les valeurs de $A$ :
 
@@ -177,13 +177,14 @@ val build_tree : passenger list -> attribute list -> decision_tree
 ```
 
 L'algorithme ID3 est le suivant :
+
 - Si la liste est vide, retourner une feuille avec la prédiction 0
 - Si tous les passagers ont la même classe, retourner une feuille avec cette classe
 - Si la liste d'attributs est vide, retourner une feuille avec la classe majoritaire
 - Sinon :
-   - Trouver le meilleur attribut $A$ selon le gain d'information
-   - Pour chaque valeur $v$ de $A$, construire récursivement un sous-arbre sur le sous-ensemble $\{x \mid A(x) = v\}$
-   - Retourner un nœud avec l'attribut $A$ et les sous-arbres
+  - Trouver le meilleur attribut $A$ selon le gain d'information
+  - Pour chaque valeur $v$ de $A$, construire récursivement un sous-arbre sur le sous-ensemble $\{x \mid A(x) = v\}$
+  - Retourner un nœud avec l'attribut $A$ et les sous-arbres
 
 Utiliser la fonction suivante pour afficher l'arbre obtenu :
 
@@ -191,8 +192,8 @@ Utiliser la fonction suivante pour afficher l'arbre obtenu :
 let rec print_tree tree indent =
   let spaces = String.make (indent * 2) ' ' in
   match tree with
-  | Leaf pred -> 
-    Printf.printf "%s└── Prédiction: %s\n" spaces 
+  | Leaf pred ->
+    Printf.printf "%s└── Prédiction: %s\n" spaces
       (if pred = 1 then "Survit" else "Décède")
   | Node (attr, branches) ->
     Printf.printf "%s[%s]\n" spaces (attribute_name attr);
@@ -230,13 +231,13 @@ val generate_submission : decision_tree -> passenger list -> string -> unit
 ```
 
 Le fichier doit avoir le format suivant :
+
 ```
 PassengerId,Survived
 892,0
 893,1
 ...
 ```
-
 
 ```ocaml
 generate_submission tree test "submission_id3.csv"
@@ -250,16 +251,18 @@ generate_submission tree test "submission_id3.csv"
 Principe de la validation croisée k-fold :
 
 Algorithme :
+
 - Mélanger aléatoirement les données
 - Diviser en $k$ parties (folds) de taille égale
 - Pour chaque fold $i$ de 1 à $k$ :
-   - Utiliser le fold $i$ comme ensemble de validation
-   - Utiliser les $k-1$ autres folds comme ensemble d'entraînement
-   - Construire l'arbre sur l'entraînement
-   - Calculer la précision sur la validation → Score $i$
+  - Utiliser le fold $i$ comme ensemble de validation
+  - Utiliser les $k-1$ autres folds comme ensemble d'entraînement
+  - Construire l'arbre sur l'entraînement
+  - Calculer la précision sur la validation → Score $i$
 - Retourner la moyenne et l'écart-type des $k$ scores
 
 Signature :
+
 ```ocaml
 val cross_validation : passenger list -> int -> (passenger list -> decision_tree) -> float * float * float list
 (* cross_validation data k build_fn retourne (moyenne, écart_type, liste_scores) *)
@@ -270,6 +273,7 @@ val cross_validation : passenger list -> int -> (passenger list -> decision_tree
 Un arbre de décision a tendance à surapprendre. La **forêt aléatoire** construit plusieurs arbres indépendants et les fait voter pour obtenir une prédiction plus robuste.
 
 **Principe :**
+
 1. **Pour chaque arbre** (sur `n_trees` arbres) :
    - **Bootstrap** : tirer $n$ données avec remplacement (certaines répétées, d'autres absentes)
    - **Sous-espace** : sélectionner aléatoirement quelques attributs
@@ -291,6 +295,7 @@ val predict_forest : decision_tree list -> passenger -> int
 ```
 
 **Indication** pour le bootstrap :
+
 ```ocaml
 let bootstrap_sample data =
   let n = List.length data in
@@ -334,9 +339,10 @@ val build_tree_c45 : passenger list -> attribute list -> decision_tree
 ```
 
 Résultats attendus :
+
 ```
 Précision C4.5 (entraînement) : ~85%
 Validation croisée C4.5 (5-fold) : ~80%
 ```
 
-*Remarque :* Sur ce jeu de données avec peu d'attributs, C4.5 donne des résultats similaires à ID3 mais avec un écart-type plus faible en validation croisée.
+_Remarque :_ Sur ce jeu de données avec peu d'attributs, C4.5 donne des résultats similaires à ID3 mais avec un écart-type plus faible en validation croisée.

@@ -7,25 +7,26 @@ cor: true
 
 Deux exercices LeetCode pour ces vacances.
 
-- Maximum Subarray : https://leetcode.com/problems/maximum-subarray. Il doit être résolu en complexité linéaire.  
-- Longest Palindromic Substring : https://leetcode.com/problems/longest-palindromic-substring. 
+- Maximum Subarray : https://leetcode.com/problems/maximum-subarray. Il doit être résolu en complexité linéaire.
+- Longest Palindromic Substring : https://leetcode.com/problems/longest-palindromic-substring.
 
 <details>
 <summary>Indice 1er exercice</summary>
 
-Parcourir chaque indice du tableau en conservant la somme maximale se terminant à cet indice.  
+Parcourir chaque indice du tableau en conservant la somme maximale se terminant à cet indice.
+
 </details>
 
 <details>
 <summary>Indice 2ème exercice</summary>
 
 Utiliser un algorithme par programmation dynamique en calculant `b[i][j]` qui vaut vrai si la sous-chaîne d'indice `i` à `j` est un palindrome.
+
 </details>
 
-import Solution from '@site/src/components/Solution';
-import Code from '!!raw-loader!./leetcode/maxSubArray.c';
-import Code2 from '!!raw-loader!./leetcode/longestPalindrome.c';
+import Solution from "@site/src/components/Solution";
+import Code from "!!raw-loader!./leetcode/maxSubArray.c";
+import Code2 from "!!raw-loader!./leetcode/longestPalindrome.c";
 
-
-<Solution file={Code} lang='c' show={frontMatter.cor} />
-<Solution file={Code2} lang='c' show={frontMatter.cor} />
+<Solution file={Code} lang="c" show={frontMatter.cor} />
+<Solution file={Code2} lang="c" show={frontMatter.cor} />
