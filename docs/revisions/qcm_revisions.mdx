@@ -11,6 +11,19 @@ import QCMRandom from "@site/src/components/QCMRandom";
   questions={[
     {
       question:
+        "L'algorithme de déterminisation d'un automate à $n$ états et $p$ transitions sur un alphabet de taille $k$ donne un automate avec :",
+      answers: [
+        "$2^n$ états et $p$ transitions",
+        "$2^n$ états et $k2^n$ transitions",
+        "$n!$ états et $p$ transitions",
+        "$n!$ états et $k n!$ transitions",
+      ],
+      correct: 1,
+      explanation:
+        "L'automate des parties a $2^n$ états (tous les sous-ensembles d'états). Chaque état de l'automate des parties a $k$ transitions (une par lettre de l'alphabet), soit au total $k 2^n$ transitions.",
+    },
+    {
+      question:
         "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?\n```\nint c = 10;\n\nvoid f() {\n  for(int i = 0; i < 5; i++) \n    c--;\n}\n```",
       answers: [
         "Seulement 0",
@@ -88,15 +101,8 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Kosaraju identifie les composantes fortement connexes en utilisant deux parcours en profondeur.",
     },
     {
-      question: "Quel algorithme utilise la structure d'Union-Find ?",
-      answers: ["Prim", "Dijkstra", "Kruskal", "Kosaraju"],
-      correct: 2,
-      explanation:
-        "Kruskal trie les arêtes puis les ajoute une par une si elles ne créent pas de cycle, en utilisant Union-Find.",
-    },
-    {
       question:
-        "La complexité de l'algorithme de Kruskal avec Union-Find sur un graphe à $n$ sommets et P arêtes est :",
+        "La complexité de l'algorithme de Kruskal avec Union-Find sur un graphe à $n$ sommets et $P$ arêtes est :",
       answers: ["$O(np)$", "$O(p \\log p)$", "$O(np \\log p)$", "$O(n + p)$"],
       correct: 1,
       explanation:
@@ -198,7 +204,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Le calcul des attracteurs est optimal mais explore toutes les configurations. Branch-and-bound coupe les branches dont l'heuristique est moins bonne que la meilleure solution trouvée. Alpha-beta coupe les branches en dehors de l'intervalle $\\alpha \\leq \\beta$. Quine s'implifie la formule pour éviter de parcourir toutes les valuations.",
     },
     {
-      question: "Quels sont les algorithmes de classification supervisée ?",
+      question: "Lesquels sont des algorithmes de classification supervisée ?",
       answers: [
         "$k$-moyennes",
         "ID3",
@@ -217,9 +223,9 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Est un arbre binaire de recherche",
         "Est un arbre équilibré",
       ],
-      correct: [0, 2],
+      correct: [0, 2, 3],
       explanation:
-        "Un arbre $k$-dimensionnel est obtenu en divisant récursivement en deux (suivant un axe) des points dans $\mathbb{R}^k$. Il peut être utilisé dans l'algorithme KNN.",
+        "Un arbre $k$-dimensionnel est obtenu en divisant récursivement en deux (suivant un axe) des points dans $\\mathbb{R}^k$.\n Il peut être utilisé pour trouver les voisins dans l'algorithme des $k$-plus proches voisins.",
     },
     {
       question: "Dans l'algorithme des $k$-moyennes, $k$ désigne :",
@@ -261,7 +267,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question:
         "Quel algorithme de classification supervisée construit un arbre de décision en choisissant à chaque nœud l'attribut maximisant le gain d'information ?",
-      answers: ["KNN", "$k$-moyennes", "CHA", "ID3"],
+      answers: ["$k$NN", "$k$-moyennes", "CHA", "ID3"],
       correct: 3,
       explanation:
         "ID3 construit un arbre de décision de manière gloutonne en maximisant le gain d'entropie à chaque nœud.",
@@ -279,7 +285,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       answers: ["Complémentaire", "Différence", "Intersection", "Inclusion", "Miroir"],
       correct: [0, 1, 2, 4],
       explanation:
-        "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux. Différence et intersection : automate produit. Miroir : construction de l'automate miroir. Inclusion : faux car tout langage contient $\\emptyset$ et est inclus dans $\\Sigma^*$.",
+        "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux.\n Différence et intersection : automate produit.\n Miroir : inverser les transitions et les états finaux/initiaux.\n Inclusion : faux car tout langage contient $\\emptyset$ et est inclus dans $\\Sigma^*$.",
     },
     {
       question: "Lesquels de ces langages sont réguliers ?",
@@ -406,20 +412,20 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2],
       explanation:
-        "Un tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction du minimum en $O(\\log n)$. On peut aussi utiliser un ABR (équilibré éventuellement) en cherchant le minimum tout à gauche",
+        "Un tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction du minimum en $O(\\log n)$.\n On peut aussi utiliser un arbre binaire de recherche (équilibré éventuellement) en cherchant le minimum tout à gauche.",
     },
     {
       question:
-        "Soit $a = N(g, r, d)$ un arbre. $a$ est un arbre binaire de recherche (ABR) si et seulement si :",
+        "Soit $a = N(g, r, d)$ un arbre. $a$ est un arbre binaire de recherche si et seulement si :",
       answers: [
-        "Les étiquettes de $g$ sont inférieures à $r$ et celles de $d$ supérieures à $r$",
-        "La racine de $g$ est inférieure à $r$ et celle de $d$ supérieure à $r$",
+        "$r$ est supérieur aux étiquettes de $g$ et inférieur aux étiquettes de $d$",
+        "$r$ est supérieur à la racine de $g$ et inférieur à la racine de $d$",
         "Le parcours préfixe de $a$ est trié par ordre croissant",
         "Le parcours infixe de $a$ est trié par ordre croissant",
       ],
-      correct: [0, 3],
+      correct: [3],
       explanation:
-        "Un arbre est un ABR si et seulement si son parcours infixe donne les éléments triés par ordre croissant. La 1ère condition sur les étiquettes de $g$ et $d$ n'est pas suffisante pour garantir la propriété ABR, elle doit être vérifiée pour tous les nœuds du sous-arbre.",
+        "La première condition n'est pas suffisante : il faut aussi que $g$ et $d$ soient des arbres binaires de recherche.\n La deuxième n'est pas bonne du tout.\nUn arbre est un arbre binaire de recherche si et seulement si son parcours infixe est trié par ordre croissant.",
     },
     {
       question: "Quels algorithmes du cours utilisent une file de priorité ?",
@@ -484,20 +490,20 @@ import QCMRandom from "@site/src/components/QCMRandom";
       answers: [
         "Tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`",
         "Tableau `T` où `T[i]` est le père de `i`",
-        "Type OCaml `type 'a arb = Empty \\mid Node of 'a * 'a arb * 'a arb`",
+        "Type OCaml `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
         "Dictionnaire associant à chaque sommet la liste de ses fils",
       ],
       correct: 0,
       explanation:
-        "Un tas binaire est un arbre binaire presque complet, qui peut être représenté par un tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`. Le père de `T[j]` est `T[⌊(j-1)/2⌋]`.\\n Remarque : on peut aussi définir un tas persistant (skew heap).",
+        "Un tas binaire est un arbre binaire presque complet, qui peut être représenté par un tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`. Le père de `T[j]` est `T[(j-1)/2]`.\\n Remarque : on peut aussi définir un tas persistant (skew heap).",
     },
     {
       question:
-        "Quelle est la structure de donnée utilisée pour représenter un Union-Find ?",
+        "Quelle est la structure de donnée utilisée pour représenter une structure d'Union-Find ?",
       answers: [
         "Tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`",
         "Tableau `T` où `T[i]` est le père de `i`",
-        "Type OCaml `type 'a arb = Empty \\mid Node of 'a * 'a arb * 'a arb`",
+        "Type OCaml `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
         "Dictionnaire associant à chaque sommet la liste de ses fils",
       ],
       correct: 1,
@@ -508,7 +514,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       question: "Quel est le nombre d'arêtes d'un arbre à $n$ sommets ?",
       answers: ["$n-1$", "$n$", "$2n-1$", "$2n$"],
       correct: 0,
-      explanation: "Un arbre à $n$ sommets a toujours $n-1$ arêtes.",
+      explanation: "Avec $G$ connexe $\\Rightarrow$ $n-1$ arêtes et $G$ acyclique $\\Rightarrow$ au plus $n-1$ arêtes.",
     },
     {
       question:
@@ -517,35 +523,24 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Arbre binaire de recherche",
         "Table de hachage",
         "Tas binaire",
-        "File",
+        "Union-Find",
       ],
       correct: [0, 1],
       explanation:
-        "On peut utiliser un ABR dont les étiquettes sont des couples (clé, valeur), avec des opérations O($h$). On peut aussi utiliser une table de hachage avec du O(1) en moyenne.",
+        "On peut utiliser un arbre binaire de recherche dont les étiquettes sont des couples (clé, valeur), avec des opérations O($h$). On peut aussi utiliser une table de hachage avec du O(1) en moyenne.",
     },
     {
-      question: "L'arbre de Huffman garantit que :",
+      question: "L'arbre de Huffman garantit :",
       answers: [
         "Toutes les lettres ont un code de même longueur",
-        "Les lettres fréquentes ont un code court et c'est une compression préfixe optimale",
+        "Les lettres les plus fréquentes ont un code court ",
         "L'arbre est équilibré",
-        "Le décodage nécessite la table de codage complète",
+        "Une compression optimale",
+        "Un codage préfixe (aucun code n'est préfixe d'un autre)",
       ],
-      correct: [1],
+      correct: [1, 3, 4],
       explanation:
         "Le codage de Huffman est un codage préfixe (aucun code n'est préfixe d'un autre) qui minimise la longueur moyenne.",
-    },
-    {
-      question: "Pour implémenter un dictionnaire, on peut utiliser :",
-      answers: [
-        "Un arbre binaire de recherche",
-        "Un tas binaire",
-        "Une table de hachage",
-        "Un Union-Find",
-      ],
-      correct: [0, 2],
-      explanation:
-        "Les deux implémentations classiques d'un dictionnaire sont la table de hachage (Hashtbl) et l'ABR équilibré (Map).",
     },
     {
       question:
@@ -559,19 +554,6 @@ import QCMRandom from "@site/src/components/QCMRandom";
       correct: 1,
       explanation:
         "C'est la définition d'un tas max : arbre presque complet + propriété de tas (nœud ≥ fils).",
-    },
-    {
-      question:
-        "Dans un tas binaire stocké dans un tableau, les fils du nœud à l'indice $i$ sont aux indices :",
-      answers: [
-        "$i-1$ et $i+1$",
-        "$2i+1$ et $2i+2$",
-        "$i/2$ et $i/2+1$",
-        "$i^2$ et $i^2+1$",
-      ],
-      correct: 1,
-      explanation:
-        "Dans un tas stocké dans un tableau (à partir de l'indice 0), les fils de $a[i]$ sont $a[2i+1]$ et $a[2i+2]$. Le père de $a[j]$ est $a[\\lfloor(j-1)/2\\rfloor]$.",
     },
     {
       question: "La compression de chemins dans Union-Find consiste à :",
@@ -657,7 +639,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2, 5, 7],
       explanation:
-        "$\\texttt{SAT}$ est NP-complet d'après le théorème de Cook-Levin.\n$\\texttt{2-SAT}$ et $\\texttt{FNC-SAT}$ sont dans P.\n$\\texttt{3-SAT}$ est NP-complet par réduction depuis $\\texttt{SAT}$.\nCouplage maximum est dans P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général).\nClique maximum est NP-complet par réduction depuis $\\texttt{SAT}$ (ou $\\texttt{STABLE}$ comme dans le cours).\nUn arbre couvrant de poids max peut être trouvé en triant les arêtes par poids décroissant dans Kruskal.\nChemin de poids maximum est NP-complet par réduction depuis $\\texttt{HAMILTONIEN}$.",
+        "$\\texttt{SAT}$ est NP-complet d'après le théorème de Cook-Levin.\n$\\texttt{2-SAT}$ et $\\texttt{FNC-SAT}$ sont dans P.\n$\\texttt{3-SAT}$ est NP-complet par réduction depuis $\\texttt{SAT}$.\nCouplage maximum est dans P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général).\nClique maximum est NP-complet par réduction depuis $\\texttt{SAT}$ (ou $\\texttt{STABLE}$ comme dans le cours).\nUn arbre couvrant de poids maximum peut être trouvé en triant les arêtes par poids décroissant dans Kruskal.\nChemin de poids maximum est NP-complet par réduction depuis $\\texttt{HAMILTONIEN}$.",
     },
     {
       question:
@@ -838,7 +820,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "La sécurité informatique",
         "La reconnaissance de motif dans un texte",
         "La mémoïsation",
-        "Accélérer directement l'algorithme des $k$ plus proches voisins",
+        "Accélérer l'algorithme des $k$ plus proches voisins",
       ],
       correct: [0, 1, 2],
       explanation:
@@ -856,7 +838,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2, 5],
       explanation:
-        "Les listes et arbres OCaml sont persistants, et les chaînes OCaml sont immuables.\n les tableaux, tas binaires classiques et chaînes C sont mutables.",
+        "Les listes et arbres OCaml sont persistants, et les chaînes OCaml sont immuables.\n Les tableaux, tas binaires classiques et chaînes (tableaux de caractères) C sont mutables.",
     },
     {
       question: "Les arbres rouge-noirs :",
@@ -933,10 +915,10 @@ explanation:
 {
 question: "Un ordre topologique d'un graphe orienté $G$ :",
 answers: [
-"Existe si et seulement si $G$ est acyclique.",
-"Est unique s'il existe.",
-"Peut être calculé avec un parcours en largeur.",
-"Peut être calculé en temps $O(|S| + |A|)$.",
+"Existe si et seulement si $G$ est acyclique",
+"Est unique s'il existe",
+"Peut être calculé avec un parcours en largeur",
+"Peut être calculé en temps $O(|S| + |A|)$",
 "Peut être utilisé pour l'algorithme de Kosaraju"
 ],
 correct: [0, 3, 4],
@@ -976,7 +958,7 @@ answers: [
 "Converge vers une solution optimale",
 "Ne reconnaît pas les classes non convexes",
 ],
-correct: [3],
+correct: [1, 3],
 explanation:
 "C'est de la classification non-supervisée (pas de donnée d'entraînement). $k$-moyennes converge mais pas forcément vers l'optimum global. Il ne reconnaît pas bien les classes non convexes (ex. classes concentriques). ",
 },
