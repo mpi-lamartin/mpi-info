@@ -4,7 +4,7 @@
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 8px;
   background-color: var(--ifm-background-surface-color);
-  max-width: 800px;
+  width: 100%;
 }
 
 .title {
@@ -132,7 +132,10 @@
 }
 
 .answerBtn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
   width: 100%;
   padding: 0.6rem 0.75rem;
   border-radius: 6px;
@@ -147,6 +150,15 @@
   color: var(--ifm-font-color-base);
 }
 
+.answerContent {
+  flex: 1;
+}
+
+.answerMark {
+  font-size: 1rem;
+  line-height: 1;
+}
+
 .answerBtn:hover:not(:disabled):not(.selected) {
   background-color: var(--ifm-color-emphasis-100);
   border-color: var(--ifm-color-primary);
@@ -157,8 +169,9 @@
 }
 
 .answerBtn.selected {
-  background-color: var(--ifm-color-emphasis-100);
-  border-color: var(--ifm-color-primary);
+  background-color: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-500);
+  color: var(--ifm-font-color-base);
 }
 
 .answerBtn.correct {

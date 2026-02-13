@@ -9,7 +9,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
 <QCMRandom
   title="QCM Révisions"
   questions={[
-    /*{
+    {
       question:
         "Quel algorithme est une variante de Dijkstra utilisant une heuristique $h(v)$ estimant la distance restante au sommet cible pour explorer en priorité les sommets les plus prometteurs ?",
       answers: ["Bellman-Ford", "Kruskal", "A*", "LZW"],
@@ -83,7 +83,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "La complexité de l'algorithme de Kruskal avec Union-Find sur un graphe à $n$ sommets et $p$ arêtes est :",
+        "La complexité de l'algorithme de Kruskal avec Union-Find sur un graphe à $n$ sommets et P arêtes est :",
       answers: ["$O(np)$", "$O(p \\log p)$", "$O(np \\log p)$", "$O(n + p)$"],
       correct: 1,
       explanation:
@@ -263,23 +263,23 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question: "Les langages réguliers sont stables par :",
-      answers: ["Complémentaire", "Différence", "Intersection", "Inclusion"],
-      correct: [0, 1, 2],
+      answers: ["Complémentaire", "Différence", "Intersection", "Inclusion", "Miroir"],
+      correct: [0, 1, 2, 4],
       explanation:
-        "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux. Différence et intersection : automate produit. Inclusion : faux car tout langage contient $\\emptyset$ et est inclus dans $\\Sigma^*$.",
+        "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux. Différence et intersection : automate produit. Miroir : construction de l'automate miroir. Inclusion : faux car tout langage contient $\\emptyset$ et est inclus dans $\\Sigma^*$.",
     },
     {
       question: "Lesquels de ces langages sont réguliers ?",
       answers: [
-        "$\\{a^n b^p | n, p \\in \\mathbb{N}\\}$",
-        "$\\{a^n b^n | n \\in \\mathbb{N}\\}$",
-        "$\\{a^n b^p | n = p \\mod 3\\}$",
-        "$\\{a^n b^p | n < p\\}$",
+        "$\\{a^n b^p \\mid n, p \\in \\mathbb{N}\\}$",
+        "$\\{a^n b^n \\mid n \\in \\mathbb{N}\\}$",
+        "$\\{a^n b^p \\mid n = p \\mod 3\\}$",
+        "$\\{a^n b^p \\mid n < p\\}$",
       ],
       correct: [0, 2],
       explanation:
         "Le premier est $a^* b^*$. Le 3ème est reconnu par un automate produit à $4$ états où on arrive sur l'état $(x, y)$ si le nombre de $a$ (resp. $b$) est égal à $x$ (resp. $y$). Le 2ème et 4ème ne sont pas régulier par le lemme de l'étoile.",
-    },*/
+    },
     {
       question:
         "Quel est le nombre d'arêtes d'un graphe complet non-orienté à $n$ sommets ?",
@@ -404,25 +404,16 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Le parcours préfixe de $a$ est trié par ordre croissant",
         "Le parcours infixe de $a$ est trié par ordre croissant",
       ],
-      correct: 3,
+      correct: [0, 3],
       explanation:
         "Un arbre est un ABR si et seulement si son parcours infixe donne les éléments triés par ordre croissant. La 1ère condition sur les étiquettes de $g$ et $d$ n'est pas suffisante pour garantir la propriété ABR, elle doit être vérifiée pour tous les nœuds du sous-arbre.",
     },
     {
       question: "Quels algorithmes du cours utilisent une file de priorité ?",
-      answers: [
-        "Dijkstra",
-        "A*",
-        "Tri par tas (heapsort)",
-        "Huffman",
-        "BFS",
-        "Floyd-Warshall",
-        "Kruskal",
-        "KNN",
-      ],
+      answers: ["Dijkstra", "A*", "Tri par tas", "Huffman", "BFS", "Quine"],
       correct: [0, 1, 2, 3],
       explanation:
-        "Le tas (file de priorité) est utilisé par Dijkstra et A* pour extraire le sommet le plus proche, par le tri par tas (heapsort), et par Huffman pour fusionner les arbres de fréquences minimales.",
+        "Le tas (file de priorité) est utilisé par Dijkstra et A* pour extraire le sommet le plus proche, par le tri par tas, et par Huffman pour fusionner les arbres de fréquences minimales.",
     },
     {
       question: "Quelles sont des applications possibles d'Union-Find ?",
@@ -432,7 +423,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Kruskal",
         "Tester la connexité d'un graphe",
       ],
-      correct: 2,
+      correct: [0, 2, 3],
       explanation:
         "Union-Find stocke une partition dans un tableau de pères. Il est utilisé par Kruskal pour vérifier si une arête relie deux composantes distinctes (find) et pour les fusionner (union). On peut aussi l'utiliser pour gérer des classes d'équivalence ou tester la connexité d'un graphe en vérifiant que tous les sommets sont dans la même classe.",
     },
@@ -444,7 +435,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Permet de prouver qu'un langage n'est pas régulier",
         "Permet de prouver qu'un langage est régulier",
       ],
-      correct: 2,
+      correct: [2],
       explanation:
         "Le lemme de l'étoile est utilisé par l'absurde pour prouver qu'un langage n'est pas régulier. La réciproque est fausse donc on ne peut pas prouver qu'un langage est régulier avec ce lemme. Il est faux pour les langages hors-contextes généraux, qui ont un lemme de l'étoile différent (avec $u = vwx$ et $|vx| > 0$).",
     },
@@ -452,14 +443,15 @@ import QCMRandom from "@site/src/components/QCMRandom";
       question: "Tout automate est équivalent à :",
       answers: [
         "Une expression régulière",
-        "Un automate déterministe",
+        "Une grammaire régulière",
+        "Un automate déterministe complet",
         "Un automate émondé (dont tous les états sont accessibles et co-accessibles)",
         "Un automate local",
         "Un automate sans $\\epsilon$-transition",
       ],
-      correct: [0, 1, 2, 4],
+      correct: [0, 1, 2, 3, 5],
       explanation:
-        "Tout automate est équivalent à une expression régulière par le théorème de Kleene. Tout automate est équivalent à un automate déterministe par déterminisation. Tout automate est équivalent à un automate émondé en supprimant les états inaccessibles ou non co-accessibles. Seuls les langages locaux sont reconnus par des automates locaux.",
+        "Tout automate est équivalent à une expression régulière par le théorème de Kleene. Tout automate est équivalent à un automate déterministe complet par déterminisation. Tout automate est équivalent à un automate émondé en supprimant les états inaccessibles ou non co-accessibles. Seuls les langages locaux sont reconnus par des automates locaux.",
     },
     {
       question: "L'algorithme d'élimination des états :",
@@ -479,7 +471,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       answers: [
         "Tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`",
         "Tableau `T` où `T[i]` est le père de `i`",
-        "Type OCaml `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+        "Type OCaml `type 'a arb = Empty \\mid Node of 'a * 'a arb * 'a arb`",
         "Dictionnaire associant à chaque sommet la liste de ses fils",
       ],
       correct: 0,
@@ -492,7 +484,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       answers: [
         "Tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`",
         "Tableau `T` où `T[i]` est le père de `i`",
-        "Type OCaml `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+        "Type OCaml `type 'a arb = Empty \\mid Node of 'a * 'a arb * 'a arb`",
         "Dictionnaire associant à chaque sommet la liste de ses fils",
       ],
       correct: 1,
@@ -508,7 +500,12 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question:
         "Quelles structures de données permettent d'implémenter un dictionnaire ?",
-      answers: ["ABR", "Table de hachage", "Tas binaire", "File"],
+      answers: [
+        "Arbre binaire de recherche",
+        "Table de hachage",
+        "Tas binaire",
+        "File",
+      ],
       correct: [0, 1],
       explanation:
         "On peut utiliser un ABR dont les étiquettes sont des couples (clé, valeur), avec des opérations O($h$). On peut aussi utiliser une table de hachage avec du O(1) en moyenne.",
@@ -521,7 +518,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "L'arbre est équilibré",
         "Le décodage nécessite la table de codage complète",
       ],
-      correct: 1,
+      correct: [1],
       explanation:
         "Le codage de Huffman est un codage préfixe (aucun code n'est préfixe d'un autre) qui minimise la longueur moyenne.",
     },
@@ -583,7 +580,8 @@ import QCMRandom from "@site/src/components/QCMRandom";
       explanation: "Par induction structurelle.",
     },
     {
-      question: "Dans un arbre binaire de hauteur $h$ et à $n$ nœuds :",
+      question:
+        "Dans un arbre binaire de hauteur $h$ et à $n$ nœuds (donner les meilleures bornes) :",
       answers: [
         "$n \\leq 2^h - 1$",
         "$n \\leq 2^{h+1} - 1$",
@@ -592,7 +590,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [1, 3],
       explanation:
-        "Il y a entre $1$ et $2^p$ nœuds à la profondeur $p$, qu'on peut sommer.",
+        "Il y a entre $1$ et $2^p$ nœuds à la profondeur P, qu'on peut sommer.",
     },
     {
       question: "Si $\\Pi_1 \\leq_p \\Pi_2$ alors :",
@@ -606,14 +604,14 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [1, 3, 5],
       explanation:
-        "Soit $\\phi$ une réduction de $\\Pi_1$ à $\\Pi_2$. Si $\\Pi_2 \\in P$, alors $\\Pi_1$ est dans $P$ car on peut résoudre $\\Pi_1$ en résolvant $\\Pi_2$ sur l'instance transformée. De même pour NP. Si $\\Pi_2$ est NP-complet et $\\Pi_1 \\in NP$, alors $\\Pi_1$ est NP-complet par transitivité.",
+        "Soit $\\varphi$ une réduction de $\\Pi_1$ à $\\Pi_2$. Si $\\Pi_2 \\in$ P, alors $\\Pi_1$ est dans P car on peut résoudre une instance $I$ de $\\Pi_1$ en résolvant $\\varphi(I)$ dans $\\Pi_2$. Si $A$ est un vérificateur pour $\\Pi_2$, alors $A(\\varphi(I), c)$ est un vérificateur pour $\\Pi_1$. Si $\\Pi_2$ est NP-complet et $\\Pi_1 \\in$ NP, alors $\\Pi_1$ est NP-complet par transitivité.",
     },
     {
       question: "Un problème est décidable si :",
       answers: [
         "Il peut être résolu en temps polynomial",
         "Il existe un algorithme qui termine toujours et répond correctement",
-        "Il appartient à $NP$",
+        "Il appartient à NP",
         "Il peut être vérifié en temps polynomial",
       ],
       correct: 1,
@@ -621,78 +619,353 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Un problème est décidable s'il existe un algorithme (machine de Turing) qui termine toujours et donne la bonne réponse.",
     },
     {
-      question: "Quelle relation est vraie concernant $P$ et $NP$ ?",
+      question: "Quelles relations sont connues concernant P et NP ?",
       answers: [
-        "$P = NP$",
-        "$P \\subset NP$",
-        "$NP \\subset P$",
-        "$P$ et $NP$ sont disjoints",
+        "P = NP",
+        "P $\\subset$ NP",
+        "NP $\\subset$ P",
+        "P et NP sont disjoints",
       ],
       correct: 1,
       explanation:
-        "On sait que $P \\subset NP$ car un problème résoluble en temps polynomial peut évidemment être vérifié en temps polynomial. La question $P = NP$ reste ouverte.",
+        "On sait que P $\\subset$ NP car un problème résoluble en temps polynomial peut évidemment être vérifié en temps polynomial. La question P = NP reste ouverte.",
     },
     {
       question: "Quels sont les problèmes NP-complets ?",
       answers: [
-        "`SAT`",
-        "`2-SAT`",
-        "`3-SAT`",
+        "$\\texttt{SAT}$",
+        "$\\texttt{2-SAT}$",
+        "$\\texttt{3-SAT}$",
+        "$\\texttt{FNC-SAT}$ : $\\texttt{SAT}$ restreint aux formes normales disjonctives (FNC)",
         "Couplage maximum",
         "Clique maximum",
         "Arbre couvrant de poids maximum",
         "Chemin de poids maximum",
       ],
-      correct: [0, 2, 4, 6],
+      correct: [0, 2, 5, 7],
       explanation:
-        "`SAT` est est NP-complet d'après le théorème de Cook-Levin. `2-SAT` $\\in$ P. `3-SAT` est NP-complet par réduction depuis `SAT`. Couplage maximum $\\in$ P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général). Clique maximum est NP-complet par réduction depuis `SAT` (ou `STABLE` comme dans le cours). Un arbre couvrant de poids max peut être trouvé en triant les arêtes par poids décroissant dans Kruskal. Chemin de poids maximum est NP-complet par réduction depuis `HAMILTONIEN`.",
+        "$\\texttt{SAT}$ est NP-complet d'après le théorème de Cook-Levin.\n$\\texttt{2-SAT}$ et $\\texttt{FNC-SAT}$ sont dans P.\n$\\texttt{3-SAT}$ est NP-complet par réduction depuis $\\texttt{SAT}$.\nCouplage maximum est dans P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général).\nClique maximum est NP-complet par réduction depuis $\\texttt{SAT}$ (ou $\\texttt{STABLE}$ comme dans le cours).\nUn arbre couvrant de poids max peut être trouvé en triant les arêtes par poids décroissant dans Kruskal.\nChemin de poids maximum est NP-complet par réduction depuis $\\texttt{HAMILTONIEN}$.",
     },
     {
       question:
-        "Si $\\Pi$ est un problème de décision, on note $\\bar{\\Pi}$ le problème de décision qui à une instance de $\\Pi$ répond `oui` si et seulement si $\\Pi$ répond `non` sur cette instance.",
-      answers: ["$\\Pi \\in$ P $\\Longleftrightarrow \\bar{\\Pi} \\in$ P"],
-      correct: [0],
-      explanation:
-        "`SAT` est est NP-complet d'après le théorème de Cook-Levin. `2-SAT` $\\in$ P. `3-SAT` est NP-complet par réduction depuis `SAT`. Couplage maximum $\\in$ P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général). Clique maximum est NP-complet par réduction depuis `SAT` (ou `STABLE` comme dans le cours). Un arbre couvrant de poids max peut être trouvé en triant les arêtes par poids décroissant dans Kruskal. Chemin de poids maximum est NP-complet par réduction depuis `HAMILTONIEN`.",
-    },
-    {
-      question:
-        "On note $\\phi \\equiv \\psi$ lorsque $\\phi$ et $\\psi$ ont les mêmes valuations positives. Lesquelles de ces identités sont vraies ?",
+        "On note $\\varphi \\equiv \\psi$ lorsque $\\varphi$ et $\\psi$ ont les mêmes valuations positives. Lesquelles de ces identités sont vraies ?",
       answers: [
         "$\\lnot \\lnot \\varphi \\equiv \\varphi$",
         "$\\varphi_1 \\lor (\\varphi_2 \\land \\varphi_3) \\equiv (\\varphi_1 \\lor \\varphi_2) \\land (\\varphi_1 \\lor \\varphi_3)$",
         "$\\varphi_1 \\land (\\varphi_2 \\lor \\varphi_3) \\equiv (\\varphi_1 \\land \\varphi_2) \\lor (\\varphi_1 \\land \\varphi_3)$",
         "$\\varphi_1 \\longrightarrow \\varphi_2 \\equiv \\lnot \\varphi_2 \\longrightarrow \\lnot \\varphi_1$",
-        "$\\lnot(\\varphi_1 \\land \\varphi_2) \\equiv \\lnot \\varphi_1 \\lor \\lnot \\varphi_2$",
-        "$\\lnot(\\varphi_1 \\lor \\varphi_2) \\equiv \\lnot \\varphi_1 \\land \\lnot \\varphi_2$",
+        "$\\lnoC(\\varphi_1 \\land \\varphi_2) \\equiv \\lnot \\varphi_1 \\lor \\lnot \\varphi_2$",
+        "$\\lnoC(\\varphi_1 \\lor \\varphi_2) \\equiv \\lnot \\varphi_1 \\land \\lnot \\varphi_2$",
       ],
       correct: [0, 1, 2, 3, 4, 5],
       explanation:
         "Par table de vérité ou utilisation de la définition de l'évaluation d'une formule.",
     },
     {
-      question: "$\\Pi_1$ se réduit à $\\Pi_2$ est équivalent à :",
+      question: "Si $\\Pi_1$ se réduit à $\\Pi_2$ alors :",
       answers: [
+        "$\\Pi_1 \\leq \\Pi_2$",
         "$\\Pi_2 \\leq \\Pi_1$",
         "Il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$",
-        "$\\Pi_1$ indécidable $\\Rightarrow \\Pi_2$ indécidable",
+        "Il existe une fonction de réduction de $\\Pi_2$ à $\\Pi_1$",
+        "$\\Pi_1$ indécidable $\\Longrightarrow \\Pi_2$ indécidable",
+        "$\\Pi_2$ indécidable $\\Longrightarrow \\Pi_1$ indécidable",
+        "$\\Pi_1$ NP-complet $\\Longrightarrow \\Pi_2$ NP-complet",
+        "$\\Pi_2$ NP-complet $\\Longrightarrow \\Pi_1$ NP-complet",
       ],
-      correct: [1, 2],
+      correct: [0, 2, 4],
       explanation:
-        "$\\Pi_1 \\leq_p \\Pi_2$ signifie que $\\Pi_1$ se réduit à $\\Pi_2$, c'est-à-dire qu'il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$. Par conséquent, si $\\Pi_1$ est indécidable, alors $\\Pi_2$ doit également être indécidable, car sinon on pourrait résoudre $\\Pi_1$ en utilisant la réduction vers $\\Pi_2$.",
+        "$\\Pi_1 \\leq_p \\Pi_2$ signifie que $\\Pi_1$ se réduit à $\\Pi_2$, c'est-à-dire qu'il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$.\nPar conséquent, si $\\Pi_1$ est indécidable, alors $\\Pi_2$ doit également être indécidable, car sinon on pourrait résoudre $\\Pi_1$ en utilisant la réduction vers $\\Pi_2$\n Il faut que la réduction soit polynomiale et avoir l'appartenance à NP pour conclure sur les problèmes NP-complets.",
     },
     {
       question:
         "Le lemme de l'étoile sur un langage régulier $L$ commence ainsi :",
       answers: [
-        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Rightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
-        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Rightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
-        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Rightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
-        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Rightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
+        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Longrightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
+        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Longrightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
+        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Longrightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
+        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Longrightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
       ],
       correct: 1,
       explanation:
         "En cas de doute, revenir à la démonstration du lemme de l'étoile.",
     },
-  ]}
+    {
+      question: "Quels sont les langages hors-contextes ?",
+      answers: [
+        "$\\{a^n b^p \\mid n, p \\in \\mathbb{N}\\}$",
+        "$\\{a^n b^n \\mid n \\in \\mathbb{N}\\}$",
+        "$\\{a^n b^p \\mid n \\leq p \\}$",
+        "$\\{a^n b^n c^n \\mid n \\in \\mathbb{N}\\}$",
+      ],
+      correct: [0, 1, 2],
+      explanation:
+        "Le premier est régulier donc hors-contexte.\nLe second est engendré par $S \\Longrightarrow aSb \\mid \\epsilon$.\nLe troisième est engendré par $S \\Longrightarrow aSb \\mid bS \\mid \\epsilon$.\nLe quatrième n'est pas hors-contexte par le lemme de l'étoile pour les langages hors-contextes (voir TD).",
+    },
+    {
+      question: "Une grammaire $G$ est ambigüe si et seulement si :",
+      answers: [
+        "Il existe un mot de $L(G)$ ayant au moins deux arbres de dérivation différents",
+        "Tous les mots de $L(G)$ ont au moins deux arbres de dérivation différents",
+        "Il existe un mot de $L(G)$ ayant au moins deux dérivations gauches différentes",
+        "Tous les mots de $L(G)$ ont au moins deux dérivations gauches différentes",
+      ],
+      correct: [0, 2],
+      explanation: "Cours.",
+    },
+    {
+      question: "Les grammaires non-contextuelles sont stables par :",
+      answers: [
+        "Inclusion",
+        "Union",
+        "Concaténation",
+        "Étoile",
+        "Intersection",
+        "Complémentaire",
+        "Différence",
+        "Miroir",
+      ],
+      correct: [1, 2, 3, 7],
+      explanation:
+        "Les langages hors-contextes sont stables par union, concaténation, étoile, miroir (cours).\nIls ne sont pas stables par intersection, complémentaire ou différence (voir TD) ni par inclusion.",
+    },
+    {
+      question: "Toute formule logique est équivalente à :",
+      answers: [
+        "Une formule en forme normale conjonctive (FNC)",
+        "Une formule en forme normale disjonctive (FND)",
+        "Une formule en forme normale négative (où les négations ne sont appliquées qu'à des variables)",
+        "Une formule $\\texttt{2-SAT}$ (FNC où chaque clause contient au plus 2 littéraux)",
+        "Une formule $\\texttt{3-SAT}$ (FNC où chaque clause contient au plus 3 littéraux)",
+      ],
+      correct: [0, 1, 2, 4],
+      explanation:
+        "Toute formule est équivalente à une FNC et à une FND, en passant par une table de vérité.\nPar induction et en poussant les négations vers les variables, on obtient une formule équivalente en forme normale négative.\nOn a montré dans la réduction de $\\texttt{SAT}$ à $\\texttt{3-SAT}$ que toute formule est équivalente à une formule $\\texttt{3-SAT}$.\nPar contre, $\\texttt{2-SAT}$ est dans P, donc on aurait P = NP si toute formule était équivalente à une formule $\\texttt{2-SAT}$.",
+    },
+    {
+      question:
+        "On note $e_1 \\equiv e_2$ lorsque les expressions régulières $e_1$ et $e_2$ reconnaissent le même langage. Lesquelles de ces identités sont vraies ?",
+      answers: [
+        "$(e^*)^* \\equiv e^*$",
+        "$(e_1 \\mid e_2)^* \\equiv e_1^* \\mid e_2^*$",
+        "$(e_1 e_2)^* \\equiv e_1^* e_2^*$",
+        "$e_1 (e_2 \\mid e_3) \\equiv e_1 e_2 \\mid e_1 e_3$",
+        "$e_1 \\mid (e_2 e_3) \\equiv e_1 e_2 \\mid e_1 e_3$",
+      ],
+      correct: [0, 3],
+      explanation:
+        "On montre la première avec la définition.\n Si $e_1 = a^*$ et $e_2 = b^*$ alors $(e_1 \\mid e_2)^* \\not\\equiv e_1^* \\mid e_2^*$. Similaire pour les autres réponses.",
+    },
+
+    {
+      question: "Quelles affirmations sont vraies ?",
+      answers: [
+        "$\\emptyset$ est une lettre",
+        "$\\emptyset$ est un mot",
+        "$\\emptyset$ est un langage",
+        "$\\epsilon$ est une lettre",
+        "$\\epsilon$ est un mot",
+        "$\\epsilon$ est un langage",
+      ],
+      correct: [2, 4, 5],
+      explanation:
+        "$\\emptyset$ n'est ni une lettre ni un mot, mais un langage (le langage vide).\n$\\epsilon$ est le mot vide mais peut aussi désigner un langage par abus de notation, sur les expression régulière : l'ensemble $\\{\\epsilon\\}$.",
+    },
+    {
+      question:
+      "Un automate produit de deux automates $A_1$ et $A_2$ d'états $Q_1$ et $Q_2$ :",
+      answers: [
+      "Possède $Q_1 \\times Q_2$ comme ensemble d'états",
+      "Peut permettre de reconnaître $L(A_1)L(A_2)$",
+      "Peut permettre de reconnaître $L(A_1) \\cup L(A_2)$",
+      "Peut permettre de reconnaître $L(A_1) \\cap L(A_2)$",
+      "Peut permettre de reconnaître $L(A_1) \\setminus L(A_2)$",
+      "Peut permettre de reconnaître $L(A_1) \\Delta L(A_2)$",
+      ],
+      correct: [0, 2, 3, 4, 5],
+      explanation:
+      "L'automate produit a bien $Q_1 \\times Q_2$ comme états. En ajustant les états finaux, il permet de reconnaître l'union, l'intersection, la différence et la différence symétrique. En revanche, la concaténation $L(A_1)L(A_2)$ ne se fait pas avec un simple produit.\nAttention : les deux automates doivent être déterministes pour que le produit permette de reconnaitre ces langages.",
+    },
+
+    {
+      question: "Si $\\Pi \\in$ NP :",
+      answers: [
+        "On ne sait pas le résoudre en temps polynomial",
+        "Il peut être résolu en temps exponentiel",
+        "Il peut être résolu en espace polynomial",
+        "Pour chaque instance de $\\Pi$, on peut créer un certificat en temps polynomial",
+      ],
+      correct: [1, 2],
+      explanation:
+        "Tout problème de P est dans NP.\nUn problème de NP peut toujours être résolu en temps exponentiel (énumération des certificats) et en espace polynomial (réutilisation de l'espace pour vérifier chaque certificat).\nLe vérificateur doit vérifier en temps polynomial un certificat, pas le créer.",
+    },
+    {
+      question: "À quoi s'évalue l'expression `0.1 +. 0.2 = 0.3` en OCaml ?",
+      answers: [
+        "Une erreur car il faut utiliser `==`",
+        "Une erreur car il faut utiliser `=.` sur des flottants",
+        "`false` car `0.1` est stocké de façon approchée",
+        "`true` car `0.1 +. 0.2` est égal à `0.3`",
+      ],
+      correct: 2,
+      explanation:
+        "Les flottants sont stockés en base 2 et `0.1` n'a pas d'écriture exacte en base 2, donc les comparaisons d'égalité stricte peuvent échouer à cause des erreurs d'arrondi.",
+    },
+
+    {
+      question: "La suite de bits $10110$ peut représenter :",
+      answers: ["22", "-10 en complément à 2", "Un rationnel", "Un caractère"],
+      correct: [0, 1, 2, 3],
+      explanation:
+        "$10110$ vaut 22 en non signé. Sur 5 bits en complément à 2, cela représente -10. Cette suite peut aussi coder une valeur rationnelle selon un format flottant donné, et peut représenter un caractère selon un encodage choisi.",
+    },
+    {
+      question: "Une fonction de hachage peut être utilisée pour :",
+      answers: [
+        "La sécurité informatique",
+        "La reconnaissance de motif dans un texte",
+        "La mémoïsation",
+        "Accélérer directement l'algorithme des $k$ plus proches voisins",
+      ],
+      correct: [0, 1, 2],
+      explanation:
+        "En sécurité pour éviter de stocker les mots de passe en clair.\nEn reconnaissance de motif, comme dans l'algorithme de Rabin-Karp.\nEn mémoïsation pour stocker les résultats intermédiaires d'une fonction récursive.",
+    },
+    {
+      question: "Quelles structures sont persistantes ?",
+      answers: [
+        "Liste",
+        "Tableau",
+        "Arbre binaire avec `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+        "Tas binaire comme dans le cours",
+        "Chaîne de caractères en C",
+        "Chaîne de caractères en OCaml",
+      ],
+      correct: [0, 2, 5],
+      explanation:
+        "Les listes et arbres OCaml sont persistants, et les chaînes OCaml sont immuables.\n les tableaux, tas binaires classiques et chaînes C sont mutables.",
+    },
+    {
+      question: "Les arbres rouge-noirs :",
+      answers: [
+        "Sont des arbres binaires de recherche",
+        "Sont des tas",
+        "Sont équilibrés",
+        "Maintiennent l'invariant : les deux fils de chaque nœud sont de hauteur égales +/- 1",
+        "Permettent d'implémenter un dictionnaire",
+        "Utilisent une opération de rotation pour maintenir l'équilibre",
+      ],
+      correct: [0, 2, 4, 5],
+      explanation:
+        "Les arbres rouge-noirs sont des arbres binaires de recherche auto-équilibrés, qui maintiennent une contrainte de coloration pour garantir que la hauteur est logarithmique.\nIls permettent d'implémenter un dictionnaire avec des opérations en O($\\log n$). Les rotations sont utilisées pour rééquilibrer l'arbre après les insertions ou suppressions.\nL'invariant est celui des AVL."
+    },
+    {
+      question: "Sur un graphe non-orienté $G = (S, A)$ à $n$ sommets et $p$ arêtes :",
+
+answers: [
+"$\\sum_{v \\in S} \\deg(v) = p$",
+"$\\sum_{v \\in S} \\deg(v) = 2p$",
+"$G$ a un nombre pair de sommets de degré impair",
+"$G$ a un nombre impair de sommets de degré pair",
+"$G$ connexe $\\Longrightarrow p \\geq n-1$",
+"$p \\geq n-1 \\Longrightarrow G \\text{ connexe}$",
+"$G$ acyclique $\\Longrightarrow p \\leq n-1$",
+"$p \\leq n-1 \\Longrightarrow G \\text{ acyclique}$",
+],
+correct: [1, 2, 4, 6],
+explanation: "La plupart par récurrence. Voir cours."
+},
+{
+question: "Quels algorithmes utilisent la méthode diviser pour régner ?",
+answers: [
+"Algorithme de tri rapide",
+"Algorithme de tri fusion",
+"Algorithme de recherche par dichotomie dans un tableau trié",
+"Algorithme de construction d'un arbre $k$-d",
+"Algorithme ID3",
+],
+correct: [0, 1, 2, 3, 4],
+explanation: "Ces algorithmes divisent le problème en sous-problèmes, les résolvent récursivement puis combinent les résultats.",
+},
+{
+question: "Quelles sont les bonnes résolutions d'équation de complexité ?",
+answers: [
+"$C(n) = C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(\\log n)$",
+"$C(n) = C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(n)$",
+"$C(n) = C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n \\log n)$",
+"$C(n) = C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n^2)$",
+"$C(n) = 2C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(n)$",
+"$C(n) = 2C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(n \\log n)$",
+"$C(n) = 2C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n \\log n)$",
+"$C(n) = 2C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n^2)$",
+"$C(n) = 2 C(n-1) + 1 \\Longrightarrow C(n) = O(n^2)$",
+"$C(n) = 2 C(n-1) + 1 \\Longrightarrow C(n) = O(2^n)$",
+],
+correct: [0, 3, 4, 6, 9],
+explanation: "$$C(n) \\leq C(\\frac{n}{2}) + 1 \\leq C(\\frac{n}{4}) + 1 + 1 \\leq \\dots \\leq C\\left(\\frac{n}{2^{\\lfloor \\log_2(n) \\rfloor}}\\right) + \\lfloor \\log_2(n) \\rfloor = O(\\log n)$$ $$C(n) = C(\\frac{n}{2}) + n = C(1) + n\\times \\sum_{k=0}^{\\lfloor \\log_2(n) \\rfloor - 1} \\frac{1}{2^k} \\leq C(1) + 2n$$ $$C(n) \\leq 2C(\\frac{n}{2}) + 1 \\leq 4C(\\frac{n}{4}) + 2 + 1 \\leq \\dots \\leq 2^{\\lfloor \\log_2(n) \\rfloor} C\\left(\\frac{n}{2^{\\lfloor \\log_2(n) \\rfloor}}\\right) + \\sum_{k=0}^{\\lfloor \\log_2(n) \\rfloor - 1} 2^k = O(n)$$ $$C(n) = 2C(n-1) + 1 = 4C(n-2) + 2 + 1 = \\dots = 2^{n-1}C(1) + \\sum_{k=0}^{n-2} 2^k = O(2^n)$$",
+},
+{
+question: "Pour rechercher si un motif apparaît dans un texte, on peut utiliser :",
+answers: [
+"Un automate",
+"L'algorithme de Lempel-Ziv-Welch",
+"L'algorithme de Rabin-Karp",
+"L'algorithme de Boyer-Moore",
+"L'algorithme de Huffman",
+],
+correct: [0, 2, 3],
+explanation:
+"On peut construire l'automate reconnaissant $\\Sigma^*m\\Sigma^*$, où $m$ est le motif. \n LZW et Huffman sont des algorithmes de compression.",
+},
+{
+question: "Un ordre topologique d'un graphe orienté $G$ :",
+answers: [
+"Existe si et seulement si $G$ est acyclique.",
+"Est unique s'il existe.",
+"Peut être calculé avec un parcours en largeur.",
+"Peut être calculé en temps $O(|S| + |A|)$.",
+"Peut être utilisé pour l'algorithme de Kosaraju"
+],
+correct: [0, 3, 4],
+explanation:
+"Un ordre topologique existe exactement pour les DAG. Il n'est pas forcément unique. Il peut être calculé par l'algorithme de Kahn (basé sur une file), en temps linéaire en sommets + arêtes.",
+},
+{
+question: "Un couplage $M$ d'un graphe à $n$ sommets vérifie :",
+answers: [
+"$M$ ne contient pas deux arêtes adjacentes.",
+"$M$ ne contient pas deux sommets adjacents.",
+"Le nombre d'arêtes de $M$ est au plus $\\lfloor \\frac{n}{2} \\rfloor$.",
+"Le nombre de sommets de $M$ est au plus $\\lfloor \\frac{n}{2} \\rfloor$.",
+],
+correct: [0, 2],
+explanation:
+"Un couplage est un ensemble d'arêtes sans sommets communs, donc chaque sommet est adjacent à au plus une arête du couplage. Par conséquent, le nombre d'arêtes dans un couplage est limité par la moitié du nombre de sommets, soit $\\lfloor \\frac{n}{2} \\rfloor$.",
+},
+{
+question: "Un graphe $G$ est biparti si et seulement si :",
+answers: [
+"Il ne contient pas de cycle de longueur paire",
+"Il ne contient pas de cycle de longueur impaire",
+"Il est 2-coloriable",
+"Il est 3-coloriable",
+"Il contient un couplage parfait"
+],
+correct: [1, 2],
+explanation:
+"$G$ est biparti si on peut séparer les sommets en deux ensembles disjoints tels que toutes les arêtes relient un sommet de l'un à un sommet de l'autre. Cela équivaut à dire qu'il est 2-coloriable. \nSi un graphe ne contient pas de cycle de longueur impaire, un parcours de graphe en alternant les couleurs des sommets permet de 2-colorer le graphe.",
+},
+{
+question: "L'algorithme des $k$-moyennes :",
+answers: [
+"Est un algorithme d'apprentissage supervisé",
+"Converge toujours",
+"Converge vers une solution optimale",
+"Ne reconnaît pas les classes non convexes",
+],
+correct: [3],
+explanation:
+"C'est de la classification non-supervisée (pas de donnée d'entraînement). $k$-moyennes converge mais pas forcément vers l'optimum global. Il ne reconnaît pas bien les classes non convexes (ex. classes concentriques). ",
+},
+]}
 />

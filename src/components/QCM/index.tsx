@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import katex from "katex";
 import useBaseUrl from "@docusaurus/useBaseUrl";
@@ -145,7 +145,18 @@ export default function QCM({
     setScore(0);
   };
 
-  const allAnswered = selectedAnswers.every((s) => s.size > 0);
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const isValidateShortcut =
+        (event.ctrlKey || event.metaKey) && event.key === "Enter";
+      if (!isValidateShortcut || showResults) return;
+      event.preventDefault();
+      handleSubmit();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [showResults, selectedAnswers]);
 
   return (
     <div className={styles.qcmContainer}>
@@ -170,6 +181,8 @@ export default function QCM({
               {q.answers.map((answer, aIndex) => {
                 const isSelected = selectedAnswers[qIndex].has(aIndex);
                 const isCorrect = correctSet.has(aIndex);
+                const userMark =
+                  showResults && isSelected ? (isCorrect ? "✅" : "❌") : null;
                 let answerClass = styles.answer;
 
                 if (showResults) {
@@ -194,7 +207,12 @@ export default function QCM({
                       disabled={showResults}
                     />
                     <span className={styles.answerText}>
-                      <MathText text={answer} />
+                      <span className={styles.answerContent}>
+                        <MathText text={answer} />
+                      </span>
+                      {userMark && (
+                        <span className={styles.answerMark}>{userMark}</span>
+                      )}
                     </span>
                   </label>
                 );
@@ -211,11 +229,7 @@ export default function QCM({
 
       <div className={styles.actions}>
         {!showResults ? (
-          <button
-            className={styles.submitButton}
-            onClick={handleSubmit}
-            disabled={!allAnswered}
-          >
+          <button className={styles.submitButton} onClick={handleSubmit}>
             Valider
           </button>
         ) : (

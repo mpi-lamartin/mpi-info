@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import katex from "katex";
 import useBaseUrl from "@docusaurus/useBaseUrl";
@@ -122,16 +122,7 @@ export default function QCMRandom({
     }
   };
 
-  // Instant button click for single-choice questions
-  const handleInstantSelect = (idx: number) => {
-    if (validated) return;
-    const sel = new Set([idx]);
-    setSelectedSet(sel);
-    doValidate(sel);
-  };
-
   const handleValidate = () => {
-    if (selectedSet.size === 0) return;
     doValidate(selectedSet);
   };
 
@@ -157,6 +148,27 @@ export default function QCMRandom({
 
   const pct =
     answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const isValidateShortcut =
+        (event.ctrlKey || event.metaKey) && event.key === "Enter";
+      if (!isValidateShortcut) return;
+      if (finished) return;
+
+      if (validated) {
+        handleNext();
+        event.preventDefault();
+        return;
+      }
+
+      handleValidate();
+      event.preventDefault();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [finished, validated, singleChoice, selectedSet]);
 
   if (finished) {
     return (
@@ -205,6 +217,8 @@ export default function QCMRandom({
           {q.answers.map((answer, aIdx) => {
             const isSelected = selectedSet.has(aIdx);
             const isCorrectAnswer = correctSet.has(aIdx);
+            const userMark =
+              validated && isSelected ? (isCorrectAnswer ? "✅" : "❌") : null;
             let cls = styles.answerBtn;
 
             if (validated) {
@@ -221,39 +235,39 @@ export default function QCMRandom({
               <button
                 key={aIdx}
                 className={cls}
-                onClick={() =>
-                  singleChoice ? handleInstantSelect(aIdx) : handleSelect(aIdx)
-                }
+                onClick={() => handleSelect(aIdx)}
                 disabled={validated}
               >
-                <MathText text={answer} />
+                <span className={styles.answerContent}>
+                  <MathText text={answer} />
+                </span>
+                {userMark && (
+                  <span className={styles.answerMark}>{userMark}</span>
+                )}
               </button>
             );
           })}
         </div>
         {validated && q.explanation && (
           <div className={styles.explanation}>
-            <strong>Explication :</strong> <MathText text={q.explanation} />
+            <strong>Explication :</strong> <br />
+            <MathText text={q.explanation} />
           </div>
         )}
       </div>
 
       <div className={styles.actions}>
         {!validated ? (
-          !singleChoice && (
-            <button
-              className={styles.btnPrimary}
-              onClick={handleValidate}
-              disabled={selectedSet.size === 0}
-            >
-              Valider
-            </button>
-          )
+          <button className={styles.btnPrimary} onClick={handleValidate}>
+            {singleChoice
+              ? "Voir solution (Ctrl+Enter)"
+              : "Valider (Ctrl+Enter)"}
+          </button>
         ) : (
           <button className={styles.btnPrimary} onClick={handleNext}>
             {current + 1 >= order.length
               ? "Voir le résultat"
-              : "Question suivante →"}
+              : "Question suivante (Ctrl+Enter) →"}
           </button>
         )}
         <button className={styles.btnSecondary} onClick={handleRestart}>
