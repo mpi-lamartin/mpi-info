@@ -87,7 +87,7 @@ export default function QCMRandom({
   const [correctCount, setCorrectCount] = useState(0);
   const [answeredCount, setAnsweredCount] = useState(0);
   const [finished, setFinished] = useState(false);
-  const lastTouchTimestampRef = useRef(0);
+  const lastPointerTimestampRef = useRef(0);
 
   const q = questions[order[current]];
   const correctSet = getCorrectSet(q.correct);
@@ -150,17 +150,18 @@ export default function QCMRandom({
   const pct =
     answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
 
-  const handleTouchAction = (
-    event: React.TouchEvent<HTMLButtonElement>,
+  const handlePointerAction = (
+    event: React.PointerEvent<HTMLButtonElement>,
     action: () => void,
   ) => {
-    lastTouchTimestampRef.current = Date.now();
-    event.preventDefault();
+    if (event.pointerType === "touch") {
+      lastPointerTimestampRef.current = Date.now();
+    }
     action();
   };
 
   const handleClickAction = (action: () => void) => {
-    if (Date.now() - lastTouchTimestampRef.current < 500) return;
+    if (Date.now() - lastPointerTimestampRef.current < 500) return;
     action();
   };
 
@@ -201,7 +202,7 @@ export default function QCMRandom({
             type="button"
             className={styles.btnPrimary}
             onClick={() => handleClickAction(handleRestart)}
-            onTouchEnd={(event) => handleTouchAction(event, handleRestart)}
+            onPointerUp={(event) => handlePointerAction(event, handleRestart)}
           >
             Recommencer
           </button>
@@ -257,8 +258,8 @@ export default function QCMRandom({
                 type="button"
                 className={cls}
                 onClick={() => handleClickAction(() => handleSelect(aIdx))}
-                onTouchEnd={(event) =>
-                  handleTouchAction(event, () => handleSelect(aIdx))
+                onPointerUp={(event) =>
+                  handlePointerAction(event, () => handleSelect(aIdx))
                 }
                 disabled={validated}
               >
@@ -286,7 +287,7 @@ export default function QCMRandom({
             type="button"
             className={styles.btnPrimary}
             onClick={() => handleClickAction(handleValidate)}
-            onTouchEnd={(event) => handleTouchAction(event, handleValidate)}
+            onPointerUp={(event) => handlePointerAction(event, handleValidate)}
           >
             {singleChoice
               ? "Voir solution (Ctrl+Enter)"
@@ -297,7 +298,7 @@ export default function QCMRandom({
             type="button"
             className={styles.btnPrimary}
             onClick={() => handleClickAction(handleNext)}
-            onTouchEnd={(event) => handleTouchAction(event, handleNext)}
+            onPointerUp={(event) => handlePointerAction(event, handleNext)}
           >
             {current + 1 >= order.length
               ? "Voir le résultat"
@@ -308,7 +309,7 @@ export default function QCMRandom({
           type="button"
           className={styles.btnSecondary}
           onClick={() => handleClickAction(handleRestart)}
-          onTouchEnd={(event) => handleTouchAction(event, handleRestart)}
+          onPointerUp={(event) => handlePointerAction(event, handleRestart)}
         >
           Recommencer
         </button>
