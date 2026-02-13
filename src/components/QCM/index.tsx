@@ -139,12 +139,6 @@ export default function QCM({
     setShowResults(true);
   };
 
-  const handleReset = () => {
-    setSelectedAnswers(questions.map(() => new Set<number>()));
-    setShowResults(false);
-    setScore(0);
-  };
-
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const isValidateShortcut =
@@ -238,9 +232,6 @@ export default function QCM({
               Score : {score}/{questions.length} (
               {Math.round((score / questions.length) * 100)}%)
             </div>
-            <button className={styles.resetButton} onClick={handleReset}>
-              Recommencer
-            </button>
           </>
         )}
       </div>
