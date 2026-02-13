@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import katex from "katex";
 import useBaseUrl from "@docusaurus/useBaseUrl";
@@ -87,7 +87,6 @@ export default function QCMRandom({
   const [correctCount, setCorrectCount] = useState(0);
   const [answeredCount, setAnsweredCount] = useState(0);
   const [finished, setFinished] = useState(false);
-  const lastPointerTimestampRef = useRef(0);
 
   const q = questions[order[current]];
   const correctSet = getCorrectSet(q.correct);
@@ -150,21 +149,6 @@ export default function QCMRandom({
   const pct =
     answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
 
-  const handlePointerAction = (
-    event: React.PointerEvent<HTMLButtonElement>,
-    action: () => void,
-  ) => {
-    if (event.pointerType === "touch") {
-      lastPointerTimestampRef.current = Date.now();
-    }
-    action();
-  };
-
-  const handleClickAction = (action: () => void) => {
-    if (Date.now() - lastPointerTimestampRef.current < 500) return;
-    action();
-  };
-
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const isValidateShortcut =
@@ -198,12 +182,7 @@ export default function QCMRandom({
             </strong>{" "}
             ({pct}%)
           </p>
-          <button
-            type="button"
-            className={styles.btnPrimary}
-            onClick={() => handleClickAction(handleRestart)}
-            onPointerUp={(event) => handlePointerAction(event, handleRestart)}
-          >
+          <button className={styles.btnPrimary} onClick={handleRestart}>
             Recommencer
           </button>
         </div>
@@ -255,17 +234,8 @@ export default function QCMRandom({
             return (
               <button
                 key={aIdx}
-                type="button"
                 className={cls}
-                onPointerDown={(event) =>
-                  handlePointerAction(event, () => handleSelect(aIdx))
-                }
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    handleSelect(aIdx);
-                  }
-                }}
+                onClick={() => handleSelect(aIdx)}
                 disabled={validated}
               >
                 <span className={styles.answerContent}>
@@ -288,34 +258,19 @@ export default function QCMRandom({
 
       <div className={styles.actions}>
         {!validated ? (
-          <button
-            type="button"
-            className={styles.btnPrimary}
-            onClick={() => handleClickAction(handleValidate)}
-            onPointerUp={(event) => handlePointerAction(event, handleValidate)}
-          >
+          <button className={styles.btnPrimary} onClick={handleValidate}>
             {singleChoice
               ? "Voir solution (Ctrl+Enter)"
               : "Valider (Ctrl+Enter)"}
           </button>
         ) : (
-          <button
-            type="button"
-            className={styles.btnPrimary}
-            onClick={() => handleClickAction(handleNext)}
-            onPointerUp={(event) => handlePointerAction(event, handleNext)}
-          >
+          <button className={styles.btnPrimary} onClick={handleNext}>
             {current + 1 >= order.length
               ? "Voir le résultat"
               : "Question suivante (Ctrl+Enter) →"}
           </button>
         )}
-        <button
-          type="button"
-          className={styles.btnSecondary}
-          onClick={() => handleClickAction(handleRestart)}
-          onPointerUp={(event) => handlePointerAction(event, handleRestart)}
-        >
+        <button className={styles.btnSecondary} onClick={handleRestart}>
           Recommencer
         </button>
       </div>
