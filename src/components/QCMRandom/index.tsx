@@ -78,9 +78,7 @@ export default function QCMRandom({
   questions,
   title = "QCM Algorithmes",
 }: QCMRandomProps): JSX.Element {
-  const [order, setOrder] = useState<number[]>(() =>
-    shuffle(questions.map((_, i) => i)),
-  );
+  const [order] = useState<number[]>(() => shuffle(questions.map((_, i) => i)));
   const [current, setCurrent] = useState(0);
   const [selectedSet, setSelectedSet] = useState<Set<number>>(new Set());
   const [validated, setValidated] = useState(false);
@@ -137,16 +135,6 @@ export default function QCMRandom({
     setValidated(false);
   };
 
-  const handleRestart = () => {
-    setOrder(shuffle(questions.map((_, i) => i)));
-    setCurrent(0);
-    setSelectedSet(new Set());
-    setValidated(false);
-    setCorrectCount(0);
-    setAnsweredCount(0);
-    setFinished(false);
-  };
-
   const pct =
     answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
 
@@ -183,9 +171,6 @@ export default function QCMRandom({
             </strong>{" "}
             ({pct}%)
           </p>
-          <button className={styles.btnPrimary} onClick={handleRestart}>
-            Recommencer
-          </button>
         </div>
       </div>
     );
@@ -271,9 +256,6 @@ export default function QCMRandom({
               : "Question suivante (Ctrl+Enter) →"}
           </button>
         )}
-        <button className={styles.btnSecondary} onClick={handleRestart}>
-          Recommencer
-        </button>
       </div>
     </div>
   );
