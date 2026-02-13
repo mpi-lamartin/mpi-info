@@ -11,7 +11,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
   questions={[
     {
       question:
-        "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?\n```\nint c = 10;\n\nvoid f() {\n  for(int i = 0; i < 5; i++) {\n    c--;\n  }\n}\n```",
+        "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?\n```\nint c = 10;\n\nvoid f() {\n  for(int i = 0; i < 5; i++) \n    c--;\n}\n```",
       answers: [
         "Seulement 0",
         "De 0 à 8",

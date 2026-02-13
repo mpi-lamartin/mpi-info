@@ -257,10 +257,15 @@ export default function QCMRandom({
                 key={aIdx}
                 type="button"
                 className={cls}
-                onClick={() => handleClickAction(() => handleSelect(aIdx))}
-                onPointerUp={(event) =>
+                onPointerDown={(event) =>
                   handlePointerAction(event, () => handleSelect(aIdx))
                 }
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    handleSelect(aIdx);
+                  }
+                }}
                 disabled={validated}
               >
                 <span className={styles.answerContent}>
