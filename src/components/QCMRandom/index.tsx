@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
 import katex from "katex";
 import useBaseUrl from "@docusaurus/useBaseUrl";
@@ -87,6 +87,7 @@ export default function QCMRandom({
   const [correctCount, setCorrectCount] = useState(0);
   const [answeredCount, setAnsweredCount] = useState(0);
   const [finished, setFinished] = useState(false);
+  const lastTouchTimestampRef = useRef(0);
 
   const q = questions[order[current]];
   const correctSet = getCorrectSet(q.correct);
@@ -153,7 +154,13 @@ export default function QCMRandom({
     event: React.TouchEvent<HTMLButtonElement>,
     action: () => void,
   ) => {
+    lastTouchTimestampRef.current = Date.now();
     event.preventDefault();
+    action();
+  };
+
+  const handleClickAction = (action: () => void) => {
+    if (Date.now() - lastTouchTimestampRef.current < 500) return;
     action();
   };
 
@@ -193,7 +200,7 @@ export default function QCMRandom({
           <button
             type="button"
             className={styles.btnPrimary}
-            onClick={handleRestart}
+            onClick={() => handleClickAction(handleRestart)}
             onTouchEnd={(event) => handleTouchAction(event, handleRestart)}
           >
             Recommencer
@@ -249,7 +256,7 @@ export default function QCMRandom({
                 key={aIdx}
                 type="button"
                 className={cls}
-                onClick={() => handleSelect(aIdx)}
+                onClick={() => handleClickAction(() => handleSelect(aIdx))}
                 onTouchEnd={(event) =>
                   handleTouchAction(event, () => handleSelect(aIdx))
                 }
@@ -278,7 +285,7 @@ export default function QCMRandom({
           <button
             type="button"
             className={styles.btnPrimary}
-            onClick={handleValidate}
+            onClick={() => handleClickAction(handleValidate)}
             onTouchEnd={(event) => handleTouchAction(event, handleValidate)}
           >
             {singleChoice
@@ -289,7 +296,7 @@ export default function QCMRandom({
           <button
             type="button"
             className={styles.btnPrimary}
-            onClick={handleNext}
+            onClick={() => handleClickAction(handleNext)}
             onTouchEnd={(event) => handleTouchAction(event, handleNext)}
           >
             {current + 1 >= order.length
@@ -300,7 +307,7 @@ export default function QCMRandom({
         <button
           type="button"
           className={styles.btnSecondary}
-          onClick={handleRestart}
+          onClick={() => handleClickAction(handleRestart)}
           onTouchEnd={(event) => handleTouchAction(event, handleRestart)}
         >
           Recommencer

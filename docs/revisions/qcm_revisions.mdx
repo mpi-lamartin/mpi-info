@@ -11,6 +11,19 @@ import QCMRandom from "@site/src/components/QCMRandom";
   questions={[
     {
       question:
+        "Quels sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?\n```c\nint c = 10;\n\nvoid f() {\n  for(int i = 0; i < 5; i++) {\n    c--;\n  }\n}\n```",
+      answers: [
+        "Seulement 0",
+        "De 0 à 8",
+        "De 0 à 9",
+        "De 0 à 10",
+      ],
+      correct: 1,
+      explanation:
+        "Similaire au compteur du cours"
+    },
+    {
+      question:
         "Quel algorithme est une variante de Dijkstra utilisant une heuristique estimant la distance restante au sommet cible pour explorer en priorité les sommets les plus prometteurs ?",
       answers: ["Bellman-Ford", "Kruskal", "A*", "LZW"],
       correct: 2,
