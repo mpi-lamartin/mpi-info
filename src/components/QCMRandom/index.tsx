@@ -117,8 +117,9 @@ export default function QCMRandom({
       else next.add(idx);
       setSelectedSet(next);
     } else {
-      // Radio: single selection
-      setSelectedSet(new Set([idx]));
+      const next = new Set([idx]);
+      setSelectedSet(next);
+      doValidate(next);
     }
   };
 
@@ -258,11 +259,11 @@ export default function QCMRandom({
 
       <div className={styles.actions}>
         {!validated ? (
-          <button className={styles.btnPrimary} onClick={handleValidate}>
-            {singleChoice
-              ? "Voir solution (Ctrl+Enter)"
-              : "Valider (Ctrl+Enter)"}
-          </button>
+          !singleChoice && (
+            <button className={styles.btnPrimary} onClick={handleValidate}>
+              Valider (Ctrl+Enter)
+            </button>
+          )
         ) : (
           <button className={styles.btnPrimary} onClick={handleNext}>
             {current + 1 >= order.length
