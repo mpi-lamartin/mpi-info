@@ -4,6 +4,7 @@
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 8px;
   background-color: var(--ifm-background-surface-color);
+  width: 100%;
 }
 
 .title {
@@ -64,8 +65,9 @@
 }
 
 .selected {
-  background-color: var(--ifm-color-emphasis-100);
-  border-color: var(--ifm-color-emphasis-400);
+  background-color: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-500);
+  color: var(--ifm-font-color-base);
 }
 
 .correct {
