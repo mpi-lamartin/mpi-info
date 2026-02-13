@@ -3,7 +3,7 @@ title: "QCM - Langages réguliers"
 sidebar_position: 3
 ---
 
-import QCM from '@site/src/components/QCM';
+import QCM from "@site/src/components/QCM";
 
 <QCM
   title="QCM - Langages réguliers et mots"
@@ -14,21 +14,18 @@ import QCM from '@site/src/components/QCM';
         "Un ensemble infini de lettres",
         "Un ensemble fini de lettres",
         "Une suite de mots",
-        "Un langage"
+        "Un langage",
       ],
       correct: 1,
-      explanation: "Un alphabet $\\Sigma$ est un ensemble fini dont les éléments sont appelés lettres."
+      explanation:
+        "Un alphabet $\\Sigma$ est un ensemble fini dont les éléments sont appelés lettres.",
     },
     {
       question: "Le mot vide est noté :",
-      answers: [
-        "$\\emptyset$",
-        "$\\varepsilon$",
-        "$0$",
-        "$\\lambda$"
-      ],
+      answers: ["$\\emptyset$", "$\\varepsilon$", "$0$", "$\\lambda$"],
       correct: 1,
-      explanation: "Le mot vide (ne contenant aucune lettre) est noté $\\varepsilon$ (epsilon)."
+      explanation:
+        "Le mot vide (ne contenant aucune lettre) est noté $\\varepsilon$ (epsilon).",
     },
     {
       question: "$\\Sigma^*$ désigne :",
@@ -36,32 +33,25 @@ import QCM from '@site/src/components/QCM';
         "L'alphabet sans le mot vide",
         "L'ensemble de tous les mots sur $\\Sigma$",
         "L'ensemble des lettres de $\\Sigma$",
-        "Le langage vide"
+        "Le langage vide",
       ],
       correct: 1,
-      explanation: "$\\Sigma^*$ est l'ensemble de tous les mots (suites finies de lettres) sur l'alphabet $\\Sigma$, y compris le mot vide."
+      explanation:
+        "$\\Sigma^*$ est l'ensemble de tous les mots (suites finies de lettres) sur l'alphabet $\\Sigma$, y compris le mot vide.",
     },
     {
       question: "La concaténation de deux mots $u = abc$ et $v = de$ donne :",
-      answers: [
-        "$abcde$",
-        "$deabc$",
-        "$\\{abc, de\\}$",
-        "$abc + de$"
-      ],
+      answers: ["$abcde$", "$deabc$", "$\\{abc, de\\}$", "$abc + de$"],
       correct: 0,
-      explanation: "La concaténation $uv$ met les lettres de $v$ à la suite de celles de $u$ : $abcde$."
+      explanation:
+        "La concaténation $uv$ met les lettres de $v$ à la suite de celles de $u$ : $abcde$.",
     },
     {
       question: "Si $|u| = 3$ et $|v| = 4$, alors $|uv| =$ :",
-      answers: [
-        "$7$",
-        "$12$",
-        "$3$",
-        "$4$"
-      ],
+      answers: ["$7$", "$12$", "$3$", "$4$"],
       correct: 0,
-      explanation: "La longueur de la concaténation est la somme des longueurs : $|uv| = |u| + |v| = 3 + 4 = 7$."
+      explanation:
+        "La longueur de la concaténation est la somme des longueurs : $|uv| = |u| + |v| = 3 + 4 = 7$.",
     },
     {
       question: "Un langage sur $\\Sigma$ est :",
@@ -69,10 +59,11 @@ import QCM from '@site/src/components/QCM';
         "Un alphabet",
         "Un sous-ensemble de $\\Sigma^*$",
         "Un mot",
-        "Une lettre"
+        "Une lettre",
       ],
       correct: 1,
-      explanation: "Un langage est un ensemble de mots, c'est-à-dire un sous-ensemble de $\\Sigma^*$."
+      explanation:
+        "Un langage est un ensemble de mots, c'est-à-dire un sous-ensemble de $\\Sigma^*$.",
     },
     {
       question: "L'expression régulière $a^*b$ dénote :",
@@ -80,10 +71,11 @@ import QCM from '@site/src/components/QCM';
         "L'ensemble des mots formés de $a$ suivis de $b$",
         "$\\{b, ab, aab, aaab, \\ldots\\}$",
         "$\\{ab\\}$",
-        "$\\{a, b\\}$"
+        "$\\{a, b\\}$",
       ],
       correct: 1,
-      explanation: "$a^*$ signifie zéro ou plusieurs $a$, suivi de $b$. Le langage est $\\{b, ab, aab, aaab, \\ldots\\}$."
+      explanation:
+        "$a^*$ signifie zéro ou plusieurs $a$, suivi de $b$. Le langage est $\\{b, ab, aab, aaab, \\ldots\\}$.",
     },
     {
       question: "L'opération $L_1 | L_2$ (ou $L_1 \\cup L_2$) dénote :",
@@ -91,10 +83,11 @@ import QCM from '@site/src/components/QCM';
         "L'intersection de $L_1$ et $L_2$",
         "L'union de $L_1$ et $L_2$",
         "La concaténation de $L_1$ et $L_2$",
-        "Le complémentaire de $L_1$"
+        "Le complémentaire de $L_1$",
       ],
       correct: 1,
-      explanation: "L'opérateur $|$ (ou $\\cup$) représente l'union : les mots appartenant à $L_1$ ou à $L_2$."
+      explanation:
+        "L'opérateur $|$ (ou $\\cup$) représente l'union : les mots appartenant à $L_1$ ou à $L_2$.",
     },
     {
       question: "$u$ est un préfixe de $m$ si :",
@@ -102,10 +95,11 @@ import QCM from '@site/src/components/QCM';
         "$m = uv$ pour un certain mot $v$",
         "$m = vu$ pour un certain mot $v$",
         "$u$ est une sous-suite de $m$",
-        "$m$ contient $u$ comme facteur"
+        "$m$ contient $u$ comme facteur",
       ],
       correct: 0,
-      explanation: "$u$ est un préfixe de $m$ s'il existe un mot $v$ tel que $m = uv$ ($u$ est au début de $m$)."
+      explanation:
+        "$u$ est un préfixe de $m$ s'il existe un mot $v$ tel que $m = uv$ ($u$ est au début de $m$).",
     },
     {
       question: "Un langage est régulier s'il peut être décrit par :",
@@ -113,32 +107,37 @@ import QCM from '@site/src/components/QCM';
         "Une grammaire non-contextuelle",
         "Une expression régulière",
         "Une équation différentielle",
-        "Un algorithme polynomial"
+        "Un algorithme polynomial",
       ],
       correct: 1,
-      explanation: "Les langages réguliers sont exactement ceux qui peuvent être décrits par une expression régulière (ou reconnus par un automate fini)."
+      explanation:
+        "Les langages réguliers sont exactement ceux qui peuvent être décrits par une expression régulière (ou reconnus par un automate fini).",
     },
     {
-      question: "Le lemme de l'étoile (pumping lemma) affirme que pour tout langage régulier $L$, il existe $N$ tel que :",
+      question:
+        "Le lemme de l'étoile (pumping lemma) affirme que pour tout langage régulier $L$, il existe $N$ tel que :",
       answers: [
         "Tout mot de $L$ a une longueur $\\leq N$",
         "Tout mot $w \\in L$ avec $|w| \\geq N$ peut s'écrire $w = xyz$ avec $|xy| \\leq N$, $|y| \\geq 1$ et $\\forall k, xy^kz \\in L$",
         "$L$ contient exactement $N$ mots",
-        "Tout mot de longueur $N$ appartient à $L$"
+        "Tout mot de longueur $N$ appartient à $L$",
       ],
       correct: 1,
-      explanation: "Le lemme de l'étoile permet de prouver qu'un langage n'est pas régulier. Si $L$ est régulier et $|w| \\geq N$, alors $w = xyz$ avec $|xy| \\leq N$, $y \\neq \\varepsilon$, et tous les $xy^kz$ sont dans $L$."
+      explanation:
+        "Le lemme de l'étoile permet de prouver qu'un langage n'est pas régulier. Si $L$ est régulier et $|w| \\geq N$, alors $w = xyz$ avec $|xy| \\leq N$, $y \\neq \\varepsilon$, et tous les $xy^kz$ sont dans $L$.",
     },
     {
-      question: "Pour montrer que $L = \\{a^n b^n \\mid n \\in \\mathbb{N}\\}$ n'est pas régulier, on utilise :",
+      question:
+        "Pour montrer que $L = \\{a^n b^n \\mid n \\in \\mathbb{N}\\}$ n'est pas régulier, on utilise :",
       answers: [
         "Le théorème de Kleene",
         "Le lemme de l'étoile (pumping lemma)",
         "L'algorithme de Berry-Sethi",
-        "La déterminisation"
+        "La déterminisation",
       ],
       correct: 1,
-      explanation: "On prend $w = a^N b^N$ et on montre que pomper la partie $y$ (qui ne contient que des $a$) donne un mot $a^{N+k}b^N \\notin L$."
-    }
+      explanation:
+        "On prend $w = a^N b^N$ et on montre que pomper la partie $y$ (qui ne contient que des $a$) donne un mot $a^{N+k}b^N \\notin L$.",
+    },
   ]}
 />

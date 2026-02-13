@@ -1,1 +1,27 @@
+cours:
+  label: Cours
+  permalink: /cours
 
+td:
+  label: TD
+  permalink: /td
+
+devoir:
+  label: Devoir
+  permalink: /devoir
+
+leetcode:
+  label: LeetCode
+  permalink: /leetcode
+
+programmation:
+  label: Programmation
+  permalink: /programmation
+
+github:
+  label: GitHub
+  permalink: /github
+
+colle:
+  label: Colle
+  permalink: /colle

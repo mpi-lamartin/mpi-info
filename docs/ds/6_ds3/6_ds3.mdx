@@ -4,14 +4,18 @@ hide_title: true
 title: "DS 3 : CentraleSupélec 2024 MP"
 pdf: "cs24mp"
 ---
-import Button from '@site/src/components/Button';
+
+import Button from "@site/src/components/Button";
 
 <details>
 <summary>Rapport de jury</summary>
 
-import Pdf from '@site/src/components/Pdf';
+import Pdf from "@site/src/components/Pdf";
 
 <Pdf pdf={require(`./rapport_cs24.pdf`).default} td={true}/>
 </details>
 
-<Button pdf={require(`./${frontMatter.pdf}.pdf`).default} cor={require(`./${frontMatter.pdf}_cor.pdf`).default} />
+<Button
+  pdf={require(`./${frontMatter.pdf}.pdf`).default}
+  cor={require(`./${frontMatter.pdf}_cor.pdf`).default}
+/>

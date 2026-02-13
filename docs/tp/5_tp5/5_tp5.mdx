@@ -5,13 +5,12 @@ cor: true
 title: "TP 5 : Algorithme de Kruskal"
 ---
 
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import ThemedImage from '@theme/ThemedImage';
-import Solution from '@site/src/components/Solution';
-import TP from '!!raw-loader!./tp5.c';
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
+import Solution from "@site/src/components/Solution";
+import TP from "!!raw-loader!./tp5.c";
 
-<Solution file={TP} lang='ocaml' show={frontMatter.cor}>
-</Solution>
+<Solution file={TP} lang="ocaml" show={frontMatter.cor}></Solution>
 
 ## Tri des arêtes
 
@@ -38,8 +37,8 @@ typedef struct {
 <ThemedImage
   alt="Graphe"
   sources={{
-    light: useBaseUrl('/img/g1_.png'),
-    dark: useBaseUrl('/img/g1_inv.png'),
+    light: useBaseUrl("/img/g1_.png"),
+    dark: useBaseUrl("/img/g1_inv.png"),
   }}
   width={"70%"}
 />
@@ -79,13 +78,13 @@ g.aretes[4][1] = g.aretes[5][2] = a(4, 5, 5);
 
 On utilisera `G1` pour tester les fonctions suivantes.
 
-3. Écrire une fonction `int n_aretes(graphe g)` renvoyant le nombre d'arêtes du graphe `g`.  
+3. Écrire une fonction `int n_aretes(graphe g)` renvoyant le nombre d'arêtes du graphe `g`.
 4. Écrire une fonction `arete* aretes(graphe g)` renvoyant un tableau contenant toutes les arêtes du graphe `g`.
 
 Le tri par insertion trie un tableau `t` en parcourant chaque élément `t[i]` et en le plaçant à sa place dans le sous-tableau trié `t[0]`, `t[1]`, ..., `t[i - 1]`. Pour le mettre à sa bonne position, on l'échange avec l'élément précédent tant que celui-ci est plus grand.  
 L'invariant suivant est conservé : à la fin de la $i$-ème itération, le sous-tableau `t[0]`, `t[1]`, ..., `t[i]` est trié.
 
-5. Écrire une fonction `void tri_insertion(arete* aretes, int n)` qui trie le tableau `aretes` de taille `n`, par poids croissant. Quelle est sa complexité ?  
+5. Écrire une fonction `void tri_insertion(arete* aretes, int n)` qui trie le tableau `aretes` de taille `n`, par poids croissant. Quelle est sa complexité ?
 
 ## Union-Find
 
@@ -100,7 +99,7 @@ typedef struct {
 
 Si $i$ est une racine, on prendra $t[i] = i$.
 
-6. Écrire une fonction `uf create(int n)` initialisant une structure Union-Find de taille `n`.  
+6. Écrire une fonction `uf create(int n)` initialisant une structure Union-Find de taille `n`.
 7. Écrire une fonction `int find(uf u, int x)` renvoyant la racine de l'arbre contenant `x`, sans compression de chemin.
 8. Écrire une fonction `void merge(uf u, int x, int y)` fusionnant les arbres contenant `x` et `y`, sans optimisation.
 
@@ -113,10 +112,10 @@ Remarque : on utilise `merge` au lieu de `union` car ce mot est réservé en C.
 
 ## Optimisations
 
-11. Réécrire la fonction `find` pour qu'elle utilise la compression de chemin.  
+11. Réécrire la fonction `find` pour qu'elle utilise la compression de chemin.
 12. Redéfinir le type `uf` et réécrire `merge` pour qu'il utilise l'union par rang.
 
 ## LeetCode
 
 13. Résoudre ce [problème LeetCode](https://leetcode.com/problems/min-cost-to-connect-all-points).
-Pour cela, il faut utiliser un tri plus rapide que le tri par insertion. Vous pouvez implémenter un tri fusion, en vous inspirant de https://mp2i-info.github.io/7_algo/2_divide_conquer/divide_conquer
+    Pour cela, il faut utiliser un tri plus rapide que le tri par insertion. Vous pouvez implémenter un tri fusion, en vous inspirant de https://mp2i-info.github.io/7_algo/2_divide_conquer/divide_conquer

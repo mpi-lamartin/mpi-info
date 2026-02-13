@@ -9,7 +9,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
 <QCMRandom
   title="QCM Révisions"
   questions={[
-    {
+    /*{
       question:
         "Quel algorithme est une variante de Dijkstra utilisant une heuristique $h(v)$ estimant la distance restante au sommet cible pour explorer en priorité les sommets les plus prometteurs ?",
       answers: ["Bellman-Ford", "Kruskal", "A*", "LZW"],
@@ -67,7 +67,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       answers: [
         "Trouver un arbre couvrant de poids minimum",
         "Calculer un couplage maximum",
-        "Trouver les composantes fortement connexes d'un graphe orienté",
+        "Trouver les composantes fortement connexes",
         "Calculer les plus courts chemins",
       ],
       correct: 2,
@@ -112,7 +112,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: 1,
       explanation:
-        "Par définition, $M$ est maximum s'il n'y a pas de couplage de cardinal supérieur (contenant plus d'arêtes). Si $C$ est un chemin augmentant, $M\Delta C$ est un couplage de cardinal supérieur à $M$.",
+        "Par définition, $M$ est maximum s'il n'y a pas de couplage de cardinal supérieur (contenant plus d'arêtes). Si $C$ est un chemin augmentant, $M\\Delta C$ est un couplage de cardinal supérieur à $M$.",
     },
     {
       question:
@@ -182,7 +182,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [1, 2, 3],
       explanation:
-        "Le calcul des attracteurs est optimal mais explore toutes les configurations. Branch-and-bound coupe les branches dont l'heuristique est moins bonne que la meilleure solution trouvée. Alpha-beta coupe les branches en dehors de l'intervalle $\alpha \leq \beta$. Quine s'implifie la formule pour éviter de parcourir toutes les valuations.",
+        "Le calcul des attracteurs est optimal mais explore toutes les configurations. Branch-and-bound coupe les branches dont l'heuristique est moins bonne que la meilleure solution trouvée. Alpha-beta coupe les branches en dehors de l'intervalle $\\alpha \\leq \\beta$. Quine s'implifie la formule pour éviter de parcourir toutes les valuations.",
     },
     {
       question: "Quels sont les algorithmes de classification supervisée ?",
@@ -266,24 +266,24 @@ import QCMRandom from "@site/src/components/QCMRandom";
       answers: ["Complémentaire", "Différence", "Intersection", "Inclusion"],
       correct: [0, 1, 2],
       explanation:
-        "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux. Différence et intersection : automate produit. Inclusion : faux car tout langage contient $\emptyset$ et est inclus dans $\Sigma^*$.",
+        "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux. Différence et intersection : automate produit. Inclusion : faux car tout langage contient $\\emptyset$ et est inclus dans $\\Sigma^*$.",
     },
     {
       question: "Lesquels de ces langages sont réguliers ?",
       answers: [
-        "$\{a^n b^p | n, p \in \mathbb{N}\}",
-        "$\{a^n b^n | n \in \mathbb{N}\}",
-        "$\{a^n b^p | n = p \mod 3\}",
-        "$\{a^n b^p | n < p\}",
+        "$\\{a^n b^p | n, p \\in \\mathbb{N}\\}$",
+        "$\\{a^n b^n | n \\in \\mathbb{N}\\}$",
+        "$\\{a^n b^p | n = p \\mod 3\\}$",
+        "$\\{a^n b^p | n < p\\}$",
       ],
       correct: [0, 2],
       explanation:
         "Le premier est $a^* b^*$. Le 3ème est reconnu par un automate produit à $4$ états où on arrive sur l'état $(x, y)$ si le nombre de $a$ (resp. $b$) est égal à $x$ (resp. $y$). Le 2ème et 4ème ne sont pas régulier par le lemme de l'étoile.",
-    },
+    },*/
     {
       question:
         "Quel est le nombre d'arêtes d'un graphe complet non-orienté à $n$ sommets ?",
-      answers: ["$n!$", "$n^2$", "n - 1", "$\\frac{n(n-1)}{2}$"],
+      answers: ["$n!$", "$n^2$", "$n - 1$", "$\\frac{n(n-1)}{2}$"],
       correct: 3,
       explanation:
         "Un graphe complet non orienté à $n$ sommets a une arête entre chaque paire de sommets, soit $\\binom{n}{2} = \\frac{n(n-1)}{2}$ arêtes.",
@@ -680,6 +680,19 @@ import QCMRandom from "@site/src/components/QCMRandom";
       correct: [1, 2],
       explanation:
         "$\\Pi_1 \\leq_p \\Pi_2$ signifie que $\\Pi_1$ se réduit à $\\Pi_2$, c'est-à-dire qu'il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$. Par conséquent, si $\\Pi_1$ est indécidable, alors $\\Pi_2$ doit également être indécidable, car sinon on pourrait résoudre $\\Pi_1$ en utilisant la réduction vers $\\Pi_2$.",
+    },
+    {
+      question:
+        "Le lemme de l'étoile sur un langage régulier $L$ commence ainsi :",
+      answers: [
+        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Rightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
+        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Rightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
+        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Rightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
+        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Rightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
+      ],
+      correct: 1,
+      explanation:
+        "En cas de doute, revenir à la démonstration du lemme de l'étoile.",
     },
   ]}
 />

@@ -3,7 +3,7 @@ title: "QCM - Algorithmes d'approximation"
 sidebar_position: 5
 ---
 
-import QCM from '@site/src/components/QCM';
+import QCM from "@site/src/components/QCM";
 
 <QCM
   title="QCM - Algorithmes d'approximation"
@@ -14,43 +14,50 @@ import QCM from '@site/src/components/QCM';
         "Résoudre des problèmes P en temps logarithmique",
         "Obtenir une solution approchée d'un problème NP-complet en temps polynomial",
         "Prouver qu'un problème est NP-complet",
-        "Trouver la solution exacte d'un problème NP-complet"
+        "Trouver la solution exacte d'un problème NP-complet",
       ],
       correct: 1,
-      explanation: "Un algorithme d'approximation permet d'obtenir une solution approchée (mais pas optimale) d'un problème d'optimisation NP-difficile en temps polynomial."
+      explanation:
+        "Un algorithme d'approximation permet d'obtenir une solution approchée (mais pas optimale) d'un problème d'optimisation NP-difficile en temps polynomial.",
     },
     {
-      question: "Pour un problème de minimisation, une $2$-approximation garantit que :",
+      question:
+        "Pour un problème de minimisation, une $2$-approximation garantit que :",
       answers: [
         "La solution est au moins $2$ fois meilleure que l'optimale",
         "La solution est au plus $2$ fois plus grande que l'optimale",
         "La solution est exactement $2$ fois l'optimale",
-        "La solution est au plus $1/2$ de l'optimale"
+        "La solution est au plus $1/2$ de l'optimale",
       ],
       correct: 1,
-      explanation: "Pour un problème de minimisation, une $\\alpha$-approximation garantit que la solution trouvée est au plus $\\alpha$ fois la solution optimale."
+      explanation:
+        "Pour un problème de minimisation, une $\\alpha$-approximation garantit que la solution trouvée est au plus $\\alpha$ fois la solution optimale.",
     },
     {
-      question: "Pour un problème de maximisation, une $0.5$-approximation garantit que :",
+      question:
+        "Pour un problème de maximisation, une $0.5$-approximation garantit que :",
       answers: [
         "La solution est au moins la moitié de l'optimale",
         "La solution est au plus la moitié de l'optimale",
         "La solution est exactement la moitié de l'optimale",
-        "La solution est au plus $2$ fois l'optimale"
+        "La solution est au plus $2$ fois l'optimale",
       ],
       correct: 0,
-      explanation: "Pour un problème de maximisation, une $\\alpha$-approximation (avec $\\alpha \\leq 1$) garantit que la solution trouvée est au moins $\\alpha$ fois la solution optimale."
+      explanation:
+        "Pour un problème de maximisation, une $\\alpha$-approximation (avec $\\alpha \\leq 1$) garantit que la solution trouvée est au moins $\\alpha$ fois la solution optimale.",
     },
     {
-      question: "Quelle est la différence entre un problème d'optimisation et un problème de décision ?",
+      question:
+        "Quelle est la différence entre un problème d'optimisation et un problème de décision ?",
       answers: [
         "Aucune différence",
         "Un problème d'optimisation renvoie un booléen, un problème de décision renvoie une solution",
         "Un problème de décision renvoie un booléen, un problème d'optimisation renvoie une solution optimale",
-        "Un problème d'optimisation est toujours dans P"
+        "Un problème d'optimisation est toujours dans P",
       ],
       correct: 2,
-      explanation: "Un problème de décision a pour sortie un booléen (oui/non), tandis qu'un problème d'optimisation cherche à trouver une solution optimale."
+      explanation:
+        "Un problème de décision a pour sortie un booléen (oui/non), tandis qu'un problème d'optimisation cherche à trouver une solution optimale.",
     },
     {
       question: "Une couverture par sommets d'un graphe est :",
@@ -58,21 +65,24 @@ import QCM from '@site/src/components/QCM';
         "Un ensemble de sommets tel que chaque arête a au moins une extrémité dans cet ensemble",
         "Un ensemble d'arêtes couvrant tous les sommets",
         "Un chemin passant par tous les sommets",
-        "Un ensemble de sommets indépendants"
+        "Un ensemble de sommets indépendants",
       ],
       correct: 0,
-      explanation: "Une couverture par sommets est un ensemble $S'$ de sommets tel que pour toute arête $\\{u, v\\}$, $u \\in S'$ ou $v \\in S'$."
+      explanation:
+        "Une couverture par sommets est un ensemble $S'$ de sommets tel que pour toute arête $\\{u, v\\}$, $u \\in S'$ ou $v \\in S'$.",
     },
     {
-      question: "L'algorithme glouton qui ajoute les deux extrémités d'une arête pour COUVERTURE-OPT est une :",
+      question:
+        "L'algorithme glouton qui ajoute les deux extrémités d'une arête pour COUVERTURE-OPT est une :",
       answers: [
         "$1$-approximation",
         "$2$-approximation",
         "$3$-approximation",
-        "Il n'y a pas de garantie d'approximation"
+        "Il n'y a pas de garantie d'approximation",
       ],
       correct: 1,
-      explanation: "Cet algorithme est une $2$-approximation car les arêtes choisies forment un couplage, et toute couverture doit contenir au moins un sommet par arête du couplage."
+      explanation:
+        "Cet algorithme est une $2$-approximation car les arêtes choisies forment un couplage, et toute couverture doit contenir au moins un sommet par arête du couplage.",
     },
     {
       question: "La méthode branch-and-bound est :",
@@ -80,10 +90,11 @@ import QCM from '@site/src/components/QCM';
         "Un algorithme polynomial d'approximation",
         "Une méthode exacte qui reste en temps exponentiel mais accélère la recherche exhaustive",
         "Un algorithme glouton",
-        "Une méthode probabiliste"
+        "Une méthode probabiliste",
       ],
       correct: 1,
-      explanation: "branch-and-bound est une méthode exacte qui utilise des bornes pour élaguer l'arbre de recherche, mais reste en complexité exponentielle dans le pire cas."
+      explanation:
+        "branch-and-bound est une méthode exacte qui utilise des bornes pour élaguer l'arbre de recherche, mais reste en complexité exponentielle dans le pire cas.",
     },
     {
       question: "Un ensemble stable d'un graphe est :",
@@ -91,10 +102,11 @@ import QCM from '@site/src/components/QCM';
         "Un ensemble de sommets tous reliés deux à deux",
         "Un ensemble de sommets sans arête entre eux",
         "Un ensemble d'arêtes sans sommet commun",
-        "Un chemin hamiltonien"
+        "Un chemin hamiltonien",
       ],
       correct: 1,
-      explanation: "Un ensemble stable (ou indépendant) est un ensemble de sommets tel qu'aucune paire de sommets n'est reliée par une arête."
+      explanation:
+        "Un ensemble stable (ou indépendant) est un ensemble de sommets tel qu'aucune paire de sommets n'est reliée par une arête.",
     },
     {
       question: "Le rapport d'approximation $\\alpha$ doit être :",
@@ -102,21 +114,24 @@ import QCM from '@site/src/components/QCM';
         "Une variable dépendant de l'instance",
         "Une constante indépendante de l'instance",
         "Toujours égal à $2$",
-        "Toujours inférieur à $1$"
+        "Toujours inférieur à $1$",
       ],
       correct: 1,
-      explanation: "Le rapport d'approximation $\\alpha$ doit être une constante qui ne dépend pas de l'instance du problème."
+      explanation:
+        "Le rapport d'approximation $\\alpha$ doit être une constante qui ne dépend pas de l'instance du problème.",
     },
     {
-      question: "Si $S$ est un ensemble stable maximal de $G$, alors $\\bar{S}$ (le complémentaire de $S$) est :",
+      question:
+        "Si $S$ est un ensemble stable maximal de $G$, alors $\\bar{S}$ (le complémentaire de $S$) est :",
       answers: [
         "Un ensemble stable",
         "Une couverture par sommets",
         "Un couplage",
-        "Un chemin hamiltonien"
+        "Un chemin hamiltonien",
       ],
       correct: 1,
-      explanation: "Le complémentaire d'un ensemble stable est une couverture par sommets, car toute arête a au moins une extrémité hors de l'ensemble stable."
-    }
+      explanation:
+        "Le complémentaire d'un ensemble stable est une couverture par sommets, car toute arête a au moins une extrémité hors de l'ensemble stable.",
+    },
   ]}
 />

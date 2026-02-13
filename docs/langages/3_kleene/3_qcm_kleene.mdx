@@ -3,7 +3,7 @@ title: "QCM - Théorème de Kleene"
 sidebar_position: 3
 ---
 
-import QCM from '@site/src/components/QCM';
+import QCM from "@site/src/components/QCM";
 
 <QCM
   title="QCM - Théorème de Kleene"
@@ -14,10 +14,11 @@ import QCM from '@site/src/components/QCM';
         "Tout langage est régulier",
         "Un langage est régulier si et seulement s'il est reconnaissable par un automate fini",
         "Les automates finis reconnaissent tous les langages",
-        "Les expressions régulières ne peuvent pas décrire tous les langages réguliers"
+        "Les expressions régulières ne peuvent pas décrire tous les langages réguliers",
       ],
       correct: 1,
-      explanation: "Kleene prouve l'équivalence entre langages réguliers (décrits par expressions régulières) et langages reconnaissables (par automates finis)."
+      explanation:
+        "Kleene prouve l'équivalence entre langages réguliers (décrits par expressions régulières) et langages reconnaissables (par automates finis).",
     },
     {
       question: "L'algorithme de Berry-Sethi permet de :",
@@ -25,10 +26,11 @@ import QCM from '@site/src/components/QCM';
         "Minimiser un automate",
         "Construire un automate à partir d'une expression régulière",
         "Convertir un automate en expression régulière",
-        "Déterminiser un automate"
+        "Déterminiser un automate",
       ],
       correct: 1,
-      explanation: "Berry-Sethi (ou Glushkov) construit un automate (automate de Glushkov) reconnaissant le langage d'une expression régulière."
+      explanation:
+        "Berry-Sethi (ou Glushkov) construit un automate (automate de Glushkov) reconnaissant le langage d'une expression régulière.",
     },
     {
       question: "Une expression régulière est linéaire si :",
@@ -36,10 +38,11 @@ import QCM from '@site/src/components/QCM';
         "Elle ne contient pas d'étoile",
         "Chaque lettre y apparaît au plus une fois",
         "Elle décrit un langage fini",
-        "Elle ne contient pas d'union"
+        "Elle ne contient pas d'union",
       ],
       correct: 1,
-      explanation: "Une expression régulière est linéaire si aucune lettre n'apparaît plus d'une fois dans l'expression."
+      explanation:
+        "Une expression régulière est linéaire si aucune lettre n'apparaît plus d'une fois dans l'expression.",
     },
     {
       question: "Pour une expression régulière $e$, $P(L(e))$ représente :",
@@ -47,54 +50,58 @@ import QCM from '@site/src/components/QCM';
         "Les dernières lettres possibles des mots de $L(e)$",
         "Les premières lettres possibles des mots de $L(e)$",
         "Les facteurs de longueur 2",
-        "L'ensemble des puissances de $L(e)$"
+        "L'ensemble des puissances de $L(e)$",
       ],
       correct: 1,
-      explanation: "$P(L)$ est l'ensemble des premières lettres des mots non vides de $L$."
+      explanation:
+        "$P(L)$ est l'ensemble des premières lettres des mots non vides de $L$.",
     },
     {
-      question: "Un langage $L$ est local si un mot $u \\neq \\varepsilon$ appartient à $L$ ssi :",
+      question:
+        "Un langage $L$ est local si un mot $u \\neq \\varepsilon$ appartient à $L$ ssi :",
       answers: [
         "$u$ a une longueur paire",
         "La première lettre est dans $P(L)$, la dernière dans $S(L)$, et tous les facteurs de longueur 2 sont dans $F(L)$",
         "$u$ est un palindrome",
-        "$u$ ne contient pas de répétition"
+        "$u$ ne contient pas de répétition",
       ],
       correct: 1,
-      explanation: "Un langage local est entièrement caractérisé par ses premières lettres $P(L)$, dernières lettres $S(L)$, et facteurs de longueur 2 $F(L)$."
+      explanation:
+        "Un langage local est entièrement caractérisé par ses premières lettres $P(L)$, dernières lettres $S(L)$, et facteurs de longueur 2 $F(L)$.",
     },
     {
-      question: "L'automate de Glushkov pour une expression régulière à $k$ lettres (avec multiplicité) a :",
-      answers: [
-        "$k$ états",
-        "$k + 1$ états",
-        "$2k$ états",
-        "$k^2$ états"
-      ],
+      question:
+        "L'automate de Glushkov pour une expression régulière à $k$ lettres (avec multiplicité) a :",
+      answers: ["$k$ états", "$k + 1$ états", "$2k$ états", "$k^2$ états"],
       correct: 1,
-      explanation: "L'automate de Glushkov a $k + 1$ états : un état initial plus un état pour chaque position de lettre dans l'expression."
+      explanation:
+        "L'automate de Glushkov a $k + 1$ états : un état initial plus un état pour chaque position de lettre dans l'expression.",
     },
     {
-      question: "Pour montrer qu'un langage régulier est reconnaissable, on utilise :",
+      question:
+        "Pour montrer qu'un langage régulier est reconnaissable, on utilise :",
       answers: [
         "Le lemme de pompage",
         "L'algorithme de Berry-Sethi ou Thompson",
         "La minimisation",
-        "La déterminisation"
+        "La déterminisation",
       ],
       correct: 1,
-      explanation: "Berry-Sethi (Glushkov) ou Thompson permettent de construire un automate à partir d'une expression régulière."
+      explanation:
+        "Berry-Sethi (Glushkov) ou Thompson permettent de construire un automate à partir d'une expression régulière.",
     },
     {
-      question: "Pour montrer qu'un langage reconnaissable est régulier, on peut utiliser :",
+      question:
+        "Pour montrer qu'un langage reconnaissable est régulier, on peut utiliser :",
       answers: [
         "L'algorithme d'Arden ou l'élimination d'états",
         "Le lemme de pompage",
         "La déterminisation",
-        "L'algorithme de Dijkstra"
+        "L'algorithme de Dijkstra",
       ],
       correct: 0,
-      explanation: "L'algorithme d'Arden ou la méthode d'élimination d'états permettent de construire une expression régulière à partir d'un automate."
+      explanation:
+        "L'algorithme d'Arden ou la méthode d'élimination d'états permettent de construire une expression régulière à partir d'un automate.",
     },
     {
       question: "Un automate est local si :",
@@ -102,21 +109,24 @@ import QCM from '@site/src/components/QCM';
         "Il est minimal",
         "Toutes les transitions étiquetées par une même lettre arrivent au même état",
         "Il n'a qu'un seul état final",
-        "Il est déterministe"
+        "Il est déterministe",
       ],
       correct: 1,
-      explanation: "Dans un automate local, pour chaque lettre a, toutes les transitions étiquetées par a aboutissent au même état."
+      explanation:
+        "Dans un automate local, pour chaque lettre a, toutes les transitions étiquetées par a aboutissent au même état.",
     },
     {
-      question: "Le lemme d'Arden permet de résoudre des équations de la forme :",
+      question:
+        "Le lemme d'Arden permet de résoudre des équations de la forme :",
       answers: [
         "$X = AX \\cup B$ où $A$ et $B$ sont des langages, avec $\\varepsilon \\notin A$",
         "$X = X^2$",
         "$X + Y = Z$",
-        "$X = \\emptyset$"
+        "$X = \\emptyset$",
       ],
       correct: 0,
-      explanation: "Arden : si $\\varepsilon \\notin A$, alors $X = AX \\cup B$ a pour unique solution $X = A^*B$."
-    }
+      explanation:
+        "Arden : si $\\varepsilon \\notin A$, alors $X = AX \\cup B$ a pour unique solution $X = A^*B$.",
+    },
   ]}
 />

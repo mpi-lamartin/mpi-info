@@ -4,6 +4,10 @@ hide_title: true
 title: "DS 2 : Automate à pile"
 pdf: "automate_pile"
 ---
-import Button from '@site/src/components/Button';
 
-<Button pdf={require(`./${frontMatter.pdf}.pdf`).default} cor={require(`./${frontMatter.pdf}_cor.pdf`).default} />
+import Button from "@site/src/components/Button";
+
+<Button
+  pdf={require(`./${frontMatter.pdf}.pdf`).default}
+  cor={require(`./${frontMatter.pdf}_cor.pdf`).default}
+/>

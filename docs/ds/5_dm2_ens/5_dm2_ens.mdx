@@ -5,9 +5,10 @@ title: "DM 2 : ENS 2023 MPI"
 pdf: "ens23"
 cor: true
 ---
-import Button from '@site/src/components/Button';
 
-<Button 
-    pdf={require(`./${frontMatter.pdf}.pdf`).default}
-    cor={frontMatter.cor ? require(`./${frontMatter.pdf}_cor.pdf`).default : null}
+import Button from "@site/src/components/Button";
+
+<Button
+  pdf={require(`./${frontMatter.pdf}.pdf`).default}
+  cor={frontMatter.cor ? require(`./${frontMatter.pdf}_cor.pdf`).default : null}
 />
