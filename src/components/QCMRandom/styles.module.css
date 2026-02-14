@@ -51,6 +51,88 @@
   font-weight: 500;
 }
 
+.questionText :global(pre.prism-code) {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.questionText :global(pre.prism-code code) {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.92em;
+}
+
+.questionText :global(.token.comment),
+.questionText :global(.token.prolog),
+.questionText :global(.token.doctype),
+.questionText :global(.token.cdata) {
+  color: #6a737d;
+}
+
+.questionText :global(.token.punctuation) {
+  color: #24292e;
+}
+
+.questionText :global(.token.keyword),
+.questionText :global(.token.operator),
+.questionText :global(.token.atrule) {
+  color: #d73a49;
+}
+
+.questionText :global(.token.function) {
+  color: #6f42c1;
+}
+
+.questionText :global(.token.string),
+.questionText :global(.token.char),
+.questionText :global(.token.attr-value) {
+  color: #032f62;
+}
+
+.questionText :global(.token.number),
+.questionText :global(.token.boolean),
+.questionText :global(.token.constant) {
+  color: #005cc5;
+}
+
+[data-theme="dark"] .questionText :global(pre.prism-code) {
+  background: var(--ifm-color-emphasis-200);
+}
+
+[data-theme="dark"] .questionText :global(.token.comment),
+[data-theme="dark"] .questionText :global(.token.prolog),
+[data-theme="dark"] .questionText :global(.token.doctype),
+[data-theme="dark"] .questionText :global(.token.cdata) {
+  color: #8b949e;
+}
+
+[data-theme="dark"] .questionText :global(.token.punctuation) {
+  color: #c9d1d9;
+}
+
+[data-theme="dark"] .questionText :global(.token.keyword),
+[data-theme="dark"] .questionText :global(.token.operator),
+[data-theme="dark"] .questionText :global(.token.atrule) {
+  color: #ff7b72;
+}
+
+[data-theme="dark"] .questionText :global(.token.function) {
+  color: #d2a8ff;
+}
+
+[data-theme="dark"] .questionText :global(.token.string),
+[data-theme="dark"] .questionText :global(.token.char),
+[data-theme="dark"] .questionText :global(.token.attr-value) {
+  color: #a5d6ff;
+}
+
+[data-theme="dark"] .questionText :global(.token.number),
+[data-theme="dark"] .questionText :global(.token.boolean),
+[data-theme="dark"] .questionText :global(.token.constant) {
+  color: #79c0ff;
+}
+
 .answers {
   display: flex;
   flex-direction: column;
@@ -239,6 +321,25 @@
 .btnPrimary:disabled {
   background-color: var(--ifm-color-emphasis-300);
   cursor: not-allowed;
+}
+
+.btnSecondary {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.btnSecondary:hover {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
 }
 
 .finalScore {

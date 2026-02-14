@@ -11,6 +11,48 @@ import QCMRandom from "@site/src/components/QCMRandom";
   questions={[
     {
       question:
+        "Avec le type OCaml suivant et `v` une variable de type `t`, quelles sont les syntaxes valides ?\n```ocaml\ntype t = {x : int; a : int array}```",
+      answers: [
+        "`let w = {0; [|1; 2; 3|]}`",
+        "`let w = {x : 0; a : [|1; 2; 3|]}`",
+        "`let w = {x = 0; a = [|1; 2; 3|]}`",
+        "`v.x`",
+        "`v->x`",
+        "`v.x = 1`",
+        "`v.x <- 1`",
+        "`v.a.(0) = 1` (en supposant que `v.a` a au moins un élément)",
+        "`v.a.(0) <- 1` (en supposant que `v.a` a au moins un élément)",
+      ],
+      correct: [2, 3, 5, 6, 7, 8],
+      explanation:
+        "`v.x = 1` est une comparaison d'égalité, tandis que `v.x <- 1` est une affectation qui ne fonctionne que si `v` est mutable. `v.a.(0) <- 1` est valide car un tableau est mutable. Par contre, `v.a <- ...` ne serait valide que si `v.a` était mutable.",
+    },
+    {
+      question:
+        "Quelles sont les lignes donnant une erreur (ou comportement indéfini) ?\n```c\n#include <stdio.h>\n\ntypedef struct { int x; int* a; } t;\n\nt f() {\n    t res;\n    int x = 0;\n    int a[] = {1, 2};\n    res.x = x;\n    res.a = a;\n    return res;\n}\n\nint main() {\n    t res = f();\n    printf(\"%d\", res.x);\n    printf(\"%d\", res.a[1]);\n    return 0;\n}\n```",
+      answers: [
+        "`int a[] = {1, 2};`",
+        "`res.x = x;`",
+        "`res.a = a;`",
+        "`printf(\"%d\", res.x);`",
+        "`printf(\"%d\", res.a[1]);`",
+      ],
+      correct: [4],
+      explanation:
+        "La ligne `printf(\"%d\", res.a[1]);` est incorrecte car `res.a` pointe vers un tableau local qui est détruit à la fin de la fonction `f()`.\n Par contre, `printf(\"%d\", res.x);` est correct car `res.x` est copié dans la structure retournée par `f()`.",
+    },
+    {
+      question:
+        "Après les lignes suivantes, que donne `printf(\"%d\", x);`, `printf(\"%d\", y);`, `printf(\"%d\", z);` ?\n```c\nint x = 0, y = 1;\nif(y == 1) {\nint x = 1, z = 2;\ny = 2;\n}\n```",
+      answers: [
+        "`0, 1, 2`", "`0, 2, 2`", "`1, 1, 2`", "`1, 2, 2`", "`0, 1, erreur`", "`0, 2, erreur`", "`1, 1, erreur`", "`1, 2, erreur`",
+      ],
+      correct: [5],
+      explanation:
+        "La variable `z` est déclarée dans un bloc if, donc elle n'est accessible que dans ce bloc. Lorsque le programme sort du bloc, `z` n'est plus accessible, donc `printf(\"%d\", z);` affiche une erreur de compilation.",
+    },
+    {
+      question:
         "L'algorithme de déterminisation d'un automate à $n$ états et $p$ transitions sur un alphabet de taille $k$ donne un automate avec :",
       answers: [
         "$2^n$ états et $p$ transitions",
@@ -24,7 +66,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?\n```\nint c = 10;\n\nvoid f() {\n  for(int i = 0; i < 5; i++) \n    c--;\n}\n```",
+        "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?\n```c\nint c = 10;\n\nvoid f() {\n  for(int i = 0; i < 5; i++)\n    c--;\n}\n```",
       answers: [
         "Seulement 0",
         "De 0 à 8",
@@ -74,7 +116,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Utilise une récurrence sur le nombre de sommets utilisable dans un plus court chemin",
         "Utilise une récurrence sur la longueur d'un plus court chemin",
         "Est en O($n^3$)",
-        "Est en O($n\log(n)$)",
+        "Est en O($n\\log(n)$)",
       ],
       correct: [0, 2],
       explanation:

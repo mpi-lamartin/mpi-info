@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import katex from "katex";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import { Prism as PrismRenderer } from "prism-react-renderer";
 
 interface Question {
   question: string;
@@ -13,6 +14,8 @@ interface Question {
 interface QCMRandomProps {
   questions: Question[];
   title?: string;
+  repoOwner?: string;
+  repoName?: string;
 }
 
 function isMultiple(correct: number | number[]): correct is number[] {
@@ -24,13 +27,28 @@ function getCorrectSet(correct: number | number[]): Set<number> {
 }
 
 function renderMath(text: string, baseUrl: string): string {
-  let result = text.replace(/```([^`]+)```/g, (_, code) => {
-    const escaped = code
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-    return `<pre style="background:var(--ifm-color-emphasis-100);padding:8px 12px;border-radius:6px;font-size:0.9em;margin:6px 0;overflow-x:auto;"><code>${escaped}</code></pre>`;
-  });
+  const codeBlocks: string[] = [];
+  let result = text.replace(
+    /```([a-zA-Z0-9_-]+)?\n([\s\S]*?)```/g,
+    (_, lang, code) => {
+      const language = lang || "text";
+      const grammar =
+        PrismRenderer.languages[language] || PrismRenderer.languages.markup;
+      let highlighted = code;
+      try {
+        highlighted = PrismRenderer.highlight(code, grammar, language);
+      } catch {
+        highlighted = code
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      const block = `<pre class="prism-code language-${language}" style="margin:6px 0;"><code class="language-${language}">${highlighted}</code></pre>`;
+      const marker = `@@CODEBLOCK_${codeBlocks.length}@@`;
+      codeBlocks.push(block);
+      return marker;
+    },
+  );
   result = result.replace(/\$\$([^$]+)\$\$/g, (_, tex) => {
     try {
       return katex.renderToString(tex, {
@@ -55,6 +73,10 @@ function renderMath(text: string, baseUrl: string): string {
   result = result.replace(/\n/g, "<br>");
   result = result.replace(/src='\/([^']+)'/g, (_, p) => `src='${baseUrl}${p}'`);
   result = result.replace(/src="\/([^"]+)"/g, (_, p) => `src="${baseUrl}${p}"`);
+  result = result.replace(
+    /@@CODEBLOCK_(\d+)@@/g,
+    (_, idx) => codeBlocks[Number(idx)],
+  );
   return result;
 }
 
@@ -67,16 +89,18 @@ function MathText({ text }: { text: string }): JSX.Element {
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
+  // for (let i = a.length - 1; i > 0; i--) {
+  //   const j = Math.floor(Math.random() * (i + 1));
+  //   [a[i], a[j]] = [a[j], a[i]];
+  // }
   return a;
 }
 
 export default function QCMRandom({
   questions,
   title = "QCM Algorithmes",
+  repoOwner = "mpi-lamartin",
+  repoName = "mpi-info",
 }: QCMRandomProps): JSX.Element {
   const [order] = useState<number[]>(() => shuffle(questions.map((_, i) => i)));
   const [current, setCurrent] = useState(0);
@@ -135,6 +159,31 @@ export default function QCMRandom({
     setValidated(false);
   };
 
+  const handleReportError = () => {
+    const sourceQuestionIndex = order[current] + 1;
+    const questionPreview =
+      q.question.length > 1200 ? `${q.question.slice(0, 1200)}...` : q.question;
+    const titleText = `QCM: erreur potentielle question #${sourceQuestionIndex}`;
+    const bodyText = [
+      "## Contexte",
+      "Signalement d'une erreur potentielle dans une question du QCM.",
+      "",
+      `- Index question (fichier source): ${sourceQuestionIndex}`,
+      `- Position affichée: ${current + 1}/${order.length}`,
+      "",
+      "## Question concernée",
+      "```text",
+      questionPreview,
+      "```",
+      "",
+      "## Correction souhaitée",
+      "Décrire ici la modification à apporter.",
+    ].join("\n");
+
+    const url = `https://github.com/${repoOwner}/${repoName}/issues/new?title=${encodeURIComponent(titleText)}&body=${encodeURIComponent(bodyText)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   const pct =
     answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
 
@@ -190,7 +239,7 @@ export default function QCMRandom({
       </div>
 
       <div className={styles.questionCard}>
-        <p className={styles.questionText}>
+        <div className={styles.questionText}>
           <MathText text={q.question} />
           {multi && (
             <span className={styles.multiHint}>
@@ -198,7 +247,7 @@ export default function QCMRandom({
               (plusieurs réponses possibles)
             </span>
           )}
-        </p>
+        </div>
         <div className={styles.answers}>
           {q.answers.map((answer, aIdx) => {
             const isSelected = selectedSet.has(aIdx);
@@ -243,6 +292,9 @@ export default function QCMRandom({
       </div>
 
       <div className={styles.actions}>
+        <button className={styles.btnSecondary} onClick={handleReportError}>
+          Erreur ?
+        </button>
         {!validated ? (
           !singleChoice && (
             <button className={styles.btnPrimary} onClick={handleValidate}>
