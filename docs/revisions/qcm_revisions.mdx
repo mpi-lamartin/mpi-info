@@ -43,7 +43,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "Après les lignes suivantes, que donne `printf(\"%d\", x);`, `printf(\"%d\", y);`, `printf(\"%d\", z);` ?\n```c\nint x = 0, y = 1;\nif(y == 1) {\nint x = 1, z = 2;\ny = 2;\n}\n```",
+        "Après les lignes suivantes, que donne `printf(\"%d\", x);`, `printf(\"%d\", y);`, `printf(\"%d\", z);` ?\n```c\nint x = 0, y = 1;\nif (y == 1) {\n  int x, z = 2;\n  x = 1;\n  y = 2;\n}\n```",
       answers: [
         "`0, 1, 2`", "`0, 2, 2`", "`1, 1, 2`", "`1, 2, 2`", "`0, 1, erreur`", "`0, 2, erreur`", "`1, 1, erreur`", "`1, 2, erreur`",
       ],
@@ -420,7 +420,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "Quel algorithme résout le problème SAT par backtracking en affectant les variables et en simplifiant les clauses à chaque étape ?",
+        "Quel algorithme résout le problème $\\texttt{SAT}$ par backtracking en affectant les variables et en simplifiant les clauses à chaque étape ?",
       answers: [
         "Branch-and-bound",
         "Alpha-beta",
