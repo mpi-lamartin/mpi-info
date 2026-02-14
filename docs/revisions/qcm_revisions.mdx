@@ -11,6 +11,46 @@ import QCMRandom from "@site/src/components/QCMRandom";
   questions={[
     {
       question:
+        ["On ouvre le dossier `projet` dans un terminal :",
+          "```",
+            "projet/",
+            "├── include/",
+            "│   └── utils.h",
+            "└── src/",
+            "    ├── main.c",
+            "    └── utils.c",
+            "```",
+            "```c",
+            "// utils.h",
+            "#ifndef UTILS_H",
+            "#define UTILS_H",
+            "...",
+            "#endif",
+            "```",
+            "```c",
+            "// utils.c",
+            "#include \"../include/utils.h\"",
+            "...",
+            "```",
+            "```c",
+            "// main.c",
+            "#include \"../include/utils.h\"",
+            "int main() { ... }",
+          "```",
+          ].join("\n"),
+          answers: [
+          "On peut compiler avec `gcc main.c utils.c`",
+          "`#ifndef UTILS_H` sert à éviter des inclusions multiples",
+          "`utils.h` contient des déclarations, `utils.c` contient des implémentations",
+          "`#include \"...\"` cherche dans le dossier courant puis dans les dossiers du compilateur, alors que `#include <...>` cherche seulement dans les dossiers du compilateur",
+          ],
+          correct: [1, 2, 3],
+          explanation: ["`#ifndef UTILS_H` (if not defined) vérifie si `UTILS_H` n'est pas défini. Si ce n'est pas le cas, il définit `UTILS_H` et inclut le contenu du fichier. Cela permet d'éviter les problèmes d'inclusion multiple qui peuvent survenir si un fichier est inclus plusieurs fois dans un projet.",
+          "Dans un projet structuré, les fichiers `.h` contiennent généralement les déclarations de fonctions, de types et de macros, tandis que les fichiers `.c` contiennent les implémentations de ces fonctions. Cela permet de séparer l'interface (déclarations) de l'implémentation (définitions) et facilite la maintenance du code.",
+          "L'instruction `#include \"...\"` indique au préprocesseur de chercher le fichier d'en-tête dans le répertoire courant (où se trouve le fichier source) avant de chercher dans les répertoires standard du compilateur. En revanche, `#include <...>` indique au préprocesseur de chercher uniquement dans les répertoires standard du compilateur, ce qui est généralement utilisé pour inclure des bibliothèques standard ou des bibliothèques externes installées sur le système."].join("\n"),
+    },
+    {
+      question:
         "Avec le type OCaml suivant et `v` une variable de type `t`, quelles sont les syntaxes valides ?\n```ocaml\ntype t = {x : int; a : int array}```",
       answers: [
         "`let w = {0; [|1; 2; 3|]}`",
@@ -614,7 +654,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Dans un arbre binaire strict (chaque nœud a soit 0 soit 2 fils) avec $f$ feuilles et $n_i$ nœuds internes (non feuilles) :",
       answers: ["$f = n_i$", "$f = n_i + 1$", "$f = 2n_i$", "$f = 2n_i + 1$"],
       correct: 1,
-      explanation: "Par induction structurelle.",
+      explanation: "Par induction structurelle ou bijection.",
     },
     {
       question:
@@ -673,7 +713,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "$\\texttt{SAT}$",
         "$\\texttt{2-SAT}$",
         "$\\texttt{3-SAT}$",
-        "$\\texttt{FNC-SAT}$ : $\\texttt{SAT}$ restreint aux formes normales disjonctives (FNC)",
+        "$\\texttt{FND-SAT}$ : $\\texttt{SAT}$ restreint aux formes normales disjonctives",
         "Couplage maximum",
         "Clique maximum",
         "Arbre couvrant de poids maximum",
@@ -716,12 +756,12 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "Le lemme de l'étoile sur un langage régulier $L$ commence ainsi :",
+        "Le lemme de l'étoile sur un langage régulier $L$ s'énonce ainsi :",
       answers: [
-        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Longrightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
-        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Longrightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
-        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Longrightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
-        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Longrightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0$",
+        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Longrightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0, \\forall k \\in \\mathbb{N}, xy^k z \\in L$",
+        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Longrightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0, \\forall k \\in \\mathbb{N}, xy^k z \\in L$",
+        "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Longrightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0, \\forall k \\in \\mathbb{N}, xy^k z \\in L$",
+        "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Longrightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0, \\forall k \\in \\mathbb{N}, xy^k z \\in L$",
       ],
       correct: 1,
       explanation:

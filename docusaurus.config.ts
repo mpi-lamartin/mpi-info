@@ -160,7 +160,8 @@ const config: Config = {
         },
         {
           href: "https://github.com/mpi-lamartin/mpi-info",
-          label: "GitHub",
+          "aria-label": "GitHub repository",
+          className: "header-github-link",
           position: "right",
         },
       ],
