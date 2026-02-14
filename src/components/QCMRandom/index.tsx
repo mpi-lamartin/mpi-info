@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./styles.module.css";
 import katex from "katex";
 import useBaseUrl from "@docusaurus/useBaseUrl";
@@ -17,6 +17,19 @@ interface QCMRandomProps {
   repoOwner?: string;
   repoName?: string;
 }
+
+interface PersistedQCMState {
+  signature: string;
+  order: number[];
+  current: number;
+  selected: number[];
+  validated: boolean;
+  correctCount: number;
+  answeredCount: number;
+  finished: boolean;
+}
+
+const STORAGE_VERSION = "v1";
 
 function isMultiple(correct: number | number[]): correct is number[] {
   return Array.isArray(correct);
@@ -103,19 +116,59 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
+function getQuestionsSignature(questions: Question[]): string {
+  const raw = JSON.stringify(
+    questions.map((q) => ({
+      question: q.question,
+      answers: q.answers,
+      correct: q.correct,
+    })),
+  );
+  let hash = 2166136261;
+  for (let i = 0; i < raw.length; i++) {
+    hash ^= raw.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return `${questions.length}:${hash >>> 0}`;
+}
+
+function isValidOrder(order: number[], size: number): boolean {
+  if (order.length !== size) return false;
+  const seen = new Set<number>();
+  for (const value of order) {
+    if (!Number.isInteger(value) || value < 0 || value >= size) return false;
+    if (seen.has(value)) return false;
+    seen.add(value);
+  }
+  return true;
+}
+
 export default function QCMRandom({
   questions,
   title = "QCM Algorithmes",
   repoOwner = "mpi-lamartin",
   repoName = "mpi-info",
 }: QCMRandomProps): JSX.Element {
-  const [order] = useState<number[]>(() => shuffle(questions.map((_, i) => i)));
+  const [order, setOrder] = useState<number[]>(() =>
+    shuffle(questions.map((_, i) => i)),
+  );
   const [current, setCurrent] = useState(0);
   const [selectedSet, setSelectedSet] = useState<Set<number>>(new Set());
   const [validated, setValidated] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [answeredCount, setAnsweredCount] = useState(0);
   const [finished, setFinished] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  const questionsSignature = useMemo(
+    () => getQuestionsSignature(questions),
+    [questions],
+  );
+
+  const storageKey = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    return `qcm-random:${STORAGE_VERSION}:${window.location.pathname}:${title}`;
+  }, [title]);
 
   const q = questions[order[current]];
   const correctSet = getCorrectSet(q.correct);
@@ -197,6 +250,82 @@ export default function QCMRandom({
 
   const pct =
     answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+
+  useEffect(() => {
+    if (!storageKey) {
+      setHydrated(true);
+      return;
+    }
+
+    try {
+      const raw = window.localStorage.getItem(storageKey);
+      if (!raw) {
+        setHydrated(true);
+        return;
+      }
+
+      const saved = JSON.parse(raw) as PersistedQCMState;
+      if (saved.signature !== questionsSignature) {
+        setHydrated(true);
+        return;
+      }
+      if (!isValidOrder(saved.order, questions.length)) {
+        setHydrated(true);
+        return;
+      }
+
+      const safeCurrent = Math.min(
+        Math.max(saved.current, 0),
+        Math.max(saved.order.length - 1, 0),
+      );
+      const currentQuestion = questions[saved.order[safeCurrent]];
+      const maxAnswerIndex = currentQuestion.answers.length - 1;
+      const safeSelected = (saved.selected || []).filter(
+        (idx) => Number.isInteger(idx) && idx >= 0 && idx <= maxAnswerIndex,
+      );
+
+      setOrder(saved.order);
+      setCurrent(safeCurrent);
+      setSelectedSet(new Set(safeSelected));
+      setValidated(Boolean(saved.validated));
+      setCorrectCount(Math.max(0, saved.correctCount || 0));
+      setAnsweredCount(Math.max(0, saved.answeredCount || 0));
+      setFinished(Boolean(saved.finished));
+    } catch {
+    } finally {
+      setHydrated(true);
+    }
+  }, [questions, questionsSignature, storageKey]);
+
+  useEffect(() => {
+    if (!hydrated || !storageKey) return;
+
+    const payload: PersistedQCMState = {
+      signature: questionsSignature,
+      order,
+      current,
+      selected: Array.from(selectedSet),
+      validated,
+      correctCount,
+      answeredCount,
+      finished,
+    };
+
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify(payload));
+    } catch {}
+  }, [
+    answeredCount,
+    correctCount,
+    current,
+    finished,
+    hydrated,
+    order,
+    questionsSignature,
+    selectedSet,
+    storageKey,
+    validated,
+  ]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
