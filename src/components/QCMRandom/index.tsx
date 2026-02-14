@@ -26,6 +26,13 @@ function getCorrectSet(correct: number | number[]): Set<number> {
   return new Set(isMultiple(correct) ? correct : [correct]);
 }
 
+function escapeHtml(input: string): string {
+  return input
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 function renderMath(text: string, baseUrl: string): string {
   const codeBlocks: string[] = [];
   let result = text.replace(
@@ -38,10 +45,7 @@ function renderMath(text: string, baseUrl: string): string {
       try {
         highlighted = PrismRenderer.highlight(code, grammar, language);
       } catch {
-        highlighted = code
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;");
+        highlighted = escapeHtml(code);
       }
       const block = `<pre class="prism-code language-${language}" style="margin:6px 0;"><code class="language-${language}">${highlighted}</code></pre>`;
       const marker = `@@CODEBLOCK_${codeBlocks.length}@@`;
@@ -69,7 +73,10 @@ function renderMath(text: string, baseUrl: string): string {
       return `$${tex}$`;
     }
   });
-  result = result.replace(/`([^`]+)`/g, (_, code) => `<code>${code}</code>`);
+  result = result.replace(
+    /`([^`]+)`/g,
+    (_, code) => `<code>${escapeHtml(code)}</code>`,
+  );
   result = result.replace(/\n/g, "<br>");
   result = result.replace(/src='\/([^']+)'/g, (_, p) => `src='${baseUrl}${p}'`);
   result = result.replace(/src="\/([^"]+)"/g, (_, p) => `src="${baseUrl}${p}"`);
@@ -163,21 +170,25 @@ export default function QCMRandom({
     const sourceQuestionIndex = order[current] + 1;
     const questionPreview =
       q.question.length > 1200 ? `${q.question.slice(0, 1200)}...` : q.question;
-    const titleText = `QCM: erreur potentielle question #${sourceQuestionIndex}`;
+    const titleText = `QCM : erreur potentielle question #${sourceQuestionIndex}`;
+    const correctIndexes = isMultiple(q.correct) ? q.correct : [q.correct];
     const bodyText = [
       "## Contexte",
-      "Signalement d'une erreur potentielle dans une question du QCM.",
-      "",
-      `- Index question (fichier source): ${sourceQuestionIndex}`,
-      `- Position affichée: ${current + 1}/${order.length}`,
+      `Index question (fichier source): ${sourceQuestionIndex}`,
       "",
       "## Question concernée",
       "```text",
       questionPreview,
       "```",
       "",
-      "## Correction souhaitée",
-      "Décrire ici la modification à apporter.",
+      "## Réponses possibles",
+      q.answers.map((a, i) => `  ${i + 1}. ${a}`),
+      "",
+      "## Réponses correctes sur le site",
+      correctIndexes.map((idx) => `  ${idx + 1}. ${q.answers[idx]}`),
+      "",
+      "## Problème",
+      "...",
     ].join("\n");
 
     const url = `https://github.com/${repoOwner}/${repoName}/issues/new?title=${encodeURIComponent(titleText)}&body=${encodeURIComponent(bodyText)}`;
