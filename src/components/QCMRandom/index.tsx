@@ -219,6 +219,16 @@ export default function QCMRandom({
     setValidated(false);
   };
 
+  const handleRestart = () => {
+    setOrder(shuffle(questions.map((_, i) => i)));
+    setCurrent(0);
+    setSelectedSet(new Set());
+    setValidated(false);
+    setCorrectCount(0);
+    setAnsweredCount(0);
+    setFinished(false);
+  };
+
   const handleReportError = () => {
     const sourceQuestionIndex = order[current] + 1;
     const questionPreview =
@@ -360,6 +370,11 @@ export default function QCMRandom({
             </strong>{" "}
             ({pct}%)
           </p>
+          <div className={styles.actions}>
+            <button className={styles.btnSecondary} onClick={handleRestart}>
+              Recommencer
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -432,9 +447,6 @@ export default function QCMRandom({
       </div>
 
       <div className={styles.actions}>
-        <button className={styles.btnSecondary} onClick={handleReportError}>
-          Erreur ?
-        </button>
         {!validated ? (
           !singleChoice && (
             <button className={styles.btnPrimary} onClick={handleValidate}>
@@ -448,6 +460,12 @@ export default function QCMRandom({
               : "Question suivante (Ctrl+Enter) →"}
           </button>
         )}
+        <button className={styles.btnSecondary} onClick={handleReportError}>
+          Erreur ?
+        </button>
+        <button className={styles.btnSecondary} onClick={handleRestart}>
+          Recommencer
+        </button>
       </div>
     </div>
   );
