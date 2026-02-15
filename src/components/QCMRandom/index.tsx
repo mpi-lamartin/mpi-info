@@ -29,7 +29,7 @@ interface PersistedQCMState {
   finished: boolean;
 }
 
-const STORAGE_VERSION = "v1";
+const STORAGE_VERSION = "v2";
 
 function isMultiple(correct: number | number[]): correct is number[] {
   return Array.isArray(correct);
@@ -122,14 +122,24 @@ function getQuestionsSignature(questions: Question[]): string {
       question: q.question,
       answers: q.answers,
       correct: q.correct,
+      explanation: q.explanation || "",
     })),
   );
-  let hash = 2166136261;
+
+  let h1 = 0xdeadbeef ^ raw.length;
+  let h2 = 0x41c6ce57 ^ raw.length;
   for (let i = 0; i < raw.length; i++) {
-    hash ^= raw.charCodeAt(i);
-    hash = Math.imul(hash, 16777619);
+    const code = raw.charCodeAt(i);
+    h1 = Math.imul(h1 ^ code, 2654435761);
+    h2 = Math.imul(h2 ^ code, 1597334677);
   }
-  return `${questions.length}:${hash >>> 0}`;
+
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+  h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+  h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+
+  return `${questions.length}:${(h2 >>> 0).toString(16)}:${(h1 >>> 0).toString(16)}`;
 }
 
 function isValidOrder(order: number[], size: number): boolean {
