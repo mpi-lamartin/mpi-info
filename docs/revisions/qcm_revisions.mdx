@@ -10,6 +10,31 @@ import QCMRandom from "@site/src/components/QCMRandom";
   title="QCM Révisions"
   questions={[
     {
+      question: [
+        "On considère le problème d'optimisation COUPLAGE suivant ainsi qu'un problème de décision DCOUPLAGE associé :",
+        "```",
+        "COUPLAGE",
+        "Entrée : un graphe biparti $G$",
+        "Sortie : un couplage maximum de $G$",
+        "```",
+      ].join("\n"),
+      answers: [
+        "DCOUPLAGE peut-être défini par :\n```\nEntrée : un graphe biparti $G$ et un entier $k$\nSortie : est-ce que $G$ admet un couplage de cardinal inférieur à $k$ ?\n```",
+        "DCOUPLAGE peut-être défini par :\n```\nEntrée : un graphe biparti $G$ et un entier $k$\nSortie : est-ce que $G$ admet un couplage de cardinal égal à $k$ ?\n```",
+        "DCOUPLAGE peut-être défini par :\n```\nEntrée : un graphe biparti $G$ et un entier $k$\nSortie : est-ce que $G$ admet un couplage de cardinal supérieur à $k$ ?\n```",
+        "DCOUPLAGE $\\in$ P",
+        "DCOUPLAGE $\\in$ NP",
+        "DCOUPLAGE $\\in$ NP-difficile",
+        "DCOUPLAGE $\\in$ NP-complet",
+      ],
+      correct: [1, 2, 3, 4],
+      explanation:
+        [
+          "Le premier problème de décision est trivial car il est toujours vrai : le couplage vide convient. Les deux autres définitions sont possibles et appartiennent aux mêmes classes de complexité.",
+          "DCOUPLAGE est dans P avec l'algorithme des chemins augmentants. Comme P $\\subset$ NP, DCOUPLAGE est aussi dans NP.",
+        ].join("\n"),
+    },
+    {
       question:
         ["On ouvre le dossier `projet` dans un terminal :",
           "```",
@@ -870,6 +895,30 @@ import QCMRandom from "@site/src/components/QCMRandom";
           "La troisième est correcte par linéarisation d'une matrice 2D avec un tableau 1D.",
           "La quatrième est correcte par linéarisation d'une matrice 2D avec un tableau 1D alloué dynamiquement.",
         ].join("\n"),
+    },
+    {
+      question: ["Quelles sont les syntaxes valides après le code suivant ?",
+        "```c",
+        "int* x = malloc(sizeof(int));",
+        "int* y = malloc(sizeof(int));",
+        "typedef struct {",
+        "  int a;",
+        "  int* z;",
+        "} s;",
+        "s* p = malloc(sizeof(s));",
+        "```",
+      ].join("\n"),
+      answers: [
+        "x = y;",
+        "x = &y;",
+        "&x = y;",
+        "*x = y;",
+        "x = *y;",
+        "*x = *y;",
+        "p.a = 5;",
+        "p->a = 5;",
+        "p->z = x;",
+      ],
     },
     {
       question: "Si $\\Pi_1$ se réduit à $\\Pi_2$ alors :",
