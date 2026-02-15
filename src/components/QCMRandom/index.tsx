@@ -457,7 +457,7 @@ export default function QCMRandom({
           <button className={styles.btnPrimary} onClick={handleNext}>
             {current + 1 >= order.length
               ? "Voir le résultat"
-              : "Question suivante (Ctrl+Enter) →"}
+              : "Question suivante (Ctrl+Enter)"}
           </button>
         )}
         <button className={styles.btnSecondary} onClick={handleReportError}>

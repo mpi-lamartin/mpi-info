@@ -45,13 +45,19 @@ import QCMRandom from "@site/src/components/QCMRandom";
           "`#include \"...\"` cherche dans le dossier courant puis dans les dossiers du compilateur, alors que `#include <...>` cherche seulement dans les dossiers du compilateur",
           ],
           correct: [1, 2, 3],
-          explanation: ["`#ifndef UTILS_H` (if not defined) vérifie si `UTILS_H` n'est pas défini. Si ce n'est pas le cas, il définit `UTILS_H` et inclut le contenu du fichier. Cela permet d'éviter les problèmes d'inclusion multiple qui peuvent survenir si un fichier est inclus plusieurs fois dans un projet.",
+          explanation: [
+          "`gcc src/main.c src/utils.c` est nécessaire si la commande est lancée depuis le dossier `projet`. Alternativement, on peut se placer dans `src` (`cd src`) puis faire `gcc main.c utils.c`.",
+          "`#ifndef UTILS_H` (if not defined) vérifie si `UTILS_H` n'est pas défini. Si ce n'est pas le cas, il définit `UTILS_H` et inclut le contenu du fichier. Cela permet d'éviter les problèmes d'inclusion multiple qui peuvent survenir si un fichier est inclus plusieurs fois dans un projet.",
           "Dans un projet structuré, les fichiers `.h` contiennent généralement les déclarations de fonctions, de types et de macros, tandis que les fichiers `.c` contiennent les implémentations de ces fonctions. Cela permet de séparer l'interface (déclarations) de l'implémentation (définitions) et facilite la maintenance du code.",
           "L'instruction `#include \"...\"` indique au préprocesseur de chercher le fichier d'en-tête dans le répertoire courant (où se trouve le fichier source) avant de chercher dans les répertoires standard du compilateur. En revanche, `#include <...>` indique au préprocesseur de chercher uniquement dans les répertoires standard du compilateur, ce qui est généralement utilisé pour inclure des bibliothèques standard ou des bibliothèques externes installées sur le système."].join("\n"),
     },
     {
       question:
-        "Avec le type OCaml suivant et `v` une variable de type `t`, quelles sont les syntaxes valides ?\n```ocaml\ntype t = {x : int; a : int array}```",
+        [
+          "Avec le type OCaml suivant et `v` une variable de type `t`, quelles sont les syntaxes valides ?",
+          "```ocaml",
+          "type t = {x : int; a : int array}```",
+        ].join("\n"),
       answers: [
         "`let w = {0; [|1; 2; 3|]}`",
         "`let w = {x : 0; a : [|1; 2; 3|]}`",
@@ -69,7 +75,30 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "Quelles sont les lignes donnant une erreur (ou comportement indéfini) ?\n```c\n#include <stdio.h>\n\ntypedef struct { int x; int* a; } t;\n\nt f() {\n    t res;\n    int x = 0;\n    int a[] = {1, 2};\n    res.x = x;\n    res.a = a;\n    return res;\n}\n\nint main() {\n    t res = f();\n    printf(\"%d\", res.x);\n    printf(\"%d\", res.a[1]);\n    return 0;\n}\n```",
+        [
+          "Quelles sont les lignes donnant une erreur (ou comportement indéfini) ?",
+          "```c",
+          "#include <stdio.h>",
+          "",
+          "typedef struct { int x; int* a; } t;",
+          "",
+          "t f() {",
+          "    t res;",
+          "    int x = 0;",
+          "    int a[] = {1, 2};",
+          "    res.x = x;",
+          "    res.a = a;",
+          "    return res;",
+          "}",
+          "",
+          "int main() {",
+          "    t res = f();",
+          "    printf(\"%d\", res.x);",
+          "    printf(\"%d\", res.a[1]);",
+          "    return 0;",
+          "}",
+          "```",
+        ].join("\n"),
       answers: [
         "`int a[] = {1, 2};`",
         "`res.x = x;`",
@@ -79,11 +108,24 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [4],
       explanation:
-        "La ligne `printf(\"%d\", res.a[1]);` est incorrecte car `res.a` pointe vers un tableau local qui est détruit à la fin de la fonction `f()`.\n Par contre, `printf(\"%d\", res.x);` est correct car `res.x` est copié dans la structure retournée par `f()`.",
+        [
+          "La ligne `printf(\"%d\", res.a[1]);` est incorrecte car `res.a` pointe vers un tableau local qui est détruit à la fin de la fonction `f()`.",
+          " Par contre, `printf(\"%d\", res.x);` est correct car `res.x` est copié dans la structure retournée par `f()`.",
+        ].join("\n"),
     },
     {
       question:
-        "Après les lignes suivantes, que donne `printf(\"%d\", x);`, `printf(\"%d\", y);`, `printf(\"%d\", z);` ?\n```c\nint x = 0, y = 1;\nif (y == 1) {\n  int x, z = 2;\n  x = 1;\n  y = 2;\n}\n```",
+        [
+          "Après les lignes suivantes, que donne `printf(\"%d\", x);`, `printf(\"%d\", y);`, `printf(\"%d\", z);` ?",
+          "```c",
+          "int x = 0, y = 1;",
+          "if (y == 1) {",
+          "  int x, z = 2;",
+          "  x = 1;",
+          "  y = 2;",
+          "}",
+          "```",
+        ].join("\n"),
       answers: [
         "`0, 1, 2`", "`0, 2, 2`", "`1, 1, 2`", "`1, 2, 2`", "`0, 1, erreur`", "`0, 2, erreur`", "`1, 1, erreur`", "`1, 2, erreur`",
       ],
@@ -106,7 +148,17 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question:
-        "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?\n```c\nint c = 10;\n\nvoid f() {\n  for(int i = 0; i < 5; i++)\n    c--;\n}\n```",
+        [
+          "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?",
+          "```c",
+          "int c = 10;",
+          "",
+          "void f() {",
+          "  for(int i = 0; i < 5; i++)",
+          "    c--;",
+          "}",
+          "```",
+        ].join("\n"),
       answers: [
         "Seulement 0",
         "De 0 à 8",
@@ -273,19 +325,6 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Las Vegas = toujours correct, temps variable. Exemple : quicksort randomisé.",
     },
     {
-      question:
-        "Quels algorithmes permettent d'explorer seulement une partie du graphe des configurations ?",
-      answers: [
-        "Calcul des attracteurs",
-        "Branch-and-bound",
-        "Alpha-beta",
-        "Quine",
-      ],
-      correct: [1, 2, 3],
-      explanation:
-        "Le calcul des attracteurs est optimal mais explore toutes les configurations. Branch-and-bound coupe les branches dont l'heuristique est moins bonne que la meilleure solution trouvée. Alpha-beta coupe les branches en dehors de l'intervalle $\\alpha \\leq \\beta$. Quine s'implifie la formule pour éviter de parcourir toutes les valuations.",
-    },
-    {
       question: "Lesquels sont des algorithmes de classification supervisée ?",
       answers: [
         "$k$-moyennes",
@@ -307,7 +346,10 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2, 3],
       explanation:
-        "Un arbre $k$-dimensionnel est obtenu en divisant récursivement en deux (suivant un axe) des points dans $\\mathbb{R}^k$.\n Il peut être utilisé pour trouver les voisins dans l'algorithme des $k$-plus proches voisins.",
+        [
+          "Un arbre $k$-dimensionnel est obtenu en divisant récursivement en deux (suivant un axe) des points dans $\\mathbb{R}^k$.",
+          " Il peut être utilisé pour trouver les voisins dans l'algorithme des $k$-plus proches voisins.",
+        ].join("\n"),
     },
     {
       question: "Dans l'algorithme des $k$-moyennes, $k$ désigne :",
@@ -367,7 +409,12 @@ import QCMRandom from "@site/src/components/QCMRandom";
       answers: ["Complémentaire", "Différence", "Intersection", "Inclusion", "Miroir"],
       correct: [0, 1, 2, 4],
       explanation:
-        "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux.\n Différence et intersection : automate produit.\n Miroir : inverser les transitions et les états finaux/initiaux.\n Inclusion : faux car tout langage contient $\\emptyset$ et est inclus dans $\\Sigma^*$.",
+        [
+          "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux.",
+          " Différence et intersection : automate produit.",
+          " Miroir : inverser les transitions et les états finaux/initiaux.",
+          " Inclusion : faux car tout langage contient $\\emptyset$ et est inclus dans $\\Sigma^*$.",
+        ].join("\n"),
     },
     {
       question: "Lesquels de ces langages sont réguliers ?",
@@ -379,7 +426,11 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2],
       explanation:
-        "Le premier est $a^* b^*$. Le 3ème est reconnu par un automate produit à $4$ états où on arrive sur l'état $(x, y)$ si le nombre de $a$ (resp. $b$) est égal à $x$ (resp. $y$). Le 2ème et 4ème ne sont pas régulier par le lemme de l'étoile.",
+        [
+          "Le premier est $a^* b^*$.",
+          " Le 3ème est reconnu par un automate produit à $4$ états où on arrive sur l'état $(x, y)$ si le nombre de $a$ (resp. $b$) est égal à $x$ (resp. $y$).",
+          " Le 2ème et 4ème ne sont pas régulier par le lemme de l'étoile.",
+        ].join("\n"),
     },
     {
       question:
@@ -494,7 +545,10 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2],
       explanation:
-        "Un tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction du minimum en $O(\\log n)$.\n On peut aussi utiliser un arbre binaire de recherche (équilibré éventuellement) en cherchant le minimum tout à gauche.",
+        [
+          "Un tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction du minimum en $O(\\log n)$.",
+          " On peut aussi utiliser un arbre binaire de recherche (équilibré éventuellement) en cherchant le minimum tout à gauche.",
+        ].join("\n"),
     },
     {
       question:
@@ -507,14 +561,21 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [3],
       explanation:
-        "La première condition n'est pas suffisante : il faut aussi que $g$ et $d$ soient des arbres binaires de recherche.\n La deuxième n'est pas bonne du tout.\nUn arbre est un arbre binaire de recherche si et seulement si son parcours infixe est trié par ordre croissant.",
+        [
+          "La première condition n'est pas suffisante : il faut aussi que $g$ et $d$ soient des arbres binaires de recherche.",
+          " La deuxième n'est pas bonne du tout.",
+          "Un arbre est un arbre binaire de recherche si et seulement si son parcours infixe est trié par ordre croissant.",
+        ].join("\n"),
     },
     {
       question: "Quels algorithmes du cours utilisent une file de priorité ?",
       answers: ["Dijkstra", "A*", "Tri par tas", "Huffman", "BFS", "Quine"],
       correct: [0, 1, 2, 3],
-      explanation:
-        "Le tas (file de priorité) est utilisé par Dijkstra et A* pour extraire le sommet le plus proche, par le tri par tas, et par Huffman pour fusionner les arbres de fréquences minimales.",
+      explanation: [
+        "Une file de priorité est utilisée par Dijkstra et A* pour extraire le sommet le plus proche.",
+        "Un tas est une implémentation d'une file de priorité.",
+        "Par Huffman pour fusionner les arbres de fréquences minimales."
+        ].join("\n"),
     },
     {
       question: "Quelles sont des applications possibles d'Union-Find ?",
@@ -538,21 +599,30 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [2],
       explanation:
-        "Le lemme de l'étoile est utilisé par l'absurde pour prouver qu'un langage n'est pas régulier. La réciproque est fausse donc on ne peut pas prouver qu'un langage est régulier avec ce lemme. Il est faux pour les langages hors-contextes généraux, qui ont un lemme de l'étoile différent (avec $u = vwx$ et $|vx| > 0$).",
+        [
+          "Le lemme de l'étoile est utilisé par l'absurde pour prouver qu'un langage n'est pas régulier. ",
+          "La réciproque est fausse donc on ne peut pas prouver qu'un langage est régulier avec ce lemme. ",
+          "Il est faux pour les langages hors-contextes généraux, qui ont un lemme de l'étoile différent.",
+        ].join("\n"),
     },
     {
       question: "Tout automate est équivalent à :",
       answers: [
-        "Une expression régulière",
-        "Une grammaire régulière",
         "Un automate déterministe complet",
         "Un automate émondé (dont tous les états sont accessibles et co-accessibles)",
+        "Un automate complet émondé",
+        "Un automate déterministe émondé ",
         "Un automate local",
         "Un automate sans $\\epsilon$-transition",
       ],
-      correct: [0, 1, 2, 3, 5],
+      correct: [0, 1, 3, 5],
       explanation:
-        "Tout automate est équivalent à une expression régulière par le théorème de Kleene. Tout automate est équivalent à un automate déterministe complet par déterminisation. Tout automate est équivalent à un automate émondé en supprimant les états inaccessibles ou non co-accessibles. Seuls les langages locaux sont reconnus par des automates locaux.",
+        [
+          "Tout automate est équivalent à un automate déterministe complet par l'algorithme de déterminisation. ",
+          "Tout automate est équivalent à un automate émondé en supprimant les états inaccessibles ou non co-accessibles. ",
+          "Le langage $a$ sur l'alphabet $\\{a, b\\}$ ne peut pas être reconnu par un automate complet émondé. ",
+          "Seuls les langages locaux sont reconnus par des automates locaux.",
+        ].join("\n"),
     },
     {
       question: "L'algorithme d'élimination des états :",
@@ -577,7 +647,10 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: 0,
       explanation:
-        "Un tas binaire est un arbre binaire presque complet, qui peut être représenté par un tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`. Le père de `T[j]` est `T[(j-1)/2]`.\n Remarque : on peut aussi définir un tas persistant (skew heap).",
+        [
+          "Un tas binaire est un arbre binaire presque complet, qui peut être représenté par un tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`. Le père de `T[j]` est `T[(j-1)/2]`.",
+          " Remarque : on peut aussi définir un tas persistant (skew heap).",
+        ].join("\n"),
     },
     {
       question:
@@ -667,7 +740,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [1, 3],
       explanation:
-        "Il y a entre $1$ et $2^p$ nœuds à la profondeur P, qu'on peut sommer.",
+        "Il y a entre $1$ et $2^p$ nœuds à la profondeur $p$, qu'on peut sommer.",
     },
     {
       question: "Si $\\Pi_1 \\leq_p \\Pi_2$ alors :",
@@ -721,7 +794,15 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2, 5, 7],
       explanation:
-        "$\\texttt{SAT}$ est NP-complet d'après le théorème de Cook-Levin.\n$\\texttt{2-SAT}$ et $\\texttt{FNC-SAT}$ sont dans P.\n$\\texttt{3-SAT}$ est NP-complet par réduction depuis $\\texttt{SAT}$.\nCouplage maximum est dans P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général).\nClique maximum est NP-complet par réduction depuis $\\texttt{SAT}$ (ou $\\texttt{STABLE}$ comme dans le cours).\nUn arbre couvrant de poids maximum peut être trouvé en triant les arêtes par poids décroissant dans Kruskal.\nChemin de poids maximum est NP-complet par réduction depuis $\\texttt{HAMILTONIEN}$.",
+        [
+          "$\\texttt{SAT}$ est NP-complet d'après le théorème de Cook-Levin.",
+          "$\\texttt{2-SAT}$ et $\\texttt{FNC-SAT}$ sont dans P.",
+          "$\\texttt{3-SAT}$ est NP-complet par réduction depuis $\\texttt{SAT}$.",
+          "Couplage maximum est dans P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général).",
+          "Clique maximum est NP-complet par réduction depuis $\\texttt{SAT}$ (ou $\\texttt{STABLE}$ comme dans le cours).",
+          "Un arbre couvrant de poids maximum peut être trouvé en triant les arêtes par poids décroissant dans Kruskal.",
+          "Chemin de poids maximum est NP-complet par réduction depuis $\\texttt{HAMILTONIEN}$.",
+        ].join("\n"),
     },
     {
       question:
@@ -752,7 +833,11 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2, 4],
       explanation:
-        "$\\Pi_1 \\leq_p \\Pi_2$ signifie que $\\Pi_1$ se réduit à $\\Pi_2$, c'est-à-dire qu'il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$.\nPar conséquent, si $\\Pi_1$ est indécidable, alors $\\Pi_2$ doit également être indécidable, car sinon on pourrait résoudre $\\Pi_1$ en utilisant la réduction vers $\\Pi_2$\n Il faut que la réduction soit polynomiale et avoir l'appartenance à NP pour conclure sur les problèmes NP-complets.",
+        [
+          "$\\Pi_1 \\leq_p \\Pi_2$ signifie que $\\Pi_1$ se réduit à $\\Pi_2$, c'est-à-dire qu'il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$.",
+          "Par conséquent, si $\\Pi_1$ est indécidable, alors $\\Pi_2$ doit également être indécidable, car sinon on pourrait résoudre $\\Pi_1$ en utilisant la réduction vers $\\Pi_2$",
+          " Il faut que la réduction soit polynomiale et avoir l'appartenance à NP pour conclure sur les problèmes NP-complets.",
+        ].join("\n"),
     },
     {
       question:
@@ -777,7 +862,12 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 1, 2],
       explanation:
-        "Le premier est régulier donc hors-contexte.\nLe second est engendré par $S \\Longrightarrow aSb \\mid \\epsilon$.\nLe troisième est engendré par $S \\Longrightarrow aSb \\mid bS \\mid \\epsilon$.\nLe quatrième n'est pas hors-contexte par le lemme de l'étoile pour les langages hors-contextes (voir TD).",
+        [
+          "Le premier est régulier donc hors-contexte.",
+          "Le second est engendré par $S \\Longrightarrow aSb \\mid \\epsilon$.",
+          "Le troisième est engendré par $S \\Longrightarrow aSb \\mid bS \\mid \\epsilon$.",
+          "Le quatrième n'est pas hors-contexte par le lemme de l'étoile pour les langages hors-contextes (voir TD).",
+        ].join("\n"),
     },
     {
       question: "Une grammaire $G$ est ambigüe si et seulement si :",
@@ -804,7 +894,10 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [1, 2, 3, 7],
       explanation:
-        "Les langages hors-contextes sont stables par union, concaténation, étoile, miroir (cours).\nIls ne sont pas stables par intersection, complémentaire ou différence (voir TD) ni par inclusion.",
+        [
+          "Les langages hors-contextes sont stables par union, concaténation, étoile, miroir (cours).",
+          "Ils ne sont pas stables par intersection, complémentaire ou différence (voir TD) ni par inclusion.",
+        ].join("\n"),
     },
     {
       question: "Toute formule logique est équivalente à :",
@@ -812,12 +905,17 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Une formule en forme normale conjonctive (FNC)",
         "Une formule en forme normale disjonctive (FND)",
         "Une formule en forme normale négative (où les négations ne sont appliquées qu'à des variables)",
-        "Une formule $\\texttt{2-SAT}$ (FNC où chaque clause contient au plus 2 littéraux)",
-        "Une formule $\\texttt{3-SAT}$ (FNC où chaque clause contient au plus 3 littéraux)",
+        "Une formule n'utilisant pas $\\longrightarrow$",
+        "Une formule n'utilisant que les connecteurs $\\land$ et $\\lnot$",
       ],
       correct: [0, 1, 2, 4],
       explanation:
-        "Toute formule est équivalente à une FNC et à une FND, en passant par une table de vérité.\nPar induction et en poussant les négations vers les variables, on obtient une formule équivalente en forme normale négative.\nOn a montré dans la réduction de $\\texttt{SAT}$ à $\\texttt{3-SAT}$ que toute formule est équivalente à une formule $\\texttt{3-SAT}$.\nPar contre, $\\texttt{2-SAT}$ est dans P, donc on aurait P = NP si toute formule était équivalente à une formule $\\texttt{2-SAT}$.",
+        [
+          "Toute formule est équivalente à une FNC et à une FND, en passant par une table de vérité.",
+          "Par induction et en poussant les négations vers les variables, on obtient une formule équivalente en forme normale négative.",
+          "En utilisant les équivalences $\\varphi \\longrightarrow \\psi \\equiv \\lnot \\varphi \\lor \\psi$ et $\\lnot(\\varphi_1 \\land \\varphi_2) \\equiv \\lnot \\varphi_1 \\lor \\lnot \\varphi_2$, on peut éliminer les connecteurs $\\longrightarrow$ et $\\lor$ pour n'avoir que $\\land$ et $\\lnot$.",
+          ""
+        ].join("\n"),
     },
     {
       question:
@@ -831,7 +929,10 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 3],
       explanation:
-        "On montre la première avec la définition.\n Si $e_1 = a^*$ et $e_2 = b^*$ alors $(e_1 \\mid e_2)^* \not\\equiv e_1^* \\mid e_2^*$. Similaire pour les autres réponses.",
+        [
+          "On montre la première avec la définition.",
+          " Si $e_1 = a^*$ et $e_2 = b^*$ alors $(e_1 \\mid e_2)^* \\not\\equiv e_1^* \\mid e_2^*$. Similaire pour les autres réponses.",
+        ].join("\n"),
     },
 
     {
@@ -846,7 +947,10 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [2, 4, 5],
       explanation:
-        "$\\emptyset$ n'est ni une lettre ni un mot, mais un langage (le langage vide).\n$\\epsilon$ est le mot vide mais peut aussi désigner un langage par abus de notation, sur les expression régulière : l'ensemble $\\{\\epsilon\\}$.",
+        [
+          "$\\emptyset$ n'est ni une lettre ni un mot, mais un langage (le langage vide).",
+          "$\\epsilon$ est le mot vide mais peut aussi désigner un langage par abus de notation, sur les expression régulière : l'ensemble $\\{\\epsilon\\}$.",
+        ].join("\n"),
     },
     {
       question:
@@ -861,7 +965,10 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2, 3, 4, 5],
       explanation:
-      "L'automate produit a bien $Q_1 \\times Q_2$ comme états. En ajustant les états finaux, il permet de reconnaître l'union, l'intersection, la différence et la différence symétrique. En revanche, la concaténation $L(A_1)L(A_2)$ ne se fait pas avec un simple produit.\nAttention : les deux automates doivent être déterministes pour que le produit permette de reconnaitre ces langages.",
+      [
+        "L'automate produit a bien $Q_1 \\times Q_2$ comme états. En ajustant les états finaux, il permet de reconnaître l'union, l'intersection, la différence et la différence symétrique. En revanche, la concaténation $L(A_1)L(A_2)$ ne se fait pas avec un simple produit.",
+        "Attention : les deux automates doivent être déterministes pour que le produit permette de reconnaitre ces langages.",
+      ].join("\n"),
     },
 
     {
@@ -874,7 +981,11 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [1, 2],
       explanation:
-        "Tout problème de P est dans NP.\nUn problème de NP peut toujours être résolu en temps exponentiel (énumération des certificats) et en espace polynomial (réutilisation de l'espace pour vérifier chaque certificat).\nLe vérificateur doit vérifier en temps polynomial un certificat, pas le créer.",
+        [
+          "Tout problème de P est dans NP.",
+          "Un problème de NP peut toujours être résolu en temps exponentiel (énumération des certificats) et en espace polynomial (réutilisation de l'espace pour vérifier chaque certificat).",
+          "Le vérificateur doit vérifier en temps polynomial un certificat, pas le créer.",
+        ].join("\n"),
     },
     {
       question: "À quoi s'évalue l'expression `0.1 +. 0.2 = 0.3` en OCaml ?",
@@ -906,7 +1017,11 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 1, 2],
       explanation:
-        "En sécurité pour éviter de stocker les mots de passe en clair.\nEn reconnaissance de motif, comme dans l'algorithme de Rabin-Karp.\nEn mémoïsation pour stocker les résultats intermédiaires d'une fonction récursive.",
+        [
+          "En sécurité pour éviter de stocker les mots de passe en clair.",
+          "En reconnaissance de motif, comme dans l'algorithme de Rabin-Karp.",
+          "En mémoïsation pour stocker les résultats intermédiaires d'une fonction récursive.",
+        ].join("\n"),
     },
     {
       question: "Quelles structures sont persistantes ?",
@@ -920,7 +1035,10 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2, 5],
       explanation:
-        "Les listes et arbres OCaml sont persistants, et les chaînes OCaml sont immuables.\n Les tableaux, tas binaires classiques et chaînes (tableaux de caractères) C sont mutables.",
+        [
+          "Les listes et arbres OCaml sont persistants, et les chaînes OCaml sont immuables.",
+          " Les tableaux, tas binaires classiques et chaînes (tableaux de caractères) C sont mutables.",
+        ].join("\n"),
     },
     {
       question: "Les arbres rouge-noirs :",
@@ -934,7 +1052,11 @@ import QCMRandom from "@site/src/components/QCMRandom";
       ],
       correct: [0, 2, 4, 5],
       explanation:
-        "Les arbres rouge-noirs sont des arbres binaires de recherche auto-équilibrés, qui maintiennent une contrainte de coloration pour garantir que la hauteur est logarithmique.\nIls permettent d'implémenter un dictionnaire avec des opérations en O($\\log n$). Les rotations sont utilisées pour rééquilibrer l'arbre après les insertions ou suppressions.\nL'invariant est celui des AVL."
+        [
+          "Les arbres rouge-noirs sont des arbres binaires de recherche auto-équilibrés, qui maintiennent une contrainte de coloration pour garantir que la hauteur est logarithmique.",
+          "Ils permettent d'implémenter un dictionnaire avec des opérations en O($\\log n$). Les rotations sont utilisées pour rééquilibrer l'arbre après les insertions ou suppressions.",
+          "L'invariant est celui des AVL.",
+        ].join("\n")
     },
     {
       question: "Sur un graphe non-orienté $G = (S, A)$ à $n$ sommets et $p$ arêtes :",
@@ -992,20 +1114,27 @@ answers: [
 ],
 correct: [0, 2, 3],
 explanation:
-"On peut construire l'automate reconnaissant $\\Sigma^*m\\Sigma^*$, où $m$ est le motif. \n LZW et Huffman sont des algorithmes de compression.",
+["On peut construire l'automate reconnaissant $\\Sigma^*m\\Sigma^*$, où $m$ est le motif. ",
+" LZW et Huffman sont des algorithmes de compression."].join("\n"),
 },
 {
 question: "Un ordre topologique d'un graphe orienté $G$ :",
 answers: [
 "Existe si et seulement si $G$ est acyclique",
 "Est unique s'il existe",
-"Peut être calculé avec un parcours en largeur",
+"Peut être calculé comme l'inverse d'un parcours en profondeur préfixe",
 "Peut être calculé en temps $O(|S| + |A|)$",
-"Peut être utilisé pour l'algorithme de Kosaraju"
+"Peut être utilisé pour l'algorithme de Kosaraju",
+"Peut servir pour résoudre un problème par programmation dynamique",
 ],
-correct: [0, 3, 4],
+correct: [0, 1, 3, 4, 5],
 explanation:
-"Un ordre topologique existe exactement pour les DAG. Il n'est pas forcément unique. Il peut être calculé par l'algorithme de Kahn (basé sur une file), en temps linéaire en sommets + arêtes.",
+["Un ordre topologique est un ordre linéaire des sommets tel que pour chaque arête $(u, v)$, $u$ précède $v$.",
+"Un tel ordre existe si et seulement si le graphe est acyclique (cours).",
+"Il n'est pas forcément unique.",
+"On peut le calculer comme inverse d'un parcours en profondeur post-ordre (pas préfixe).",
+"Il peut être calculé en O($|S| + |A|$) si le graphe représenté par liste d'adjacence.", "L'algorithme de Kosaraju utilise un ordre de post-ordre pour trouver les composantes fortement connexes.",
+"Dans une résolution de problème par programmation dynamique, on peut représenter les dépendances entre les sous-problèmes par un graphe orienté acyclique. Un ordre topologique donne alors un ordre des sous-problèmes à résoudre."].join("\n"),
 },
 {
 question: "Un couplage $M$ d'un graphe à $n$ sommets vérifie :",
@@ -1030,7 +1159,8 @@ answers: [
 ],
 correct: [1, 2],
 explanation:
-"$G$ est biparti si on peut séparer les sommets en deux ensembles disjoints tels que toutes les arêtes relient un sommet de l'un à un sommet de l'autre. Cela équivaut à dire qu'il est 2-coloriable. \nSi un graphe ne contient pas de cycle de longueur impaire, un parcours de graphe en alternant les couleurs des sommets permet de 2-colorer le graphe.",
+["$G$ est biparti si on peut séparer les sommets en deux ensembles disjoints tels que toutes les arêtes relient un sommet de l'un à un sommet de l'autre. Cela équivaut à dire qu'il est 2-coloriable. ",
+"Si un graphe ne contient pas de cycle de longueur impaire, un parcours de graphe en alternant les couleurs des sommets permet de 2-colorer le graphe."].join("\n"),
 },
 {
 question: "L'algorithme des $k$-moyennes :",
