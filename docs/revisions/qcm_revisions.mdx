@@ -820,6 +820,19 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Par table de vérité ou utilisation de la définition de l'évaluation d'une formule.",
     },
     {
+      question: "$f$ est une fonction de réduction polynomiale de $\\Pi_1 = (I_1, S_1)$ ($I_1$ : instances, $S_1$ : solutions) à $\\Pi_2 = (I_2, S_2)$ signifie :",
+      answers: [
+        "f : I_1 $\\longrightarrow$ I_2",
+        "f : S_1 $\\longrightarrow$ S_2",
+        "f(x) est calculable en temps polynomial en fonction de la taille de x",
+        "f(x) est de taille polynomials en fonction de la taille de x",
+        "x $\\in$ S_1 $\\Longrightarrow$ f(x) $\\in$ S_2",
+        "x $\\in$ S_1 $\\Longleftrightarrow$ f(x) $\\in$ S_2",
+      ],
+      correct: [0, 2, 3, 5],
+      explanation: "Une fonction de réduction polynomiale de $\\Pi_1$ à $\\Pi_2$ est une fonction $f : I_1 \\longrightarrow I_2$ telle que $f(x)$ est calculable en temps polynomial et de taille polynomial en fonction de la taille de $x$, et que $x \\in S_1$ si et seulement si $f(x) \\in S_2$.",
+    },
+    {
       question: "Si $\\Pi_1$ se réduit à $\\Pi_2$ alors :",
       answers: [
         "$\\Pi_1 \\leq \\Pi_2$",
