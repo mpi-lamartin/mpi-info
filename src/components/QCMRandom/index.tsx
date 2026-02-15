@@ -349,6 +349,7 @@ export default function QCMRandom({
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
+      if (!hydrated) return;
       const isValidateShortcut =
         (event.ctrlKey || event.metaKey) && event.key === "Enter";
       if (!isValidateShortcut) return;
@@ -366,7 +367,15 @@ export default function QCMRandom({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [finished, validated, singleChoice, selectedSet]);
+  }, [finished, hydrated, validated, singleChoice, selectedSet]);
+
+  if (!hydrated) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.progressLabel}>Chargement du QCM…</div>
+      </div>
+    );
+  }
 
   if (finished) {
     return (
