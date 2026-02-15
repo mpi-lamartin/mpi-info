@@ -833,6 +833,45 @@ import QCMRandom from "@site/src/components/QCMRandom";
       explanation: "Une fonction de réduction polynomiale de $\\Pi_1$ à $\\Pi_2$ est une fonction $f : I_1 \\longrightarrow I_2$ telle que $f(x)$ est calculable en temps polynomial et de taille polynomial en fonction de la taille de $x$, et que $x \\in S_1$ si et seulement si $f(x) \\in S_2$.",
     },
     {
+      question:
+        [
+          "Quelles sont les façons correctes de définir une matrice $3\\times 4$ en C et modifier l'élément ligne 2, colonne 3 ?",
+          "```c",
+          "int m[3][4];",
+          "m[2][3] = 5;",
+          "```",
+          "```c",
+          "int** m = malloc(3 * sizeof(int*));",
+          "int* l = malloc(4 * sizeof(int));",
+          "for (int i = 0; i < 3; i++)",
+          "  m[i] = l;",
+          "m[2][3] = 5;",
+          "```",
+          "```c",
+          "int m[12];",
+          "m[2*4 + 3] = 5;",
+          "```",
+          "```c",
+          "int* m = malloc(12 * sizeof(int));",
+          "m[2*4 + 3] = 5;",
+          "```"
+        ].join("\n"),
+      answers: [0, 2, 3],
+      explanation:
+        [
+          "La première est la syntaxe classique pour déclarer une matrice sur la pile en C.",
+          "La deuxième est incorrecte car elle fait pointer toutes les lignes vers le même tableau (aliasing). Corrigé :",
+          "```c",
+          "int** m = malloc(3 * sizeof(int*));",
+          "for (int i = 0; i < 3; i++)",
+          "  m[i] = malloc(4 * sizeof(int));",
+          "m[2][3] = 5;",
+          "```",
+          "La troisième est correcte par linéarisation d'une matrice 2D avec un tableau 1D.",
+          "La quatrième est correcte par linéarisation d'une matrice 2D avec un tableau 1D alloué dynamiquement.",
+        ].join("\n"),
+    },
+    {
       question: "Si $\\Pi_1$ se réduit à $\\Pi_2$ alors :",
       answers: [
         "$\\Pi_1 \\leq \\Pi_2$",
