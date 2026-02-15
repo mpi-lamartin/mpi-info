@@ -914,7 +914,6 @@ import QCMRandom from "@site/src/components/QCMRandom";
           "Toute formule est équivalente à une FNC et à une FND, en passant par une table de vérité.",
           "Par induction et en poussant les négations vers les variables, on obtient une formule équivalente en forme normale négative.",
           "En utilisant les équivalences $\\varphi \\longrightarrow \\psi \\equiv \\lnot \\varphi \\lor \\psi$ et $\\lnot(\\varphi_1 \\land \\varphi_2) \\equiv \\lnot \\varphi_1 \\lor \\lnot \\varphi_2$, on peut éliminer les connecteurs $\\longrightarrow$ et $\\lor$ pour n'avoir que $\\land$ et $\\lnot$.",
-          ""
         ].join("\n"),
     },
     {
@@ -992,12 +991,12 @@ import QCMRandom from "@site/src/components/QCMRandom";
       answers: [
         "Une erreur car il faut utiliser `==`",
         "Une erreur car il faut utiliser `=.` sur des flottants",
-        "`false` car `0.1` est stocké de façon approchée",
-        "`true` car `0.1 +. 0.2` est égal à `0.3`",
+        "`false`",
+        "`true`",
       ],
       correct: 2,
       explanation:
-        "Les flottants sont stockés en base 2 et `0.1` n'a pas d'écriture exacte en base 2, donc les comparaisons d'égalité stricte peuvent échouer à cause des erreurs d'arrondi.",
+        "Les flottants sont stockés en base 2 et `0.1` n'a pas d'écriture exacte en base 2, donc les comparaisons d'égalité stricte peuvent échouer à cause des erreurs d'arrondi sur les flottants.",
     },
 
     {
