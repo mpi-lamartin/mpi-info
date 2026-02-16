@@ -1,4 +1,5 @@
 ---
+hide_table_of_contents: true
 hide_title: true
 title: "QCM Révisions"
 sidebar_position: 1
@@ -9,6 +10,24 @@ import QCMRandom from "@site/src/components/QCMRandom";
 <QCMRandom
   title="QCM Révisions"
   questions={[
+    {
+      question: [
+        "Parmi les 4 arbres suivants, lesquels sont des arbres rouge-noirs ?",
+        "<div style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;\"><div style=\"text-align:center;\"><img src=\"/img/qcm/rb-tree-1.svg\" alt=\"Arbre 1\" style=\"max-width:220px;width:100%;height:auto;\"/><p style=\"margin:6px 0 0;\">Arbre 1</p></div><div style=\"text-align:center;\"><img src=\"/img/qcm/rb-tree-2.svg\" alt=\"Arbre 2\" style=\"max-width:220px;width:100%;height:auto;\"/><p style=\"margin:6px 0 0;\">Arbre 2</p></div><div style=\"text-align:center;\"><img src=\"/img/qcm/rb-tree-3.svg\" alt=\"Arbre 3\" style=\"max-width:220px;width:100%;height:auto;\"/><p style=\"margin:6px 0 0;\">Arbre 3</p></div><div style=\"text-align:center;\"><img src=\"/img/qcm/rb-tree-4.svg\" alt=\"Arbre 4\" style=\"max-width:220px;width:100%;height:auto;\"/><p style=\"margin:6px 0 0;\">Arbre 4</p></div></div>",
+      ].join("\n"),
+      answers: [
+        "Arbre 1",
+        "Arbre 2",
+        "Arbre 3",
+        "Arbre 4",
+      ],
+      correct: [0, 3],
+      explanation: [
+        "Arbre 1 et Arbre 4 sont valides.",
+        "Arbre 2 est invalide car il ne respecte pas la propriété d'arbre binaire de recherche (le nœud 8 est dans le sous-arbre droit de 10).",
+        "Arbre 3 est invalide car les hauteurs noires ne sont pas égales sur tous les chemins de la racine à un emplacement Vide (10 - 5 - Vide a hauteur noire égale à 1 alors que 10 - 5 - 2 - Vide a hauteur noire égale à 2).",
+      ].join("\n"),
+    },
     {
       question: [
         "Laquelle de ces fonctions est une fonction de réduction correcte de CH à CHO ?",
@@ -39,23 +58,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "q = p;",
         "*q = 4;",
         "```",
-        "<table><tr><td><pre>+---+---+-----+-----+",
-        "| a | b |  p  |  q  |",
-        "+---+---+-----+-----+",
-        "| 3 | 4 | &a  | &b  |",
-        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 1</p></td><td><pre>+---+---+-----+-----+",
-        "| a | b |  p  |  q  |",
-        "+---+---+-----+-----+",
-        "| 4 | 2 | &a  | &a  |",
-        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 2</p></td></tr><tr><td><pre>+---+---+-----+-----+",
-        "| a | b |  p  |  q  |",
-        "+---+---+-----+-----+",
-        "| 1 | 4 | &a  | &b  |",
-        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 3</p></td><td><pre>+---+---+-----+-----+",
-        "| a | b |  p  |  q  |",
-        "+---+---+-----+-----+",
-        "| 4 | 2 | &b  | &a  |",
-        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 4</p></td></tr></table>",
+        "<div style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;\"><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 3 | 4 |  &amp;a |  &amp;b |\n+---+---+-----+-----+</pre><p style=\"text-align:center;margin:6px 0 0;\">Schéma 1</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 4 | 2 |  &amp;a |  &amp;a |\n+---+---+-----+-----+</pre><p style=\"text-align:center;margin:6px 0 0;\">Schéma 2</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 1 | 4 |  &amp;a |  &amp;b |\n+---+---+-----+-----+</pre><p style=\"text-align:center;margin:6px 0 0;\">Schéma 3</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 4 | 2 |  &amp;b |  &amp;a |\n+---+---+-----+-----+</pre><p style=\"text-align:center;margin:6px 0 0;\">Schéma 4</p></div></div>",
       ].join("\n"),
       answers: [
         "Schéma 1",
@@ -91,31 +94,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question:
         ["On ouvre le dossier `projet` dans un terminal :",
-          "```",
-            "projet/",
-            "├── include/",
-            "│   └── utils.h",
-            "└── src/",
-            "    ├── main.c",
-            "    └── utils.c",
-            "```",
-            "```c",
-            "// utils.h",
-            "#ifndef UTILS_H",
-            "#define UTILS_H",
-            "...",
-            "#endif",
-            "```",
-            "```c",
-            "// utils.c",
-            "#include \"../include/utils.h\"",
-            "...",
-            "```",
-            "```c",
-            "// main.c",
-            "#include \"../include/utils.h\"",
-            "int main() { ... }",
-          "```",
+          "<div class=\"qcm-code-grid\" style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;\"><div class=\"qcm-code-card\"><pre><code>projet/\n├── include/\n│   └── utils.h\n└── src/\n    ├── main.c\n    └── utils.c</code></pre><p>Fichiers</p></div><div class=\"qcm-code-card\"><pre class=\"language-c\"><code class=\"language-c\">// utils.h\n#ifndef UTILS_H\n#define UTILS_H\n...\n#endif</code></pre><p>utils.h</p></div><div class=\"qcm-code-card\"><pre class=\"language-c\"><code class=\"language-c\">// utils.c\n#include \"../include/utils.h\"\n...</code></pre><p>utils.c</p></div><div class=\"qcm-code-card\"><pre class=\"language-c\"><code class=\"language-c\">// main.c\n#include \"../include/utils.h\"\nint main() { ... }</code></pre><p>main.c</p></div></div>",
           ].join("\n"),
           answers: [
           "On peut compiler avec `gcc main.c utils.c`",
@@ -920,30 +899,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       question:
         [
           "Quelles sont les façons correctes de définir une matrice $3\\times 4$ en C et modifier l'élément ligne 2, colonne 3 ?",
-          "<table><tr><td>",
-          "```c",
-          "int m[3][4];",
-          "m[2][3] = 5;",
-          "```",
-          "<p align=\"center\">Possibilité 1</p></td><td>",
-          "```c",
-          "int** m = malloc(3 * sizeof(int*));",
-          "int* l = malloc(4 * sizeof(int));",
-          "for (int i = 0; i < 3; i++)",
-          "  m[i] = l;",
-          "m[2][3] = 5;",
-          "```",
-          "<p align=\"center\">Possibilité 2</p></td></tr><tr><td>",
-          "```c",
-          "int m[12];",
-          "m[2*4 + 3] = 5;",
-          "```",
-          "<p align=\"center\">Possibilité 3</p></td><td>",
-          "```c",
-          "int* m = malloc(12 * sizeof(int));",
-          "m[2*4 + 3] = 5;",
-          "```",
-          "<p align=\"center\">Possibilité 4</p></td></tr></table>"
+          "<div class=\"qcm-code-grid\" style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;\"><div class=\"qcm-code-card\"><pre class=\"language-c\"><code class=\"language-c\">int m[3][4];\nm[2][3] = 5;</code></pre><p>Possibilité 1</p></div><div class=\"qcm-code-card\"><pre class=\"language-c\"><code class=\"language-c\">int** m = malloc(3 * sizeof(int*));\nint* l = malloc(4 * sizeof(int));\nfor (int i = 0; i &lt; 3; i++)\n  m[i] = l;\nm[2][3] = 5;</code></pre><p>Possibilité 2</p></div><div class=\"qcm-code-card\"><pre class=\"language-c\"><code class=\"language-c\">int m[12];\nm[2*4 + 3] = 5;</code></pre><p>Possibilité 3</p></div><div class=\"qcm-code-card\"><pre class=\"language-c\"><code class=\"language-c\">int* m = malloc(12 * sizeof(int));\nm[2*4 + 3] = 5;</code></pre><p>Possibilité 4</p></div></div>"
         ].join("\n"),
       answers: [
         "Possibilité 1",

@@ -66,6 +66,26 @@ function renderMath(text: string, baseUrl: string): string {
       return marker;
     },
   );
+  result = result.replace(
+    /<pre(?:\s+[^>]*)?>\s*<code\s+class=(?:"|')language-([a-zA-Z0-9_-]+)(?:"|')>([\s\S]*?)<\/code>\s*<\/pre>/g,
+    (_, lang, code) => {
+      const language = lang || "text";
+      const grammar =
+        PrismRenderer.languages[language] || PrismRenderer.languages.markup;
+      const rawCode = code
+        .replace(/<br\s*\/?\s*>/gi, "\n")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&amp;/g, "&");
+      let highlighted = rawCode;
+      try {
+        highlighted = PrismRenderer.highlight(rawCode, grammar, language);
+      } catch {
+        highlighted = escapeHtml(rawCode);
+      }
+      return `<pre class="prism-code language-${language}" style="margin:6px 0;"><code class="language-${language}">${highlighted}</code></pre>`;
+    },
+  );
   result = result.replace(/\$\$([^$]+)\$\$/g, (_, tex) => {
     try {
       return katex.renderToString(tex, {
