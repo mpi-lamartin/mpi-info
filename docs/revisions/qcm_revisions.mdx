@@ -11,7 +11,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
   questions={[
     {
       question: [
-        "Laquelle de ces fonctions est une fonction de réduction correcte de CH vers CHO ?",
+        "Laquelle de ces fonctions est une fonction de réduction correcte de CH à CHO ?",
         "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">CH</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe non-orienté $G$<br><strong>Sortie :</strong> $G$ a t-il un cycle hamiltonien (passant par chaque sommet exactement une fois) ?</div></div>",
         "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">CHO</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe orienté $G$<br><strong>Sortie :</strong> $G$ a t-il un cycle hamiltonien orienté ?</div></div>",
       ].join("\n"),
@@ -1016,7 +1016,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       correct: [0, 2, 4],
       explanation:
         [
-          "$\\Pi_1 \\leq_p \\Pi_2$ signifie que $\\Pi_1$ se réduit à $\\Pi_2$, c'est-à-dire qu'il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$.",
+          "$\\Pi_1 \\leq \\Pi_2$ signifie que $\\Pi_1$ se réduit à $\\Pi_2$, c'est-à-dire qu'il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$.",
           "Par conséquent, si $\\Pi_1$ est indécidable, alors $\\Pi_2$ doit également être indécidable, car sinon on pourrait résoudre $\\Pi_1$ en utilisant la réduction vers $\\Pi_2$",
           " Il faut que la réduction soit polynomiale et avoir l'appartenance à NP pour conclure sur les problèmes NP-complets.",
         ].join("\n"),
