@@ -11,6 +11,24 @@ import QCMRandom from "@site/src/components/QCMRandom";
   questions={[
     {
       question: [
+        "Laquelle de ces fonctions est une fonction de réduction correcte de CH vers CHO ?",
+        "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">CH</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe non-orienté $G$<br><strong>Sortie :</strong> $G$ a t-il un cycle hamiltonien (passant par chaque sommet exactement une fois) ?</div></div>",
+        "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">CHO</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe orienté $G$<br><strong>Sortie :</strong> $G$ a t-il un cycle hamiltonien orienté ?</div></div>",
+      ].join("\n"),
+      answers: [
+        "À un cycle hamiltonien $C$ de $G$, associer un cycle hamiltonien orienté en orientant les arêtes de $C$ arbitrairement.",
+        "À un cycle hamiltonien $C$ de $G$, associer un cycle hamiltonien orienté en orientant les arêtes de $C$ dans un sens de parcours.",
+        "À un graphe non-orienté $G$, associer un graphe orienté $G'$ en orientant chaque arête de $G$ dans un sens arbitraire.",
+        "À un graphe non-orienté $G$, associer un graphe orienté $G'$ en remplaçant chaque arête de $G$ par deux arêtes dans les deux sens.",
+      ],
+      correct: 3,
+      explanation: [
+          "Une fonction de réduction doit prendre et renvoyer une instance (pas une solution).",
+          "Il faut des arêtes dans les deux sens pour avoir l'équivalence de positivité des instances.",
+        ].join("\n"),
+    },
+    {
+      question: [
         "On exécute le code C suivant. Quel schéma représente correctement l'état mémoire final ?",
         "```c",
         "int a = 1;",
@@ -25,19 +43,19 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "| a | b |  p  |  q  |",
         "+---+---+-----+-----+",
         "| 3 | 4 | &a  | &b  |",
-        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 1</p></td><td><pre>+---+---+-----+-----+",
+        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 1</td><td><pre>+---+---+-----+-----+",
         "| a | b |  p  |  q  |",
         "+---+---+-----+-----+",
         "| 4 | 2 | &a  | &a  |",
-        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 2</p></td></tr><tr><td><pre>+---+---+-----+-----+",
+        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 2</td></tr><tr><td><pre>+---+---+-----+-----+",
         "| a | b |  p  |  q  |",
         "+---+---+-----+-----+",
         "| 1 | 4 | &a  | &b  |",
-        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 3</p></td><td><pre>+---+---+-----+-----+",
+        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 3</td><td><pre>+---+---+-----+-----+",
         "| a | b |  p  |  q  |",
         "+---+---+-----+-----+",
         "| 4 | 2 | &b  | &a  |",
-        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 4</p></td></tr></table>",
+        "+---+---+-----+-----+</pre><p align=\"center\">Schéma 4</td></tr></table>",
       ].join("\n"),
       answers: [
         "Schéma 1",
@@ -52,16 +70,12 @@ import QCMRandom from "@site/src/components/QCMRandom";
     {
       question: [
         "On considère le problème d'optimisation COUPLAGE suivant ainsi qu'un problème de décision DCOUPLAGE associé :",
-        "```",
-        "COUPLAGE",
-        "Entrée : un graphe biparti $G$",
-        "Sortie : un couplage maximum de $G$",
-        "```",
+        "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">COUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$<br><strong>Sortie :</strong> un couplage maximum de $G$</div></div>",
       ].join("\n"),
       answers: [
-        "DCOUPLAGE peut-être défini par :\n```\nEntrée : un graphe biparti $G$ et un entier $k$\nSortie : est-ce que $G$ admet un couplage de cardinal inférieur à $k$ ?\n```",
-        "DCOUPLAGE peut-être défini par :\n```\nEntrée : un graphe biparti $G$ et un entier $k$\nSortie : est-ce que $G$ admet un couplage de cardinal égal à $k$ ?\n```",
-        "DCOUPLAGE peut-être défini par :\n```\nEntrée : un graphe biparti $G$ et un entier $k$\nSortie : est-ce que $G$ admet un couplage de cardinal supérieur à $k$ ?\n```",
+        "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">DCOUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal inférieur à $k$ ?</div></div>",
+        "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">DCOUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal égal à $k$ ?</div></div>",
+        "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">DCOUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal supérieur à $k$ ?</div></div>",
         "DCOUPLAGE $\\in$ P",
         "DCOUPLAGE $\\in$ NP",
         "DCOUPLAGE $\\in$ NP-difficile",
@@ -817,9 +831,12 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Si $\\Pi_2\\in$ NP et $\\Pi_1$ est NP-complet alors $\\Pi_2$ est NP-complet",
         "Si $\\Pi_1\\in$ NP et $\\Pi_2$ est NP-complet alors $\\Pi_1$ est NP-complet",
       ],
-      correct: [1, 3, 5],
-      explanation:
-        "Soit $\\varphi$ une réduction de $\\Pi_1$ à $\\Pi_2$. Si $\\Pi_2 \\in$ P, alors $\\Pi_1$ est dans P car on peut résoudre une instance $I$ de $\\Pi_1$ en résolvant $\\varphi(I)$ dans $\\Pi_2$. Si $A$ est un vérificateur pour $\\Pi_2$, alors $A(\\varphi(I), c)$ est un vérificateur pour $\\Pi_1$. Si $\\Pi_2$ est NP-complet et $\\Pi_1 \\in$ NP, alors $\\Pi_1$ est NP-complet par transitivité.",
+      correct: [1, 3, 4],
+      explanation: [
+        "Soit $\\varphi$ une réduction de $\\Pi_1$ à $\\Pi_2$. Si $\\Pi_2 \\in$ P, alors $\\Pi_1$ est dans P car on peut résoudre une instance $I$ de $\\Pi_1$ en résolvant $\\varphi(I)$ dans $\\Pi_2$.",
+        "Si $A$ est un vérificateur pour $\\Pi_2$, alors $A(\\varphi(I), c)$ est un vérificateur pour $\\Pi_1$.", 
+        "Si $\\Pi_2$ est NP-complet et $\\Pi_1 \\in$ NP, alors $\\Pi_1$ est NP-complet par transitivité.",
+      ].join("\n"),
     },
     {
       question: "Un problème est décidable si :",
@@ -885,17 +902,19 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "Par table de vérité ou utilisation de la définition de l'évaluation d'une formule.",
     },
     {
-      question: "Si $f$ est une fonction de réduction polynomiale de $\\Pi_1 = (I_1, S_1)$ ($I_1$ : instances, $S_1$ : solutions) à $\\Pi_2 = (I_2, S_2)$ :",
+      question: "Si $f$ est une fonction de réduction polynomiale de $\\Pi_1 = (I_1, I_1^+)$ ($I_1$ : instances, $I_1^+$ : instances positives) à $\\Pi_2 = (I_2, I_2^+)$, alors :",
       answers: [
         "$f : I_1 \\longrightarrow I_2$",
-        "$f : S_1 \\longrightarrow S_2$",
+        "$f : I_1^+ \\longrightarrow I_2^+$",
         "$f(x)$ est calculable en temps polynomial en fonction de la taille de $x$",
         "$f(x)$ est de taille polynomiale en fonction de la taille de $x$",
-        "$x \\in S_1 \\Longrightarrow f(x) \\in S_2$",
-        "$x \\in S_1 \\Longleftrightarrow f(x) \\in S_2$",
+        "$x \\in I_1^+ \\Longrightarrow f(x) \\in I_2^+$",
+        "$f(x) \\in I_2^+ \\Longrightarrow x \\in I_1^+$",
       ],
-      correct: [0, 2, 5],
-      explanation: "Une fonction de réduction polynomiale de $\\Pi_1$ à $\\Pi_2$ est une fonction $f : I_1 \\longrightarrow I_2$ telle que $f(x)$ est calculable en temps polynomial en fonction de la taille de $x$, et que $x \\in S_1$ si et seulement si $f(x) \\in S_2$.",
+      correct: [0, 2, 3, 4, 5],
+      explanation: ["Une fonction de réduction polynomiale de $\\Pi_1$ à $\\Pi_2$ est une fonction $f : I_1 \\longrightarrow I_2$ telle que $f(x)$ est calculable en temps polynomial en fonction de la taille de $x$, et que $x \\in I_1^+$ si et seulement si $f(x) \\in I_2^+$.",
+      "La condition de taille polynomiale ne fait pas partie de la définition mais est impliquée par la condition de calculabilité en temps polynomial.",
+      ].join("\n"),
     },
     {
       question:
@@ -906,7 +925,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
           "int m[3][4];",
           "m[2][3] = 5;",
           "```",
-          "<p align=\"center\">Possibilité 1</p></td><td>",
+          "<p align=\"center\">Possibilité 1</td><td>",
           "```c",
           "int** m = malloc(3 * sizeof(int*));",
           "int* l = malloc(4 * sizeof(int));",
@@ -914,17 +933,17 @@ import QCMRandom from "@site/src/components/QCMRandom";
           "  m[i] = l;",
           "m[2][3] = 5;",
           "```",
-          "<p align=\"center\">Possibilité 2</p></td></tr><tr><td>",
+          "<p align=\"center\">Possibilité 2</td></tr><tr><td>",
           "```c",
           "int m[12];",
           "m[2*4 + 3] = 5;",
           "```",
-          "<p align=\"center\">Possibilité 3</p></td><td>",
+          "<p align=\"center\">Possibilité 3</td><td>",
           "```c",
           "int* m = malloc(12 * sizeof(int));",
           "m[2*4 + 3] = 5;",
           "```",
-          "<p align=\"center\">Possibilité 4</p></td></tr></table>"
+          "<p align=\"center\">Possibilité 4</td></tr></table>"
         ].join("\n"),
       answers: [
         "Possibilité 1",
