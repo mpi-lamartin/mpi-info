@@ -12,6 +12,33 @@ import QCMRandom from "@site/src/components/QCMRandom";
   questions={[
     {
       question: [
+        "On exécute le code C suivant. Quelle affirmation est correcte ?",
+        "```c",
+        "#include <stdio.h>",
+        "",
+        "int main() {",
+        "  for (unsigned int i = 3; i >= 0; i--)",
+        "    printf(\"%u \", i);",
+        "  return 0;",
+        "}",
+        "```",
+      ].join("\n"),
+      answers: [
+        "Le programme ne compile pas.",
+        "Le programme ne termine pas.",
+        "Le programme a un comportement indéfini.",
+        "Le programme affiche `3 2 1`.",
+        "Le programme affiche `3 2 1 0`.",
+      ],
+      correct: 1,
+      explanation: [
+        "`i` est de type non signé (entier positif) : la condition `i >= 0` est donc toujours vraie.",
+        "Quand `i` vaut `0`, l'opération `i--` fait un calcul modulo $2^n$ et `i` devient `UINT_MAX`, puis la boucle continue.",
+        "Ce n'est pas un comportement indéfini : c'est le comportement normal des entiers non signés en C.",
+      ].join("\n"),
+    },
+    {
+      question: [
         "Parmi les 4 arbres suivants, lesquels sont des arbres rouge-noirs ?",
         "<div style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;\"><div style=\"text-align:center;\"><img src=\"/img/qcm/rb-tree-1.svg\" alt=\"Arbre 1\" style=\"max-width:220px;width:100%;height:auto;\"/><p style=\"margin:6px 0 0;\">Arbre 1</p></div><div style=\"text-align:center;\"><img src=\"/img/qcm/rb-tree-2.svg\" alt=\"Arbre 2\" style=\"max-width:220px;width:100%;height:auto;\"/><p style=\"margin:6px 0 0;\">Arbre 2</p></div><div style=\"text-align:center;\"><img src=\"/img/qcm/rb-tree-3.svg\" alt=\"Arbre 3\" style=\"max-width:220px;width:100%;height:auto;\"/><p style=\"margin:6px 0 0;\">Arbre 3</p></div><div style=\"text-align:center;\"><img src=\"/img/qcm/rb-tree-4.svg\" alt=\"Arbre 4\" style=\"max-width:220px;width:100%;height:auto;\"/><p style=\"margin:6px 0 0;\">Arbre 4</p></div></div>",
       ].join("\n"),

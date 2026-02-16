@@ -63,7 +63,7 @@ const config: Config = {
 
   themeConfig: {
     metadata: [
-      { name: "keywords", content: "mpi, informatique, cours" },
+      { name: "keywords", content: "cours, informatique, MPI" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     image: "img/logo.png",
