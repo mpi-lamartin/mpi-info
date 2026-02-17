@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmpi_info=self.webpackChunkmpi_info||[]).push([[4422],{57775:e=>{e.exports=JSON.parse('{"metadata":{"permalink":"/mpi-info/page/3","page":3,"postsPerPage":10,"totalPages":5,"totalCount":43,"previousPage":"/mpi-info/page/2","nextPage":"/mpi-info/page/4","blogDescription":"Blog","blogTitle":"Cahier de texte"}}')}}]);
