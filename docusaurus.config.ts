@@ -5,7 +5,7 @@ const math = require("remark-math");
 const katex = require("rehype-katex");
 
 const config: Config = {
-  title: "Cours d'informatique en MPI/MPI* au lycée la Martinière Monplaisir",
+  title: "Cours d'informatique en MPI",
   // tagline: 'Dinosaurs are cool',
   favicon: "img/logo.png",
 
