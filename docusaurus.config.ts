@@ -74,9 +74,9 @@ const config: Config = {
       },
     },
     navbar: {
-      title: "MPI Informatique",
+      title: "Cours MPI Informatique",
       logo: {
-        alt: "MPI Informatique",
+        alt: "MPI",
         src: "img/logo.png",
       },
       items: [
@@ -92,7 +92,7 @@ const config: Config = {
           type: "doc",
           docId: "ds/dm1/dm1",
           position: "left",
-          label: "Devoirs",
+          label: "DS",
         },
         {
           type: "doc",
