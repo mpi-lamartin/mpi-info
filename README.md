@@ -1,1 +1,1 @@
-# Informatique en MPI au lycée la Martinière Monplaisir
+# Cours d'informatique en MPI au lycée la Martinière Monplaisir
