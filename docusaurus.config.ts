@@ -49,7 +49,7 @@ const config: Config = {
           blogSidebarTitle: "Cahier de texte",
           showReadingTime: false,
           routeBasePath: "/",
-          blogTitle: "Cahier de texte",
+          blogTitle: "Cours informatique MPI",
           onUntruncatedBlogPosts: "ignore",
           editUrl: "https://github.com/mpi-lamartin/mpi-info",
         },
