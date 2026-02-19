@@ -89,7 +89,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
     },
     {
       question: [
-        "Laquelle de ces fonctions est une fonction de réduction correcte de CH à CHO ?",
+        "Laquelle de ces fonctions est une réduction correcte de CH à CHO ?",
         "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">CH</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe non-orienté $G$<br><strong>Sortie :</strong> $G$ a t-il un cycle hamiltonien (passant par chaque sommet exactement une fois) ?</div></div>",
         "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">CHO</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe orienté $G$<br><strong>Sortie :</strong> $G$ a t-il un cycle hamiltonien orienté ?</div></div>",
       ].join("\n"),
@@ -135,9 +135,9 @@ import QCMRandom from "@site/src/components/QCMRandom";
         "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">COUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$<br><strong>Sortie :</strong> un couplage maximum de $G$</div></div>",
       ].join("\n"),
       answers: [
-        "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">DCOUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal inférieur à $k$ ?</div></div>",
-        "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">DCOUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal égal à $k$ ?</div></div>",
-        "<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">DCOUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal supérieur à $k$ ?</div></div>",
+        "`DCOUPLAGE` peut être défini par :\n<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">DCOUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal inférieur à $k$ ?</div></div>",
+        "`DCOUPLAGE` peut être défini par :\n<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">DCOUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal égal à $k$ ?</div></div>",
+        "`DCOUPLAGE` peut être défini par :\n<div class=\"alert alert--secondary\" role=\"note\"><div class=\"alert__heading\" style=\"margin-bottom:2px;\"><h5 style=\"margin:0;\">DCOUPLAGE</h5></div><div class=\"alert__content\" style=\"margin-top:0;\"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal supérieur à $k$ ?</div></div>",
         "DCOUPLAGE $\\in$ P",
         "DCOUPLAGE $\\in$ NP",
         "DCOUPLAGE $\\in$ NP-difficile",
@@ -147,7 +147,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       explanation:
         [
           "Le premier problème de décision est trivial car il est toujours vrai : le couplage vide convient. Les deux autres définitions sont possibles et appartiennent aux mêmes classes de complexité.",
-          "DCOUPLAGE est dans P avec l'algorithme des chemins augmentants. Comme P $\\subset$ NP, DCOUPLAGE est aussi dans NP.",
+          "`DCOUPLAGE` est dans P avec l'algorithme des chemins augmentants. Comme P $\\subset$ NP, `DCOUPLAGE` est aussi dans NP.",
         ].join("\n"),
     },
     {
@@ -538,7 +538,7 @@ import QCMRandom from "@site/src/components/QCMRandom";
       answers: [
         "$\\{a^n b^p \\mid n, p \\in \\mathbb{N}\\}$",
         "$\\{a^n b^n \\mid n \\in \\mathbb{N}\\}$",
-        "$\\{a^n b^p \\mid n = p \\mod 3\\}$",
+        "$\\{a^n b^p \\mid n \\equiv p \\mod 3\\}$",
         "$\\{a^n b^p \\mid n < p\\}$",
       ],
       correct: [0, 2],
@@ -1265,9 +1265,9 @@ answers: [
 "$G$ a un nombre pair de sommets de degré impair",
 "$G$ a un nombre impair de sommets de degré pair",
 "$G$ connexe $\\Longrightarrow p \\geq n-1$",
-"$p \\geq n-1 \\Longrightarrow G \\text{ connexe}$",
+"$p \\geq n-1 \\Longrightarrow G$ connexe",
 "$G$ acyclique $\\Longrightarrow p \\leq n-1$",
-"$p \\leq n-1 \\Longrightarrow G \\text{ acyclique}$",
+"$p \\leq n-1 \\Longrightarrow G$ acyclique",
 ],
 correct: [1, 2, 4, 6],
 explanation: "La plupart par récurrence. Voir cours."
