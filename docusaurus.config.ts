@@ -75,7 +75,7 @@ const config: Config = {
       },
     },
     navbar: {
-      title: "Cours MPI Informatique",
+      title: "MPI Informatique",
       logo: {
         alt: "MPI",
         src: "img/logo.png",
@@ -128,15 +128,15 @@ const config: Config = {
           docId: "ia/supervise/supervise",
           label: "IA",
         },
-        // {
-        //   type: "doc",
-        //   docId: "logique/deduction/deduction",
-        //   label: "Logique",
-        // },
         {
           type: "doc",
           docId: "concurrence/concurrence/concurrence",
           label: "Concurrence",
+        },
+        {
+          type: "doc",
+          docId: "logique/deduction/deduction",
+          label: "Logique",
         },
         {
           type: "doc",

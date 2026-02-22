@@ -8,6 +8,7 @@ const sidebars = {};
   "algorithmique",
   "ia",
   "concurrence",
+  "logique",
   "revisions",
 ].forEach((e) => {
   sidebars[e] = [
@@ -38,6 +39,12 @@ sidebars["revisions"].push({
   type: "link",
   href: "https://fortierq.github.io/ocaml-exercices",
   label: "Exercices OCaml",
+});
+
+sidebars["logique"].push({
+  type: "link",
+  href: "https://fortierq.github.io/dednat",
+  label: "Exercices de déduction naturelle",
 });
 
 module.exports = sidebars;
