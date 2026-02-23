@@ -1,0 +1,21 @@
+---
+hide_table_of_contents: true
+hide_title: true
+title: "DS 5 : CentraleSupélec 2024 MPI"
+pdf: "cs24"
+---
+
+import Button from "@site/src/components/Button";
+
+<details>
+<summary>Rapport de jury</summary>
+
+import Pdf from "@site/src/components/Pdf";
+
+<Pdf pdf={require(`./cs24_rapport.pdf`).default} td={true}/>
+</details>
+
+<Button
+  pdf={require(`./${frontMatter.pdf}.pdf`).default}
+  cor={require(`./${frontMatter.pdf}_cor.pdf`).default}
+/>
