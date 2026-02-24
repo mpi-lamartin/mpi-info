@@ -63,6 +63,9 @@ const config: Config = {
   ],
 
   themeConfig: {
+    colorMode: {
+      respectPrefersColorScheme: true,
+    },
     metadata: [
       { name: "keywords", content: "cours, informatique, MPI" },
       { name: "twitter:card", content: "summary_large_image" },

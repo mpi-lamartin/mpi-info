@@ -35,6 +35,7 @@
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/tsconfig": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
+    "playwright": "^1.58.2",
     "prettier": "^3.6.2",
     "typescript": "~5.2.2"
   },
