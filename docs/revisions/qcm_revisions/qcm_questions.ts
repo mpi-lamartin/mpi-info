@@ -1,0 +1,1426 @@
+export const questions = [
+  {
+    question: [
+      "Comment compléter le code suivant pour que le programme termine et soit correct ?",
+      "```c",
+      "bool dichotomie(int e, int* T, int n) {",
+      "  // dichotomie(e, T, n) renvoie true ssi e appartient au tableau T trié de taille n",
+      "  int g = 0, d = n - 1;",
+      "  while (g <= d) {",
+      "    int m = ...; // 1",
+      "    if (T[m] == e) return true;",
+      "    else if (T[m] < e) ...; // 2",
+      "    else ...;",
+      "  }",
+      "  return false;",
+      "}",
+      "```",
+    ].join("\n"),
+    answers: [
+      "`m = (g + d) / 2;`",
+      "`m = (d - g) / 2;`",
+      ["`else if (T[m] < e) g = m;`", "`else d = m;`"].join("\n"),
+      ["`else if (T[m] < e) d = m;`", "`else g = m;`"].join("\n"),
+      ["`else if (T[m] < e) g = m + 1;`", "`else d = m - 1;`"].join("\n"),
+      ["`else if (T[m] < e) d = m - 1;`", "`else g = m + 1;`"].join("\n"),
+    ],
+    correct: [0, 4],
+    explanation: [
+      "Le milieu de $[g, d]$ est $\\lfloor \\frac{g + d}{2} \\rfloor$.",
+      "Si `T[m] < e`, alors `e` est dans la partie droite, donc on met à jour `g = m + 1`.",
+      "Avec `g = m`, on pourrait avoir une boucle infinie (ex : `g = 0`, `d = 1`, alors `m = 0`, on met `g = m = 0`, puis `m = 0` à nouveau...).",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: [
+      "On exécute le code C suivant. Quelle affirmation est correcte ?",
+      "```c",
+      "#include <stdio.h>",
+      "",
+      "int main() {",
+      "  for (unsigned int i = 3; i >= 0; i--)",
+      '    printf("%u ", i);',
+      "  return 0;",
+      "}",
+      "```",
+    ].join("\n"),
+    answers: [
+      "Le programme ne compile pas.",
+      "Le programme ne termine pas.",
+      "Le programme a un comportement indéfini.",
+      "Le programme affiche `3 2 1`.",
+      "Le programme affiche `3 2 1 0`.",
+    ],
+    correct: 1,
+    explanation: [
+      "`i` est de type non signé (entier positif) : la condition `i >= 0` est donc toujours vraie.",
+      "Quand `i` vaut `0`, l'opération `i--` fait un calcul modulo $2^n$ et `i` devient `UINT_MAX`, puis la boucle continue.",
+      "Ce n'est pas un comportement indéfini : c'est le comportement normal des entiers non signés en C.",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: [
+      "Parmi les 4 arbres suivants, lesquels sont des arbres rouge-noirs ?",
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"><div style="text-align:center;"><img src="/img/qcm/rb-tree-1.svg" alt="Arbre 1" style="max-width:220px;width:100%;height:auto;"/><p style="margin:6px 0 0;">Arbre 1</p></div><div style="text-align:center;"><img src="/img/qcm/rb-tree-2.svg" alt="Arbre 2" style="max-width:220px;width:100%;height:auto;"/><p style="margin:6px 0 0;">Arbre 2</p></div><div style="text-align:center;"><img src="/img/qcm/rb-tree-3.svg" alt="Arbre 3" style="max-width:220px;width:100%;height:auto;"/><p style="margin:6px 0 0;">Arbre 3</p></div><div style="text-align:center;"><img src="/img/qcm/rb-tree-4.svg" alt="Arbre 4" style="max-width:220px;width:100%;height:auto;"/><p style="margin:6px 0 0;">Arbre 4</p></div></div>',
+    ].join("\n"),
+    answers: ["Arbre 1", "Arbre 2", "Arbre 3", "Arbre 4"],
+    correct: [0, 3],
+    explanation: [
+      "Arbre 1 et Arbre 4 sont valides.",
+      "Arbre 2 est invalide car il ne respecte pas la propriété d'arbre binaire de recherche (le nœud 8 est dans le sous-arbre droit de 10).",
+      "Arbre 3 est invalide car les hauteurs noires ne sont pas égales sur tous les chemins de la racine à un emplacement Vide (10 - 5 - Vide a hauteur noire égale à 1 alors que 10 - 5 - 2 - Vide a hauteur noire égale à 2).",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: [
+      "Laquelle de ces fonctions est une réduction correcte de CH à CHO ?",
+      '<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">CH</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe non-orienté $G$<br><strong>Sortie :</strong> $G$ a t-il un cycle hamiltonien (passant par chaque sommet exactement une fois) ?</div></div>',
+      '<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">CHO</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe orienté $G$<br><strong>Sortie :</strong> $G$ a t-il un cycle hamiltonien orienté ?</div></div>',
+    ].join("\n"),
+    answers: [
+      "À un cycle hamiltonien $C$ de $G$, associer un cycle hamiltonien orienté en orientant les arêtes de $C$ arbitrairement.",
+      "À un cycle hamiltonien $C$ de $G$, associer un cycle hamiltonien orienté en orientant les arêtes de $C$ dans un sens de parcours.",
+      "À un graphe non-orienté $G$, associer un graphe orienté $G'$ en orientant chaque arête de $G$ dans un sens arbitraire.",
+      "À un graphe non-orienté $G$, associer un graphe orienté $G'$ en remplaçant chaque arête de $G$ par deux arêtes dans les deux sens.",
+    ],
+    correct: 3,
+    explanation: [
+      "Une fonction de réduction doit prendre et renvoyer une instance (pas une solution).",
+      "Il faut des arêtes dans les deux sens pour avoir l'équivalence de positivité des instances.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: [
+      "On exécute le code C suivant. Quel schéma représente correctement l'état mémoire final ?",
+      "```c",
+      "int a = 1;",
+      "int b = 2;",
+      "int* p = &a;",
+      "int* q = &b;",
+      "*p = 3;",
+      "q = p;",
+      "*q = 4;",
+      "```",
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 3 | 4 |  &amp;a |  &amp;b |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 1</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 4 | 2 |  &amp;a |  &amp;a |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 2</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 1 | 4 |  &amp;a |  &amp;b |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 3</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 4 | 2 |  &amp;b |  &amp;a |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 4</p></div></div>',
+    ].join("\n"),
+    answers: ["Schéma 1", "Schéma 2", "Schéma 3", "Schéma 4"],
+    correct: 1,
+    explanation:
+      "Après `*p = 3`, on a `a = 3`. Puis `q = p` fait pointer `q` sur `a`. Enfin `*q = 4` modifie donc `a` (pas `b`). État final : `a = 4`, `b = 2`, `p = &a`, `q = &a`.",
+    mp2i: true,
+  },
+  {
+    question: [
+      "On considère le problème d'optimisation COUPLAGE suivant ainsi qu'un problème de décision DCOUPLAGE associé :",
+      '<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">COUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$<br><strong>Sortie :</strong> un couplage maximum de $G$</div></div>',
+    ].join("\n"),
+    answers: [
+      '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal inférieur à $k$ ?</div></div>',
+      '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal égal à $k$ ?</div></div>',
+      '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal supérieur à $k$ ?</div></div>',
+      "DCOUPLAGE $\\in$ P",
+      "DCOUPLAGE $\\in$ NP",
+      "DCOUPLAGE $\\in$ NP-difficile",
+      "DCOUPLAGE $\\in$ NP-complet",
+    ],
+    correct: [1, 2, 3, 4],
+    explanation: [
+      "Le premier problème de décision est trivial car il est toujours vrai : le couplage vide convient. Les deux autres définitions sont possibles et appartiennent aux mêmes classes de complexité.",
+      "`DCOUPLAGE` est dans P avec l'algorithme des chemins augmentants. Comme P $\\subset$ NP, `DCOUPLAGE` est aussi dans NP.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: [
+      "On ouvre le dossier `projet` dans un terminal :",
+      '<div class="qcm-code-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;"><div class="qcm-code-card"><pre><code>projet/\n├── include/\n│   └── utils.h\n└── src/\n    ├── main.c\n    └── utils.c</code></pre><p>Fichiers</p></div><div class="qcm-code-card"><pre class="language-c"><code class="language-c">#ifndef UTILS_H\n#define UTILS_H\n\n...\n\n#endif</code></pre><p>utils.h</p></div><div class="qcm-code-card"><pre class="language-c"><code class="language-c">#include "../include/utils.h"\n\n...</code></pre><p>utils.c</p></div><div class="qcm-code-card"><pre class="language-c"><code class="language-c">#include "../include/utils.h"\n\nint main() { \n    ...\n}</code></pre><p>main.c</p></div></div>',
+    ].join("\n"),
+    answers: [
+      "On peut compiler avec `gcc main.c utils.c`",
+      "`#ifndef UTILS_H` sert à éviter des inclusions multiples",
+      "`utils.h` contient des déclarations, `utils.c` contient des implémentations",
+      '`#include "..."` cherche dans le dossier courant puis dans les dossiers du compilateur, alors que `#include <...>` cherche seulement dans les dossiers du compilateur',
+    ],
+    correct: [1, 2, 3],
+    explanation: [
+      "`gcc src/main.c src/utils.c` est nécessaire si la commande est lancée depuis le dossier `projet`. Alternativement, on peut se placer dans `src` (`cd src`) puis faire `gcc main.c utils.c`.",
+      "`#ifndef UTILS_H` (if not defined) vérifie si `UTILS_H` n'est pas défini. Si ce n'est pas le cas, il définit `UTILS_H` et inclut le contenu du fichier. Cela permet d'éviter les problèmes d'inclusion multiple qui peuvent survenir si un fichier est inclus plusieurs fois dans un projet.",
+      "Dans un projet structuré, les fichiers `.h` contiennent généralement les déclarations de fonctions, de types et de macros, tandis que les fichiers `.c` contiennent les implémentations de ces fonctions. Cela permet de séparer l'interface (déclarations) de l'implémentation (définitions) et facilite la maintenance du code.",
+      "L'instruction `#include \"...\"` indique au préprocesseur de chercher le fichier d'en-tête dans le répertoire courant (où se trouve le fichier source) avant de chercher dans les répertoires standard du compilateur. En revanche, `#include <...>` indique au préprocesseur de chercher uniquement dans les répertoires standard du compilateur, ce qui est généralement utilisé pour inclure des bibliothèques standard ou des bibliothèques externes installées sur le système.",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: [
+      "Avec le type OCaml suivant et `v` une variable de type `t`, quelles sont les syntaxes valides ?",
+      "```ocaml",
+      "type t = {x : int; a : int array}```",
+    ].join("\n"),
+    answers: [
+      "`let w = {0; [|1; 2; 3|]}`",
+      "`let w = {x : 0; a : [|1; 2; 3|]}`",
+      "`let w = {x = 0; a = [|1; 2; 3|]}`",
+      "`v.x`",
+      "`v->x`",
+      "`v.x = 1`",
+      "`v.x <- 1`",
+      "`v.a.(0) = 1` (en supposant que `v.a` a au moins un élément)",
+      "`v.a.(0) <- 1` (en supposant que `v.a` a au moins un élément)",
+    ],
+    correct: [2, 3, 5, 6, 7, 8],
+    explanation:
+      "`v.x = 1` est une comparaison d'égalité, tandis que `v.x <- 1` est une affectation qui ne fonctionne que si `v` est mutable. `v.a.(0) <- 1` est valide car un tableau est mutable. Par contre, `v.a <- ...` ne serait valide que si `v.a` était mutable.",
+    mp2i: true,
+  },
+  {
+    question: [
+      "Quelles sont les lignes donnant une erreur (ou comportement indéfini) ?",
+      "```c",
+      "#include <stdio.h>",
+      "",
+      "typedef struct { int x; int* a; } t;",
+      "",
+      "t f() {",
+      "    t res;",
+      "    int x = 0;",
+      "    int a[] = {1, 2};",
+      "    res.x = x;",
+      "    res.a = a;",
+      "    return res;",
+      "}",
+      "",
+      "int main() {",
+      "    t res = f();",
+      '    printf("%d", res.x);',
+      '    printf("%d", res.a[1]);',
+      "    return 0;",
+      "}",
+      "```",
+    ].join("\n"),
+    answers: [
+      "`int a[] = {1, 2};`",
+      "`res.x = x;`",
+      "`res.a = a;`",
+      '`printf("%d", res.x);`',
+      '`printf("%d", res.a[1]);`',
+    ],
+    correct: [4],
+    explanation: [
+      'La ligne `printf("%d", res.a[1]);` est incorrecte car `res.a` pointe vers un tableau local qui est détruit à la fin de la fonction `f()`.',
+      ' Par contre, `printf("%d", res.x);` est correct car `res.x` est copié dans la structure retournée par `f()`.',
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: [
+      'Après les lignes suivantes, que donne `printf("%d", x);`, `printf("%d", y);`, `printf("%d", z);` ?',
+      "```c",
+      "int x = 0, y = 1;",
+      "if (y == 1) {",
+      "  int x, z = 2;",
+      "  x = 1;",
+      "  y = 2;",
+      "}",
+      "```",
+    ].join("\n"),
+    answers: [
+      "`0, 1, 2`",
+      "`0, 2, 2`",
+      "`1, 1, 2`",
+      "`1, 2, 2`",
+      "`0, 1, erreur`",
+      "`0, 2, erreur`",
+      "`1, 1, erreur`",
+      "`1, 2, erreur`",
+    ],
+    correct: [5],
+    explanation:
+      "La variable `z` est déclarée dans un bloc if, donc elle n'est accessible que dans ce bloc. Lorsque le programme sort du bloc, `z` n'est plus accessible, donc `printf(\"%d\", z);` affiche une erreur de compilation.",
+    mp2i: true,
+  },
+  {
+    question:
+      "L'algorithme de déterminisation d'un automate à $n$ états et $p$ transitions sur un alphabet de taille $k$ donne un automate avec :",
+    answers: [
+      "$2^n$ états et $p$ transitions",
+      "$2^n$ états et $k2^n$ transitions",
+      "$n!$ états et $p$ transitions",
+      "$n!$ états et $k n!$ transitions",
+    ],
+    correct: 1,
+    explanation:
+      "L'automate des parties a $2^n$ états (tous les sous-ensembles d'états). Chaque état de l'automate des parties a $k$ transitions (une par lettre de l'alphabet), soit au total $k 2^n$ transitions.",
+    mp2i: false,
+  },
+  {
+    question: [
+      "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?",
+      "```c",
+      "int c = 10;",
+      "",
+      "void f() {",
+      "  for(int i = 0; i < 5; i++)",
+      "    c--;",
+      "}",
+      "```",
+    ].join("\n"),
+    answers: ["Seulement 0", "De 0 à 8", "De 0 à 9", "De 0 à 10"],
+    correct: 1,
+    explanation: "Similaire au compteur du cours.",
+  },
+  {
+    question:
+      "Quel algorithme est une variante de Dijkstra utilisant une heuristique estimant la distance restante au sommet cible pour explorer en priorité les sommets les plus prometteurs ?",
+    answers: ["Bellman-Ford", "Kruskal", "A*", "LZW"],
+    correct: 2,
+    explanation:
+      "A* utilise une heuristique pour guider la recherche vers le sommet cible plus efficacement que Dijkstra.",
+    mp2i: false,
+  },
+  {
+    question: "L'algorithme A* permet de :",
+    answers: [
+      "Trouver un plus court chemin entre deux sommets en utilisant une heuristique",
+      "Calculer les composantes connexes d'un graphe",
+      "Trouver un arbre couvrant de poids minimum",
+      "Partitionner des données en classes",
+    ],
+    correct: 0,
+    explanation:
+      "A* combine le coût réel du chemin avec une heuristique estimant le coût restant pour guider efficacement la recherche.",
+  },
+  {
+    question:
+      "Lesquels de ces algorithmes utilisent la programmation dynamique (ou mémoïsation) ?",
+    answers: [
+      "Boyer-Moore",
+      "Calcul des attracteurs",
+      "Quine",
+      "Floyd-Warshall",
+    ],
+    correct: [1, 3],
+    explanation:
+      "Dans le calcul des attracteurs, pour éviter de calculer plusieurs fois le même sommet. Dans Floyd-Warshall, avec une équation de récurrence.",
+    mp2i: false,
+  },
+  {
+    question: "L'algorithme de Floyd-Warshall sur un graphe à $n$ sommets :",
+    answers: [
+      "Utilise une récurrence sur le nombre de sommets utilisable dans un plus court chemin",
+      "Utilise une récurrence sur la longueur d'un plus court chemin",
+      "Est en O($n^3$)",
+      "Est en O($n\\log(n)$)",
+    ],
+    correct: [0, 2],
+    explanation:
+      "Floyd-Warshall résout en $O(n^3)$ (3 boucles) le problème des plus courts chemins entre toutes les paires de sommets en calculant la distance $d_k(u, v)$ de $u$ à $v$ utilisant les sommets $1, ..., k$.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Quel algorithme trouve les composantes fortement connexes d'un graphe orienté en effectuant deux parcours en profondeur (un sur le graphe et un sur le graphe transposé) ?",
+    answers: ["Kruskal", "Dijkstra", "Kosaraju", "Prim"],
+    correct: 2,
+    explanation:
+      "Kosaraju effectue un premier parcours en profondeur pour obtenir un ordre de traitement, puis un second parcours en profondeur sur le graphe transposé.",
+    mp2i: false,
+  },
+  {
+    question: "L'algorithme de Kosaraju permet de :",
+    answers: [
+      "Trouver un arbre couvrant de poids minimum",
+      "Calculer un couplage maximum",
+      "Trouver les composantes fortement connexes",
+      "Calculer les plus courts chemins",
+    ],
+    correct: 2,
+    explanation:
+      "Kosaraju identifie les composantes fortement connexes en utilisant deux parcours en profondeur.",
+    mp2i: false,
+  },
+  {
+    question:
+      "La complexité de l'algorithme de Kruskal avec Union-Find sur un graphe à $n$ sommets et $P$ arêtes est :",
+    answers: ["$O(np)$", "$O(p \\log p)$", "$O(np \\log p)$", "$O(n + p)$"],
+    correct: 1,
+    explanation:
+      "Le tri des arêtes coûte $O(p \\log p)$ ($= O(p \\log n)$). Les opérations Union-Find ont une complexité amortie quasi-constante grâce à l'union par rang et la compression de chemins.",
+    mp2i: false,
+  },
+  {
+    question: "Quel algorithme utilise des chemins augmentants ?",
+    answers: [
+      "Kruskal",
+      "Recherche de couplage maximum",
+      "Kosaraju",
+      "Bellman-Ford",
+    ],
+    correct: 1,
+    explanation:
+      "L'algorithme cherche des chemins augmentants et applique la différence symétrique avec le couplage courant pour l'agrandir.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Un couplage $M$ dans un graphe $G = (S, A)$ est maximum si et seulement si :",
+    answers: [
+      "Il n'y a pas de chemin alternant pour $M$",
+      "Il n'y a pas de chemin augmentant pour $M$",
+      "$\\forall e\\in A$, $M\\cup\\{e\\}$ n'est pas un couplage",
+      "Tous les sommets de $G$ sont couverts par $M$",
+    ],
+    correct: 1,
+    explanation:
+      "Par définition, $M$ est maximum s'il n'y a pas de couplage de cardinal supérieur (contenant plus d'arêtes). Si $C$ est un chemin augmentant, $M\\Delta C$ est un couplage de cardinal supérieur à $M$.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Quel est l'algorithme le plus efficace pour trouver des plus courts chemins depuis un sommet fixé dans un graphe non pondéré ?",
+    answers: [
+      "Parcours en largeur",
+      "Dijkstra",
+      "Parcours en profondeur",
+      "Floyd-Warshall",
+    ],
+    correct: 0,
+    explanation:
+      "Le parcours en largeur visite les sommets par distance croissante (en nombre d'arêtes) depuis un sommet de départ.",
+    mp2i: false,
+  },
+  {
+    question: "Quels algorithmes utilisent une file ?",
+    answers: [
+      "Parcours en profondeur",
+      "Parcours en largeur",
+      "Huffman",
+      "LZW",
+    ],
+    correct: [1],
+    explanation:
+      "Le parcours en largeur utilise une file pour explorer les sommets couche par couche. Huffman utilise une file de priorité. LZW un dictionnaire. Le parcours en profondeur peut utiliser une pile.",
+    mp2i: true,
+  },
+  {
+    question: "Un parcours en profondeur peut être utilisé pour :",
+    answers: [
+      "L'algorithme min-max",
+      "Trouver un arbre couvrant",
+      "Détecter un cycle dans un graphe orienté",
+      "Trouver un tri topologique",
+    ],
+    correct: [0, 1, 2, 3],
+    explanation:
+      "On peut parcourir l'arbre min-max en profondeur. L'ensemble des arêtes parcourues forme un arbre couvrant. On peut tester l'existence d'un arc arrière pour détecter un cycle. L'algorithme de Kosaraju utilise deux DFS.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Quel type d'algorithme probabiliste renvoie toujours un résultat correct mais avec un temps d'exécution variable ?",
+    answers: ["Monaco", "Monte-Carlo", "Las Vegas", "Los Angeles"],
+    correct: 2,
+    explanation:
+      "Un algorithme de Las Vegas est toujours correct mais son temps d'exécution est aléatoire. Exemple : tri rapide randomisé.",
+  },
+  {
+    question: "Un algorithme de Las Vegas est un algorithme qui :",
+    answers: [
+      "Peut renvoyer un résultat incorrect mais s'exécute en temps déterministe",
+      "Renvoie toujours un résultat correct mais avec un temps d'exécution aléatoire",
+      "Garantit un facteur d'approximation constant mais s'exécute en temps déterministe",
+      "Donne un facteur d'approximation variable mais avec un temps d'exécution aléatoire",
+    ],
+    correct: 1,
+    explanation:
+      "Las Vegas = toujours correct, temps variable. Exemple : quicksort randomisé.",
+  },
+  {
+    question: "Lesquels sont des algorithmes de classification supervisée ?",
+    answers: [
+      "$k$-moyennes",
+      "ID3",
+      "$k$ plus proches voisins",
+      "Classification hiérarchique ascendante",
+    ],
+    correct: [1, 2],
+    explanation:
+      "$k$-moyennes et classification hiérarchique ascendante sont non-supervisés (pas de donnée d'entraînement).",
+  },
+  {
+    question: "Un arbre $k$-dimensionnel :",
+    answers: [
+      "Permet de trouver efficacement des plus proches voisins",
+      "Permet de classifier des données",
+      "Est un arbre binaire de recherche",
+      "Est un arbre équilibré",
+    ],
+    correct: [0, 2, 3],
+    explanation: [
+      "Un arbre $k$-dimensionnel est obtenu en divisant récursivement en deux (suivant un axe) des points dans $\\mathbb{R}^k$.",
+      " Il peut être utilisé pour trouver les voisins dans l'algorithme des $k$-plus proches voisins.",
+    ].join("\n"),
+  },
+  {
+    question: "Dans l'algorithme des $k$-moyennes, $k$ désigne :",
+    answers: [
+      "Le nombre de voisins",
+      "Le nombre de classes",
+      "Le nombre de données",
+      "La dimension de l'espace",
+    ],
+    correct: 1,
+    explanation:
+      "L'algorithme des $k$-moyennes est un algorithme de classification non supervisé qui partitionne les données en essayant de minimiser la distance aux centres des classes.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Quel algorithme de classification non supervisée fusionne itérativement les deux classes les plus proches, en partant d'une classe par donnée ?",
+    answers: [
+      "$k$-moyennes",
+      "$k$ plus proches voisins",
+      "Classification hiérarchique ascendante",
+      "ID3",
+    ],
+    correct: 2,
+    explanation:
+      "CHA construit une hiérarchie de classes en fusionnant les plus proches à chaque étape.",
+  },
+  {
+    question: "La classification hiérarchique ascendante :",
+    answers: [
+      "Prédit la classe d'une donnée à partir de ses voisins",
+      "Fusionne itérativement les classes les plus proches",
+      "Construit un arbre de décision par gain d'information",
+      "Met à jour alternativement classes et centres",
+    ],
+    correct: 1,
+    explanation:
+      "CHA part de $n$ classes (une par donnée) et fusionne les deux plus proches à chaque étape.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Quel algorithme de classification supervisée construit un arbre de décision en choisissant à chaque nœud l'attribut maximisant le gain d'information ?",
+    answers: ["$k$NN", "$k$-moyennes", "CHA", "ID3"],
+    correct: 3,
+    explanation:
+      "ID3 construit un arbre de décision de manière gloutonne en maximisant le gain d'entropie à chaque nœud.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Quel algorithme construit un automate reconnaissant le langage d'une expression régulière en linéarisant l'expression ?",
+    answers: ["Automate produit", "Berry-Sethi", "Kleene", "Thompson"],
+    correct: 1,
+    explanation:
+      "Berry-Sethi linéarise l'expression régulière et construit un automate local reconnaissant le même langage.",
+    mp2i: false,
+  },
+  {
+    question: "Les langages réguliers sont stables par :",
+    answers: [
+      "Complémentaire",
+      "Différence",
+      "Intersection",
+      "Inclusion",
+      "Miroir",
+    ],
+    correct: [0, 1, 2, 4],
+    explanation: [
+      "Complémentaire : déterminiser l'automate puis inverser états initiaux et finaux.",
+      " Différence et intersection : automate produit.",
+      " Miroir : inverser les transitions et les états finaux/initiaux.",
+      " Inclusion : faux car tout langage contient $\\emptyset$ et est inclus dans $\\Sigma^*$.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: "Lesquels de ces langages sont réguliers ?",
+    answers: [
+      "$\\{a^n b^p \\mid n, p \\in \\mathbb{N}\\}$",
+      "$\\{a^n b^n \\mid n \\in \\mathbb{N}\\}$",
+      "$\\{a^n b^p \\mid n \\equiv p \\mod 3\\}$",
+      "$\\{a^n b^p \\mid n < p\\}$",
+    ],
+    correct: [0, 2],
+    explanation: [
+      "Le premier est $a^* b^*$.",
+      " Le 3ème est reconnu par un automate produit à $4$ états où on arrive sur l'état $(x, y)$ si le nombre de $a$ (resp. $b$) est égal à $x$ (resp. $y$).",
+      " Le 2ème et 4ème ne sont pas régulier par le lemme de l'étoile.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question:
+      "Quel est le nombre d'arêtes d'un graphe complet non-orienté à $n$ sommets ?",
+    answers: ["$n!$", "$n^2$", "$n - 1$", "$\\frac{n(n-1)}{2}$"],
+    correct: 3,
+    explanation:
+      "Un graphe complet non orienté à $n$ sommets a une arête entre chaque paire de sommets, soit $\\binom{n}{2} = \\frac{n(n-1)}{2}$ arêtes.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Quel algorithme d'exclusion mutuelle pour deux threads utilise un tableau `want` et une variable `turn` ?",
+    answers: ["Boulangerie de Lamport", "Dekker", "Peterson", "Dijkstra"],
+    correct: 2,
+    explanation:
+      "Peterson utilise deux variables want (indiquant le souhait d'entrer en section critique) et turn (cédant la priorité).",
+  },
+  {
+    question: "L'algorithme de la boulangerie de Lamport :",
+    answers: [
+      "Implémente un mutex pour $n$ threads",
+      "Implémente un sémaphore pour $n$ threads",
+      "Utilise un tableau `want` et une variable `turn`",
+      "Utilise un système de tickets pour gérer l'accès à la section critique",
+    ],
+    correct: [0, 3],
+    explanation:
+      "Lamport généralise l'exclusion mutuelle à $n$ threads avec un mécanisme de prise de ticket.",
+  },
+  {
+    question: "La programmation dynamique :",
+    answers: [
+      "Diviser le problème en sous-problèmes indépendants",
+      "Choisit localement le meilleur choix à chaque étape",
+      "Utilise une relation de récurrence",
+      "Stocke les résultats intermédiaires",
+    ],
+    correct: [2, 3],
+    explanation:
+      "La programmation dynamique utilise une relation de récurrence et du stockage (mémoïsation ou tableau) pour éviter les calculs redondants.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Quel algorithme glouton de compression construit un arbre binaire optimal où les lettres fréquentes ont un code court ?",
+    answers: ["LZW", "Rabin-Karp", "Huffman", "Boyer-Moore-Horspool"],
+    correct: 2,
+    explanation:
+      "Huffman construit un arbre de codage préfixe optimal en fusionnant les deux symboles les moins fréquents à chaque étape.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Quel algorithme de compression en ligne construit un dictionnaire de motifs au fur et à mesure de la lecture du texte ?",
+    answers: [
+      "Huffman",
+      "Rabin-Karp",
+      "Boyer-Moore-Horspool",
+      "LZW (Lempel-Ziv-Welch)",
+    ],
+    correct: 3,
+    explanation:
+      "LZW construit dynamiquement un dictionnaire et remplace les motifs déjà vus par des codes plus courts.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Quel algorithme de recherche de motif dans un texte utilise une fonction de hachage glissante (rolling hash) ?",
+    answers: ["Boyer-Moore-Horspool", "Huffman", "Rabin-Karp", "LZW"],
+    correct: 2,
+    explanation:
+      "Rabin-Karp utilise un hash glissant pour comparer le motif à chaque fenêtre du texte en $O(n)$ en moyenne.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Quel algorithme de recherche de motif compare les caractères de droite à gauche et utilise une table de décalage précalculée ?",
+    answers: ["Rabin-Karp", "Boyer-Moore-Horspool", "Huffman", "KMP"],
+    correct: 1,
+    explanation:
+      "Boyer-Moore-Horspool compare de droite à gauche et saute des positions grâce à une table de décalage.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Quel algorithme résout le problème $\\texttt{SAT}$ par backtracking en affectant les variables et en simplifiant les clauses à chaque étape ?",
+    answers: [
+      "Branch-and-bound",
+      "Alpha-beta",
+      "Quine",
+      "Calcul des attracteurs",
+    ],
+    correct: 2,
+    explanation:
+      "L'algorithme de Quine affecte chaque variable à vrai ou faux et simplifie les clauses à chaque étape par backtracking.",
+    mp2i: false,
+  },
+  {
+    question: "L'élagage alpha-bêta est une variante de min-max qui :",
+    answers: [
+      "Explore en priorité les branches d'heuristique la plus prometteuses",
+      "Coupe les branches qui ne peuvent pas influencer le résultat final",
+      "Parcourt toutes les configurations du jeu",
+      "Mémorise les résultats intermédiaires pour éviter les calculs redondants",
+    ],
+    correct: 1,
+    explanation:
+      "Alpha-bêta élague les branches inutiles de l'arbre de jeu en maintenant des bornes $\\alpha$ et $\\beta$.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Quelles sont les implémentations efficaces d'une file de priorité ?",
+    answers: [
+      "Arbre binaire de recherche",
+      "Arbre $k$-dimensionnel",
+      "Tas",
+      "Table de hachage",
+    ],
+    correct: [0, 2],
+    explanation: [
+      "Un tas binaire est un arbre binaire presque complet implémenté par un tableau, avec insertion et extraction du minimum en $O(\\log n)$.",
+      " On peut aussi utiliser un arbre binaire de recherche (équilibré éventuellement) en cherchant le minimum tout à gauche.",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question:
+      "Soit $a = N(g, r, d)$ un arbre. $a$ est un arbre binaire de recherche si et seulement si :",
+    answers: [
+      "$r$ est supérieur aux étiquettes de $g$ et inférieur aux étiquettes de $d$",
+      "$r$ est supérieur à la racine de $g$ et inférieur à la racine de $d$",
+      "Le parcours préfixe de $a$ est trié par ordre croissant",
+      "Le parcours infixe de $a$ est trié par ordre croissant",
+    ],
+    correct: [3],
+    explanation: [
+      "La première condition n'est pas suffisante : il faut aussi que $g$ et $d$ soient des arbres binaires de recherche.",
+      " La deuxième n'est pas bonne du tout.",
+      "Un arbre est un arbre binaire de recherche si et seulement si son parcours infixe est trié par ordre croissant.",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: "Quels algorithmes du cours utilisent une file de priorité ?",
+    answers: ["Dijkstra", "A*", "Tri par tas", "Huffman", "BFS", "Quine"],
+    correct: [0, 1, 2, 3],
+    explanation: [
+      "Une file de priorité est utilisée par Dijkstra et A* pour extraire le sommet le plus proche.",
+      "Un tas est une implémentation d'une file de priorité.",
+      "Par Huffman pour fusionner les arbres de fréquences minimales.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: "Quelles sont des applications possibles d'Union-Find ?",
+    answers: [
+      "Gestion de classes d'équivalence",
+      "Prim",
+      "Kruskal",
+      "Tester la connexité d'un graphe",
+    ],
+    correct: [0, 2, 3],
+    explanation:
+      "Union-Find stocke une partition dans un tableau de pères. Il est utilisé par Kruskal pour vérifier si une arête relie deux composantes distinctes (find) et pour les fusionner (union). On peut aussi l'utiliser pour gérer des classes d'équivalence ou tester la connexité d'un graphe en vérifiant que tous les sommets sont dans la même classe.",
+    mp2i: false,
+  },
+  {
+    question: "Le lemme de l'étoile :",
+    answers: [
+      "Permet de choisir la décomposition $u = xyz$",
+      "S'applique aux langages hors-contextes",
+      "Permet de prouver qu'un langage n'est pas régulier",
+      "Permet de prouver qu'un langage est régulier",
+    ],
+    correct: [2],
+    explanation: [
+      "Le lemme de l'étoile est utilisé par l'absurde pour prouver qu'un langage n'est pas régulier. ",
+      "La réciproque est fausse donc on ne peut pas prouver qu'un langage est régulier avec ce lemme. ",
+      "Il est faux pour les langages hors-contextes généraux, qui ont un lemme de l'étoile différent.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: "Tout automate est équivalent à :",
+    answers: [
+      "Un automate déterministe complet",
+      "Un automate émondé (dont tous les états sont accessibles et co-accessibles)",
+      "Un automate complet émondé",
+      "Un automate déterministe émondé ",
+      "Un automate local",
+      "Un automate sans $\\epsilon$-transition",
+    ],
+    correct: [0, 1, 3, 5],
+    explanation: [
+      "Tout automate est équivalent à un automate déterministe complet par l'algorithme de déterminisation. ",
+      "Tout automate est équivalent à un automate émondé en supprimant les états inaccessibles ou non co-accessibles. ",
+      "Le langage $a$ sur l'alphabet $\\{a, b\\}$ ne peut pas être reconnu par un automate complet émondé. ",
+      "Seuls les langages locaux sont reconnus par des automates locaux.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: "L'algorithme d'élimination des états :",
+    answers: [
+      "Permet d'obtenir un automate minimal",
+      "Permet d'obtenir une expression régulière",
+      "Permet d'obtenir un automate émondé (dont tous les états sont accessibles et co-accessibles)",
+      "Permet d'obtenir un automate local",
+    ],
+    correct: 1,
+    explanation:
+      "L'algorithme d'élimination des états permet de transformer un automate en une expression régulière équivalente en éliminant les états un par un et en mettant à jour les transitions avec des expressions régulières.",
+    mp2i: false,
+  },
+  {
+    question:
+      "Quelle est la structure de donnée utilisée dans le cours pour représenter un tas ?",
+    answers: [
+      "Tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`",
+      "Tableau `T` où `T[i]` est le père de `i`",
+      "Type OCaml `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+      "Dictionnaire associant à chaque sommet la liste de ses fils",
+    ],
+    correct: 0,
+    explanation: [
+      "Un tas binaire est un arbre binaire presque complet, qui peut être représenté par un tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`. Le père de `T[j]` est `T[(j-1)/2]`.",
+      " Remarque : on peut aussi définir un tas persistant (skew heap).",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question:
+      "Quelle est la structure de donnée utilisée pour représenter une structure d'Union-Find ?",
+    answers: [
+      "Tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`",
+      "Tableau `T` où `T[i]` est le père de `i`",
+      "Type OCaml `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+      "Dictionnaire associant à chaque sommet la liste de ses fils",
+    ],
+    correct: 1,
+    explanation:
+      "Union-Find est représenté par un tableau `T` où `T[i]` est le père de `i`. Les éléments d'une même classe d'équivalence forment un arbre dont la racine est un représentant de la classe.",
+    mp2i: true,
+  },
+  {
+    question: "Quel est le nombre d'arêtes d'un arbre à $n$ sommets ?",
+    answers: ["$n-1$", "$n$", "$2n-1$", "$2n$"],
+    correct: 0,
+    explanation:
+      "Avec $G$ connexe $\\Rightarrow$ $n-1$ arêtes et $G$ acyclique $\\Rightarrow$ au plus $n-1$ arêtes.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Quelles structures de données permettent d'implémenter un dictionnaire ?",
+    answers: [
+      "Arbre binaire de recherche",
+      "Table de hachage",
+      "Tas binaire",
+      "Union-Find",
+    ],
+    correct: [0, 1],
+    explanation:
+      "On peut utiliser un arbre binaire de recherche dont les étiquettes sont des couples (clé, valeur), avec des opérations O($h$). On peut aussi utiliser une table de hachage avec du O(1) en moyenne.",
+    mp2i: true,
+  },
+  {
+    question: "L'arbre de Huffman garantit :",
+    answers: [
+      "Toutes les lettres ont un code de même longueur",
+      "Les lettres les plus fréquentes ont un code court ",
+      "L'arbre est équilibré",
+      "Une compression optimale",
+      "Un codage préfixe (aucun code n'est préfixe d'un autre)",
+    ],
+    correct: [1, 3, 4],
+    explanation:
+      "Le codage de Huffman est un codage préfixe (aucun code n'est préfixe d'un autre) qui minimise la longueur moyenne.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Un arbre binaire presque complet dont chaque nœud est supérieur ou égal à ses fils est :",
+    answers: [
+      "Un arbre binaire de recherche",
+      "Un tas max",
+      "Un arbre min-max",
+      "Un arbre de Huffman",
+    ],
+    correct: 1,
+    explanation:
+      "C'est la définition d'un tas max : arbre presque complet + propriété de tas (nœud ≥ fils).",
+    mp2i: false,
+  },
+  {
+    question: "La compression de chemins dans Union-Find consiste à :",
+    answers: [
+      "Trier les éléments de chaque classe",
+      "Rattacher tous les nœuds du chemin directement à la racine lors d'un `find`",
+      "Fusionner les deux plus petites classes",
+      "Doubler la taille du tableau interne",
+    ],
+    correct: 1,
+    explanation:
+      "Lors d'un find, la compression de chemins rattache chaque nœud traversé directement à la racine, aplatissant l'arbre pour les requêtes futures.",
+  },
+  {
+    question:
+      "Dans un arbre binaire strict (chaque nœud a soit 0 soit 2 fils) avec $f$ feuilles et $n_i$ nœuds internes (non feuilles) :",
+    answers: ["$f = n_i$", "$f = n_i + 1$", "$f = 2n_i$", "$f = 2n_i + 1$"],
+    correct: 1,
+    explanation: "Par induction structurelle ou bijection.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Dans un arbre binaire de hauteur $h$ et à $n$ nœuds (donner les meilleures bornes) :",
+    answers: [
+      "$n \\leq 2^h - 1$",
+      "$n \\leq 2^{h+1} - 1$",
+      "$n \\geq h$",
+      "$n \\geq h + 1$",
+    ],
+    correct: [1, 3],
+    explanation:
+      "Il y a entre $1$ et $2^p$ nœuds à la profondeur $p$, qu'on peut sommer.",
+    mp2i: true,
+  },
+  {
+    question: "Si $\\Pi_1 \\leq_p \\Pi_2$ alors :",
+    answers: [
+      "Si $\\Pi_1 \\in$ P alors $\\Pi_2 \\in$ P",
+      "Si $\\Pi_2 \\in$ P alors $\\Pi_1 \\in$ P",
+      "Si $\\Pi_1 \\in$ NP alors $\\Pi_2 \\in$ NP",
+      "Si $\\Pi_2 \\in$ NP alors $\\Pi_1 \\in$ NP",
+      "Si $\\Pi_2\\in$ NP et $\\Pi_1$ est NP-complet alors $\\Pi_2$ est NP-complet",
+      "Si $\\Pi_1\\in$ NP et $\\Pi_2$ est NP-complet alors $\\Pi_1$ est NP-complet",
+    ],
+    correct: [1, 3, 4],
+    explanation: [
+      "Soit $\\varphi$ une réduction de $\\Pi_1$ à $\\Pi_2$. Si $\\Pi_2 \\in$ P, alors $\\Pi_1$ est dans P car on peut résoudre une instance $I$ de $\\Pi_1$ en résolvant $\\varphi(I)$ dans $\\Pi_2$.",
+      "Si $A$ est un vérificateur pour $\\Pi_2$, alors $A(\\varphi(I), c)$ est un vérificateur pour $\\Pi_1$.",
+      "Si $\\Pi_2$ est NP-complet et $\\Pi_1 \\in$ NP, alors $\\Pi_1$ est NP-complet par transitivité.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: "Un problème est décidable si :",
+    answers: [
+      "Il peut être résolu en temps polynomial",
+      "Il existe un algorithme qui termine toujours et répond correctement",
+      "Il appartient à NP",
+      "Il peut être vérifié en temps polynomial",
+    ],
+    correct: 1,
+    explanation:
+      "Un problème est décidable s'il existe un algorithme (machine de Turing) qui termine toujours et donne la bonne réponse.",
+    mp2i: false,
+  },
+  {
+    question: "Quelles relations sont connues concernant P et NP ?",
+    answers: [
+      "P = NP",
+      "P $\\subset$ NP",
+      "NP $\\subset$ P",
+      "P et NP sont disjoints",
+    ],
+    correct: 1,
+    explanation:
+      "On sait que P $\\subset$ NP car un problème résoluble en temps polynomial peut évidemment être vérifié en temps polynomial. La question P = NP reste ouverte.",
+    mp2i: false,
+  },
+  {
+    question: "Quels sont les problèmes NP-complets ?",
+    answers: [
+      "$\\texttt{SAT}$",
+      "$\\texttt{2-SAT}$",
+      "$\\texttt{3-SAT}$",
+      "$\\texttt{FND-SAT}$ : $\\texttt{SAT}$ restreint aux formes normales disjonctives",
+      "Couplage maximum",
+      "Clique maximum",
+      "Arbre couvrant de poids maximum",
+      "Chemin de poids maximum",
+    ],
+    correct: [0, 2, 5, 7],
+    explanation: [
+      "$\\texttt{SAT}$ est NP-complet d'après le théorème de Cook-Levin.",
+      "$\\texttt{2-SAT}$ et $\\texttt{FNC-SAT}$ sont dans P.",
+      "$\\texttt{3-SAT}$ est NP-complet par réduction depuis $\\texttt{SAT}$.",
+      "Couplage maximum est dans P (algorithme des chemins augmentants pour graphe biparti et algorithme hongrois dans le cas général).",
+      "Clique maximum est NP-complet par réduction depuis $\\texttt{SAT}$ (ou $\\texttt{STABLE}$ comme dans le cours).",
+      "Un arbre couvrant de poids maximum peut être trouvé en triant les arêtes par poids décroissant dans Kruskal.",
+      "Chemin de poids maximum est NP-complet par réduction depuis $\\texttt{HAMILTONIEN}$.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question:
+      "On note $\\varphi \\equiv \\psi$ lorsque $\\varphi$ et $\\psi$ ont les mêmes valuations positives. Lesquelles de ces identités sont vraies ?",
+    answers: [
+      "$\\lnot \\lnot \\varphi \\equiv \\varphi$",
+      "$\\varphi_1 \\lor (\\varphi_2 \\land \\varphi_3) \\equiv (\\varphi_1 \\lor \\varphi_2) \\land (\\varphi_1 \\lor \\varphi_3)$",
+      "$\\varphi_1 \\land (\\varphi_2 \\lor \\varphi_3) \\equiv (\\varphi_1 \\land \\varphi_2) \\lor (\\varphi_1 \\land \\varphi_3)$",
+      "$\\varphi_1 \\longrightarrow \\varphi_2 \\equiv \\lnot \\varphi_2 \\longrightarrow \\lnot \\varphi_1$",
+      "$\\lnot(\\varphi_1 \\land \\varphi_2) \\equiv \\lnot \\varphi_1 \\lor \\lnot \\varphi_2$",
+      "$\\lnot(\\varphi_1 \\lor \\varphi_2) \\equiv \\lnot \\varphi_1 \\land \\lnot \\varphi_2$",
+    ],
+    correct: [0, 1, 2, 3, 4, 5],
+    explanation:
+      "Par table de vérité ou utilisation de la définition de l'évaluation d'une formule.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Si $f$ est une fonction de réduction polynomiale de $\\Pi_1 = (I_1, I_1^+)$ ($I_1$ : instances, $I_1^+$ : instances positives) à $\\Pi_2 = (I_2, I_2^+)$, alors :",
+    answers: [
+      "$f : I_1 \\longrightarrow I_2$",
+      "$f : I_1^+ \\longrightarrow I_2^+$",
+      "$f(x)$ est calculable en temps polynomial en fonction de la taille de $x$",
+      "$f(x)$ est de taille polynomiale en fonction de la taille de $x$",
+      "$x \\in I_1^+ \\Longrightarrow f(x) \\in I_2^+$",
+      "$f(x) \\in I_2^+ \\Longrightarrow x \\in I_1^+$",
+      "$f^{-1}$ est une fonction de réduction polynomiale de $\\Pi_2$ à $\\Pi_1$",
+    ],
+    correct: [0, 2, 3, 4, 5],
+    explanation: [
+      "Une fonction de réduction polynomiale de $\\Pi_1$ à $\\Pi_2$ est une fonction $f : I_1 \\longrightarrow I_2$ telle que $f(x)$ est calculable en temps polynomial en fonction de la taille de $x$, et que $x \\in I_1^+$ si et seulement si $f(x) \\in I_2^+$.",
+      "La condition de taille polynomiale ne fait pas partie de la définition mais est impliquée par la condition de calculabilité en temps polynomial.",
+      "$f$ n'est pas forcément bijective et, même si c'était le cas, $f^{-1}$ ne serait pas forcément polynomiale.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: [
+      "Quelles sont les façons correctes de définir une matrice $3\\times 4$ en C et modifier l'élément ligne 2, colonne 3 ?",
+      '<div class="qcm-code-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;"><div class="qcm-code-card"><pre class="language-c"><code class="language-c">int m[3][4];\nm[2][3] = 5;</code></pre><p>Possibilité 1</p></div><div class="qcm-code-card"><pre class="language-c"><code class="language-c">int** m = malloc(3 * sizeof(int*));\nint* l = malloc(4 * sizeof(int));\nfor (int i = 0; i &lt; 3; i++)\n  m[i] = l;\nm[2][3] = 5;</code></pre><p>Possibilité 2</p></div><div class="qcm-code-card"><pre class="language-c"><code class="language-c">int m[12];\nm[2*4 + 3] = 5;</code></pre><p>Possibilité 3</p></div><div class="qcm-code-card"><pre class="language-c"><code class="language-c">int* m = malloc(12 * sizeof(int));\nm[2*4 + 3] = 5;</code></pre><p>Possibilité 4</p></div></div>',
+    ].join("\n"),
+    answers: [
+      "Possibilité 1",
+      "Possibilité 2",
+      "Possibilité 3",
+      "Possibilité 4",
+    ],
+    correct: [0, 2, 3],
+    explanation: [
+      "La première est la syntaxe classique pour déclarer une matrice sur la pile en C.",
+      "La deuxième est incorrecte car elle fait pointer toutes les lignes vers le même tableau (aliasing). Corrigé :",
+      "```c",
+      "int** m = malloc(3 * sizeof(int*));",
+      "for (int i = 0; i < 3; i++)",
+      "  m[i] = malloc(4 * sizeof(int));",
+      "m[2][3] = 5;",
+      "```",
+      "La troisième est correcte par linéarisation d'une matrice 2D avec un tableau 1D.",
+      "La quatrième est correcte par linéarisation d'une matrice 2D avec un tableau 1D alloué dynamiquement.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: [
+      "Quelles sont les syntaxes raisonnables après le code suivant ?",
+      "```c",
+      "int* x = malloc(sizeof(int));",
+      "int* y = malloc(sizeof(int));",
+      "typedef struct {",
+      "  int a;",
+      "} s;",
+      "s* p = malloc(sizeof(s));",
+      "```",
+    ].join("\n"),
+    answers: [
+      "`x = y;`",
+      "`x = &y;`",
+      "`&x = y;`",
+      "`*x = y;`",
+      "`x = *y;`",
+      "`*x = *y;`",
+      "`p.a = 5;`",
+      "`p->a = 5;`",
+      "`(*p).a = 5;`",
+    ],
+    correct: [0, 5, 7, 8],
+    explanation: [
+      "`x = y;` est correct : `x` et `y` pointent alors vers le même emplacement mémoire.",
+      "`x = &y;` est incorrect : `&y` est de type `int**` alors que `x` est de type `int*`.",
+      "`&x = y;` est incorrect : on ne peut pas assigner à une adresse.",
+      "`*x = y;` est incorrect : `*x` est de type `int` alors que `y` est de type `int*`.",
+      "`x = *y;` est incorrect : `*y` est de type `int` alors que `x` est de type `int*`.",
+      "`*x = *y;` est correct : on copie la valeur entière pointée par `y` dans la case pointée par `x`.",
+      "`p.a = 5;` est incorrect : `p` est un pointeur (`s*`), il faut utiliser `->` et non `.`.",
+      "`p->a = 5;` est correct.",
+      "`(*p).a = 5;` est correct (équivalent à `p->a = 5`).",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: "Si $\\Pi_1$ se réduit à $\\Pi_2$ alors :",
+    answers: [
+      "$\\Pi_1 \\leq \\Pi_2$",
+      "$\\Pi_2 \\leq \\Pi_1$",
+      "Il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$",
+      "Il existe une fonction de réduction de $\\Pi_2$ à $\\Pi_1$",
+      "$\\Pi_1$ indécidable $\\Longrightarrow \\Pi_2$ indécidable",
+      "$\\Pi_2$ indécidable $\\Longrightarrow \\Pi_1$ indécidable",
+      "$\\Pi_1$ NP-complet $\\Longrightarrow \\Pi_2$ NP-complet",
+      "$\\Pi_2$ NP-complet $\\Longrightarrow \\Pi_1$ NP-complet",
+    ],
+    correct: [0, 2, 4],
+    explanation: [
+      "$\\Pi_1 \\leq \\Pi_2$ signifie que $\\Pi_1$ se réduit à $\\Pi_2$, c'est-à-dire qu'il existe une fonction de réduction de $\\Pi_1$ à $\\Pi_2$.",
+      "Par conséquent, si $\\Pi_1$ est indécidable, alors $\\Pi_2$ doit également être indécidable, car sinon on pourrait résoudre $\\Pi_1$ en utilisant la réduction vers $\\Pi_2$",
+      " Il faut que la réduction soit polynomiale et avoir l'appartenance à NP pour conclure sur les problèmes NP-complets.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question:
+      "Le lemme de l'étoile sur un langage régulier $L$ s'énonce ainsi :",
+    answers: [
+      "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Longrightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0, \\forall k \\in \\mathbb{N}, xy^k z \\in L$",
+      "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Longrightarrow \\exists x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0, \\forall k \\in \\mathbb{N}, xy^k z \\in L$",
+      "$\\forall u \\in L, \\exists n \\in \\mathbb{N}, |u| \\geq n \\Longrightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0, \\forall k \\in \\mathbb{N}, xy^k z \\in L$",
+      "$\\exists n \\in \\mathbb{N}, \\forall u \\in L, |u| \\geq n \\Longrightarrow \\forall x, y, z \\in \\Sigma^*, u = xyz, |xy| \\leq n, |y| > 0, \\forall k \\in \\mathbb{N}, xy^k z \\in L$",
+    ],
+    correct: 1,
+    explanation:
+      "En cas de doute, revenir à la démonstration du lemme de l'étoile.",
+    mp2i: false,
+  },
+  {
+    question: "Quels sont les langages hors-contextes ?",
+    answers: [
+      "$\\{a^n b^p \\mid n, p \\in \\mathbb{N}\\}$",
+      "$\\{a^n b^n \\mid n \\in \\mathbb{N}\\}$",
+      "$\\{a^n b^p \\mid n \\leq p \\}$",
+      "$\\{a^n b^n c^n \\mid n \\in \\mathbb{N}\\}$",
+    ],
+    correct: [0, 1, 2],
+    explanation: [
+      "Le premier est régulier donc hors-contexte.",
+      "Le second est engendré par $S \\Longrightarrow aSb \\mid \\epsilon$.",
+      "Le troisième est engendré par $S \\Longrightarrow aSb \\mid bS \\mid \\epsilon$.",
+      "Le quatrième n'est pas hors-contexte par le lemme de l'étoile pour les langages hors-contextes (voir TD).",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: "Une grammaire $G$ est ambigüe si et seulement si :",
+    answers: [
+      "Il existe un mot de $L(G)$ ayant au moins deux arbres de dérivation différents",
+      "Tous les mots de $L(G)$ ont au moins deux arbres de dérivation différents",
+      "Il existe un mot de $L(G)$ ayant au moins deux dérivations gauches différentes",
+      "Tous les mots de $L(G)$ ont au moins deux dérivations gauches différentes",
+    ],
+    correct: [0, 2],
+    explanation: "Cours.",
+  },
+  {
+    question: "Les grammaires non-contextuelles sont stables par :",
+    answers: [
+      "Inclusion",
+      "Union",
+      "Concaténation",
+      "Étoile",
+      "Intersection",
+      "Complémentaire",
+      "Différence",
+      "Miroir",
+    ],
+    correct: [1, 2, 3, 7],
+    explanation: [
+      "Les langages hors-contextes sont stables par union, concaténation, étoile, miroir (cours).",
+      "Ils ne sont pas stables par intersection, complémentaire ou différence (voir TD) ni par inclusion.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: "Toute formule logique est équivalente à :",
+    answers: [
+      "Une formule en forme normale conjonctive (FNC)",
+      "Une formule en forme normale disjonctive (FND)",
+      "Une formule en forme normale négative (où les négations ne sont appliquées qu'à des variables)",
+      "Une formule n'utilisant pas $\\longrightarrow$",
+      "Une formule n'utilisant que les connecteurs $\\land$ et $\\lnot$",
+    ],
+    correct: [0, 1, 2, 3, 4],
+    explanation: [
+      "Toute formule est équivalente à une FNC et à une FND, en passant par une table de vérité.",
+      "Par induction et en poussant les négations vers les variables, on obtient une formule équivalente en forme normale négative.",
+      "En utilisant les équivalences $\\varphi \\longrightarrow \\psi \\equiv \\lnot \\varphi \\lor \\psi$ et $\\lnot(\\varphi_1 \\land \\varphi_2) \\equiv \\lnot \\varphi_1 \\lor \\lnot \\varphi_2$, on peut éliminer les connecteurs $\\longrightarrow$ et $\\lor$ pour n'avoir que $\\land$ et $\\lnot$.",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question:
+      "On note $e_1 \\equiv e_2$ lorsque les expressions régulières $e_1$ et $e_2$ reconnaissent le même langage. Lesquelles de ces identités sont vraies ?",
+    answers: [
+      "$(e^*)^* \\equiv e^*$",
+      "$(e_1 \\mid e_2)^* \\equiv e_1^* \\mid e_2^*$",
+      "$(e_1 e_2)^* \\equiv e_1^* e_2^*$",
+      "$e_1 (e_2 \\mid e_3) \\equiv e_1 e_2 \\mid e_1 e_3$",
+      "$e_1 \\mid (e_2 e_3) \\equiv e_1 e_2 \\mid e_1 e_3$",
+    ],
+    correct: [0, 3],
+    explanation: [
+      "On montre la première avec la définition.",
+      " Si $e_1 = a^*$ et $e_2 = b^*$ alors $(e_1 \\mid e_2)^* \\not\\equiv e_1^* \\mid e_2^*$. Similaire pour les autres réponses.",
+    ].join("\n"),
+    mp2i: false,
+  },
+
+  {
+    question: "Quelles affirmations sont vraies ?",
+    answers: [
+      "$\\emptyset$ est une lettre",
+      "$\\emptyset$ est un mot",
+      "$\\emptyset$ est un langage",
+      "$\\epsilon$ est une lettre",
+      "$\\epsilon$ est un mot",
+      "$\\epsilon$ est un langage",
+    ],
+    correct: [2, 4, 5],
+    explanation: [
+      "$\\emptyset$ n'est ni une lettre ni un mot, mais un langage (le langage vide).",
+      "$\\epsilon$ est le mot vide mais peut aussi désigner un langage par abus de notation, sur les expression régulière : l'ensemble $\\{\\epsilon\\}$.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question:
+      "Un automate produit de deux automates $A_1$ et $A_2$ d'états $Q_1$ et $Q_2$ :",
+    answers: [
+      "Possède $Q_1 \\times Q_2$ comme ensemble d'états",
+      "Peut permettre de reconnaître $L(A_1)L(A_2)$",
+      "Peut permettre de reconnaître $L(A_1) \\cup L(A_2)$",
+      "Peut permettre de reconnaître $L(A_1) \\cap L(A_2)$",
+      "Peut permettre de reconnaître $L(A_1) \\setminus L(A_2)$",
+      "Peut permettre de reconnaître $L(A_1) \\Delta L(A_2)$",
+    ],
+    correct: [0, 2, 3, 4, 5],
+    explanation: [
+      "L'automate produit a bien $Q_1 \\times Q_2$ comme états. En ajustant les états finaux, il permet de reconnaître l'union, l'intersection, la différence et la différence symétrique. En revanche, la concaténation $L(A_1)L(A_2)$ ne se fait pas avec un simple produit.",
+      "Attention : les deux automates doivent être déterministes pour que le produit permette de reconnaitre ces langages.",
+    ].join("\n"),
+    mp2i: false,
+  },
+
+  {
+    question: "Si $\\Pi \\in$ NP :",
+    answers: [
+      "On ne sait pas le résoudre en temps polynomial",
+      "Il peut être résolu en temps exponentiel",
+      "Il peut être résolu en espace polynomial",
+      "Pour chaque instance de $\\Pi$, on peut créer un certificat en temps polynomial",
+    ],
+    correct: [1, 2],
+    explanation: [
+      "Tout problème de P est dans NP.",
+      "Un problème de NP peut toujours être résolu en temps exponentiel (énumération des certificats) et en espace polynomial (réutilisation de l'espace pour vérifier chaque certificat).",
+      "Le vérificateur doit vérifier en temps polynomial un certificat, pas le créer.",
+    ].join("\n"),
+    mp2i: false,
+  },
+  {
+    question: "À quoi s'évalue l'expression `0.1 +. 0.2 = 0.3` en OCaml ?",
+    answers: [
+      "Une erreur car il faut utiliser `==`",
+      "Une erreur car il faut utiliser `=.` sur des flottants",
+      "`false`",
+      "`true`",
+    ],
+    correct: 2,
+    explanation:
+      "Les flottants sont stockés en base 2 et `0.1` n'a pas d'écriture exacte en base 2, donc les comparaisons d'égalité stricte peuvent échouer à cause des erreurs d'arrondi sur les flottants.",
+    mp2i: true,
+  },
+
+  {
+    question: "La suite de bits $10110$ peut représenter :",
+    answers: ["22", "-10 en complément à 2", "Un rationnel", "Un caractère"],
+    correct: [0, 1, 2, 3],
+    explanation: [
+      "$10110$ vaut 22 en non signé.",
+      "Sur 5 bits en complément à 2, cela représente -10.",
+      "Cette suite peut aussi coder une valeur rationnelle selon un format flottant donné.",
+      "Cette suite peut représenter un caractère selon un encodage choisi.",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: "Une fonction de hachage peut être utilisée pour :",
+    answers: [
+      "La sécurité informatique",
+      "La reconnaissance de motif dans un texte",
+      "La mémoïsation",
+      "Accélérer l'algorithme des $k$ plus proches voisins",
+    ],
+    correct: [0, 1, 2],
+    explanation: [
+      "En sécurité pour éviter de stocker les mots de passe en clair.",
+      "En reconnaissance de motif, comme dans l'algorithme de Rabin-Karp.",
+      "En mémoïsation pour stocker les résultats intermédiaires d'une fonction récursive.",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: "Quelles structures sont persistantes ?",
+    answers: [
+      "Liste",
+      "Tableau",
+      "Arbre binaire avec `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+      "Tas binaire comme dans le cours",
+      "Chaîne de caractères en C",
+      "Chaîne de caractères en OCaml",
+    ],
+    correct: [0, 2, 5],
+    explanation: [
+      "Les listes et arbres OCaml sont persistants, et les chaînes OCaml sont immuables.",
+      " Les tableaux, tas binaires classiques et chaînes (tableaux de caractères) C sont mutables.",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question: "Les arbres rouge-noirs :",
+    answers: [
+      "Sont des arbres binaires de recherche",
+      "Sont des tas",
+      "Sont équilibrés",
+      "Maintiennent l'invariant : les deux fils de chaque nœud sont de hauteur égales +/- 1",
+      "Permettent d'implémenter un dictionnaire",
+      "Utilisent une opération de rotation pour maintenir l'équilibre",
+    ],
+    correct: [0, 2, 4, 5],
+    explanation: [
+      "Les arbres rouge-noirs sont des arbres binaires de recherche auto-équilibrés, qui maintiennent une contrainte de coloration pour garantir que la hauteur est logarithmique.",
+      "Ils permettent d'implémenter un dictionnaire avec des opérations en O($\\log n$). Les rotations sont utilisées pour rééquilibrer l'arbre après les insertions ou suppressions.",
+      "L'invariant est celui des AVL.",
+    ].join("\n"),
+    mp2i: true,
+  },
+  {
+    question:
+      "Sur un graphe non-orienté $G = (S, A)$ à $n$ sommets et $p$ arêtes :",
+
+    answers: [
+      "$\\sum_{v \\in S} \\deg(v) = p$",
+      "$\\sum_{v \\in S} \\deg(v) = 2p$",
+      "$G$ a un nombre pair de sommets de degré impair",
+      "$G$ a un nombre impair de sommets de degré pair",
+      "$G$ connexe $\\Longrightarrow p \\geq n-1$",
+      "$p \\geq n-1 \\Longrightarrow G$ connexe",
+      "$G$ acyclique $\\Longrightarrow p \\leq n-1$",
+      "$p \\leq n-1 \\Longrightarrow G$ acyclique",
+    ],
+    correct: [1, 2, 4, 6],
+    explanation: "La plupart par récurrence. Voir cours.",
+    mp2i: true,
+  },
+  {
+    question: "Quels algorithmes utilisent la méthode diviser pour régner ?",
+    answers: [
+      "Algorithme de tri rapide",
+      "Algorithme de tri fusion",
+      "Algorithme de recherche par dichotomie dans un tableau trié",
+      "Algorithme de construction d'un arbre $k$-d",
+      "Algorithme ID3",
+    ],
+    correct: [0, 1, 2, 3, 4],
+    explanation:
+      "Ces algorithmes divisent le problème en sous-problèmes, les résolvent récursivement puis combinent les résultats.",
+    mp2i: true,
+  },
+  {
+    question: "Quelles sont les bonnes résolutions d'équation de complexité ?",
+    answers: [
+      "$C(n) = C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(\\log n)$",
+      "$C(n) = C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(n)$",
+      "$C(n) = C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n \\log n)$",
+      "$C(n) = C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n^2)$",
+      "$C(n) = 2C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(n)$",
+      "$C(n) = 2C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(n \\log n)$",
+      "$C(n) = 2C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n \\log n)$",
+      "$C(n) = 2C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n^2)$",
+      "$C(n) = 2 C(n-1) + 1 \\Longrightarrow C(n) = O(n^2)$",
+      "$C(n) = 2 C(n-1) + 1 \\Longrightarrow C(n) = O(2^n)$",
+    ],
+    correct: [0, 3, 4, 6, 9],
+    explanation:
+      "$$C(n) \\leq C(\\frac{n}{2}) + 1 \\leq C(\\frac{n}{4}) + 1 + 1 \\leq \\dots \\leq C\\left(\\frac{n}{2^{\\lfloor \\log_2(n) \\rfloor}}\\right) + \\lfloor \\log_2(n) \\rfloor = O(\\log n)$$ $$C(n) = C(\\frac{n}{2}) + n = C(1) + n\\times \\sum_{k=0}^{\\lfloor \\log_2(n) \\rfloor - 1} \\frac{1}{2^k} \\leq C(1) + 2n$$ $$C(n) \\leq 2C(\\frac{n}{2}) + 1 \\leq 4C(\\frac{n}{4}) + 2 + 1 \\leq \\dots \\leq 2^{\\lfloor \\log_2(n) \\rfloor} C\\left(\\frac{n}{2^{\\lfloor \\log_2(n) \\rfloor}}\\right) + \\sum_{k=0}^{\\lfloor \\log_2(n) \\rfloor - 1} 2^k = O(n)$$ $$C(n) = 2C(n-1) + 1 = 4C(n-2) + 2 + 1 = \\dots = 2^{n-1}C(1) + \\sum_{k=0}^{n-2} 2^k = O(2^n)$$",
+    mp2i: true,
+  },
+  {
+    question:
+      "Pour rechercher si un motif apparaît dans un texte, on peut utiliser :",
+    answers: [
+      "Un automate",
+      "L'algorithme de Lempel-Ziv-Welch",
+      "L'algorithme de Rabin-Karp",
+      "L'algorithme de Boyer-Moore",
+      "L'algorithme de Huffman",
+    ],
+    correct: [0, 2, 3],
+    explanation: [
+      "On peut construire l'automate reconnaissant $\\Sigma^*m\\Sigma^*$, où $m$ est le motif. ",
+      " LZW et Huffman sont des algorithmes de compression.",
+    ].join("\n"),
+  },
+  {
+    question: "Un ordre topologique d'un graphe orienté $G$ :",
+    answers: [
+      "Existe si et seulement si $G$ est acyclique",
+      "Est unique s'il existe",
+      "Peut être calculé comme l'inverse d'un parcours en profondeur préfixe",
+      "Peut être calculé en temps $O(|S| + |A|)$",
+      "Peut être utilisé pour l'algorithme de Kosaraju",
+      "Peut servir pour résoudre un problème par programmation dynamique",
+    ],
+    correct: [0, 3, 4, 5],
+    explanation: [
+      "Un ordre topologique est un ordre linéaire des sommets tel que pour chaque arête $(u, v)$, $u$ précède $v$.",
+      "Un tel ordre existe si et seulement si le graphe est acyclique (cours).",
+      "Il n'est pas forcément unique.",
+      "On peut le calculer comme inverse d'un parcours en profondeur post-ordre (pas préfixe).",
+      "Il peut être calculé en O($|S| + |A|$) si le graphe représenté par liste d'adjacence.",
+      "L'algorithme de Kosaraju utilise un ordre de post-ordre pour trouver les composantes fortement connexes.",
+      "Dans une résolution de problème par programmation dynamique, on peut représenter les dépendances entre les sous-problèmes par un graphe orienté acyclique. Un ordre topologique donne alors un ordre des sous-problèmes à résoudre.",
+    ].join("\n"),
+  },
+  {
+    question: "Un couplage $M$ d'un graphe à $n$ sommets vérifie :",
+    answers: [
+      "$M$ ne contient pas deux arêtes adjacentes.",
+      "$M$ ne contient pas deux sommets adjacents.",
+      "Le nombre d'arêtes de $M$ est au plus $\\lfloor \\frac{n}{2} \\rfloor$.",
+      "Le nombre de sommets de $M$ est au plus $\\lfloor \\frac{n}{2} \\rfloor$.",
+    ],
+    correct: [0, 2],
+    explanation:
+      "Un couplage est un ensemble d'arêtes sans sommets communs, donc chaque sommet est adjacent à au plus une arête du couplage. Par conséquent, le nombre d'arêtes dans un couplage est limité par la moitié du nombre de sommets, soit $\\lfloor \\frac{n}{2} \\rfloor$.",
+  },
+  {
+    question: "Un graphe $G$ est biparti si et seulement si :",
+    answers: [
+      "Il ne contient pas de cycle de longueur paire",
+      "Il ne contient pas de cycle de longueur impaire",
+      "Il est 2-coloriable",
+      "Il est 3-coloriable",
+      "Il contient un couplage parfait",
+    ],
+    correct: [1, 2],
+    explanation: [
+      "$G$ est biparti si on peut séparer les sommets en deux ensembles disjoints tels que toutes les arêtes relient un sommet de l'un à un sommet de l'autre. Cela équivaut à dire qu'il est 2-coloriable. ",
+      "Si un graphe ne contient pas de cycle de longueur impaire, un parcours de graphe en alternant les couleurs des sommets permet de 2-colorer le graphe.",
+    ].join("\n"),
+  },
+  {
+    question: "L'algorithme des $k$-moyennes :",
+    answers: [
+      "Est un algorithme d'apprentissage supervisé",
+      "Converge toujours",
+      "Converge vers une solution optimale",
+      "Ne reconnaît pas les classes non convexes",
+    ],
+    correct: [1, 3],
+    explanation:
+      "C'est de la classification non-supervisée (pas de donnée d'entraînement). $k$-moyennes converge mais pas forcément vers l'optimum global. Il ne reconnaît pas bien les classes non convexes (ex. classes concentriques). ",
+  },
+];

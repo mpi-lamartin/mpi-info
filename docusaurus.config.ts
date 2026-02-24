@@ -140,7 +140,7 @@ const config: Config = {
         },
         {
           type: "doc",
-          docId: "revisions/qcm_revisions",
+          docId: "revisions/qcm_revisions/qcm_revisions",
           label: "Révisions",
         },
         {

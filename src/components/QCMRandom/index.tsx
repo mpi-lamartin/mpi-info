@@ -9,6 +9,7 @@ interface Question {
   answers: string[];
   correct: number | number[]; // single index or array of indices (0-based)
   explanation?: string;
+  mp2i?: boolean;
 }
 
 interface QCMRandomProps {
@@ -29,7 +30,7 @@ interface PersistedQCMState {
   finished: boolean;
 }
 
-const STORAGE_VERSION = "v2";
+const STORAGE_VERSION = "v3";
 
 function isMultiple(correct: number | number[]): correct is number[] {
   return Array.isArray(correct);
@@ -200,7 +201,18 @@ export default function QCMRandom({
     return `qcm-random:${STORAGE_VERSION}:${window.location.pathname}:${title}`;
   }, [title]);
 
+  const resetState = (qs: Question[]) => {
+    setOrder(shuffle(qs.map((_, i) => i)));
+    setCurrent(0);
+    setSelectedSet(new Set());
+    setValidated(false);
+    setCorrectCount(0);
+    setAnsweredCount(0);
+    setFinished(false);
+  };
+
   const q = questions[order[current]];
+  if (!q) return null;
   const correctSet = getCorrectSet(q.correct);
   const multi = isMultiple(q.correct);
   const singleChoice = !multi;
@@ -250,17 +262,12 @@ export default function QCMRandom({
   };
 
   const handleRestart = () => {
-    setOrder(shuffle(questions.map((_, i) => i)));
-    setCurrent(0);
-    setSelectedSet(new Set());
-    setValidated(false);
-    setCorrectCount(0);
-    setAnsweredCount(0);
-    setFinished(false);
+    resetState(questions);
   };
 
   const handleReportError = () => {
-    const sourceQuestionIndex = order[current] + 1;
+    const originalIndex = questions.indexOf(q);
+    const sourceQuestionIndex = originalIndex + 1;
     const questionPreview =
       q.question.length > 1200 ? `${q.question.slice(0, 1200)}...` : q.question;
     const titleText = `QCM : erreur potentielle question #${sourceQuestionIndex}`;
@@ -300,16 +307,19 @@ export default function QCMRandom({
     try {
       const raw = window.localStorage.getItem(storageKey);
       if (!raw) {
+        resetState(questions);
         setHydrated(true);
         return;
       }
 
       const saved = JSON.parse(raw) as PersistedQCMState;
       if (saved.signature !== questionsSignature) {
+        resetState(questions);
         setHydrated(true);
         return;
       }
       if (!isValidOrder(saved.order, questions.length)) {
+        resetState(questions);
         setHydrated(true);
         return;
       }
@@ -332,6 +342,7 @@ export default function QCMRandom({
       setAnsweredCount(Math.max(0, saved.answeredCount || 0));
       setFinished(Boolean(saved.finished));
     } catch {
+      resetState(questions);
     } finally {
       setHydrated(true);
     }
