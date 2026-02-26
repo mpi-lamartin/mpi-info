@@ -45,7 +45,7 @@ typedef struct data {
 
 3. Écrire une fonction `float d(data x1, data x2)` calculant la distance euclidienne au carré entre deux données (il est inutile de calculer la racine carrée car on ne cherche qu'à comparer les distances).
 
-4. Écrire une fonction `int nearest(data x, data* X, bool* T, int n)` renvoyant un `i` tel que `T[i]` est vrai et `dist(x, X[i])` est minimum, où `n` est la taille de `X` et de `T`.
+4. Écrire une fonction `int nearest(data x, data* X, bool* T, int n)` renvoyant un `i` tel que `T[i]` est vrai et `d(x, X[i])` est minimum, où `n` est la taille de `X` et de `T`.
 
 5. Écrire une fonction `int majority(int* T, int n, int p)` renvoyant un élément majoritaire d'un tableau `T` de taille `n` dont les éléments sont entre `0` et `p - 1`, en complexité O($n + p$).
 
@@ -82,7 +82,7 @@ int main() {
 
 Dans cette partie, les fonctions seront écrites dans dans un nouveau fichier `kmeans.c`.
 
-10. Écrire une fonction `data* compute_centers(data* X, int n, int* classes, int k)` renvoyant les centres des classes obtenues par l'algorithme des $k$-moyennes, où `classes[i]` est la classe de `X[i]`, `n` est la taille de `X` et `k` est la taille de classes.
+10. Écrire une fonction `data* compute_centers(data* X, int n, int* classes, int k)` renvoyant les centres des classes obtenues par l'algorithme des $k$-moyennes, où `classes[i]` est la classe de `X[i]`, `n` est la taille de `X` et `k` est le nombre de classes (donc la taille du tableau à renvoyer).
 
 11. Écrire une fonction `int* compute_classes(data* X, int n, data* centers, int k, bool* has_changed)` renvoyant les classes obtenues par l'algorithme des $k$-moyennes, où `n` est la taille de `X` et `k` est la taille de `centers`. `has_changed` doit être mis à vrai si une donnée change de classe, faux sinon.
 
