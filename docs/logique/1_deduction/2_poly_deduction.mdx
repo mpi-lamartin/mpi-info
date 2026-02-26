@@ -4,6 +4,7 @@ hide_title: true
 title: "Résumé de cours"
 pdf: "poly_deduction"
 ---
-import Pdf from '@site/src/components/Pdf';
+
+import Pdf from "@site/src/components/Pdf";
 
 <Pdf pdf={require(`./${frontMatter.pdf}.pdf`).default} td={true} />

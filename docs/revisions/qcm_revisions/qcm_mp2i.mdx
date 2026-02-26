@@ -1,0 +1,14 @@
+---
+hide_table_of_contents: true
+hide_title: true
+title: "(QCM Version MP2I)"
+sidebar_position: 2
+---
+
+import QCMRandom from "@site/src/components/QCMRandom";
+import { questions } from "./qcm_questions";
+
+<QCMRandom
+  title="QCM Version MP2I"
+  questions={questions.filter((q) => q.mp2i)}
+/>
