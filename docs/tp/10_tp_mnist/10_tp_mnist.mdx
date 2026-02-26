@@ -84,7 +84,7 @@ Dans cette partie, les fonctions seront écrites dans dans un nouveau fichier `k
 
 10. Écrire une fonction `data* compute_centers(data* X, int n, int* classes, int k)` renvoyant les centres des classes obtenues par l'algorithme des $k$-moyennes, où `classes[i]` est la classe de `X[i]`, `n` est la taille de `X` et `k` est le nombre de classes (donc la taille du tableau à renvoyer).
 
-11. Écrire une fonction `int* compute_classes(data* X, int n, data* centers, int k, bool* has_changed)` renvoyant les classes obtenues par l'algorithme des $k$-moyennes, où `n` est la taille de `X` et `k` est la taille de `centers`. `has_changed` doit être mis à vrai si une donnée change de classe, faux sinon.
+11. Écrire une fonction `int* compute_classes(data* X, int n, data* centers, int k, bool* has_changed)` renvoyant les classes obtenues par l'algorithme des $k$-moyennes, où `n` est la taille de `X` et `k` est la taille de `centers`. `has_changed` est un pointeur qui doit être mis à vrai si une donnée change de classe, faux sinon.
 
 12. Écrire une fonction `data* init_centers(data* X, int n, int k)` renvoyant `k` centres aléatoires parmi les données de `X`, où `n` est la taille de `X`. On utilisera `srand(time(NULL));` dans le `main` et `rand() % n` pour générer un nombre aléatoire entre `0` et `n - 1`.
 
