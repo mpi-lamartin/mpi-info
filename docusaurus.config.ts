@@ -6,8 +6,9 @@ const katex = require("rehype-katex");
 
 const config: Config = {
   title: "Cours d'informatique en MPI",
-  // tagline: 'Dinosaurs are cool',
+  tagline: "Site du cours d'informatique pour la classe préparatoire MPI au lycée La Martinière Monplaisir.",
   favicon: "img/logo.png",
+  trailingSlash: false,
 
   // Set the production url of your site here
   url: "https://mpi-lamartin.github.io",
@@ -58,13 +59,23 @@ const config: Config = {
         theme: {
           customCss: "./src/css/custom.css",
         },
+        sitemap: {
+          changefreq: "weekly",
+          priority: 0.5,
+          ignorePatterns: ["/tags/**"],
+          filename: "sitemap.xml",
+        },
       } satisfies Preset.Options,
     ],
   ],
 
   themeConfig: {
+    colorMode: {
+      respectPrefersColorScheme: true,
+    },
     metadata: [
-      { name: "keywords", content: "cours, informatique, MPI" },
+      { name: "keywords", content: "cours, informatique, MPI, CPGE, algorithmique, OCaml, C, Python, graphes, prépa, La Martinière Monplaisir" },
+      { name: "description", content: "Site du cours d'informatique pour la classe préparatoire MPI au lycée La Martinière Monplaisir. Cours, TP, DS et ressources." },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     image: "img/logo.png",
@@ -140,7 +151,7 @@ const config: Config = {
         },
         {
           type: "doc",
-          docId: "revisions/qcm_revisions",
+          docId: "revisions/qcm_revisions/qcm_revisions",
           label: "Révisions",
         },
         {
