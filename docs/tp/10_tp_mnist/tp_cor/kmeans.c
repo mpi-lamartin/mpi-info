@@ -4,8 +4,7 @@
 #include <time.h>
 #include "utils.h"
 
-data* compute_centers(data* X, int n, int* classes, int k) {
-    data* centers = malloc(k * sizeof(data));
+void compute_centers(data* X, int n, int* classes, int k, data* centers) {
     int* counts = malloc(k * sizeof(int));
     for(int i = 0; i < k; i++) {
         counts[i] = 0;
@@ -13,7 +12,7 @@ data* compute_centers(data* X, int n, int* classes, int k) {
             centers[i].pixels[j] = 0.;
         }
     }
-    for(int i = 0; i < k; i++) {
+    for(int i = 0; i < n; i++) {
         int c = classes[i];
         counts[c]++;
         for(int j = 0; j < LEN; j++) {
@@ -21,29 +20,29 @@ data* compute_centers(data* X, int n, int* classes, int k) {
         }
     }
     for(int i = 0; i < k; i++) {
-        for(int j = 0; j < LEN; j++) {
-            centers[i].pixels[j] /= counts[i];
+        if(counts[i] > 0) {
+            for(int j = 0; j < LEN; j++) {
+                centers[i].pixels[j] /= counts[i];
+            }
         }
     }
     free(counts);
-    return centers;
 }
 
-int* compute_classes(data* X, int n, data* centers, int k, bool* has_changed) {
+void compute_classes(data* X, int n, data* centers, int k, int* classes, bool* has_changed) {
     *has_changed = false;
-    int* classes = malloc(n * sizeof(int));
     for(int i = 0; i < n; i++) {
         bool* T = malloc(k * sizeof(bool));
         for(int j = 0; j < k; j++) {
             T[j] = true;
         }
         int min_index = nearest(X[i], centers, T, k);
-        classes[i] = min_index;
         if(min_index != classes[i]) {
             *has_changed = true;
+            classes[i] = min_index;
         }
+        free(T);
     }
-    return classes;
 }
 
 data* init_centers(data* X, int n, int k) {
@@ -67,14 +66,17 @@ data* init_centers(data* X, int n, int k) {
 int* kmeans(data* X, int n, int k) {
     bool has_changed = true;
     data* centers = init_centers(X, n, k);
+    int* classes = malloc(n * sizeof(int));
+    for(int i = 0; i < n; i++) {
+        classes[i] = -1;
+    }
     while(true) {
-        int* classes = compute_classes(X, n, centers, k, &has_changed);
-        free(centers);
+        compute_classes(X, n, centers, k, classes, &has_changed);
         if(!has_changed) {
+            free(centers);
             return classes;
         }
-        centers = compute_centers(X, n, classes, k);
-        free(classes);
+        compute_centers(X, n, classes, k, centers);
     }
 }
 
@@ -88,7 +90,9 @@ float precision(data* test, int n_test, data* train, int n_train, int k) {
         int c = nearest(test[i], train, T, k);
         if(classes[c] == test[i].class)
             correct++;
+        free(T);
     }
+    free(classes);
     return (float) correct / n_test;
 }
 
@@ -100,5 +104,6 @@ int main() {
     printf("Read %d samples\n", n);
     float p = precision(X, n, X, n, k);
     printf("Precision: %f\n", p);
+    free(X);
     return 0;
 }

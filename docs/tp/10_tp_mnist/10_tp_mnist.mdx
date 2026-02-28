@@ -7,8 +7,11 @@ title: "TP 10 : Apprentissage automatique"
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import ThemedImage from "@theme/ThemedImage";
+import TP from "!!raw-loader!./tp_bin_packing.c";
 
 [![Codespace](https://github.com/codespaces/badge.svg)](https://codespaces.new/mpi-lamartin/environnement?quickstart=1)
+
+[Solution](tp_cor.zip)
 
 1. Télécharger [tp_apprentissage.zip](tp_apprentissage.zip) et le charger dans le Codespace avec clic droit -> charger.
 2. Le décompresser avec `unzip tp_apprentissage.zip` dans le terminal.
@@ -82,9 +85,9 @@ int main() {
 
 Dans cette partie, les fonctions seront écrites dans dans un nouveau fichier `kmeans.c`.
 
-10. Écrire une fonction `data* compute_centers(data* X, int n, int* classes, int k)` renvoyant les centres des classes obtenues par l'algorithme des $k$-moyennes, où `classes[i]` est la classe de `X[i]`, `n` est la taille de `X` et `k` est le nombre de classes (donc la taille du tableau à renvoyer).
+10. Écrire une fonction `void compute_centers(data* X, int n, int* classes, int k, data* centers)` qui met à jour les centres des classes obtenues par l'algorithme des $k$-moyennes dans le tableau `centers`, où `classes[i]` est la classe de `X[i]`, `n` est la taille de `X` et `k` est le nombre de classes.
 
-11. Écrire une fonction `int* compute_classes(data* X, int n, data* centers, int k, bool* has_changed)` renvoyant les classes obtenues par l'algorithme des $k$-moyennes, où `n` est la taille de `X` et `k` est la taille de `centers`. `has_changed` est un pointeur qui doit être mis à vrai si une donnée change de classe, faux sinon.
+11. Écrire une fonction `void compute_classes(data* X, int n, data* centers, int k, int* classes, bool* has_changed)` qui met à jour les classes obtenues par l'algorithme des $k$-moyennes dans le tableau `classes`, où `n` est la taille de `X` et `k` est la taille de `centers`. `has_changed` est un pointeur qui doit être mis à vrai si une donnée change de classe, faux sinon.
 
 12. Écrire une fonction `data* init_centers(data* X, int n, int k)` renvoyant `k` centres aléatoires parmi les données de `X`, où `n` est la taille de `X`. On utilisera `srand(time(NULL));` dans le `main` et `rand() % n` pour générer un nombre aléatoire entre `0` et `n - 1`.
 
