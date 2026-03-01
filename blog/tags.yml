@@ -25,3 +25,7 @@ github:
 colle:
   label: Colle
   permalink: /colle
+
+concours:
+  label: Concours
+  permalink: /concours
