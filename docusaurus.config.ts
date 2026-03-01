@@ -6,7 +6,8 @@ const katex = require("rehype-katex");
 
 const config: Config = {
   title: "Cours d'informatique en MPI",
-  tagline: "Site du cours d'informatique pour la classe préparatoire MPI au lycée La Martinière Monplaisir.",
+  tagline:
+    "Site du cours d'informatique pour la classe préparatoire MPI au lycée La Martinière Monplaisir.",
   favicon: "img/logo.png",
   trailingSlash: false,
 
@@ -74,8 +75,16 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     metadata: [
-      { name: "keywords", content: "cours, informatique, MPI, CPGE, algorithmique, OCaml, C, Python, graphes, prépa, La Martinière Monplaisir" },
-      { name: "description", content: "Site du cours d'informatique pour la classe préparatoire MPI au lycée La Martinière Monplaisir. Cours, TP, DS et ressources." },
+      {
+        name: "keywords",
+        content:
+          "cours, informatique, MPI, CPGE, algorithmique, OCaml, C, graphes, prépa, La Martinière Monplaisir",
+      },
+      {
+        name: "description",
+        content:
+          "Site du cours d'informatique pour la classe préparatoire MPI au lycée La Martinière Monplaisir. Cours, TP, DS et ressources.",
+      },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     image: "img/logo.png",
