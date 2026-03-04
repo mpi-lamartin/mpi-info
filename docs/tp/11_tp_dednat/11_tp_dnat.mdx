@@ -1,10 +1,10 @@
 ---
-sidebar_position: 12
-title: "TP Déduction naturelle"
+hide_table_of_contents: true
+hide_title: false
+cor: true
+title: "TP 11 : Déduction naturelle"
 description: Algorithme de recherche de preuve
 ---
-
-# TP : Déduction Naturelle en OCaml
 
 Dans ce TP, nous implémentons un prouveur de théorèmes pour la logique minimale en déduction naturelle.
 
@@ -73,7 +73,14 @@ type arbre_preuve =
   | Noeud of regle * sequent * arbre_preuve list
 ```
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px', alignItems: 'center' }}>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+    gap: "10px",
+    alignItems: "center",
+  }}
+>
   <img src="./rules/axiom.png" alt="axiom" />
   <img src="./rules/imp_intro.png" alt="imp_intro" />
   <img src="./rules/imp_elim.png" alt="imp_elim" />
