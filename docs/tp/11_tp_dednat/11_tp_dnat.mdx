@@ -81,17 +81,23 @@ type arbre_preuve =
     alignItems: "center",
   }}
 >
-  <img src="./rules/axiom.png" alt="axiom" />
-  <img src="./rules/imp_intro.png" alt="imp_intro" />
-  <img src="./rules/imp_elim.png" alt="imp_elim" />
-  <img src="./rules/and_intro.png" alt="and_intro" />
-  <img src="./rules/and_elim_left.png" alt="and_elim_left" />
-  <img src="./rules/and_elim_right.png" alt="and_elim_right" />
-  <img src="./rules/or_intro_left.png" alt="or_intro_left" />
-  <img src="./rules/or_intro_right.png" alt="or_intro_right" />
-  <img src="./rules/or_elim.png" alt="or_elim" />
-  <img src="./rules/neg_elim.png" alt="neg_elim" />
-  <img src="./rules/neg_intro.png" alt="neg_intro" />
+  <img src={require("./rules/axiom.png").default} alt="axiom" />
+  <img src={require("./rules/imp_intro.png").default} alt="imp_intro" />
+  <img src={require("./rules/imp_elim.png").default} alt="imp_elim" />
+  <img src={require("./rules/and_intro.png").default} alt="and_intro" />
+  <img src={require("./rules/and_elim_left.png").default} alt="and_elim_left" />
+  <img
+    src={require("./rules/and_elim_right.png").default}
+    alt="and_elim_right"
+  />
+  <img src={require("./rules/or_intro_left.png").default} alt="or_intro_left" />
+  <img
+    src={require("./rules/or_intro_right.png").default}
+    alt="or_intro_right"
+  />
+  <img src={require("./rules/or_elim.png").default} alt="or_elim" />
+  <img src={require("./rules/neg_elim.png").default} alt="neg_elim" />
+  <img src={require("./rules/neg_intro.png").default} alt="neg_intro" />
 </div>
 
 Les arguments des constructeurs correspondent aux formules utilisées dans les règles.
