@@ -1,44 +1,32 @@
-type var = string
-
 type formule =
-  | Var of var
-  | Top
+  | Var of string
   | Bot
   | And of formule * formule
   | Or of formule * formule
   | Implies of formule * formule
-  | Not of formule
-
-type ensemble_formules = formule list
+  | Not of formule;;
 
 type sequent = {
-  gamma : ensemble_formules;
+  gamma : formule list;
   phi : formule;
-}
+};;
 
-(* Exercice 1 *)
-let rec mem f = function
-  | [] -> false
-  | x::xs -> if x = f then true else mem f xs
-
+(* Réponse Q2 *)
 let rec string_of_formule = function
   | Var v -> v
-  | Top -> "T"
   | Bot -> "F"
-  | And (f1, f2) -> "(" ^ string_of_formule f1 ^ " /\\ " ^ string_of_formule f2 ^ ")"
-  | Or (f1, f2) -> "(" ^ string_of_formule f1 ^ " \\/ " ^ string_of_formule f2 ^ ")"
+  | And (f1, f2) -> "(" ^ string_of_formule f1 ^ " & " ^ string_of_formule f2 ^ ")"
+  | Or (f1, f2) -> "(" ^ string_of_formule f1 ^ " | " ^ string_of_formule f2 ^ ")"
   | Implies (f1, f2) -> "(" ^ string_of_formule f1 ^ " -> " ^ string_of_formule f2 ^ ")"
-  | Not f -> "(~ " ^ string_of_formule f ^ ")"
+  | Not f -> "(! " ^ string_of_formule f ^ ")";;
 
+(* Réponse Q3 *)
 let string_of_sequent s =
   let gamma_str = String.concat ", " (List.map string_of_formule s.gamma) in
   gamma_str ^ " |- " ^ string_of_formule s.phi
 
-(* Exercice 2 *)
 type regle =
   | Axiom
-  | TopIntro
-  | BotElim
   | AndIntro
   | AndElim1 of formule
   | AndElim2 of formule
@@ -48,15 +36,15 @@ type regle =
   | ImpliesIntro
   | ImpliesElim of formule
   | NotIntro
-  | NotElim of formule
+  | NotElim of formule;;
+
+#use "parser.ml";;
 
 type arbre_preuve =
-  | Noeud of regle * sequent * arbre_preuve list
+  | Noeud of regle * sequent * arbre_preuve list;;
 
 let string_of_regle = function
   | Axiom -> "Axiom"
-  | TopIntro -> "TopIntro"
-  | BotElim -> "BotElim"
   | AndIntro -> "AndIntro"
   | AndElim1 f -> "AndElim1(" ^ string_of_formule f ^ ")"
   | AndElim2 f -> "AndElim2(" ^ string_of_formule f ^ ")"
@@ -71,13 +59,13 @@ let string_of_regle = function
 let rec afficher_arbre_preuve depth (Noeud (r, s, premises)) =
   let indent = String.make (depth * 2) ' ' in
   Printf.printf "%s[%s] %s\n" indent (string_of_regle r) (string_of_sequent s);
-  List.iter (afficher_arbre_preuve (depth + 1)) premises
+  List.iter (afficher_arbre_preuve (depth + 1)) premises;;
 
+(* Réponse Q4 *)
 let appliquer_regle r s =
   match r, s.phi with
   | Axiom, _ ->
-      if mem s.phi s.gamma then Some [] else None
-  | TopIntro, Top -> Some []
+      if List.mem s.phi s.gamma then Some [] else None
   | AndIntro, And (f1, f2) ->
       Some [{gamma = s.gamma; phi = f1}; {gamma = s.gamma; phi = f2}]
   | OrIntro1, Or (f1, _) ->
@@ -94,6 +82,8 @@ let appliquer_regle r s =
       Some [{gamma = s.gamma; phi = And (s.phi, f2)}]
   | AndElim2 f1, _ ->
       Some [{gamma = s.gamma; phi = And (f1, s.phi)}]
+  | NotElim f, Bot ->
+      Some [{gamma = s.gamma; phi = Not f}; {gamma = s.gamma; phi = f}]
   | OrElim (f1, f2), _ ->
       (* Pour prouver phi par OrElim, il faut prouver qu'on a f1 \/ f2, puis que f1 implique phi, et f2 implique phi *)
       Some [
@@ -101,7 +91,13 @@ let appliquer_regle r s =
         {gamma = f1 :: s.gamma; phi = s.phi};
         {gamma = f2 :: s.gamma; phi = s.phi}
       ]
-  | _, _ -> None
+  | _, _ -> None;;
+
+appliquer_regle Axiom (parse "A |- A");; (* Some [] *)
+appliquer_regle Axiom (parse "A |- B");; (* None *)
+appliquer_regle AndIntro (parse "A |- (A & B)");; (* Some [A; B] comme prémisses *)
+appliquer_regle (NotElim ((parse "A | B").phi)) (parse "B, !A |- F");;
+appliquer_regle (OrElim ((parse "A").phi, (parse "B").phi)) (parse "|- C");; (* Some [Or(A,B); A->C; B->C] *)
 
 (* Fonction utilitaire : Extraire les sous-formules *)
 let rec sous_formules_f f =
@@ -111,13 +107,16 @@ let rec sous_formules_f f =
   | Not f1 -> f :: sous_formules_f f1
   | _ -> [f]
 
-let sous_formules_gamma gamma =
-  List.sort_uniq compare (List.concat (List.map sous_formules_f gamma))
+sous_formules_f (parse "A & (B | C)").phi;;
 
-(* Exercice 4 *)
+let sous_formules_gamma gamma =
+  List.map sous_formules_f gamma |> List.concat (* |> List.sort_uniq compare) *)
+
+sous_formules_gamma (parse "(A & B), (C | D) |- A").gamma;;
+
+(* Réponse Q5 *)
 let regles_possibles s =
   let intros = match s.phi with
-    | Top -> [TopIntro]
     | And _ -> [AndIntro]
     | Or _ -> [OrIntro1; OrIntro2]
     | Implies _ -> [ImpliesIntro]
@@ -126,7 +125,7 @@ let regles_possibles s =
   in
   let elims = 
     let sf = sous_formules_gamma s.gamma in
-    let list_elims_classiques = List.concat (List.map (fun f -> [AndElim1 f; AndElim2 f; ImpliesElim f]) sf) in
+    let list_elims_classiques = List.concat (List.map (fun f -> [AndElim1 f; AndElim2 f; ImpliesElim f; NotElim f]) sf) in
     let list_or_elims = 
       List.filter_map (fun f -> 
         match f with
@@ -139,7 +138,8 @@ let regles_possibles s =
   (* On privilégie l'axiome, puis les intros, puis les éliminations limitées aux sous-formules *)
   Axiom :: (intros @ elims)
 
-(* Exercice 3 *)
+regles_possibles (parse "(A & B) |- A");;
+(* Réponse Q6 *)
 let rec prouver depth s =
   if depth <= 0 then None
   else
@@ -165,8 +165,12 @@ let rec prouver depth s =
               | Some trees -> Some (Noeud (r, s, trees))
     in try_rules rules
 
-(* Exercice 5 : Iterative Deepening (Preuve la plus courte) *)
-let prouver_min max_depth s =
+prouver 2 (parse "(A & B) |- A") |> Option.iter (afficher_arbre_preuve 1);;
+prouver 4 (parse "|- (A & B) -> (B & A)") |> Option.iter (afficher_arbre_preuve 1);;
+prouver 6 (parse "|- (A & (B | C)) -> ((A & B) | (A & C))") |> Option.iter (afficher_arbre_preuve 1);;
+and
+  (* Réponse Q7 *)
+prouver_min max_depth s =
   let rec iter depth =
     if depth > max_depth then None
     else match prouver depth s with
@@ -174,32 +178,21 @@ let prouver_min max_depth s =
       | None -> iter (depth + 1)
   in iter 1
 
-(* Exercice 6 - Tests *)
+(* Réponses Q10-Q13 : validation et analyse via les tests ci-dessous *)
 let test () =
-  let f1 = Var "A" in
-  let f2 = Var "B" in
-  let f3 = Var "C" in
-  
-  (* 1. A -> A *)
-  let seq1 = { gamma = []; phi = Implies (f1, f1) } in
-  
-  (* 2. A /\ B -> B /\ A *)
-  let seq2 = { gamma = []; phi = Implies (And (f1, f2), And (f2, f1)) } in
-  
-  (* 3. A -> (B -> A) *)
-  let seq3 = { gamma = []; phi = Implies (f1, Implies (f2, f1)) } in
+  let tests = [
+    "|- A -> A"; (* attendu: Succès *)
+    "|- (A & B) -> (B & A)"; (* attendu: Succès *)
+    "|- A -> (B -> A)"; (* attendu: Succès *)
+    "|- ((A -> B) & A) -> B"; (* attendu: Succès *)
+    "|- F -> A"; (* attendu: Echec *)
+    "|- (A & (B | C)) -> ((A & B) | (A & C))"; (* attendu: Succès *)
+    "|- (A & !A) -> F"; (* attendu: Succès *)
+  ] in
 
-  (* 4. (A -> B) /\ A -> B (Finalement marche grâce aux sous-formules) *)
-  let seq4 = { gamma = []; phi = Implies (And (Implies (f1, f2), f1), f2) } in
-
-  (* 5. F -> A (Impossible car on n'a pas inclus BotElim dans regles_possibles) *)
-  let seq5 = { gamma = []; phi = Implies (Bot, f1) } in
-
-  (* 6. A /\ (B \/ C) -> (A /\ B) \/ (A /\ C) (Logique minimale, échoue sans OrElim) *)
-  let seq6 = { gamma = []; phi = Implies (And (f1, Or (f2, f3)), Or (And (f1, f2), And (f1, f3))) } in
-
-  let run_test name seq =
-    Printf.printf "\nTest %s : %s\n" name (string_of_sequent seq);
+  let run_test seq_str =
+    let seq = parse seq_str in
+    Printf.printf "\nTest : %s\n" (string_of_sequent seq);
     match prouver_min 8 seq with
     | None -> Printf.printf "  -> Echec de la preuve\n"
     | Some arbre -> 
@@ -207,11 +200,6 @@ let test () =
         afficher_arbre_preuve 1 arbre
   in
 
-  run_test "1" seq1;
-  run_test "2 (partiel, necessite elim)" seq2;
-  run_test "3" seq3;
-  run_test "4" seq4;
-  run_test "5 (F -> A, échoue sans BotElim)" seq5;
-  run_test "6 (A/\\(B\\/C) -> ..., marche avec OrElim)" seq6
+  List.iter run_test tests
 
 let () = test ()
