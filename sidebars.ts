@@ -43,7 +43,7 @@ sidebars["revisions"].push({
 
 sidebars["logique"].push({
   type: "link",
-  href: "https://fortierq.github.io/dednat",
+  href: "https://fortierq.github.io/deduction-naturelle",
   label: "Exercices de déduction naturelle",
 });
 
