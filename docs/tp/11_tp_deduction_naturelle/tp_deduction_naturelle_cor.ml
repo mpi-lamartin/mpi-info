@@ -1,6 +1,6 @@
 type formule =
   | Var of string
-  | Top | Bot
+  | Bot
   | And of formule * formule
   | Or of formule * formule
   | Implies of formule * formule
@@ -15,7 +15,6 @@ type sequent = {
 (* Réponse Q2 *)
 let rec string_of_formule = function
   | Var v -> v
-  | Top -> "T"
   | Bot -> "F"
   | And (f1, f2) -> "(" ^ string_of_formule f1 ^ " & " ^ string_of_formule f2 ^ ")"
   | Or (f1, f2) -> "(" ^ string_of_formule f1 ^ " | " ^ string_of_formule f2 ^ ")"

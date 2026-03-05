@@ -17,7 +17,7 @@ Nous utiliserons les types suivants :
 ```ocaml
 type formule =
   | Var of string
-  | Top | Bot
+  | Bot
   | And of formule * formule
   | Or of formule * formule
   | Implies of formule * formule
