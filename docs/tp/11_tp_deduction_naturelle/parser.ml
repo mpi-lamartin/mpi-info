@@ -60,7 +60,6 @@ and parse_not tokens =
 and parse_atom tokens =
   match tokens with
   | TVar v :: rest -> (Var v, rest)
-  | TTop :: rest -> (Top, rest)
   | TBot :: rest -> (Bot, rest)
   | TLPar :: rest ->
       let e, rest' = parse_expr rest in
