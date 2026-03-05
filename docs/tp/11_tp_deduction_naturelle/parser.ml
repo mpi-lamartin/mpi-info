@@ -3,7 +3,7 @@
 (* ============================================= *)
 
 (* Remarque : ce fichier suppose que les types `formule` et `sequent` 
-   sont déjà définis dans l'environnement (par exemple via correction.ml) *)
+   sont déjà définis dans l'environnement *)
 
 type token = TVar of string | TAnd | TOr | TImpl | TNot | TTop | TBot | TLPar | TRPar | TComma | TTurnstile
 

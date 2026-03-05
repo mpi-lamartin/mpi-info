@@ -1,10 +1,11 @@
 type formule =
   | Var of string
-  | Bot
+  | Top | Bot
   | And of formule * formule
   | Or of formule * formule
   | Implies of formule * formule
-  | Not of formule;;
+  | Not of formule
+;;
 
 type sequent = {
   gamma : formule list;
@@ -14,6 +15,7 @@ type sequent = {
 (* Réponse Q2 *)
 let rec string_of_formule = function
   | Var v -> v
+  | Top -> "T"
   | Bot -> "F"
   | And (f1, f2) -> "(" ^ string_of_formule f1 ^ " & " ^ string_of_formule f2 ^ ")"
   | Or (f1, f2) -> "(" ^ string_of_formule f1 ^ " | " ^ string_of_formule f2 ^ ")"
@@ -27,21 +29,14 @@ let string_of_sequent s =
 
 type regle =
   | Axiom
-  | AndIntro
-  | AndElim1 of formule
-  | AndElim2 of formule
-  | OrIntro1
-  | OrIntro2
-  | OrElim of formule * formule
-  | ImpliesIntro
-  | ImpliesElim of formule
-  | NotIntro
-  | NotElim of formule;;
+  | ImpliesIntro | ImpliesElim of formule (* A *)
+  | AndIntro | AndElim1 of formule (* B *) | AndElim2 of formule (* A *)
+  | OrIntro1 | OrIntro2 | OrElim of formule * formule (* A, B *)
+  | NotElim of formule (* A *) | NotIntro;;
 
-#use "parser.ml";;
+#use "docs/tp/11_tp_deduction_naturelle/parser.ml";;
 
-type arbre_preuve =
-  | Noeud of regle * sequent * arbre_preuve list;;
+type arbre_preuve = Noeud of regle * sequent * arbre_preuve list;;
 
 let string_of_regle = function
   | Axiom -> "Axiom"
@@ -93,11 +88,11 @@ let appliquer_regle r s =
       ]
   | _, _ -> None;;
 
-appliquer_regle Axiom (parse "A |- A");; (* Some [] *)
-appliquer_regle Axiom (parse "A |- B");; (* None *)
-appliquer_regle AndIntro (parse "A |- (A & B)");; (* Some [A; B] comme prémisses *)
+appliquer_regle Axiom (parse "A |- A");;
+appliquer_regle Axiom (parse "A |- B");; 
+appliquer_regle AndIntro (parse "A |- (A & B)");;
 appliquer_regle (NotElim ((parse "A | B").phi)) (parse "B, !A |- F");;
-appliquer_regle (OrElim ((parse "A").phi, (parse "B").phi)) (parse "|- C");; (* Some [Or(A,B); A->C; B->C] *)
+appliquer_regle (OrElim (Var "A", Var "B")) (parse "|- C");; 
 
 (* Fonction utilitaire : Extraire les sous-formules *)
 let rec sous_formules_f f =
@@ -168,38 +163,12 @@ let rec prouver depth s =
 prouver 2 (parse "(A & B) |- A") |> Option.iter (afficher_arbre_preuve 1);;
 prouver 4 (parse "|- (A & B) -> (B & A)") |> Option.iter (afficher_arbre_preuve 1);;
 prouver 6 (parse "|- (A & (B | C)) -> ((A & B) | (A & C))") |> Option.iter (afficher_arbre_preuve 1);;
-and
-  (* Réponse Q7 *)
-prouver_min max_depth s =
+
+(* Réponse Q7 *)
+let prouver_min max_depth s =
   let rec iter depth =
     if depth > max_depth then None
     else match prouver depth s with
       | Some arbre -> Some arbre
       | None -> iter (depth + 1)
   in iter 1
-
-(* Réponses Q10-Q13 : validation et analyse via les tests ci-dessous *)
-let test () =
-  let tests = [
-    "|- A -> A"; (* attendu: Succès *)
-    "|- (A & B) -> (B & A)"; (* attendu: Succès *)
-    "|- A -> (B -> A)"; (* attendu: Succès *)
-    "|- ((A -> B) & A) -> B"; (* attendu: Succès *)
-    "|- F -> A"; (* attendu: Echec *)
-    "|- (A & (B | C)) -> ((A & B) | (A & C))"; (* attendu: Succès *)
-    "|- (A & !A) -> F"; (* attendu: Succès *)
-  ] in
-
-  let run_test seq_str =
-    let seq = parse seq_str in
-    Printf.printf "\nTest : %s\n" (string_of_sequent seq);
-    match prouver_min 8 seq with
-    | None -> Printf.printf "  -> Echec de la preuve\n"
-    | Some arbre -> 
-        Printf.printf "  -> Succès !\n";
-        afficher_arbre_preuve 1 arbre
-  in
-
-  List.iter run_test tests
-
-let () = test ()
