@@ -29,7 +29,7 @@ type sequent = {
 }
 ```
 
-Le module `Dnat` définit aussi un parser de formules. On utilisera `open Dnat` pour les utiliser :
+Le module `Dnat` définit aussi un parser de formules, qu'on pourra utiliser avec `open Dnat` :
 
 ```ocaml
 open Dnat
@@ -44,7 +44,7 @@ parse "|- (A & !A) -> F"
 
 Compilation : `ocamlc dnat.ml tp.ml && ./a.out`.
 
-On peut aussi utiliser utop en écrivant `#mod_use "dnat.ml";;` (en utilisant le chemin complet pour dnat.ml).
+On utilisera aussi utop, plus pratique pour tester, en exécutant `#mod_use "dnat.ml";;` dans `utop` (en remplaçant par le chemin complet de dnat.ml).
 
 1. Écrire une fonction `string_of_formule : formule -> string` avec la convention d'affichage `&`, `|`, `!`. On rappelle que `^` sert à concaténer des chaînes en OCaml.
 2. Écrire une fonction `string_of_sequent : sequent -> string`.
