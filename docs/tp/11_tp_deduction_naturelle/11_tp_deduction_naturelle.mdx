@@ -6,6 +6,8 @@ title: "TP 11 : Déduction naturelle"
 description: Algorithme de recherche de preuve
 ---
 
+import RulesTable from "./RulesTable";
+
 [![Codespace](https://github.com/codespaces/badge.svg)](https://codespaces.new/mpi-lamartin/environnement?quickstart=1)
 
 Dans ce TP, nous implémentons un prouveur de théorèmes pour la logique minimale en déduction naturelle.
@@ -29,24 +31,14 @@ type sequent = {
 }
 ```
 
-Le module `Dnat` définit aussi un parser de formules, qu'on pourra utiliser avec `open Dnat` :
-
-```ocaml
-open Dnat
-
-parse "|- A -> A | B"
-- : sequent = {gamma = []; phi = Implies (Var "A", Or (Var "A", Var "B"))}
-parse "A, (A -> B) |- B"
-- : sequent = {gamma = [Var "A"; Implies (Var "A", Var "B")]; phi = Var "B"}
-parse "|- (A & !A) -> F"
-- : sequent = {gamma = []; phi = Implies (And (Var "A", Not (Var "A")), Bot)}
-```
+On utilisera les types et fonctions de `dnat.ml` avec `open Dnat` au début de votre fichier.
 
 Compilation : `ocamlc dnat.ml tp.ml && ./a.out`.
 
-On utilisera aussi utop, plus pratique pour tester, en exécutant `#mod_use "dnat.ml";;` dans `utop` (en remplaçant par le chemin complet de dnat.ml).
+On utilisera aussi `utop` pour les tests, en exécutant `#mod_use "chemin/vers/dnat.ml";;` dans `utop`.
 
-1. Écrire une fonction `string_of_formule : formule -> string` avec la convention d'affichage `&`, `|`, `!`. On rappelle que `^` sert à concaténer des chaînes en OCaml.
+1. Écrire une fonction `string_of_formule : formule -> string` avec `F`, `&`, `|`, `!` pour faux, et, ou, non.  
+   On rappelle que `^` sert à concaténer des chaînes en OCaml.
 2. Écrire une fonction `string_of_sequent : sequent -> string`.
 
 ```ocaml
@@ -58,148 +50,25 @@ string_of_sequent { gamma = [Var "A"; Implies (Var "A", Var "B")]; phi = Var "B"
 
 ## Règles et arbres de preuve
 
-On utilise les types suivants :
+Les types suivants sont définis dans `dnat.ml` :
 
 ```ocaml
 type regle =
   | Axiom
-  | ImpliesIntro | ImpliesElim of formule (* A *)
-  | AndIntro | AndElim1 of formule (* B *) | AndElim2 of formule (* A *)
-  | OrIntro1 | OrIntro2 | OrElim of formule * formule (* A, B *)
-  | NotElim of formule (* A *) | NotIntro
+  | ImpliesIntro | ImpliesElim of formule
+  | AndIntro | AndElim1 of formule | AndElim2 of formule
+  | OrIntro1 | OrIntro2 | OrElim of formule * formule
+  | NotElim of formule | NotIntro
 
 type arbre_preuve = Noeud of regle * sequent * arbre_preuve list
 ```
 
 Par exemple, `ImpliesElim (And (Var "A", Var "B"))` correspond à appliquer la règle d'élimination de l'implication où $X$ est remplacé par $A \land B$.
 
-<div style={{ overflowX: "auto" }}>
-  <table
-    style={{
-      width: "auto",
-      minWidth: "980px",
-      margin: "0 auto",
-      tableLayout: "fixed",
-      borderCollapse: "collapse",
-      textAlign: "center",
-    }}
-  >
-    <thead>
-      <tr>
-        <th></th>
-        <th>Axiome</th>
-        <th>Implication</th>
-        <th>Conjonction</th>
-        <th>Disjonction</th>
-        <th>Negation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>Intro</th>
-        <td>
-          <img
-            src={require("./rules/axiom.png").default}
-            alt="axiom"
-            style={{ height: "29px", width: "auto", maxWidth: "100%" }}
-          />
-        </td>
-        <td>
-          <img
-            src={require("./rules/imp_intro.png").default}
-            alt="imp_intro"
-            style={{ height: "37px", width: "auto", maxWidth: "100%" }}
-          />
-        </td>
-        <td>
-          <img
-            src={require("./rules/and_intro.png").default}
-            alt="and_intro"
-            style={{ height: "37px", width: "auto", maxWidth: "100%" }}
-          />
-        </td>
-        <td>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "8px",
-              flexWrap: "wrap",
-            }}
-          >
-            <img
-              src={require("./rules/or_intro_left.png").default}
-              alt="or_intro_left"
-              style={{ height: "35px", width: "auto", maxWidth: "100%" }}
-            />
-            <img
-              src={require("./rules/or_intro_right.png").default}
-              alt="or_intro_right"
-              style={{ height: "35px", width: "auto", maxWidth: "100%" }}
-            />
-          </div>
-        </td>
-        <td>
-          <img
-            src={require("./rules/neg_intro.png").default}
-            alt="neg_intro"
-            style={{ height: "40px", width: "auto", maxWidth: "100%" }}
-          />
-        </td>
-      </tr>
-      <tr>
-        <th>Elim</th>
-        <td></td>
-        <td>
-          <img
-            src={require("./rules/imp_elim.png").default}
-            alt="imp_elim"
-            style={{ height: "37px", width: "auto", maxWidth: "100%" }}
-          />
-        </td>
-        <td>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "8px",
-              flexWrap: "wrap",
-            }}
-          >
-            <img
-              src={require("./rules/and_elim_left.png").default}
-              alt="and_elim_left"
-              style={{ height: "37px", width: "auto", maxWidth: "100%" }}
-            />
-            <img
-              src={require("./rules/and_elim_right.png").default}
-              alt="and_elim_right"
-              style={{ height: "37px", width: "auto", maxWidth: "100%" }}
-            />
-          </div>
-        </td>
-        <td>
-          <img
-            src={require("./rules/or_elim.png").default}
-            alt="or_elim"
-            style={{ height: "40px", width: "auto", maxWidth: "100%" }}
-          />
-        </td>
-        <td>
-          <img
-            src={require("./rules/neg_elim.png").default}
-            alt="neg_elim"
-            style={{ height: "37px", width: "auto", maxWidth: "100%" }}
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-Les arguments des constructeurs correspondent aux formules utilisées dans les règles.
+<RulesTable />
 
 3. Écrire `appliquer_regle : regle -> sequent -> sequent list option` vérifiant si la règle est applicable au séquent donné, et si oui, renvoyant la liste des prémisses à prouver. Si la règle n'est pas applicable, renvoyer `None`.
+   Pour simplifier, on utilise ci-dessous la fonction `parse : string -> sequent` de `dnat.ml` pour construire les séquents.
 
 ```ocaml
 appliquer_regle Axiom (parse "A |- A");;
@@ -289,9 +158,3 @@ prouver_min 8 (parse "|- (A & (B | C)) -> ((A & B) | (A & C))") |> Option.iter (
 ```
 
 9. Quand vous avez fini, entraînez-vous sur [https://fortierq.github.io/deduction-naturelle](https://fortierq.github.io/deduction-naturelle).
-
-Pour compiler la correction avec `ocamlc` et exécuter tous les tests :
-
-```bash
-ocamlc dnat.ml tp_deduction_naturelle_cor.ml && ./a.out
-```
