@@ -12,7 +12,7 @@ Dans ce TP, nous implémentons un prouveur de théorèmes pour la logique minima
 
 ## Représentation
 
-Nous utiliserons les types suivants pour une formule et un séquent $\Gamma \vdash \varphi$ :
+0. [Télécharger dnat.ml](./dnat.ml) qui définit les types suivantes pour une formule et un séquent $\Gamma \vdash \varphi$ :
 
 ```ocaml
 type formule =
@@ -29,10 +29,10 @@ type sequent = {
 }
 ```
 
-Pour entrer une formule, on pourra utiliser le [fichier parser.ml à télécharger](./parser.ml) :
+Le module `Dnat` définit aussi un parser de formules. On utilisera `open Dnat` pour les utiliser :
 
 ```ocaml
-#use "parser.ml" (* après la définition des types, et en utilisant le chemin complet *)
+open Dnat
 
 parse "|- A -> A | B"
 - : sequent = {gamma = []; phi = Implies (Var "A", Or (Var "A", Var "B"))}
@@ -42,8 +42,12 @@ parse "|- (A & !A) -> F"
 - : sequent = {gamma = []; phi = Implies (And (Var "A", Not (Var "A")), Bot)}
 ```
 
-2. Écrire une fonction `string_of_formule : formule -> string` avec la convention d'affichage `&`, `|`, `!`. On rappelle que `^` sert à concaténer des chaînes en OCaml.
-3. Écrire une fonction `string_of_sequent : sequent -> string`.
+Compilation : `ocamlc dnat.ml tp.ml && ./a.out`.
+
+On peut aussi utiliser utop en écrivant `#mod_use "dnat.ml";;` (en utilisant le chemin complet pour dnat.ml).
+
+1. Écrire une fonction `string_of_formule : formule -> string` avec la convention d'affichage `&`, `|`, `!`. On rappelle que `^` sert à concaténer des chaînes en OCaml.
+2. Écrire une fonction `string_of_sequent : sequent -> string`.
 
 ```ocaml
 string_of_formule (And (Var "A", Not (Var "B"))) (* "(A & (! B))" *)
@@ -66,6 +70,8 @@ type regle =
 
 type arbre_preuve = Noeud of regle * sequent * arbre_preuve list
 ```
+
+Par exemple, `ImpliesElim (And (Var "A", Var "B"))` correspond à appliquer la règle d'élimination de l'implication où $X$ est remplacé par $A \land B$.
 
 <div style={{ overflowX: "auto" }}>
   <table
@@ -95,7 +101,7 @@ type arbre_preuve = Noeud of regle * sequent * arbre_preuve list
           <img
             src={require("./rules/axiom.png").default}
             alt="axiom"
-            style={{ height: "30px", width: "auto", maxWidth: "100%" }}
+            style={{ height: "29px", width: "auto", maxWidth: "100%" }}
           />
         </td>
         <td>
@@ -193,7 +199,7 @@ type arbre_preuve = Noeud of regle * sequent * arbre_preuve list
 
 Les arguments des constructeurs correspondent aux formules utilisées dans les règles.
 
-4. Écrire `appliquer_regle : regle -> sequent -> sequent list option` vérifiant si la règle est applicable au séquent donné, et si oui, renvoyant les prémisses à prouver. Si la règle n'est pas applicable, renvoyer `None`.
+3. Écrire `appliquer_regle : regle -> sequent -> sequent list option` vérifiant si la règle est applicable au séquent donné, et si oui, renvoyant la liste des prémisses à prouver. Si la règle n'est pas applicable, renvoyer `None`.
 
 ```ocaml
 appliquer_regle Axiom (parse "A |- A");;
@@ -217,7 +223,7 @@ Some
 
 ## Recherche de preuve
 
-5. Écrire `sous_formules_f : formule -> formule list` qui renvoie la liste de toutes les sous-formules d'une formule donnée (y compris la formule elle-même).
+4. Écrire `sous_formules_f : formule -> formule list` qui renvoie la liste de toutes les sous-formules d'une formule donnée (y compris la formule elle-même).
 
 ```ocaml
 sous_formules_f (parse "A & (B | C)").phi;;
@@ -226,7 +232,7 @@ sous_formules_f (parse "A & (B | C)").phi;;
  Var "B"; Var "C"]
 ```
 
-6. Écrire `sous_formules_gamma : ensemble_formules -> formule list` qui renvoie la liste de toutes les sous-formules présentes dans le contexte `gamma`.
+5. Écrire `sous_formules_gamma : formule list -> formule list` qui renvoie la liste de toutes les sous-formules présentes dans le contexte `gamma`.
 
 ```ocaml
 sous_formules_gamma (parse "(A & B), (C | D) |- A").gamma;;
@@ -235,7 +241,12 @@ sous_formules_gamma (parse "(A & B), (C | D) |- A").gamma;;
  Var "D"]
 ```
 
-7. Écrire `regles_possibles : sequent -> regle list` qui, étant donné un séquent, renvoie la liste des règles de déduction naturelle applicables pour prouver ce séquent. On utilisera les sous-formules du contexte $\Gamma$ pour limiter les règles proposées.
+6. Écrire `regles_possibles : sequent -> regle list` qui, étant donné un séquent, renvoie la liste des règles de déduction naturelle applicables pour prouver ce séquent. On utilisera les sous-formules du contexte $\Gamma$ pour limiter les règles proposées.
+
+Ainsi, sur un séquent $\Gamma \vdash A$ :
+
+- Ajouter les règles d'introductions qui permettent d'obtenir $A$ (exemple : `AndIntro` si $A$ est de la forme $B \land C$).
+- Ajouter les règles d'élimination qui permettent d'obtenir $A$ à partir de n'importe quelles sous-formules présentes dans $\Gamma$. On appliquera `OrElim (X, Y)` seulement si $\Gamma$ contient $X\lor Y$ comme sous-formule.
 
 ```ocaml
 regles_possibles (parse "(A & B) |- A");;
@@ -247,15 +258,7 @@ regles_possibles (parse "(A & B) |- A");;
  ImpliesElim (Var "B"); NotElim (Var "B")]
 ```
 
-8. Écrire `prouver : int -> sequent -> arbre_preuve option` qui, étant donné une profondeur maximale `depth` et un séquent, tente de construire un arbre de preuve pour ce séquent en utilisant les règles possibles. Si une preuve est trouvée, renvoyer `Some arbre_preuve`, sinon `None`.
-   On utilisera la fonction suivante pour afficher l'arbre de preuve :
-
-```ocaml
-let rec afficher_arbre_preuve depth (Noeud (r, s, premises)) =
-  let indent = String.make (depth * 2) ' ' in
-  Printf.printf "%s[%s] %s\n" indent (string_of_regle r) (string_of_sequent s);
-  List.iter (afficher_arbre_preuve (depth + 1)) premises
-```
+7. Écrire `prouver : int -> sequent -> arbre_preuve option` qui, étant donné une profondeur maximale `depth` et un séquent, renvoie un arbre de preuve pour ce séquent. On utilisera `afficher_arbre_preuve : arbre_preuve -> unit` de dnat.ml pour afficher l'arbre de preuve.
 
 Indications :
 
@@ -265,10 +268,10 @@ Indications :
 - Si une prémisse échoue, revenir en arrière (backtracking) et tester la règle suivante.
 
 ```ocaml
-prouver 2 (parse "(A & B) |- A") |> Option.get (afficher_arbre_preuve 1)
+prouver 2 (parse "(A & B) |- A") |> Option.iter afficher_arbre_preuve
   [AndElim1(B)] (A & B) |- A
     [Axiom] (A & B) |- (A & B)
-prouver 4 (parse "|- (A & B) -> (B & A)") |> Option.get (afficher_arbre_preuve 1)
+prouver 4 (parse "|- (A & B) -> (B & A)") |> Option.iter afficher_arbre_preuve
   [ImpliesIntro]  |- ((A & B) -> (B & A))
     [AndIntro] (A & B) |- (B & A)
       [AndElim2(A)] (A & B) |- B
@@ -279,10 +282,16 @@ prouver 4 (parse "|- (A & B) -> (B & A)") |> Option.get (afficher_arbre_preuve 1
 
 Essayer avec d'autres séquents plus difficiles.
 
-9. Écrire `prouver_min : int -> sequent -> arbre_preuve option` qui, étant donné une profondeur maximale `max_depth` et un séquent, tente de trouver une preuve de ce séquent avec la plus petite profondeur possible (inférieure ou égale à `max_depth`).
+8. Écrire `prouver_min : int -> sequent -> arbre_preuve option` qui, étant donné une profondeur maximale `max_depth` et un séquent, tente de trouver une preuve de ce séquent avec la plus petite profondeur possible (inférieure ou égale à `max_depth`).
 
 ```ocaml
 prouver_min 8 (parse "|- (A & (B | C)) -> ((A & B) | (A & C))") |> Option.iter (afficher_arbre_preuve 1)
 ```
 
-10. Quand vous avez fini, entraînez-vous sur [https://fortierq.github.io/deduction-naturelle](https://fortierq.github.io/deduction-naturelle).
+9. Quand vous avez fini, entraînez-vous sur [https://fortierq.github.io/deduction-naturelle](https://fortierq.github.io/deduction-naturelle).
+
+Pour compiler la correction avec `ocamlc` et exécuter tous les tests :
+
+```bash
+ocamlc dnat.ml tp_deduction_naturelle_cor.ml && ./a.out
+```
