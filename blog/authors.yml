@@ -3,3 +3,7 @@ qfortier:
   title: Professeur d'informatique
   url: https://fortierq.github.io/
   image_url: https://fortierq.github.io/assets/images/photo_cv.png
+  socials:
+    linkedin: fortierq
+    github: fortierq
+    twitter: FortierQuentin
