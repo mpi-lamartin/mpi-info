@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "mpi-info @ 91318fd",
+			"uri": "gitlens://7b22726566223a2239313331386664343764383532663333616464666333326334383833613133323935393066373061222c227265706f50617468223a222f55736572732f71666f72746965722f446f63756d656e74732f7265706f2f6d70692d696e666f227d/Users/qfortier/Documents/repo/mpi-info?{\"ref\":\"91318fd\"}"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdlib.h": "c",
+			"array": "c",
+			"string": "c",
+			"string_view": "c",
+			"vector": "c"
+		}
+	}
+}
