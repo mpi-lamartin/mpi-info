@@ -1,5 +1,7 @@
 open Dnat
 
+let seq gamma phi = {gamma; phi}
+
 (* Réponse Q1 *)
 let rec string_of_formule = function
   | Var v -> v
@@ -21,29 +23,29 @@ let appliquer_regle r s =
   | Axiom, _ ->
       if List.mem s.phi s.gamma then Some [] else None
   | AndIntro, And (f1, f2) ->
-      Some [{gamma = s.gamma; phi = f1}; {gamma = s.gamma; phi = f2}]
+      Some [seq s.gamma f1; seq s.gamma f2]
   | OrIntro1, Or (f1, _) ->
-      Some [{gamma = s.gamma; phi = f1}]
+      Some [seq s.gamma f1]
   | OrIntro2, Or (_, f2) ->
-      Some [{gamma = s.gamma; phi = f2}]
+      Some [seq s.gamma f2]
   | ImpliesIntro, Implies (f1, f2) ->
-      Some [{gamma = f1 :: s.gamma; phi = f2}]
+      Some [seq (f1 :: s.gamma) f2]
   | NotIntro, Not f ->
-      Some [{gamma = f :: s.gamma; phi = Bot}]
+      Some [seq (f :: s.gamma) Bot]
   | ImpliesElim f1, _ ->
-      Some [{gamma = s.gamma; phi = Implies (f1, s.phi)}; {gamma = s.gamma; phi = f1}]
+      Some [seq s.gamma (Implies (f1, s.phi)); seq s.gamma f1]
   | AndElim1 f2, _ ->
-      Some [{gamma = s.gamma; phi = And (s.phi, f2)}]
+      Some [seq s.gamma (And (s.phi, f2))]
   | AndElim2 f1, _ ->
-      Some [{gamma = s.gamma; phi = And (f1, s.phi)}]
+      Some [seq s.gamma (And (f1, s.phi))]
   | NotElim f, Bot ->
-      Some [{gamma = s.gamma; phi = Not f}; {gamma = s.gamma; phi = f}]
+      Some [seq s.gamma (Not f); seq s.gamma f]
   | OrElim (f1, f2), _ ->
       (* Pour prouver phi par OrElim, il faut prouver qu'on a f1 \/ f2, puis que f1 implique phi, et f2 implique phi *)
       Some [
-        {gamma = s.gamma; phi = Or (f1, f2)};
-        {gamma = f1 :: s.gamma; phi = s.phi};
-        {gamma = f2 :: s.gamma; phi = s.phi}
+        seq s.gamma (Or (f1, f2));
+        seq (f1 :: s.gamma) s.phi;
+        seq (f2 :: s.gamma) s.phi
       ]
   | _, _ -> None
 
