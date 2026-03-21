@@ -62,7 +62,7 @@ function renderMath(text: string, baseUrl: string): string {
       } catch {
         highlighted = escapeHtml(code);
       }
-      const languageLabel = lang ? `<div class="${styles.codeBlockLanguage}">${lang}</div>` : "";
+      const languageLabel = lang && lang !== "text" ? `<div class="${styles.codeBlockLanguage}">${lang}</div>` : "";
       const block = `<div class="${styles.codeBlockContainer}">${languageLabel}<pre class="prism-code language-${language}"><code class="language-${language}">${highlighted}</code></pre></div>`;
       const marker = `@@CODEBLOCK_${codeBlocks.length}@@`;
       codeBlocks.push(block);
@@ -133,10 +133,10 @@ function MathText({ text }: { text: string }): JSX.Element {
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
-  // for (let i = a.length - 1; i > 0; i--) {
-  //   const j = Math.floor(Math.random() * (i + 1));
-  //   [a[i], a[j]] = [a[j], a[i]];
-  // }
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
   return a;
 }
 
