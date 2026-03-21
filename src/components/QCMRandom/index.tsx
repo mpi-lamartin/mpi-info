@@ -10,6 +10,7 @@ interface Question {
   correct: number | number[]; // single index or array of indices (0-based)
   explanation?: string;
   mp2i?: boolean;
+  columns?: number;
 }
 
 interface QCMRandomProps {
@@ -61,7 +62,8 @@ function renderMath(text: string, baseUrl: string): string {
       } catch {
         highlighted = escapeHtml(code);
       }
-      const block = `<pre class="prism-code language-${language}" style="margin:6px 0;"><code class="language-${language}">${highlighted}</code></pre>`;
+      const languageLabel = lang ? `<div class="${styles.codeBlockLanguage}">${lang}</div>` : "";
+      const block = `<div class="${styles.codeBlockContainer}">${languageLabel}<pre class="prism-code language-${language}"><code class="language-${language}">${highlighted}</code></pre></div>`;
       const marker = `@@CODEBLOCK_${codeBlocks.length}@@`;
       codeBlocks.push(block);
       return marker;
@@ -84,7 +86,8 @@ function renderMath(text: string, baseUrl: string): string {
       } catch {
         highlighted = escapeHtml(rawCode);
       }
-      return `<pre class="prism-code language-${language}" style="margin:6px 0;"><code class="language-${language}">${highlighted}</code></pre>`;
+      const languageLabel = lang && lang !== "text" ? `<div class="${styles.codeBlockLanguage}">${lang}</div>` : "";
+      return `<div class="${styles.codeBlockContainer}">${languageLabel}<pre class="prism-code language-${language}"><code class="language-${language}">${highlighted}</code></pre></div>`;
     },
   );
   result = result.replace(/\$\$([^$]+)\$\$/g, (_, tex) => {
@@ -124,16 +127,16 @@ function renderMath(text: string, baseUrl: string): string {
 function MathText({ text }: { text: string }): JSX.Element {
   const baseUrl = useBaseUrl("/");
   return (
-    <span dangerouslySetInnerHTML={{ __html: renderMath(text, baseUrl) }} />
+    <div dangerouslySetInnerHTML={{ __html: renderMath(text, baseUrl) }} />
   );
 }
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
+  // for (let i = a.length - 1; i > 0; i--) {
+  //   const j = Math.floor(Math.random() * (i + 1));
+  //   [a[i], a[j]] = [a[j], a[i]];
+  // }
   return a;
 }
 
@@ -216,6 +219,7 @@ export default function QCMRandom({
   const correctSet = getCorrectSet(q.correct);
   const multi = isMultiple(q.correct);
   const singleChoice = !multi;
+  const columns = q.columns ?? 2;
 
   const isAnswerCorrect = (sel: Set<number>): boolean => {
     if (sel.size !== correctSet.size) return false;
@@ -364,7 +368,7 @@ export default function QCMRandom({
 
     try {
       window.localStorage.setItem(storageKey, JSON.stringify(payload));
-    } catch {}
+    } catch { }
   }, [
     answeredCount,
     correctCount,
@@ -432,6 +436,15 @@ export default function QCMRandom({
 
   return (
     <div className={styles.container}>
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .qcm-responsive-grid {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}
+      </style>
       <div className={styles.progressBar}>
         <div
           className={styles.progressFill}
@@ -453,7 +466,18 @@ export default function QCMRandom({
             </span>
           )}
         </div>
-        <div className={styles.answers}>
+        <div
+          className={`${styles.answers} ${columns > 1 ? "qcm-responsive-grid" : ""}`}
+          style={
+            columns > 1
+              ? {
+                display: "grid",
+                gridTemplateColumns: `repeat(${columns}, 1fr)`,
+                gap: "10px",
+              }
+              : undefined
+          }
+        >
           {q.answers.map((answer, aIdx) => {
             const isSelected = selectedSet.has(aIdx);
             const isCorrectAnswer = correctSet.has(aIdx);
@@ -472,19 +496,28 @@ export default function QCMRandom({
             }
 
             return (
-              <button
+              <div
                 key={aIdx}
                 className={cls}
-                onClick={() => handleSelect(aIdx)}
-                disabled={validated}
+                onClick={() => !validated && handleSelect(aIdx)}
+                role="button"
+                tabIndex={validated ? -1 : 0}
+                aria-disabled={validated}
+                onKeyDown={(e) => {
+                  if (validated) return;
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleSelect(aIdx);
+                  }
+                }}
               >
-                <span className={styles.answerContent}>
+                <div className={styles.answerContent}>
                   <MathText text={answer} />
-                </span>
+                </div>
                 {userMark && (
-                  <span className={styles.answerMark}>{userMark}</span>
+                  <div className={styles.answerMark}>{userMark}</div>
                 )}
-              </button>
+              </div>
             );
           })}
         </div>

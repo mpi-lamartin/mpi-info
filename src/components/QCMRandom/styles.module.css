@@ -51,101 +51,130 @@
   font-weight: 500;
 }
 
-.questionText :global(pre.prism-code) {
+.questionCard :global(pre.prism-code) {
   padding: 0.8rem 1rem;
   border-radius: 8px;
   overflow-x: auto;
   background: var(--ifm-color-emphasis-100);
 }
 
-.questionText :global(pre.prism-code code) {
+.questionCard :global(pre.prism-code code) {
   font-family: var(--ifm-font-family-monospace);
   font-size: 0.92em;
 }
 
-.questionText :global(.qcm-code-grid > .qcm-code-card) {
+.codeBlockContainer {
+  position: relative;
+  margin: 0.5rem 0;
+}
+
+.codeBlockContainer :global(pre.prism-code) {
+  margin: 0 !important;
+}
+
+.codeBlockLanguage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  background: var(--ifm-color-emphasis-200);
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  z-index: 1;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .codeBlockLanguage {
+  background: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-900);
+}
+
+.questionCard :global(.qcm-code-grid > .qcm-code-card) {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.questionText :global(.qcm-code-grid > .qcm-code-card pre) {
+.questionCard :global(.qcm-code-grid > .qcm-code-card pre) {
   flex: 1;
   margin: 0;
 }
 
-.questionText :global(.qcm-code-grid > .qcm-code-card p) {
+.questionCard :global(.qcm-code-grid > .qcm-code-card p) {
   text-align: center;
   margin: 6px 0 0;
 }
 
-.questionText :global(.token.comment),
-.questionText :global(.token.prolog),
-.questionText :global(.token.doctype),
-.questionText :global(.token.cdata) {
+.questionCard :global(.token.comment),
+.questionCard :global(.token.prolog),
+.questionCard :global(.token.doctype),
+.questionCard :global(.token.cdata) {
   color: #6a737d;
 }
 
-.questionText :global(.token.punctuation) {
+.questionCard :global(.token.punctuation) {
   color: #24292e;
 }
 
-.questionText :global(.token.keyword),
-.questionText :global(.token.operator),
-.questionText :global(.token.atrule) {
+.questionCard :global(.token.keyword),
+.questionCard :global(.token.operator),
+.questionCard :global(.token.atrule) {
   color: #d73a49;
 }
 
-.questionText :global(.token.function) {
+.questionCard :global(.token.function) {
   color: #6f42c1;
 }
 
-.questionText :global(.token.string),
-.questionText :global(.token.char),
-.questionText :global(.token.attr-value) {
+.questionCard :global(.token.string),
+.questionCard :global(.token.char),
+.questionCard :global(.token.attr-value) {
   color: #032f62;
 }
 
-.questionText :global(.token.number),
-.questionText :global(.token.boolean),
-.questionText :global(.token.constant) {
+.questionCard :global(.token.number),
+.questionCard :global(.token.boolean),
+.questionCard :global(.token.constant) {
   color: #005cc5;
 }
 
-[data-theme="dark"] .questionText :global(pre.prism-code) {
+[data-theme="dark"] .questionCard :global(pre.prism-code) {
   background: var(--ifm-color-emphasis-200);
 }
 
-[data-theme="dark"] .questionText :global(.token.comment),
-[data-theme="dark"] .questionText :global(.token.prolog),
-[data-theme="dark"] .questionText :global(.token.doctype),
-[data-theme="dark"] .questionText :global(.token.cdata) {
+[data-theme="dark"] .questionCard :global(.token.comment),
+[data-theme="dark"] .questionCard :global(.token.prolog),
+[data-theme="dark"] .questionCard :global(.token.doctype),
+[data-theme="dark"] .questionCard :global(.token.cdata) {
   color: #8b949e;
 }
 
-[data-theme="dark"] .questionText :global(.token.punctuation) {
+[data-theme="dark"] .questionCard :global(.token.punctuation) {
   color: #c9d1d9;
 }
 
-[data-theme="dark"] .questionText :global(.token.keyword),
-[data-theme="dark"] .questionText :global(.token.operator),
-[data-theme="dark"] .questionText :global(.token.atrule) {
+[data-theme="dark"] .questionCard :global(.token.keyword),
+[data-theme="dark"] .questionCard :global(.token.operator),
+[data-theme="dark"] .questionCard :global(.token.atrule) {
   color: #ff7b72;
 }
 
-[data-theme="dark"] .questionText :global(.token.function) {
+[data-theme="dark"] .questionCard :global(.token.function) {
   color: #d2a8ff;
 }
 
-[data-theme="dark"] .questionText :global(.token.string),
-[data-theme="dark"] .questionText :global(.token.char),
-[data-theme="dark"] .questionText :global(.token.attr-value) {
+[data-theme="dark"] .questionCard :global(.token.string),
+[data-theme="dark"] .questionCard :global(.token.char),
+[data-theme="dark"] .questionCard :global(.token.attr-value) {
   color: #a5d6ff;
 }
 
-[data-theme="dark"] .questionText :global(.token.number),
-[data-theme="dark"] .questionText :global(.token.boolean),
-[data-theme="dark"] .questionText :global(.token.constant) {
+[data-theme="dark"] .questionCard :global(.token.number),
+[data-theme="dark"] .questionCard :global(.token.boolean),
+[data-theme="dark"] .questionCard :global(.token.constant) {
   color: #79c0ff;
 }
 

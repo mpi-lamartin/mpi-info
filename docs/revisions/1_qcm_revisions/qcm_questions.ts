@@ -1,36 +1,124 @@
+function code(s: string[], lang: string = "ocaml") {
+  return `\`\`\`${lang}\n${s.join("\n")}\n\`\`\``;
+}
+
 export const questions = [
   {
     question:
-      "Quelle est la bonne syntaxe pour utiliser une exception en OCaml ?",
+      "Comment appelle-t-on ce type de graphe obtenu à partir du code C suivant ?\n" +
+      '<div style="display:flex; flex-wrap:wrap; align-items:center; gap:20px;">' +
+      code(
+        [
+          "int dichotomie(int e, int* t, int n) {",
+          "  // t est un tableau trié",
+          "  int i = 0, j = n - 1;",
+          "  while (i <= j) {",
+          "    // si e est dans t alors e est dans t[i..j]",
+          "    int m = (i + j) / 2;",
+          "    if (t[m] == e) return 1;",
+          "    if (t[m] <= e) i = m + 1;",
+          "    else j = m - 1;",
+          "  }",
+          "  return 1;",
+          "}",
+        ],
+        "c",
+      ) +
+      '<img src="/img/qcm/gfc.png" alt="Graphe" style="width:380px;"/>' +
+      "</div>",
     answers: [
-      ["```ocaml", 'raise (Failure "message")', "```"].join("\n"),
-      ["```ocaml", 'raise (Failure "message") with e -> ...', "```"].join("\n"),
+      "Graphe de données",
+      "Graphe de dépendances",
+      "Graphe de flot de contrôle",
+      "Graphe de syntaxe abstraite",
     ],
+    correct: 2,
+    explanation:
+      "Graphe de flot de contrôle : les nœuds sont des instructions et les arcs représentent les possibles enchaînements d'instructions lors de l'exécution du programme.",
+    mp2i: true,
   },
   {
-    question: [
-      "Comment compléter le code suivant pour que le programme termine et soit correct ?",
-      "```c",
-      "bool dichotomie(int e, int* T, int n) {",
-      "  // dichotomie(e, T, n) renvoie true ssi e appartient au tableau T trié de taille n",
-      "  int g = 0, d = n - 1;",
-      "  while (g <= d) {",
-      "    int m = ...; // 1",
-      "    if (T[m] == e) return true;",
-      "    else if (T[m] < e) ...; // 2",
-      "    else ...;",
-      "  }",
-      "  return false;",
-      "}",
-      "```",
-    ].join("\n"),
+    question:
+      "Quels sont les couvertures de tests raisonnables sur un graphe de flot de contrôle ?",
     answers: [
-      "`m = (g + d) / 2;`",
-      "`m = (d - g) / 2;`",
-      ["`else if (T[m] < e) g = m;`", "`else d = m;`"].join("\n"),
-      ["`else if (T[m] < e) d = m;`", "`else g = m;`"].join("\n"),
-      ["`else if (T[m] < e) g = m + 1;`", "`else d = m - 1;`"].join("\n"),
-      ["`else if (T[m] < e) d = m - 1;`", "`else g = m + 1;`"].join("\n"),
+      "Une couverture des sommets (tous les sommets sont visités par au moins un test)",
+      "Une couverture des arcs (tous les arcs sont parcourus par au moins un test)",
+      "Une couverture des chemins (tous les chemins sont parcourus par au moins un test)",
+    ],
+    columns: 1,
+    correct: [0, 1, 2],
+    explanation:
+      "Un test (c'est-à-dire une exécution du programme) correspond à un chemin dans le graphe de flot de contrôle. La couverture des sommets est plus facile à atteindre que la couverture des arcs, qui est elle-même plus facile que la couverture des chemins (qui peut être impossible à atteindre si le graphe contient des cycles).",
+    mp2i: true,
+  },
+  {
+    question:
+      "Laquelle de ces syntaxes est correcte pour utiliser une exception en OCaml ?",
+    answers: [
+      code([
+        "exception E of int",
+        "try",
+        "  ... raise (E 3) ...",
+        "with",
+        "  | E n -> ...",
+        "  | Division_by_zero -> ...",
+      ]),
+      code([
+        "exception E of int",
+        "try",
+        "  ... fail (E 3) ...",
+        "with",
+        "  | E n -> ...",
+        "  | Division_by_zero -> ...",
+      ]),
+      code([
+        "exception E of int",
+        "try",
+        "  ... raise (E 3) ...",
+        "do",
+        "  | E n -> ...",
+        "  | Division_by_zero -> ...",
+      ]),
+      code([
+        "exception E of int",
+        "try",
+        "  ... fail (E 3) ...",
+        "do",
+        "  | E n -> ...",
+        "  | Division_by_zero -> ...",
+      ]),
+    ],
+    correct: 0,
+    explanation:
+      "`raise` est utilisé pour déclencher une exception, et `with` pour la capturer.",
+    mp2i: true,
+  },
+  {
+    question:
+      "Comment compléter le code suivant pour que le programme termine et soit correct ?\n" +
+      code(
+        [
+          "bool dichotomie(int e, int* T, int n) {",
+          "  // dichotomie(e, T, n) renvoie true ssi e appartient au tableau T trié de taille n",
+          "  int g = 0, d = n - 1;",
+          "  while (g <= d) {",
+          "    int m = ...; // 1",
+          "    if (T[m] == e) return true;",
+          "    else if (T[m] < e) ...; // 2",
+          "    else ...;",
+          "  }",
+          "  return false;",
+          "}",
+        ],
+        "c",
+      ),
+    answers: [
+      code(["m = (g + d) / 2; // 1"], "c"),
+      code(["m = (d - g) / 2; // 1"], "c"),
+      code(["else if (T[m] < e) g = m; // 2", "else d = m;"], "c"),
+      code(["else if (T[m] < e) d = m; // 2", "else g = m;"], "c"),
+      code(["else if (T[m] < e) g = m + 1; // 2", "else d = m - 1;"], "c"),
+      code(["else if (T[m] < e) d = m - 1; // 2", "else g = m + 1;"], "c"),
     ],
     correct: [0, 4],
     explanation: [
@@ -41,18 +129,20 @@ export const questions = [
     mp2i: true,
   },
   {
-    question: [
-      "On exécute le code C suivant. Quelle affirmation est correcte ?",
-      "```c",
-      "#include <stdio.h>",
-      "",
-      "int main() {",
-      "  for (unsigned int i = 3; i >= 0; i--)",
-      '    printf("%u ", i);',
-      "  return 0;",
-      "}",
-      "```",
-    ].join("\n"),
+    question:
+      "On exécute le code C suivant. Quelle affirmation est correcte ?\n" +
+      code(
+        [
+          "#include <stdio.h>",
+          "",
+          "int main() {",
+          "  for (unsigned int i = 3; i >= 0; i--)",
+          '    printf("%u ", i);',
+          "  return 0;",
+          "}",
+        ],
+        "c",
+      ),
     answers: [
       "Le programme ne compile pas.",
       "Le programme ne termine pas.",
@@ -94,6 +184,7 @@ export const questions = [
       "À un graphe non-orienté $G$, associer un graphe orienté $G'$ en orientant chaque arête de $G$ dans un sens arbitraire.",
       "À un graphe non-orienté $G$, associer un graphe orienté $G'$ en remplaçant chaque arête de $G$ par deux arêtes dans les deux sens.",
     ],
+    columns: 1,
     correct: 3,
     explanation: [
       "Une fonction de réduction doit prendre et renvoyer une instance (pas une solution).",
@@ -102,19 +193,21 @@ export const questions = [
     mp2i: false,
   },
   {
-    question: [
-      "On exécute le code C suivant. Quel schéma représente correctement l'état mémoire final ?",
-      "```c",
-      "int a = 1;",
-      "int b = 2;",
-      "int* p = &a;",
-      "int* q = &b;",
-      "*p = 3;",
-      "q = p;",
-      "*q = 4;",
-      "```",
-      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 3 | 4 |  &amp;a |  &amp;b |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 1</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 4 | 2 |  &amp;a |  &amp;a |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 2</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 1 | 4 |  &amp;a |  &amp;b |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 3</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 4 | 2 |  &amp;b |  &amp;a |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 4</p></div></div>',
-    ].join("\n"),
+    question:
+      "On exécute le code C suivant. Quel schéma représente correctement l'état mémoire final ?\n" +
+      code(
+        [
+          "int a = 1;",
+          "int b = 2;",
+          "int* p = &a;",
+          "int* q = &b;",
+          "*p = 3;",
+          "q = p;",
+          "*q = 4;",
+        ],
+        "c",
+      ) +
+      '\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 3 | 4 |  &amp;a |  &amp;b |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 1</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 4 | 2 |  &amp;a |  &amp;a |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 2</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 1 | 4 |  &amp;a |  &amp;b |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 3</p></div><div><pre>+---+---+-----+-----+\n| a | b |  p  |  q  |\n+---+---+-----+-----+\n| 4 | 2 |  &amp;b |  &amp;a |\n+---+---+-----+-----+</pre><p style="text-align:center;margin:6px 0 0;">Schéma 4</p></div></div>',
     answers: ["Schéma 1", "Schéma 2", "Schéma 3", "Schéma 4"],
     correct: 1,
     explanation:
@@ -123,17 +216,17 @@ export const questions = [
   },
   {
     question: [
-      "On considère le problème d'optimisation COUPLAGE suivant ainsi qu'un problème de décision DCOUPLAGE associé :",
+      "On considère le problème d'optimisation COUPLAGE suivant ainsi qu'un problème de décision `DCOUPLAGE` associé :",
       '<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">COUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$<br><strong>Sortie :</strong> un couplage maximum de $G$</div></div>',
     ].join("\n"),
     answers: [
-      '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal inférieur à $k$ ?</div></div>',
-      '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal égal à $k$ ?</div></div>',
-      '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal supérieur à $k$ ?</div></div>',
       "DCOUPLAGE $\\in$ P",
       "DCOUPLAGE $\\in$ NP",
       "DCOUPLAGE $\\in$ NP-difficile",
       "DCOUPLAGE $\\in$ NP-complet",
+      '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal inférieur à $k$ ?</div></div>',
+      '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal égal à $k$ ?</div></div>',
+      '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal supérieur à $k$ ?</div></div>',
     ],
     correct: [1, 2, 3, 4],
     explanation: [
@@ -163,21 +256,20 @@ export const questions = [
     mp2i: true,
   },
   {
-    question: [
-      "Avec le type OCaml suivant et `v` une variable de type `t`, quelles sont les syntaxes valides ?",
-      "```ocaml",
-      "type t = {x : int; a : int array}```",
-    ].join("\n"),
+    question:
+      "Avec le type OCaml suivant et `v` une variable de type `t`, quelles sont les syntaxes valides ?\n" +
+      code(["type t = {x : int; a : int array}"]),
     answers: [
-      "`let w = {0; [|1; 2; 3|]}`",
-      "`let w = {x : 0; a : [|1; 2; 3|]}`",
-      "`let w = {x = 0; a = [|1; 2; 3|]}`",
-      "`v.x`",
-      "`v->x`",
-      "`v.x = 1`",
-      "`v.x <- 1`",
-      "`v.a.(0) = 1` (en supposant que `v.a` a au moins un élément)",
-      "`v.a.(0) <- 1` (en supposant que `v.a` a au moins un élément)",
+      code(["let w = {0; [|1; 2; 3|]}"]),
+      code(["let w = {x : 0; a : [|1; 2; 3|]}"]),
+      code(["let w = {x = 0; a = [|1; 2; 3|]}"]),
+      code(["v.x"]),
+      code(["v->x"]),
+      code(["v.x = 1"]),
+      code(["v.x <- 1"]),
+      code(["v.a.(0) = 1"]) + " (en supposant que `v.a` a au moins un élément)",
+      code(["v.a.(0) <- 1"]) +
+        " (en supposant que `v.a` a au moins un élément)",
     ],
     correct: [2, 3, 5, 6, 7, 8],
     explanation:
@@ -185,36 +277,38 @@ export const questions = [
     mp2i: true,
   },
   {
-    question: [
-      "Quelles sont les lignes donnant une erreur (ou comportement indéfini) ?",
-      "```c",
-      "#include <stdio.h>",
-      "",
-      "typedef struct { int x; int* a; } t;",
-      "",
-      "t f() {",
-      "    t res;",
-      "    int x = 0;",
-      "    int a[] = {1, 2};",
-      "    res.x = x;",
-      "    res.a = a;",
-      "    return res;",
-      "}",
-      "",
-      "int main() {",
-      "    t res = f();",
-      '    printf("%d", res.x);',
-      '    printf("%d", res.a[1]);',
-      "    return 0;",
-      "}",
-      "```",
-    ].join("\n"),
+    question:
+      "Quelles sont les lignes donnant une erreur (ou comportement indéfini) ?\n" +
+      code(
+        [
+          "#include <stdio.h>",
+          "",
+          "typedef struct { int x; int* a; } t;",
+          "",
+          "t f() {",
+          "    t res;",
+          "    int x = 0;",
+          "    int a[] = {1, 2};",
+          "    res.x = x;",
+          "    res.a = a;",
+          "    return res;",
+          "}",
+          "",
+          "int main() {",
+          "    t res = f();",
+          '    printf("%d", res.x);',
+          '    printf("%d", res.a[1]);',
+          "    return 0;",
+          "}",
+        ],
+        "c",
+      ),
     answers: [
-      "`int a[] = {1, 2};`",
-      "`res.x = x;`",
-      "`res.a = a;`",
-      '`printf("%d", res.x);`',
-      '`printf("%d", res.a[1]);`',
+      code(["int a[] = {1, 2};"], "c"),
+      code(["res.x = x;"], "c"),
+      code(["res.a = a;"], "c"),
+      code(['printf("%d", res.x);'], "c"),
+      code(['printf("%d", res.a[1]);'], "c"),
     ],
     correct: [4],
     explanation: [
@@ -224,26 +318,28 @@ export const questions = [
     mp2i: true,
   },
   {
-    question: [
-      'Après les lignes suivantes, que donne `printf("%d", x);`, `printf("%d", y);`, `printf("%d", z);` ?',
-      "```c",
-      "int x = 0, y = 1;",
-      "if (y == 1) {",
-      "  int x, z = 2;",
-      "  x = 1;",
-      "  y = 2;",
-      "}",
-      "```",
-    ].join("\n"),
+    question:
+      'Après les lignes suivantes, que donne `printf("%d", x);`, `printf("%d", y);`, `printf("%d", z);` ?\n' +
+      code(
+        [
+          "int x = 0, y = 1;",
+          "if (y == 1) {",
+          "  int x, z = 2;",
+          "  x = 1;",
+          "  y = 2;",
+          "}",
+        ],
+        "c",
+      ),
     answers: [
-      "`0, 1, 2`",
-      "`0, 2, 2`",
-      "`1, 1, 2`",
-      "`1, 2, 2`",
-      "`0, 1, erreur`",
-      "`0, 2, erreur`",
-      "`1, 1, erreur`",
-      "`1, 2, erreur`",
+      code(["0, 1, 2"], "text"),
+      code(["0, 2, 2"], "text"),
+      code(["1, 1, 2"], "text"),
+      code(["1, 2, 2"], "text"),
+      code(["0, 1, erreur"], "text"),
+      code(["0, 2, erreur"], "text"),
+      code(["1, 1, erreur"], "text"),
+      code(["1, 2, erreur"], "text"),
     ],
     correct: [5],
     explanation:
@@ -265,17 +361,19 @@ export const questions = [
     mp2i: false,
   },
   {
-    question: [
-      "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?",
-      "```c",
-      "int c = 10;",
-      "",
-      "void f() {",
-      "  for(int i = 0; i < 5; i++)",
-      "    c--;",
-      "}",
-      "```",
-    ].join("\n"),
+    question:
+      "Quelles sont les valeurs possibles de `c` si deux threads exécutent la fonction `f` ?\n" +
+      code(
+        [
+          "int c = 10;",
+          "",
+          "void f() {",
+          "  for(int i = 0; i < 5; i++)",
+          "    c--;",
+          "}",
+        ],
+        "c",
+      ),
     answers: ["Seulement 0", "De 0 à 8", "De 0 à 9", "De 0 à 10"],
     correct: 1,
     explanation: "Similaire au compteur du cours.",
@@ -784,7 +882,8 @@ export const questions = [
     answers: [
       "Tableau `T` où `T[i]` est le père de `T[2i+1]` et `T[2i+2]`",
       "Tableau `T` où `T[i]` est le père de `i`",
-      "Type OCaml `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+      "Type OCaml\n" +
+        code(["type 'a arb = Empty | Node of 'a * 'a arb * 'a arb"]),
       "Dictionnaire associant à chaque sommet la liste de ses fils",
     ],
     correct: 0,
@@ -1010,40 +1109,45 @@ export const questions = [
     correct: [0, 2, 3],
     explanation: [
       "La première est la syntaxe classique pour déclarer une matrice sur la pile en C.",
-      "La deuxième est incorrecte car elle fait pointer toutes les lignes vers le même tableau (aliasing). Corrigé :",
-      "```c",
-      "int** m = malloc(3 * sizeof(int*));",
-      "for (int i = 0; i < 3; i++)",
-      "  m[i] = malloc(4 * sizeof(int));",
-      "m[2][3] = 5;",
-      "```",
+      "La deuxième est incorrecte car elle fait pointer toutes les lignes vers le même tableau (aliasing). Corrigé :\n" +
+        code(
+          [
+            "int** m = malloc(3 * sizeof(int*));",
+            "for (int i = 0; i < 3; i++)",
+            "  m[i] = malloc(4 * sizeof(int));",
+            "m[2][3] = 5;",
+          ],
+          "c",
+        ),
       "La troisième est correcte par linéarisation d'une matrice 2D avec un tableau 1D.",
       "La quatrième est correcte par linéarisation d'une matrice 2D avec un tableau 1D alloué dynamiquement.",
     ].join("\n"),
     mp2i: false,
   },
   {
-    question: [
-      "Quelles sont les syntaxes raisonnables après le code suivant ?",
-      "```c",
-      "int* x = malloc(sizeof(int));",
-      "int* y = malloc(sizeof(int));",
-      "typedef struct {",
-      "  int a;",
-      "} s;",
-      "s* p = malloc(sizeof(s));",
-      "```",
-    ].join("\n"),
+    question:
+      "Quelles sont les syntaxes raisonnables après le code suivant ?\n" +
+      code(
+        [
+          "int* x = malloc(sizeof(int));",
+          "int* y = malloc(sizeof(int));",
+          "typedef struct {",
+          "  int a;",
+          "} s;",
+          "s* p = malloc(sizeof(s));",
+        ],
+        "c",
+      ),
     answers: [
-      "`x = y;`",
-      "`x = &y;`",
-      "`&x = y;`",
-      "`*x = y;`",
-      "`x = *y;`",
-      "`*x = *y;`",
-      "`p.a = 5;`",
-      "`p->a = 5;`",
-      "`(*p).a = 5;`",
+      code(["x = y;"], "c"),
+      code(["x = &y;"], "c"),
+      code(["&x = y;"], "c"),
+      code(["*x = y;"], "c"),
+      code(["x = *y;"], "c"),
+      code(["*x = *y;"], "c"),
+      code(["p.a = 5;"], "c"),
+      code(["p->a = 5;"], "c"),
+      code(["(*p).a = 5;"], "c"),
     ],
     correct: [0, 5, 7, 8],
     explanation: [
@@ -1274,7 +1378,8 @@ export const questions = [
     answers: [
       "Liste",
       "Tableau",
-      "Arbre binaire avec `type 'a arb = Empty | Node of 'a * 'a arb * 'a arb`",
+      "Arbre binaire avec\n" +
+        code(["type 'a arb = Empty | Node of 'a * 'a arb * 'a arb"]),
       "Tas binaire comme dans le cours",
       "Chaîne de caractères en C",
       "Chaîne de caractères en OCaml",
