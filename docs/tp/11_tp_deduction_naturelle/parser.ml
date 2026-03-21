@@ -87,3 +87,10 @@ let parse str =
     let g, rest = parse_g tks [] in
     let p, rest' = parse_expr rest in
     if rest' <> [] then failwith "Jetons après phi" else { gamma = g; phi = p }
+
+let rec aux depth (Noeud (r, s, premises)) =
+  let indent = String.make (depth * 2) ' ' in
+  Printf.printf "%s[%s] %s\n" indent (string_of_regle r) (string_of_sequent s);
+  List.iter (aux (depth + 1)) premises
+
+let afficher_arbre_preuve = aux 1 
