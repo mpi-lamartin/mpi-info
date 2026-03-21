@@ -1,5 +1,13 @@
 export const questions = [
   {
+    question:
+      "Quelle est la bonne syntaxe pour utiliser une exception en OCaml ?",
+    answers: [
+      ["```ocaml", 'raise (Failure "message")', "```"].join("\n"),
+      ["```ocaml", 'raise (Failure "message") with e -> ...', "```"].join("\n"),
+    ],
+  },
+  {
     question: [
       "Comment compléter le code suivant pour que le programme termine et soit correct ?",
       "```c",
