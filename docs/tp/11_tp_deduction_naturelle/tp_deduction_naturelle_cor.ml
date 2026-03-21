@@ -5,12 +5,11 @@ type formule =
   | Or of formule * formule
   | Implies of formule * formule
   | Not of formule
-;;
 
 type sequent = {
   gamma : formule list;
   phi : formule;
-};;
+}
 
 (* Réponse Q2 *)
 let rec string_of_formule = function
@@ -19,7 +18,7 @@ let rec string_of_formule = function
   | And (f1, f2) -> "(" ^ string_of_formule f1 ^ " & " ^ string_of_formule f2 ^ ")"
   | Or (f1, f2) -> "(" ^ string_of_formule f1 ^ " | " ^ string_of_formule f2 ^ ")"
   | Implies (f1, f2) -> "(" ^ string_of_formule f1 ^ " -> " ^ string_of_formule f2 ^ ")"
-  | Not f -> "(! " ^ string_of_formule f ^ ")";;
+  | Not f -> "(! " ^ string_of_formule f ^ ")"
 
 (* Réponse Q3 *)
 let string_of_sequent s =
@@ -31,11 +30,11 @@ type regle =
   | ImpliesIntro | ImpliesElim of formule (* A *)
   | AndIntro | AndElim1 of formule (* B *) | AndElim2 of formule (* A *)
   | OrIntro1 | OrIntro2 | OrElim of formule * formule (* A, B *)
-  | NotElim of formule (* A *) | NotIntro;;
+  | NotElim of formule (* A *) | NotIntro
 
-#use "docs/tp/11_tp_deduction_naturelle/parser.ml";;
+#use "docs/tp/11_tp_deduction_naturelle/parser.ml"
 
-type arbre_preuve = Noeud of regle * sequent * arbre_preuve list;;
+type arbre_preuve = Noeud of regle * sequent * arbre_preuve list
 
 let string_of_regle = function
   | Axiom -> "Axiom"
@@ -53,7 +52,7 @@ let string_of_regle = function
 let rec afficher_arbre_preuve depth (Noeud (r, s, premises)) =
   let indent = String.make (depth * 2) ' ' in
   Printf.printf "%s[%s] %s\n" indent (string_of_regle r) (string_of_sequent s);
-  List.iter (afficher_arbre_preuve (depth + 1)) premises;;
+  List.iter (afficher_arbre_preuve (depth + 1)) premises
 
 (* Réponse Q4 *)
 let appliquer_regle r s =
@@ -85,13 +84,13 @@ let appliquer_regle r s =
         {gamma = f1 :: s.gamma; phi = s.phi};
         {gamma = f2 :: s.gamma; phi = s.phi}
       ]
-  | _, _ -> None;;
+  | _, _ -> None
 
-appliquer_regle Axiom (parse "A |- A");;
-appliquer_regle Axiom (parse "A |- B");; 
-appliquer_regle AndIntro (parse "A |- (A & B)");;
-appliquer_regle (NotElim ((parse "A | B").phi)) (parse "B, !A |- F");;
-appliquer_regle (OrElim (Var "A", Var "B")) (parse "|- C");; 
+appliquer_regle Axiom (parse "A |- A")
+appliquer_regle Axiom (parse "A |- B") 
+appliquer_regle AndIntro (parse "A |- (A & B)")
+appliquer_regle (NotElim ((parse "A | B").phi)) (parse "B, !A |- F")
+appliquer_regle (OrElim (Var "A", Var "B")) (parse "|- C") 
 
 (* Fonction utilitaire : Extraire les sous-formules *)
 let rec sous_formules_f f =
@@ -101,12 +100,12 @@ let rec sous_formules_f f =
   | Not f1 -> f :: sous_formules_f f1
   | _ -> [f]
 
-sous_formules_f (parse "A & (B | C)").phi;;
+sous_formules_f (parse "A & (B | C)").phi
 
 let sous_formules_gamma gamma =
   List.map sous_formules_f gamma |> List.concat (* |> List.sort_uniq compare) *)
 
-sous_formules_gamma (parse "(A & B), (C | D) |- A").gamma;;
+sous_formules_gamma (parse "(A & B), (C | D) |- A").gamma
 
 (* Réponse Q5 *)
 let regles_possibles s =
@@ -132,7 +131,7 @@ let regles_possibles s =
   (* On privilégie l'axiome, puis les intros, puis les éliminations limitées aux sous-formules *)
   Axiom :: (intros @ elims)
 
-regles_possibles (parse "(A & B) |- A");;
+regles_possibles (parse "A |- A | B")
 (* Réponse Q6 *)
 let rec prouver depth s =
   if depth <= 0 then None
@@ -159,9 +158,9 @@ let rec prouver depth s =
               | Some trees -> Some (Noeud (r, s, trees))
     in try_rules rules
 
-prouver 2 (parse "(A & B) |- A") |> Option.iter (afficher_arbre_preuve 1);;
-prouver 4 (parse "|- (A & B) -> (B & A)") |> Option.iter (afficher_arbre_preuve 1);;
-prouver 6 (parse "|- (A & (B | C)) -> ((A & B) | (A & C))") |> Option.iter (afficher_arbre_preuve 1);;
+prouver 2 (parse "(A & B) |- A") |> Option.iter (afficher_arbre_preuve 1)
+prouver 4 (parse "|- (A & B) -> (B & A)") |> Option.iter (afficher_arbre_preuve 1)
+prouver 6 (parse "|- (A & (B | C)) -> ((A & B) | (A & C))") |> Option.iter (afficher_arbre_preuve 1)
 
 (* Réponse Q7 *)
 let prouver_min max_depth s =
