@@ -6,7 +6,6 @@ pdf: "mines_0"
 ---
 import Button from '@site/src/components/Button';
 
-Merci à Jean-Baptiste Bianquis pour la correction de ce sujet.
 <Button 
     pdf={require(`./${frontMatter.pdf}.pdf`).default}
     cor={require(`./${frontMatter.pdf}_cor.pdf`).default}
