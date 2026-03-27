@@ -1,14 +1,13 @@
 ---
 hide_table_of_contents: true
 hide_title: true
-title: "TD chaînes de caractères"
-pdf: "td_string"
-cor: true
+title: "EPITA 2024"
+pdf: "epita24"
 ---
 
 import Button from "@site/src/components/Button";
 
 <Button
   pdf={require(`./${frontMatter.pdf}.pdf`).default}
-  cor={frontMatter.cor ? require(`./${frontMatter.pdf}_cor.pdf`).default : null}
+  cor={require(`./${frontMatter.pdf}_cor.pdf`).default}
 />
