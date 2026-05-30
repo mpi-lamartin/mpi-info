@@ -1,9 +1,12 @@
 ---
 hide_table_of_contents: true
 hide_title: false
-cor: false
+cor: true
 title: "TP 14 : Centrale Hashlife ou CCINP 2024"
 ---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import corrigePdf from "./cor/hashlife_corrige.pdf";
 
 [![Codespace](https://github.com/codespaces/badge.svg)](https://codespaces.new/mpi-lamartin/environnement?quickstart=1)
 
@@ -15,9 +18,9 @@ Centrale :
 {frontMatter.cor && (
 
   <ul>
-    <li><a href="./cor/hashlife_corrige.pdf">Corrigé PDF</a>.</li>
-    <li><a href="./cor/hashlife.c">hashlife.c</a>.</li>
-    <li><a href="./cor/quadtree.c">quadtree.c</a>.</li>
+    <li><a href={corrigePdf}>Corrigé PDF</a>.</li>
+    <li><a href={useBaseUrl("/docs/tp/14_tp_hashlife/cor/hashlife.c")}>Corrigé C</a>.</li>
+    <li><a href={useBaseUrl("/docs/tp/14_tp_hashlife/cor/quadtree.c")}>Corrigé OCaml</a>.</li>
   </ul>
 )}
 
