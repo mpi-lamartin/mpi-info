@@ -1,0 +1,28 @@
+\documentclass{standalone}
+
+\usepackage[french]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{ebproof}
+
+\begin{document}
+
+\begin{prooftree}
+  \hypo{((a \to b) \land (b \to c))^{1}}
+  \hypo{a \lor b^{2}}
+  \hypo{((a \to b) \land (b \to c))^{1}}
+  \infer1[$\land e_1$]{a \to b}
+  \hypo{a^{3}}
+  \infer2[$\to e$]{b}
+  \hypo{((a \to b) \land (b \to c))^{1}}
+  \infer1[$\land e_2$]{b \to c}
+  \infer2[$\to e$]{c}
+  \hypo{((a \to b) \land (b \to c))^{1}}
+  \infer1[$\land e_2$]{b \to c}
+  \hypo{b^{4}}
+  \infer2[$\to e$]{c}
+  \infer3[$\lor e$]{c}
+  \infer1[$\to i^{2}$]{(a \lor b) \to c}
+  \infer1[$\to i^{1}$]{((a \to b) \land (b \to c)) \to ((a \lor b) \to c)}
+\end{prooftree}
+
+\end{document}

@@ -1,0 +1,24 @@
+\documentclass{standalone}
+
+\usepackage[french]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{ebproof}
+
+\begin{document}
+
+\begin{prooftree}
+  \hypo{x : a \vdash x : a}
+  \infer1[$\mathrm{Fun}$]{\vdash \mathrm{fun}\ x \to x : a \to a}
+  \hypo{f : \forall a.\ a \to a \vdash f : \mathrm{int} \to \mathrm{int}}
+  \hypo{f : \forall a.\ a \to a \vdash 1 : \mathrm{int}}
+  \infer2[$\mathrm{App}$]{f : \forall a.\ a \to a \vdash f\ 1 : \mathrm{int}}
+  \hypo{f : \forall a.\ a \to a \vdash f : (\mathrm{int} \ast \mathrm{int}) \to (\mathrm{int} \ast \mathrm{int})}
+  \hypo{f : \forall a.\ a \to a \vdash 1 : \mathrm{int}}
+  \hypo{f : \forall a.\ a \to a \vdash 1 : \mathrm{int}}
+  \infer2[$\mathrm{Couple}$]{f : \forall a.\ a \to a \vdash (1, 1) : \mathrm{int} \ast \mathrm{int}}
+  \infer2[$\mathrm{App}$]{f : \forall a.\ a \to a \vdash f\ (1, 1) : \mathrm{int} \ast \mathrm{int}}
+  \infer2[$\mathrm{Couple}$]{f : \forall a.\ a \to a \vdash (f\ 1, f\ (1, 1)) : \mathrm{int} \ast (\mathrm{int} \ast \mathrm{int})}
+  \infer2[$\mathrm{Let}$]{\vdash \mathrm{let}\ f = \mathrm{fun}\ x \to x\ \mathrm{in}\ (f\ 1, f\ (1, 1)) : \mathrm{int} \ast (\mathrm{int} \ast \mathrm{int})}
+\end{prooftree}
+
+\end{document}

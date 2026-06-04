@@ -1,0 +1,22 @@
+\documentclass{standalone}
+
+\usepackage[french]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{ebproof}
+
+\begin{document}
+
+\begin{prooftree}
+  \hypo{x : \mathrm{int} \vdash + : (\mathrm{int} \ast \mathrm{int}) \to \mathrm{int}}
+  \hypo{x : \mathrm{int} \vdash x : \mathrm{int}}
+  \hypo{x : \mathrm{int} \vdash 1 : \mathrm{int}}
+  \infer2[$\mathrm{Couple}$]{x : \mathrm{int} \vdash (x, 1) : \mathrm{int} \ast \mathrm{int}}
+  \infer2[$\mathrm{App}$]{x : \mathrm{int} \vdash +(x, 1) : \mathrm{int}}
+  \infer1[$\mathrm{Fun}$]{\vdash \mathrm{fun}\ (x : \mathrm{int}) \to +(x, 1) : \mathrm{int} \to \mathrm{int}}
+  \hypo{f : \mathrm{int} \to \mathrm{int} \vdash f : \mathrm{int} \to \mathrm{int}}
+  \hypo{f : \mathrm{int} \to \mathrm{int} \vdash 2 : \mathrm{int}}
+  \infer2[$\mathrm{App}$]{f : \mathrm{int} \to \mathrm{int} \vdash f\ 2 : \mathrm{int}}
+  \infer2[$\mathrm{Let}$]{\vdash \mathrm{let}\ f = \mathrm{fun}\ (x : \mathrm{int}) \to +(x, 1)\ \mathrm{in}\ f\ 2 : \mathrm{int}}
+\end{prooftree}
+
+\end{document}
