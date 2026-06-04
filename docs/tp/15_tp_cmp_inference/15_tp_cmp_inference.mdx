@@ -1,0 +1,498 @@
+---
+hide_table_of_contents: true
+hide_title: false
+cor: false
+title: "TP 15 (Mines-Pont) : Inférence de type"
+description: Dictionnaire persistant, unification et algorithme W
+---
+
+import Solution from "@site/src/components/Solution";
+import TP from "!!raw-loader!./inference_cor.ml";
+import Q1Proof from "./tex/q1_deduction_naturelle.png";
+import Q4Proof from "./tex/q4_typage_annote.png";
+import Q8Proof from "./tex/q8_typage_sans_annotation.png";
+import Q12Proof from "./tex/q12_typage_polymorphe.png";
+
+[![Codespace](https://github.com/codespaces/badge.svg)](https://codespaces.new/mpi-lamartin/environnement?quickstart=1)
+
+<Solution file={TP} lang="ocaml" show={frontMatter.cor}></Solution>
+
+Dans ce TP, on implémente progressivement un inféreur de types pour un mini-langage fonctionnel à la OCaml.
+
+- [Sujet PDF](./sujet_inference/inference_type.pdf)
+- [Fichier de départ](./sujet_inference/inference.ml)
+
+## Déduction naturelle
+
+1. Donner sur papier une dérivation en déduction naturelle du séquent
+
+$$
+\vdash ((a \to b) \land (b \to c)) \to (a \lor b) \to c
+$$
+
+<details>
+<summary>Corrigé</summary>
+
+<img src={Q1Proof} alt="Arbre de preuve de la question 1" />
+
+Avec $\Gamma = \{(a \to b) \land (b \to c),\ a \lor b\}$.
+
+</details>
+
+## Dictionnaire persistant
+
+2. Implémenter une structure persistante de dictionnaire à l'aide d'arbres binaires de recherche dans un type `('a, 'b) dict`.
+
+Seules trois opérations sont nécessaires dans la suite :
+
+- créer un dictionnaire vide ;
+- récupérer la valeur associée à une clé ;
+- insérer une paire clé-valeur.
+
+<details>
+<summary>Corrigé</summary>
+
+Une implémentation simple est :
+
+```ocaml
+type ('a, 'b) dict =
+  | Empty
+  | Node of ('a, 'b) dict * 'a * 'b * ('a, 'b) dict
+
+let creer_dictionnaire () = Empty
+
+let rec trouver cle = function
+  | Empty -> None
+  | Node (gauche, cle_noeud, valeur, droite) ->
+      let comparaison = Stdlib.compare cle cle_noeud in
+      if comparaison = 0 then Some valeur
+      else if comparaison < 0 then trouver cle gauche
+      else trouver cle droite
+
+let rec inserer cle valeur = function
+  | Empty -> Node (Empty, cle, valeur, Empty)
+  | Node (gauche, cle_noeud, valeur_noeud, droite) ->
+      let comparaison = Stdlib.compare cle cle_noeud in
+      if comparaison = 0 then Node (gauche, cle, valeur, droite)
+      else if comparaison < 0 then
+        Node (inserer cle valeur gauche, cle_noeud, valeur_noeud, droite)
+      else
+        Node (gauche, cle_noeud, valeur_noeud, inserer cle valeur droite)
+```
+
+Les opérations `trouver` et `inserer` sont en $O(h)$ où $h$ est la hauteur de l'arbre, donc en $O(n)$ au pire sans équilibrage. L'insertion persistante alloue aussi $O(h)$ nouveaux nœuds.
+
+</details>
+
+## Inférence avec annotation des paramètres
+
+On considère d'abord le langage et les types suivants.
+
+```ocaml
+type typ1 =
+  | Int
+  | Arrow of typ1 * typ1
+  | Product of typ1 * typ1
+
+type expression1 =
+  | Var of string
+  | Const of int
+  | Op of string
+  | Fun of string * typ1 * expression1
+  | App of expression1 * expression1
+  | Couple of expression1 * expression1
+  | Let of string * expression1 * expression1
+```
+
+On suppose que tous les opérateurs `Op` ont le type `(int * int) -> int`.
+
+3. Déterminer le type de l'expression suivante :
+
+```ocaml
+Let ("f",
+Fun ("x", Int, App (Op "+", Couple (Var "x", Const 1))),
+App (Var "f", Const 2))
+```
+
+<details>
+<summary>Corrigé</summary>
+
+La sous-expression
+
+```ocaml
+fun (x : int) -> + (x, 1)
+```
+
+est de type `int -> int`. On applique ensuite `f` à `2`, donc l'expression entière a le type
+
+```ocaml
+int
+```
+
+</details>
+
+4. En donner une dérivation dans le système de typage fourni.
+
+<details>
+<summary>Corrigé</summary>
+
+Une dérivation condensée est :
+
+```text
+x : int |- x : int
+x : int |- 1 : int
+x : int |- + : (int * int) -> int
+x : int |- (x, 1) : int * int
+x : int |- + (x, 1) : int
+|- fun (x : int) -> + (x, 1) : int -> int
+
+f : int -> int |- f : int -> int
+f : int -> int |- 2 : int
+f : int -> int |- f 2 : int
+
+|- let f = fun (x : int) -> + (x, 1) in f 2 : int
+```
+
+<img src={Q4Proof} alt="Arbre de typage de la question 4" />
+
+</details>
+
+5. Écrire `print_typ1 : typ1 -> unit` et `print_expression1 : expression1 -> unit`.
+
+<details>
+<summary>Corrigé</summary>
+
+Une solution consiste à écrire des fonctions `string_of_...` puis à les afficher.
+
+```ocaml
+let string_of_typ1 typ =
+  let rec aux priorite = function
+    | Int -> "int"
+    | Product (gauche, droite) ->
+        parentheser (priorite > 1) (aux 1 gauche ^ " * " ^ aux 1 droite)
+    | Arrow (gauche, droite) ->
+        parentheser (priorite > 0) (aux 2 gauche ^ " -> " ^ aux 0 droite)
+  in
+  aux 0 typ
+
+let print_typ1 typ = print_string (string_of_typ1 typ)
+let print_expression1 expression = print_string (string_of_expression1 expression)
+```
+
+</details>
+
+6. Écrire `typ_expr : expression1 -> typ1`, qui lève une erreur si l'expression n'est pas typable.
+
+<details>
+<summary>Corrigé</summary>
+
+```ocaml
+let typ_expr expression =
+  let rec aux environnement = function
+    | Var nom -> valeur_associee nom environnement
+    | Const _ -> Int
+    | Op _ -> Arrow (Product (Int, Int), Int)
+    | Fun (nom, typ_argument, corps) ->
+        let environnement = inserer nom typ_argument environnement in
+        Arrow (typ_argument, aux environnement corps)
+    | App (fonction, argument) ->
+        let typ_fonction = aux environnement fonction in
+        let typ_argument = aux environnement argument in
+        begin
+          match typ_fonction with
+          | Arrow (attendu, resultat) when attendu = typ_argument -> resultat
+          | Arrow _ -> failwith "argument de type incorrect"
+          | _ -> failwith "application d'une expression non fonctionnelle"
+        end
+    | Couple (gauche, droite) -> Product (aux environnement gauche, aux environnement droite)
+    | Let (nom, valeur, corps) ->
+        let typ_valeur = aux environnement valeur in
+        aux (inserer nom typ_valeur environnement) corps
+  in
+  aux (creer_dictionnaire ()) expression
+```
+
+</details>
+
+## Inférence sans annotation
+
+On retire ensuite les annotations de type des paramètres et on introduit des variables de type.
+
+```ocaml
+type typ2 =
+  | Int
+  | Arrow of typ2 * typ2
+  | Product of typ2 * typ2
+  | Tvar of int
+
+type expression2 =
+  | Var of string
+  | Const of int
+  | Op of string
+  | Fun of string * expression2
+  | App of expression2 * expression2
+  | Couple of expression2 * expression2
+  | Let of string * expression2 * expression2
+```
+
+Dans toute cette partie, on ne considère que des expressions sans `Let`.
+
+7. Écrire `print_typ2` et `print_expression2`.
+
+<details>
+<summary>Corrigé</summary>
+
+Le principe est identique à la question 5, avec un cas supplémentaire pour `Tvar`.
+
+```ocaml
+let string_of_typ2 typ =
+  let rec aux priorite = function
+    | Int -> "int"
+    | Tvar numero -> string_of_int numero
+    | Product (gauche, droite) ->
+        parentheser (priorite > 1) (aux 1 gauche ^ " * " ^ aux 1 droite)
+    | Arrow (gauche, droite) ->
+        parentheser (priorite > 0) (aux 2 gauche ^ " -> " ^ aux 0 droite)
+  in
+  aux 0 typ
+
+let print_typ2 typ = print_string (string_of_typ2 typ)
+let print_expression2 expression = print_string (string_of_expression2 expression)
+```
+
+</details>
+
+8. Donner une dérivation du jugement de type
+
+$$
+\vdash \texttt{fun f -> fun g -> fun x -> f (g x)} : (1 \to 2) \to (0 \to 1) \to 0 \to 2
+$$
+
+<details>
+<summary>Corrigé</summary>
+
+Dans l'environnement
+
+$$
+f : 1 \to 2,\ g : 0 \to 1,\ x : 0
+$$
+
+on obtient successivement :
+
+- `x : 0` ;
+- `g x : 1` ;
+- `f (g x) : 2`.
+
+En réintroduisant ensuite les trois abstractions, on déduit
+
+$$
+(1 \to 2) \to (0 \to 1) \to 0 \to 2
+$$
+
+<img src={Q8Proof} alt="Arbre de typage de la question 8" />
+
+</details>
+
+9. Écrire `appliquer : (int, typ2) dict -> typ2 -> typ2`.
+
+<details>
+<summary>Corrigé</summary>
+
+```ocaml
+let rec appliquer substitution = function
+  | Int -> Int
+  | Tvar numero ->
+      begin
+        match trouver numero substitution with
+        | None -> Tvar numero
+        | Some typ -> appliquer substitution typ
+      end
+  | Arrow (gauche, droite) -> Arrow (appliquer substitution gauche, appliquer substitution droite)
+  | Product (gauche, droite) -> Product (appliquer substitution gauche, appliquer substitution droite)
+```
+
+</details>
+
+10. Écrire `unification : (int, typ2) dict -> typ2 -> typ2 -> (int, typ2) dict`.
+
+<details>
+<summary>Corrigé</summary>
+
+```ocaml
+let rec unification substitution typ_gauche typ_droite =
+  let typ_gauche = appliquer substitution typ_gauche in
+  let typ_droite = appliquer substitution typ_droite in
+  if typ_gauche = typ_droite then substitution
+  else
+    match (typ_gauche, typ_droite) with
+    | Arrow (g1, d1), Arrow (g2, d2) ->
+        let substitution = unification substitution g1 g2 in
+        unification substitution d1 d2
+    | Product (g1, d1), Product (g2, d2) ->
+        let substitution = unification substitution g1 g2 in
+        unification substitution d1 d2
+    | Tvar variable, typ | typ, Tvar variable ->
+        if variable_libre_dans variable typ then failwith "types non unifiables"
+        else ajouter_substitution substitution variable typ
+    | _ -> failwith "types non unifiables"
+```
+
+Le test d'occurrence empêche de fabriquer un type infini.
+
+</details>
+
+11. Écrire une première version de `w : expression2 -> typ2` pour les expressions sans `Let`.
+
+<details>
+<summary>Corrigé</summary>
+
+Dans le corrigé complet, cette première version est nommée `w_sans_polymorphisme` pour laisser `w` à la version finale.
+
+```ocaml
+let w_sans_polymorphisme expression =
+  let rec inferer environnement substitution = function
+    | Var nom -> (substitution, appliquer substitution (valeur_associee nom environnement))
+    | Const _ -> (substitution, Int)
+    | Op _ -> (substitution, Arrow (Product (Int, Int), Int))
+    | Fun (nom, corps) ->
+        let variable = Tvar (nouvelle_variable_type ()) in
+        let environnement = inserer nom variable environnement in
+        let substitution, typ_corps = inferer environnement substitution corps in
+        (substitution, Arrow (appliquer substitution variable, typ_corps))
+    | App (fonction, argument) ->
+        let substitution, typ_fonction = inferer environnement substitution fonction in
+        let substitution, typ_argument = inferer environnement substitution argument in
+        let resultat = Tvar (nouvelle_variable_type ()) in
+        let substitution = unification substitution typ_fonction (Arrow (typ_argument, resultat)) in
+        (substitution, appliquer substitution resultat)
+    | Couple (gauche, droite) ->
+        let substitution, typ_gauche = inferer environnement substitution gauche in
+        let substitution, typ_droite = inferer environnement substitution droite in
+        (substitution, Product (appliquer substitution typ_gauche, appliquer substitution typ_droite))
+    | Let _ -> failwith "les expressions Let ne sont pas traitées dans cette version"
+  in
+  reset_compteur_types ();
+  let _, typ = inferer (creer_dictionnaire ()) (creer_dictionnaire ()) expression in
+  typ
+```
+
+</details>
+
+## Inférence avec polymorphisme
+
+Pour typer correctement les constructions `let`, on généralise le type obtenu pour la variable introduite.
+
+Le système de typage utilise des schémas de types de la forme
+
+$$
+\forall a_1 \dots a_n, t
+$$
+
+et la généralisation
+
+$$
+\mathrm{Gen}(t, \Gamma)
+$$
+
+qui quantifie les variables libres de $t$ qui ne sont pas libres dans l'environnement $\Gamma$.
+
+12. Donner une dérivation du jugement
+
+$$
+\texttt{let f = fun x -> x in (f 1, f (1, 1))} : int \ast (int \ast int)
+$$
+
+<details>
+<summary>Corrigé</summary>
+
+On commence par typer `fun x -> x` avec le type le plus général `a -> a`. Comme `a` n'est pas libre dans l'environnement, on généralise en
+
+$$
+\forall a, a \to a
+$$
+
+Puis on instancie indépendamment `f` à chaque occurrence.
+
+- pour `f 1`, on prend `f : int -> int`, donc `f 1 : int` ;
+- pour `f (1, 1)`, on prend `f : (int \ast int) -> (int \ast int)`, donc `f (1, 1) : int \ast int`.
+
+On conclut donc
+
+$$
+	exttt{let f = fun x -> x in (f 1, f (1, 1))} : int \ast (int \ast int)
+$$
+
+<img src={Q12Proof} alt="Arbre de typage polymorphe de la question 12" />
+
+</details>
+
+13. Écrire une nouvelle version de `w` implémentant l'algorithme W polymorphe.
+
+<details>
+<summary>Corrigé</summary>
+
+On introduit d'abord des schémas de types, puis `generaliser` et `instancier`.
+
+```ocaml
+type schema = Schema of int list * typ2
+
+let generaliser environnement typ =
+  let variables = difference (variables_libres_type typ) (variables_libres_env environnement) in
+  Schema (variables, typ)
+
+let instancier (Schema (variables, typ)) =
+  let substitution =
+    List.fold_left
+      (fun acc variable -> inserer variable (Tvar (nouvelle_variable_type ())) acc)
+      (creer_dictionnaire ()) variables
+  in
+  appliquer substitution typ
+```
+
+La version finale de `w` est alors :
+
+```ocaml
+let w expression =
+  let rec inferer environnement substitution = function
+    | Var nom ->
+        let schema = valeur_associee nom environnement in
+        (substitution, instancier (appliquer_schema substitution schema))
+    | Const _ -> (substitution, Int)
+    | Op _ -> (substitution, Arrow (Product (Int, Int), Int))
+    | Fun (nom, corps) ->
+        let variable = Tvar (nouvelle_variable_type ()) in
+        let environnement = inserer nom (Schema ([], variable)) environnement in
+        let substitution, typ_corps = inferer environnement substitution corps in
+        (substitution, Arrow (appliquer substitution variable, typ_corps))
+    | App (fonction, argument) ->
+        let substitution, typ_fonction = inferer environnement substitution fonction in
+        let environnement = appliquer_env substitution environnement in
+        let substitution, typ_argument = inferer environnement substitution argument in
+        let resultat = Tvar (nouvelle_variable_type ()) in
+        let substitution = unification substitution typ_fonction (Arrow (typ_argument, resultat)) in
+        (substitution, appliquer substitution resultat)
+    | Couple (gauche, droite) ->
+        let substitution, typ_gauche = inferer environnement substitution gauche in
+        let environnement = appliquer_env substitution environnement in
+        let substitution, typ_droite = inferer environnement substitution droite in
+        (substitution, Product (appliquer substitution typ_gauche, appliquer substitution typ_droite))
+    | Let (nom, valeur, corps) ->
+        let substitution, typ_valeur = inferer environnement substitution valeur in
+        let environnement = appliquer_env substitution environnement in
+        let schema = generaliser environnement (appliquer substitution typ_valeur) in
+        inferer (inserer nom schema environnement) substitution corps
+  in
+  reset_compteur_types ();
+  let _, typ = inferer (creer_dictionnaire ()) (creer_dictionnaire ()) expression in
+  typ
+```
+
+</details>
+
+Le corrigé ci-dessus contient :
+
+- une implémentation persistante de dictionnaire ;
+- le typage avec annotations ;
+- l'application d'une substitution et l'unification ;
+- une version sans `Let` ;
+- la version polymorphe finale de l'algorithme W.

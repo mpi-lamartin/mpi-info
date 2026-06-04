@@ -1,0 +1,20 @@
+\documentclass{standalone}
+
+\usepackage[french]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{ebproof}
+
+\begin{document}
+
+\begin{prooftree}
+  \hypo{f : 1 \to 2,\ g : 0 \to 1,\ x : 0 \vdash f : 1 \to 2}
+  \hypo{f : 1 \to 2,\ g : 0 \to 1,\ x : 0 \vdash g : 0 \to 1}
+  \hypo{f : 1 \to 2,\ g : 0 \to 1,\ x : 0 \vdash x : 0}
+  \infer2[$\mathrm{App}$]{f : 1 \to 2,\ g : 0 \to 1,\ x : 0 \vdash g\ x : 1}
+  \infer2[$\mathrm{App}$]{f : 1 \to 2,\ g : 0 \to 1,\ x : 0 \vdash f\ (g\ x) : 2}
+  \infer1[$\mathrm{Fun}$]{f : 1 \to 2,\ g : 0 \to 1 \vdash \mathrm{fun}\ x \to f\ (g\ x) : 0 \to 2}
+  \infer1[$\mathrm{Fun}$]{f : 1 \to 2 \vdash \mathrm{fun}\ g \to \mathrm{fun}\ x \to f\ (g\ x) : (0 \to 1) \to 0 \to 2}
+  \infer1[$\mathrm{Fun}$]{\vdash \mathrm{fun}\ f \to \mathrm{fun}\ g \to \mathrm{fun}\ x \to f\ (g\ x) : (1 \to 2) \to (0 \to 1) \to 0 \to 2}
+\end{prooftree}
+
+\end{document}
