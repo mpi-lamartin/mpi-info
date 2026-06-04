@@ -17,7 +17,11 @@ import Q12Proof from "./tex/q12_typage_polymorphe.png";
 
 <Solution file={TP} lang="ocaml" show={frontMatter.cor}></Solution>
 
-<style>{frontMatter.cor ? "" : ".correction-details, .correction-summary { display: none; }"}</style>
+{!frontMatter.cor && (
+
+<style>{`.correction-details, .correction-summary { display: none; }`}</style>
+
+)}
 
 Dans ce TP, on implémente progressivement un inféreur de types pour un mini-langage fonctionnel à la OCaml.
 
@@ -32,7 +36,8 @@ $$
 \vdash ((a \to b) \land (b \to c)) \to (a \lor b) \to c
 $$
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 <img src={Q1Proof} alt="Arbre de preuve de la question 1" />
 
@@ -50,7 +55,8 @@ Seules trois opérations sont nécessaires dans la suite :
 - récupérer la valeur associée à une clé ;
 - insérer une paire clé-valeur.
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 Une implémentation simple est :
 
@@ -114,7 +120,8 @@ Fun ("x", Int, App (Op "+", Couple (Var "x", Const 1))),
 App (Var "f", Const 2))
 ```
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 La sous-expression
 
@@ -132,7 +139,8 @@ int
 
 4. En donner une dérivation dans le système de typage fourni.
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 Une dérivation condensée est :
 
@@ -157,7 +165,8 @@ f : int -> int |- f 2 : int
 
 5. Écrire `print_typ1 : typ1 -> unit` et `print_expression1 : expression1 -> unit`.
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 Une solution consiste à écrire des fonctions `string_of_...` puis à les afficher.
 
@@ -180,7 +189,8 @@ let print_expression1 expression = print_string (string_of_expression1 expressio
 
 6. Écrire `typ_expr : expression1 -> typ1`, qui lève une erreur si l'expression n'est pas typable.
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 ```ocaml
 let typ_expr expression =
@@ -235,7 +245,8 @@ Dans toute cette partie, on ne considère que des expressions sans `Let`.
 
 7. Écrire `print_typ2` et `print_expression2`.
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 Le principe est identique à la question 5, avec un cas supplémentaire pour `Tvar`.
 
@@ -263,7 +274,8 @@ $$
 \vdash \texttt{fun f -> fun g -> fun x -> f (g x)} : (1 \to 2) \to (0 \to 1) \to 0 \to 2
 $$
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 Dans l'environnement
 
@@ -289,7 +301,8 @@ $$
 
 9. Écrire `appliquer : (int, typ2) dict -> typ2 -> typ2`.
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 ```ocaml
 let rec appliquer substitution = function
@@ -308,7 +321,8 @@ let rec appliquer substitution = function
 
 10. Écrire `unification : (int, typ2) dict -> typ2 -> typ2 -> (int, typ2) dict`.
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 ```ocaml
 let rec unification substitution typ_gauche typ_droite =
@@ -335,7 +349,8 @@ Le test d'occurrence empêche de fabriquer un type infini.
 
 11. Écrire une première version de `w : expression2 -> typ2` pour les expressions sans `Let`.
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 Dans le corrigé complet, cette première version est nommée `w_sans_polymorphisme` pour laisser `w` à la version finale.
 
@@ -393,7 +408,8 @@ $$
 \texttt{let f = fun x -> x in (f 1, f (1, 1))} : int \ast (int \ast int)
 $$
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 On commence par typer `fun x -> x` avec le type le plus général `a -> a`. Comme `a` n'est pas libre dans l'environnement, on généralise en
 
@@ -418,7 +434,8 @@ $$
 
 13. Écrire une nouvelle version de `w` implémentant l'algorithme W polymorphe.
 
-<details class="correction-details">
+<details className="correction-details">
+<summary>Correction</summary>
 
 On introduit d'abord des schémas de types, puis `generaliser` et `instancier`.
 
@@ -476,16 +493,17 @@ let w expression =
   typ
 ```
 
-
 </details>
 
-<div class="correction-summary">
+<div className="correction-summary">
   <p>Résumé du corrigé :</p>
   <ul>
     <li>une implémentation persistante de dictionnaire ;</li>
     <li>le typage avec annotations ;</li>
     <li>l'application d'une substitution et l'unification ;</li>
-    <li>une version sans <code>Let</code> ;</li>
+    <li>
+      une version sans <code>Let</code> ;
+    </li>
     <li>la version polymorphe finale de l'algorithme W.</li>
   </ul>
 </div>
