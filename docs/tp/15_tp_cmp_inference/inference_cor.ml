@@ -61,45 +61,58 @@ type expression1 =
   | Couple of expression1 * expression1
   | Let of string * expression1 * expression1
 ;;
-
-
-let parentheser condition texte =
-  if condition then "(" ^ texte ^ ")" else texte
-
-
-let string_of_typ1 typ =
-  let rec aux priorite = function
-    | Int -> "int"
+let print_typ1 typ =
+  let rec aux = function
+    | Int -> print_string "int"
     | Product (gauche, droite) ->
-        parentheser (priorite > 1) (aux 1 gauche ^ " * " ^ aux 1 droite)
+        print_string "(";
+      aux gauche;
+        print_string " * ";
+      aux droite;
+        print_string ")"
     | Arrow (gauche, droite) ->
-        parentheser (priorite > 0) (aux 2 gauche ^ " -> " ^ aux 0 droite)
+        print_string "(";
+      aux gauche;
+        print_string " -> ";
+      aux droite;
+        print_string ")"
   in
-  aux 0 typ
+  aux typ
 
 
-let print_typ1 typ = print_string (string_of_typ1 typ)
-
-
-let string_of_expression1 expression =
-  let rec aux priorite = function
-    | Var nom -> nom
-    | Const entier -> string_of_int entier
-    | Op operateur -> operateur
+let print_expression1 expression =
+  let rec aux = function
+    | Var nom -> print_string nom
+    | Const entier -> print_int entier
+    | Op operateur -> print_string operateur
     | Fun (nom, typ, corps) ->
-        parentheser (priorite > 0)
-          ("fun " ^ nom ^ " : " ^ string_of_typ1 typ ^ " -> " ^ aux 0 corps)
+        print_string "fun ";
+        print_string nom;
+        print_string " : ";
+        print_typ1 typ;
+        print_string " -> ";
+        aux corps
     | App (fonction, argument) ->
-        parentheser (priorite > 1) (aux 1 fonction ^ " " ^ aux 2 argument)
-    | Couple (gauche, droite) -> "(" ^ aux 0 gauche ^ ", " ^ aux 0 droite ^ ")"
+        print_string "(";
+        aux fonction;
+        print_string " ";
+        aux argument;
+        print_string ")"
+    | Couple (gauche, droite) ->
+        print_string "(";
+        aux gauche;
+        print_string ", ";
+        aux droite;
+        print_string ")"
     | Let (nom, valeur, corps) ->
-        parentheser (priorite > 0)
-          ("let " ^ nom ^ " = " ^ aux 0 valeur ^ " in " ^ aux 0 corps)
+        print_string "let ";
+        print_string nom;
+        print_string " = ";
+        aux valeur;
+        print_string " in ";
+        aux corps
   in
-  aux 0 expression
-
-
-let print_expression1 expression = print_string (string_of_expression1 expression)
+  aux expression
 
 
 let typ_expr expression =
@@ -148,38 +161,57 @@ type expression2 =
 ;;
 
 
-let string_of_typ2 typ =
-  let rec aux priorite = function
-    | Int -> "int"
-    | Tvar numero -> string_of_int numero
+let print_typ2 typ =
+  let rec aux = function
+    | Int -> print_string "int"
+    | Tvar numero -> print_int numero
     | Product (gauche, droite) ->
-        parentheser (priorite > 1) (aux 1 gauche ^ " * " ^ aux 1 droite)
+        print_string "(";
+      aux gauche;
+        print_string " * ";
+      aux droite;
+        print_string ")"
     | Arrow (gauche, droite) ->
-        parentheser (priorite > 0) (aux 2 gauche ^ " -> " ^ aux 0 droite)
+        print_string "(";
+      aux gauche;
+        print_string " -> ";
+      aux droite;
+        print_string ")"
   in
-  aux 0 typ
+  aux typ
 
 
-let print_typ2 typ = print_string (string_of_typ2 typ)
-
-
-let string_of_expression2 expression =
-  let rec aux priorite = function
-    | Var nom -> nom
-    | Const entier -> string_of_int entier
-    | Op operateur -> operateur
-    | Fun (nom, corps) -> parentheser (priorite > 0) ("fun " ^ nom ^ " -> " ^ aux 0 corps)
+let print_expression2 expression =
+  let rec aux = function
+    | Var nom -> print_string nom
+    | Const entier -> print_int entier
+    | Op operateur -> print_string operateur
+    | Fun (nom, corps) ->
+        print_string "fun ";
+        print_string nom;
+        print_string " -> ";
+        aux corps
     | App (fonction, argument) ->
-        parentheser (priorite > 1) (aux 1 fonction ^ " " ^ aux 2 argument)
-    | Couple (gauche, droite) -> "(" ^ aux 0 gauche ^ ", " ^ aux 0 droite ^ ")"
+        print_string "(";
+        aux fonction;
+        print_string " ";
+        aux argument;
+        print_string ")"
+    | Couple (gauche, droite) ->
+        print_string "(";
+        aux gauche;
+        print_string ", ";
+        aux droite;
+        print_string ")"
     | Let (nom, valeur, corps) ->
-        parentheser (priorite > 0)
-          ("let " ^ nom ^ " = " ^ aux 0 valeur ^ " in " ^ aux 0 corps)
+        print_string "let ";
+        print_string nom;
+        print_string " = ";
+        aux valeur;
+        print_string " in ";
+        aux corps
   in
-  aux 0 expression
-
-
-let print_expression2 expression = print_string (string_of_expression2 expression)
+  aux expression
 
 
 let compteur_types = ref 0
