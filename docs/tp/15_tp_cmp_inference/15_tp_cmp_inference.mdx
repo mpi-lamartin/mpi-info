@@ -1,7 +1,7 @@
 ---
 hide_table_of_contents: true
 hide_title: false
-cor: false
+cor: true
 title: "TP 15 (Mines-Pont) : Inférence de type"
 description: Dictionnaire persistant, unification et algorithme W
 ---
@@ -39,7 +39,7 @@ $$
 <details className="correction-details">
 <summary>Correction</summary>
 
-<img src={Q1Proof} alt="Arbre de preuve de la question 1" />
+<img src={Q1Proof} alt="Arbre de preuve de la question 1" width="1000px" />
 
 Avec $\Gamma = \{(a \to b) \land (b \to c),\ a \lor b\}$.
 
@@ -57,8 +57,6 @@ Seules trois opérations sont nécessaires dans la suite :
 
 <details className="correction-details">
 <summary>Correction</summary>
-
-Une implémentation simple est :
 
 ```ocaml
 type ('a, 'b) dict =
@@ -86,7 +84,7 @@ let rec inserer cle valeur = function
         Node (gauche, cle_noeud, valeur_noeud, inserer cle valeur droite)
 ```
 
-Les opérations `trouver` et `inserer` sont en $O(h)$ où $h$ est la hauteur de l'arbre, donc en $O(n)$ au pire sans équilibrage. L'insertion persistante alloue aussi $O(h)$ nouveaux nœuds.
+Les opérations `trouver` et `inserer` sont en $O(h)$ où $h$ est la hauteur de l'arbre, donc en $O(n)$ au pire sans équilibrage.
 
 </details>
 
@@ -123,17 +121,7 @@ App (Var "f", Const 2))
 <details className="correction-details">
 <summary>Correction</summary>
 
-La sous-expression
-
-```ocaml
-fun (x : int) -> + (x, 1)
-```
-
-est de type `int -> int`. On applique ensuite `f` à `2`, donc l'expression entière a le type
-
-```ocaml
-int
-```
+`fun (x : int) -> + (x, 1)` est de type `int -> int`. On applique ensuite `f` à `2`, donc l'expression entière a le type `int`.
 
 </details>
 
@@ -141,23 +129,6 @@ int
 
 <details className="correction-details">
 <summary>Correction</summary>
-
-Une dérivation condensée est :
-
-```text
-x : int |- x : int
-x : int |- 1 : int
-x : int |- + : (int * int) -> int
-x : int |- (x, 1) : int * int
-x : int |- + (x, 1) : int
-|- fun (x : int) -> + (x, 1) : int -> int
-
-f : int -> int |- f : int -> int
-f : int -> int |- 2 : int
-f : int -> int |- f 2 : int
-
-|- let f = fun (x : int) -> + (x, 1) in f 2 : int
-```
 
 <img src={Q4Proof} alt="Arbre de typage de la question 4" />
 
@@ -168,21 +139,58 @@ f : int -> int |- f 2 : int
 <details className="correction-details">
 <summary>Correction</summary>
 
-Une solution consiste à écrire des fonctions `string_of_...` puis à les afficher.
-
 ```ocaml
-let string_of_typ1 typ =
-  let rec aux priorite = function
-    | Int -> "int"
+let print_typ1 typ =
+  let rec aux = function
+    | Int -> print_string "int"
     | Product (gauche, droite) ->
-        parentheser (priorite > 1) (aux 1 gauche ^ " * " ^ aux 1 droite)
+        print_string "(";
+      aux gauche;
+        print_string " * ";
+      aux droite;
+        print_string ")"
     | Arrow (gauche, droite) ->
-        parentheser (priorite > 0) (aux 2 gauche ^ " -> " ^ aux 0 droite)
+        print_string "(";
+      aux gauche;
+        print_string " -> ";
+      aux droite;
+        print_string ")"
   in
-  aux 0 typ
+  aux typ
 
-let print_typ1 typ = print_string (string_of_typ1 typ)
-let print_expression1 expression = print_string (string_of_expression1 expression)
+let print_expression1 expression =
+  let rec aux = function
+    | Var nom -> print_string nom
+    | Const entier -> print_int entier
+    | Op operateur -> print_string operateur
+    | Fun (nom, typ, corps) ->
+        print_string "fun ";
+        print_string nom;
+        print_string " : ";
+        print_typ1 typ;
+        print_string " -> ";
+        aux corps
+    | App (fonction, argument) ->
+        print_string "(";
+        aux fonction;
+        print_string " ";
+        aux argument;
+        print_string ")"
+    | Couple (gauche, droite) ->
+        print_string "(";
+        aux gauche;
+        print_string ", ";
+        aux droite;
+        print_string ")"
+    | Let (nom, valeur, corps) ->
+        print_string "let ";
+        print_string nom;
+        print_string " = ";
+        aux valeur;
+        print_string " in ";
+        aux corps
+  in
+  aux expression
 ```
 
 </details>
@@ -251,19 +259,56 @@ Dans toute cette partie, on ne considère que des expressions sans `Let`.
 Le principe est identique à la question 5, avec un cas supplémentaire pour `Tvar`.
 
 ```ocaml
-let string_of_typ2 typ =
-  let rec aux priorite = function
-    | Int -> "int"
-    | Tvar numero -> string_of_int numero
+let print_typ2 typ =
+  let rec aux = function
+    | Int -> print_string "int"
+    | Tvar numero -> print_int numero
     | Product (gauche, droite) ->
-        parentheser (priorite > 1) (aux 1 gauche ^ " * " ^ aux 1 droite)
+        print_string "(";
+      aux gauche;
+        print_string " * ";
+      aux droite;
+        print_string ")"
     | Arrow (gauche, droite) ->
-        parentheser (priorite > 0) (aux 2 gauche ^ " -> " ^ aux 0 droite)
+        print_string "(";
+      aux gauche;
+        print_string " -> ";
+      aux droite;
+        print_string ")"
   in
-  aux 0 typ
+  aux typ
 
-let print_typ2 typ = print_string (string_of_typ2 typ)
-let print_expression2 expression = print_string (string_of_expression2 expression)
+let print_expression2 expression =
+  let rec aux = function
+    | Var nom -> print_string nom
+    | Const entier -> print_int entier
+    | Op operateur -> print_string operateur
+    | Fun (nom, corps) ->
+        print_string "fun ";
+        print_string nom;
+        print_string " -> ";
+        aux corps
+    | App (fonction, argument) ->
+        print_string "(";
+        aux fonction;
+        print_string " ";
+        aux argument;
+        print_string ")"
+    | Couple (gauche, droite) ->
+        print_string "(";
+        aux gauche;
+        print_string ", ";
+        aux droite;
+        print_string ")"
+    | Let (nom, valeur, corps) ->
+        print_string "let ";
+        print_string nom;
+        print_string " = ";
+        aux valeur;
+        print_string " in ";
+        aux corps
+  in
+  aux expression
 ```
 
 </details>
