@@ -228,7 +228,7 @@ export const questions = [
       '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal égal à $k$ ?</div></div>',
       '`DCOUPLAGE` peut être défini par :\n<div class="alert alert--secondary" role="note"><div class="alert__heading" style="margin-bottom:2px;"><h5 style="margin:0;">DCOUPLAGE</h5></div><div class="alert__content" style="margin-top:0;"><strong>Entrée :</strong> un graphe biparti $G$ et un entier $k$<br><strong>Sortie :</strong> est-ce que $G$ admet un couplage de cardinal supérieur à $k$ ?</div></div>',
     ],
-    correct: [1, 2, 3, 4],
+    correct: [0, 1, 5, 6],
     explanation: [
       "Le premier problème de décision est trivial car il est toujours vrai : le couplage vide convient. Les deux autres définitions sont possibles et appartiennent aux mêmes classes de complexité.",
       "`DCOUPLAGE` est dans P avec l'algorithme des chemins augmentants. Comme P $\\subset$ NP, `DCOUPLAGE` est aussi dans NP.",
