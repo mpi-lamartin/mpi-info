@@ -1446,8 +1446,8 @@ export const questions = [
     answers: [
       "$C(n) = C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(\\log n)$",
       "$C(n) = C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(n)$",
+      "$C(n) = C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n)$",
       "$C(n) = C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n \\log n)$",
-      "$C(n) = C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n^2)$",
       "$C(n) = 2C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(n)$",
       "$C(n) = 2C(\\frac{n}{2}) + 1 \\Longrightarrow C(n) = O(n \\log n)$",
       "$C(n) = 2C(\\frac{n}{2}) + n \\Longrightarrow C(n) = O(n \\log n)$",
@@ -1455,7 +1455,7 @@ export const questions = [
       "$C(n) = 2 C(n-1) + 1 \\Longrightarrow C(n) = O(n^2)$",
       "$C(n) = 2 C(n-1) + 1 \\Longrightarrow C(n) = O(2^n)$",
     ],
-    correct: [0, 3, 4, 6, 9],
+    correct: [0, 2, 4, 6, 9],
     explanation:
       "$$C(n) \\leq C(\\frac{n}{2}) + 1 \\leq C(\\frac{n}{4}) + 1 + 1 \\leq \\dots \\leq C\\left(\\frac{n}{2^{\\lfloor \\log_2(n) \\rfloor}}\\right) + \\lfloor \\log_2(n) \\rfloor = O(\\log n)$$ $$C(n) = C(\\frac{n}{2}) + n = C(1) + n\\times \\sum_{k=0}^{\\lfloor \\log_2(n) \\rfloor - 1} \\frac{1}{2^k} \\leq C(1) + 2n$$ $$C(n) \\leq 2C(\\frac{n}{2}) + 1 \\leq 4C(\\frac{n}{4}) + 2 + 1 \\leq \\dots \\leq 2^{\\lfloor \\log_2(n) \\rfloor} C\\left(\\frac{n}{2^{\\lfloor \\log_2(n) \\rfloor}}\\right) + \\sum_{k=0}^{\\lfloor \\log_2(n) \\rfloor - 1} 2^k = O(n)$$ $$C(n) = 2C(n-1) + 1 = 4C(n-2) + 2 + 1 = \\dots = 2^{n-1}C(1) + \\sum_{k=0}^{n-2} 2^k = O(2^n)$$",
     mp2i: true,
