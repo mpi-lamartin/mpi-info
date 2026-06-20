@@ -1411,7 +1411,7 @@ export const questions = [
   },
   {
     question:
-      "Sur un graphe non-orienté $G = (S, A)$ à $n$ sommets et $p$ arêtes :",
+      "Sur un graphe non-orienté non-vide $G = (S, A)$ à $n$ sommets et $p$ arêtes :",
 
     answers: [
       "$\\sum_{v \\in S} \\deg(v) = p$",
