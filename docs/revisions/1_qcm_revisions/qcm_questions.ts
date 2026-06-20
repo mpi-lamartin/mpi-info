@@ -271,7 +271,7 @@ export const questions = [
       code(["v.a.(0) <- 1"]) +
         " (en supposant que `v.a` a au moins un élément)",
     ],
-    correct: [2, 3, 5, 6, 7, 8],
+    correct: [2, 3, 5, 7, 8],
     explanation:
       "`v.x = 1` est une comparaison d'égalité, tandis que `v.x <- 1` est une affectation qui ne fonctionne que si `v` est mutable. `v.a.(0) <- 1` est valide car un tableau est mutable. Par contre, `v.a <- ...` ne serait valide que si `v.a` était mutable.",
     mp2i: true,
