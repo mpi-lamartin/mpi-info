@@ -4,12 +4,12 @@ const sidebars = {};
   "ds",
   "tp",
   "langages",
-  "graphes",
-  "algorithmique",
-  "ia",
-  "concurrence",
-  "logique",
-  "revisions",
+  // "graphes",
+  // "algorithmique",
+  // "ia",
+  // "concurrence",
+  // "logique",
+  // "revisions",
 ].forEach((e) => {
   sidebars[e] = [
     {
@@ -18,33 +18,33 @@ const sidebars = {};
     },
   ];
 });
-sidebars["ds"].push({
-  type: "link",
-  href: "https://fortierq-notes-app-ctedub.streamlit.app",
-  label: "Notes",
-});
-sidebars["concurrence"].push({
-  type: "link",
-  href: "https://deadlockempire.github.io",
-  label: "The Deadlock Empire",
-});
+// sidebars["ds"].push({
+//   type: "link",
+//   href: "https://fortierq-notes-app-ctedub.streamlit.app",
+//   label: "Notes",
+// });
+// sidebars["concurrence"].push({
+//   type: "link",
+//   href: "https://deadlockempire.github.io",
+//   label: "The Deadlock Empire",
+// });
 
-sidebars["revisions"].push({
-  type: "link",
-  href: "https://sql-exercices.github.io/",
-  label: "Exercices SQL",
-});
+// sidebars["revisions"].push({
+//   type: "link",
+//   href: "https://sql-exercices.github.io/",
+//   label: "Exercices SQL",
+// });
 
-sidebars["revisions"].push({
-  type: "link",
-  href: "https://fortierq.github.io/ocaml-exercices",
-  label: "Exercices OCaml",
-});
+// sidebars["revisions"].push({
+//   type: "link",
+//   href: "https://fortierq.github.io/ocaml-exercices",
+//   label: "Exercices OCaml",
+// });
 
-sidebars["logique"].push({
-  type: "link",
-  href: "https://fortierq.github.io/deduction-naturelle",
-  label: "Exercices de déduction naturelle",
-});
+// sidebars["logique"].push({
+//   type: "link",
+//   href: "https://fortierq.github.io/deduction-naturelle",
+//   label: "Exercices de déduction naturelle",
+// });
 
 module.exports = sidebars;

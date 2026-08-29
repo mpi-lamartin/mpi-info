@@ -8,7 +8,4 @@ cor: true
 
 import Button from "@site/src/components/Button";
 
-<Button
-  pdf={require(`./${frontMatter.pdf}.pdf`).default}
-  cor={frontMatter.cor ? require(`./${frontMatter.pdf}_cor.pdf`).default : null}
-/>
+<Button pdf={require(`./${frontMatter.pdf}.pdf`).default} />
