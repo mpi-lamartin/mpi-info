@@ -110,12 +110,12 @@ const config: Config = {
           position: "left",
           label: "Concours",
         },
-        {
-          type: "doc",
-          docId: "ds/dm1/dm1",
-          position: "left",
-          label: "DS",
-        },
+        // {
+        //   type: "doc",
+        //   docId: "ds/dm1/dm1",
+        //   position: "left",
+        //   label: "DS",
+        // },
         {
           type: "doc",
           docId: "tp/tp1/tp1",
@@ -134,36 +134,36 @@ const config: Config = {
           position: "left",
           label: "Langages",
         },
-        {
-          type: "doc",
-          docId: "graphes/revisions/revisions",
-          label: "Graphes",
-        },
-        {
-          type: "doc",
-          docId: "algorithmique/complexite/complexite",
-          label: "Algorithmique",
-        },
-        {
-          type: "doc",
-          docId: "ia/supervise/supervise",
-          label: "IA",
-        },
-        {
-          type: "doc",
-          docId: "concurrence/concurrence/concurrence",
-          label: "Concurrence",
-        },
-        {
-          type: "doc",
-          docId: "logique/deduction/deduction",
-          label: "Logique",
-        },
-        {
-          type: "doc",
-          docId: "revisions/qcm_revisions/qcm_revisions",
-          label: "Révisions",
-        },
+        // {
+        //   type: "doc",
+        //   docId: "graphes/revisions/revisions",
+        //   label: "Graphes",
+        // },
+        // {
+        //   type: "doc",
+        //   docId: "algorithmique/complexite/complexite",
+        //   label: "Algorithmique",
+        // },
+        // {
+        //   type: "doc",
+        //   docId: "ia/supervise/supervise",
+        //   label: "IA",
+        // },
+        // {
+        //   type: "doc",
+        //   docId: "concurrence/concurrence/concurrence",
+        //   label: "Concurrence",
+        // },
+        // {
+        //   type: "doc",
+        //   docId: "logique/deduction/deduction",
+        //   label: "Logique",
+        // },
+        // {
+        //   type: "doc",
+        //   docId: "revisions/qcm_revisions/qcm_revisions",
+        //   label: "Révisions",
+        // },
         {
           href: "https://prepas.org/index.php?document=73",
           label: "Programme",
