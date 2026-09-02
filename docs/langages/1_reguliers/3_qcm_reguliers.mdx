@@ -6,138 +6,323 @@ sidebar_position: 3
 import QCM from "@site/src/components/QCM";
 
 <QCM
-  title="QCM - Langages réguliers et mots"
+  title="QCM - Mots, langages et expressions régulières"
   questions={[
     {
       question: "Un alphabet est :",
       answers: [
-        "Un ensemble infini de lettres",
         "Un ensemble fini de lettres",
-        "Une suite de mots",
-        "Un langage",
+        "Un ensemble nécessairement infini de lettres",
+        "Une suite finie de mots",
+        "Un langage contenant tous les mots possibles",
+      ],
+      correct: 0,
+      explanation:
+        "Un alphabet $\\Sigma$ est, par définition, un ensemble fini dont les éléments sont appelés lettres.",
+    },
+    {
+      question:
+        "Laquelle de ces affirmations sur $\\varepsilon$ est correcte ?",
+      answers: [
+        "$\\varepsilon$ est une lettre présente dans tout alphabet",
+        "$\\varepsilon$ est le langage vide",
+        "$\\varepsilon$ est le mot vide, de longueur $0$",
+        "$\\varepsilon$ est l'ensemble de tous les mots",
+      ],
+      correct: 2,
+      explanation:
+        "$\\varepsilon$ désigne le mot vide : il ne contient aucune lettre et sa longueur est nulle. Ce n'est ni une lettre ni le langage vide $\\emptyset$.",
+    },
+    {
+      question: "Que désigne $\\Sigma^*$ ?",
+      answers: [
+        "L'ensemble des mots non vides sur $\\Sigma$",
+        "L'ensemble de tous les mots sur $\\Sigma$, y compris $\\varepsilon$",
+        "L'ensemble des mots de longueur $1$",
+        "L'alphabet privé d'une lettre",
       ],
       correct: 1,
       explanation:
-        "Un alphabet $\\Sigma$ est un ensemble fini dont les éléments sont appelés lettres.",
+        "$\\Sigma^*$ est l'ensemble de tous les mots finis construits avec les lettres de $\\Sigma$. Il contient toujours $\\varepsilon$.",
     },
     {
-      question: "Le mot vide est noté :",
-      answers: ["$\\emptyset$", "$\\varepsilon$", "$0$", "$\\lambda$"],
-      correct: 1,
-      explanation:
-        "Le mot vide (ne contenant aucune lettre) est noté $\\varepsilon$ (epsilon).",
-    },
-    {
-      question: "$\\Sigma^*$ désigne :",
+      question: "Un langage $L$ sur un alphabet $\\Sigma$ est :",
       answers: [
-        "L'alphabet sans le mot vide",
-        "L'ensemble de tous les mots sur $\\Sigma$",
-        "L'ensemble des lettres de $\\Sigma$",
-        "Le langage vide",
-      ],
-      correct: 1,
-      explanation:
-        "$\\Sigma^*$ est l'ensemble de tous les mots (suites finies de lettres) sur l'alphabet $\\Sigma$, y compris le mot vide.",
-    },
-    {
-      question: "La concaténation de deux mots $u = abc$ et $v = de$ donne :",
-      answers: ["$abcde$", "$deabc$", "$\\{abc, de\\}$", "$abc + de$"],
-      correct: 0,
-      explanation:
-        "La concaténation $uv$ met les lettres de $v$ à la suite de celles de $u$ : $abcde$.",
-    },
-    {
-      question: "Si $|u| = 3$ et $|v| = 4$, alors $|uv| =$ :",
-      answers: ["$7$", "$12$", "$3$", "$4$"],
-      correct: 0,
-      explanation:
-        "La longueur de la concaténation est la somme des longueurs : $|uv| = |u| + |v| = 3 + 4 = 7$.",
-    },
-    {
-      question: "Un langage sur $\\Sigma$ est :",
-      answers: [
-        "Un alphabet",
+        "Une lettre de $\\Sigma$",
+        "Un unique mot de $\\Sigma^*$",
         "Un sous-ensemble de $\\Sigma^*$",
-        "Un mot",
-        "Une lettre",
+        "Toujours un ensemble fini",
       ],
-      correct: 1,
+      correct: 2,
       explanation:
-        "Un langage est un ensemble de mots, c'est-à-dire un sous-ensemble de $\\Sigma^*$.",
+        "Un langage est un ensemble de mots sur $\\Sigma$ ; autrement dit, $L\\subseteq\\Sigma^*$.",
     },
     {
-      question: "L'expression régulière $a^*b$ dénote :",
-      answers: [
-        "L'ensemble des mots formés de $a$ suivis de $b$",
-        "$\\{b, ab, aab, aaab, \\ldots\\}$",
-        "$\\{ab\\}$",
-        "$\\{a, b\\}$",
-      ],
+      question: "Si $u=abc$ et $v=de$, que vaut la concaténation $uv$ ?",
+      answers: ["$deabc$", "$abcde$", "$\\{abc,de\\}$", "$abc+de$"],
       correct: 1,
       explanation:
-        "$a^*$ signifie zéro ou plusieurs $a$, suivi de $b$. Le langage est $\\{b, ab, aab, aaab, \\ldots\\}$.",
+        "Concaténer $u$ et $v$ consiste à placer les lettres de $v$ après celles de $u$ : on obtient $abcde$.",
     },
     {
-      question: "L'opération $L_1 | L_2$ (ou $L_1 \\cup L_2$) dénote :",
+      question:
+        "Quelle opération l'expression régulière $e_1|e_2$ représente-t-elle ?",
       answers: [
-        "L'intersection de $L_1$ et $L_2$",
-        "L'union de $L_1$ et $L_2$",
-        "La concaténation de $L_1$ et $L_2$",
-        "Le complémentaire de $L_1$",
-      ],
-      correct: 1,
-      explanation:
-        "L'opérateur $|$ (ou $\\cup$) représente l'union : les mots appartenant à $L_1$ ou à $L_2$.",
-    },
-    {
-      question: "$u$ est un préfixe de $m$ si :",
-      answers: [
-        "$m = uv$ pour un certain mot $v$",
-        "$m = vu$ pour un certain mot $v$",
-        "$u$ est une sous-suite de $m$",
-        "$m$ contient $u$ comme facteur",
+        "L'union de $L(e_1)$ et $L(e_2)$",
+        "L'intersection de $L(e_1)$ et $L(e_2)$",
+        "La concaténation de $L(e_1)$ et $L(e_2)$",
+        "Le complémentaire de $L(e_1)$",
       ],
       correct: 0,
       explanation:
-        "$u$ est un préfixe de $m$ s'il existe un mot $v$ tel que $m = uv$ ($u$ est au début de $m$).",
+        "$L(e_1|e_2)=L(e_1)\\cup L(e_2)$ : un mot décrit par cette expression peut provenir de $e_1$ ou de $e_2$.",
     },
     {
-      question: "Un langage est régulier s'il peut être décrit par :",
+      question: "Un langage est régulier si et seulement si :",
       answers: [
-        "Une grammaire non-contextuelle",
-        "Une expression régulière",
-        "Une équation différentielle",
-        "Un algorithme polynomial",
+        "Il est fini",
+        "Il contient le mot vide",
+        "Il peut être décrit par une expression régulière",
+        "Tous ses mots ont la même longueur",
       ],
-      correct: 1,
+      correct: 2,
       explanation:
-        "Les langages réguliers sont exactement ceux qui peuvent être décrits par une expression régulière (ou reconnus par un automate fini).",
-    },
-    {
-      question:
-        "Le lemme de l'étoile (pumping lemma) affirme que pour tout langage régulier $L$, il existe $N$ tel que :",
-      answers: [
-        "Tout mot de $L$ a une longueur $\\leq N$",
-        "Tout mot $w \\in L$ avec $|w| \\geq N$ peut s'écrire $w = xyz$ avec $|xy| \\leq N$, $|y| \\geq 1$ et $\\forall k, xy^kz \\in L$",
-        "$L$ contient exactement $N$ mots",
-        "Tout mot de longueur $N$ appartient à $L$",
-      ],
-      correct: 1,
-      explanation:
-        "Le lemme de l'étoile permet de prouver qu'un langage n'est pas régulier. Si $L$ est régulier et $|w| \\geq N$, alors $w = xyz$ avec $|xy| \\leq N$, $y \\neq \\varepsilon$, et tous les $xy^kz$ sont dans $L$.",
+        "Le théorème du cours affirme que $L$ est régulier si et seulement s'il existe une expression régulière $e$ telle que $L=L(e)$.",
     },
     {
       question:
-        "Pour montrer que $L = \\{a^n b^n \\mid n \\in \\mathbb{N}\\}$ n'est pas régulier, on utilise :",
+        "On pose $\\Sigma = \\{a,b\\}$. Lequel de ces mots appartient à $\\Sigma^+$ mais pas à $\\Sigma^2$ ?",
+      answers: ["$\\varepsilon$", "$ab$", "$aba$", "$c$"],
+      correct: 2,
+      explanation:
+        "$\\Sigma^+$ contient tous les mots non vides sur $\\Sigma$, tandis que $\\Sigma^2$ ne contient que ceux de longueur $2$. Ainsi, $aba$ convient.",
+    },
+    {
+      question:
+        "Pour $u=ab$ et $v=aba$, quelle affirmation décrit correctement $uv$ et $vu$ ?",
       answers: [
-        "Le théorème de Kleene",
-        "Le lemme de l'étoile (pumping lemma)",
-        "L'algorithme de Berry-Sethi",
-        "La déterminisation",
+        "$uv=vu$ car la concaténation est commutative",
+        "$uv$ et $vu$ ont des longueurs différentes",
+        "$uv=ababa$ et $vu=abaab$ : ils ont la même longueur mais sont distincts",
+        "$uv$ n'est pas défini car $u$ et $v$ n'ont pas la même longueur",
+      ],
+      correct: 2,
+      explanation:
+        "$uv=ababa$ et $vu=abaab$. La concaténation conserve la somme des longueurs, mais elle n'est pas commutative.",
+    },
+    {
+      question: "Dans le mot $m=aabacb$, le mot $u=abc$ est :",
+      answers: [
+        "Un facteur, mais pas un sous-mot",
+        "Un sous-mot, mais pas un facteur",
+        "Un préfixe et un suffixe",
+        "Ni un facteur ni un sous-mot",
       ],
       correct: 1,
       explanation:
-        "On prend $w = a^N b^N$ et on montre que pomper la partie $y$ (qui ne contient que des $a$) donne un mot $a^{N+k}b^N \\notin L$.",
+        "On peut extraire successivement $a$, $b$ puis $c$ de $m$ : $abc$ est donc un sous-mot. Ces trois lettres ne sont jamais consécutives, donc ce n'est pas un facteur.",
+    },
+    {
+      question:
+        "Soient $a,b\\in\\Sigma$ et $u\\in\\Sigma^*$. Si $au=ub$, que peut-on nécessairement conclure ?",
+      answers: [
+        "$a=b$ et il existe $k\\in\\mathbb{N}$ tel que $u=a^k$",
+        "$a\\neq b$ et $u=\\varepsilon$",
+        "$u=ab$",
+        "$u$ peut être n'importe quel mot",
+      ],
+      correct: 0,
+      explanation:
+        "L'égalité impose d'abord que toutes les lettres de $u$ soient égales à $a$, puis que la dernière lettre $b$ soit aussi $a$. On obtient $u=a^k$ et $a=b$.",
+    },
+    {
+      question:
+        "Quelle stratégie permet de tester en temps linéaire si $u$ est un sous-mot de $m$ ?",
+      answers: [
+        "Trier les lettres des deux mots puis comparer les résultats",
+        "Énumérer tous les facteurs de $m$",
+        "Parcourir $m$ une fois en avançant dans $u$ chaque fois que la lettre attendue est rencontrée",
+        "Tester uniquement si $u$ est un préfixe de $m$",
+      ],
+      correct: 2,
+      explanation:
+        "Deux indices suffisent : on lit $m$ de gauche à droite et on avance l'indice de $u$ lors d'une correspondance. Chaque chaîne est parcourue au plus une fois.",
+    },
+    {
+      question:
+        "Soient $L_1=\\{a,ab\\}$ et $L_2=\\{\\varepsilon,b,bba\\}$. Combien de mots distincts contient $L_1L_2$ ?",
+      answers: ["$3$", "$5$", "$6$", "$8$"],
+      correct: 1,
+      explanation:
+        "$L_1L_2=\\{a,ab,abba,abb,abbba\\}$. Les $2\\times3$ concaténations ne donnent que cinq mots distincts, car $a\\cdot b=ab\\cdot\\varepsilon=ab$.",
+    },
+    {
+      question:
+        "Quelles propriétés de la concaténation des langages sont vraies ?",
+      answers: [
+        "Elle est associative",
+        "Elle est commutative",
+        "$\\{\\varepsilon\\}$ est son élément neutre",
+        "$\\emptyset$ est son élément absorbant",
+      ],
+      correct: [0, 2, 3],
+      explanation:
+        "La concaténation est associative, a pour neutre $\\{\\varepsilon\\}$ et pour absorbant $\\emptyset$. En général, $L_1L_2\\neq L_2L_1$.",
+    },
+    {
+      question: "Si $L=\\{\\varepsilon,a\\}$, quel est le langage $L^2$ ?",
+      answers: [
+        "$\\{\\varepsilon,a,aa\\}$",
+        "$\\{\\varepsilon,aa\\}$",
+        "$\\{a,aa\\}$",
+        "$\\{u^2\\mid u\\in L\\}=\\{\\varepsilon,aa\\}$",
+      ],
+      correct: 0,
+      explanation:
+        "$L^2$ contient toutes les concaténations de deux mots de $L$ : $\\varepsilon$, $a$ et $aa$. Il ne faut pas le confondre avec l'ensemble des seuls carrés $\\{u^2\\mid u\\in L\\}$.",
+    },
+    {
+      question: "Que valent $\\emptyset^0$ et $\\emptyset^*$ ?",
+      answers: [
+        "Tous deux valent $\\emptyset$",
+        "$\\emptyset^0=\\{\\varepsilon\\}$ et $\\emptyset^*=\\{\\varepsilon\\}$",
+        "$\\emptyset^0=\\emptyset$ et $\\emptyset^*=\\Sigma^*$",
+        "$\\emptyset^0=\\{\\varepsilon\\}$ et $\\emptyset^*=\\emptyset$",
+      ],
+      correct: 1,
+      explanation:
+        "Par définition, $L^0=\\{\\varepsilon\\}$ pour tout langage $L$. Les puissances strictement positives de $\\emptyset$ sont vides, donc son étoile vaut $\\{\\varepsilon\\}$.",
+    },
+    {
+      question: "Pour $L=\\{ab,b\\}$, lequel de ces mots appartient à $L^*$ ?",
+      answers: ["$a$", "$abbab$", "$ba$", "$aba$"],
+      correct: 1,
+      explanation:
+        "$abbab=(ab)(b)(ab)$ est une concaténation de trois mots de $L$. Les autres propositions ne peuvent pas être découpées uniquement en blocs $ab$ ou $b$.",
+    },
+    {
+      question: "Pour tout langage $L$, pourquoi a-t-on $(L^*)^*=L^*$ ?",
+      answers: [
+        "Parce que $L^*$ est toujours fini",
+        "Parce que concaténer plusieurs concaténations de mots de $L$ revient encore à concaténer des mots de $L$",
+        "Parce que l'étoile supprime le mot vide",
+        "Seulement parce que la concaténation est commutative",
+      ],
+      correct: 1,
+      explanation:
+        "Un mot de $(L^*)^*$ est obtenu en concaténant des blocs qui sont eux-mêmes des concaténations de mots de $L$. En aplatissant ces blocs, on retrouve un mot de $L^*$, et l'inclusion réciproque est immédiate.",
+    },
+    {
+      question:
+        "Chaque singleton $\\{a^n b^n\\}$ est un langage régulier. Peut-on en déduire que $\\bigcup_{n\\in\\mathbb{N}}\\{a^n b^n\\}$ est régulier ?",
+      answers: [
+        "Oui, car toute union de langages réguliers est régulière",
+        "Oui, car chaque mot de l'union est fini",
+        "Non : la stabilité par union ne concerne ici que les unions finies",
+        "Non, car aucun langage fini n'est régulier",
+      ],
+      correct: 2,
+      explanation:
+        "La définition garantit la stabilité par union de deux langages, donc par union finie, mais pas par union infinie. Ce raisonnement ne permet donc pas de conclure à la régularité de l'union.",
+    },
+    {
+      question:
+        "Sur $\\Sigma=\\{a,b\\}$, quelle expression décrit les mots ayant $ab$ comme facteur ?",
+      answers: [
+        "$(a|b)^*ab(a|b)^*$",
+        "$(a|b)^*a(a|b)^*b(a|b)^*$",
+        "$ab^*$",
+        "$(ab)^*$",
+      ],
+      correct: 0,
+      explanation:
+        "Un facteur doit apparaître de façon contiguë : on place donc le bloc $ab$ entre un préfixe et un suffixe arbitraires. La deuxième expression décrit plutôt la présence de $ab$ comme sous-mot.",
+    },
+    {
+      question:
+        "Sur $\\Sigma=\\{a,b\\}$, quelle expression décrit les mots ayant $aba$ comme sous-mot ?",
+      answers: [
+        "$(a|b)^*aba(a|b)^*$",
+        "$(a|b)^*a(a|b)^*b(a|b)^*a(a|b)^*$",
+        "$a^*b^*a^*$",
+        "$(aba)^*$",
+      ],
+      correct: 1,
+      explanation:
+        "Pour un sous-mot, les lettres $a$, $b$, $a$ doivent apparaître dans cet ordre, mais pas nécessairement côte à côte. Les étoiles intercalées représentent les lettres que l'on peut ignorer.",
+    },
+    {
+      question:
+        "Quelle expression régulière décrit exactement les mots sur $\\{a,b\\}$ contenant au plus un $a$ ?",
+      answers: [
+        "$b^*ab^*$",
+        "$b^*(\\varepsilon|a)b^*$",
+        "$(a|b)^*$",
+        "$a^*b^*$",
+      ],
+      correct: 1,
+      explanation:
+        "$b^*(\\varepsilon|a)b^*$ autorise soit aucun $a$, soit un unique $a$, entouré d'un nombre quelconque de $b$.",
+    },
+    {
+      question:
+        "Quel ensemble de longueurs est décrit par $(a|b)((a|b)(a|b)(a|b))^*$ ?",
+      answers: [
+        "Les longueurs multiples de $3$",
+        "Les longueurs congrues à $1$ modulo $3$",
+        "Les longueurs congrues à $2$ modulo $3$",
+        "Toutes les longueurs strictement positives",
+      ],
+      correct: 1,
+      explanation:
+        "Le premier facteur fournit une lettre, puis chaque répétition étoilée en ajoute trois. Les longueurs sont donc exactement $1+3k$ avec $k\\in\\mathbb{N}$.",
+    },
+    {
+      question:
+        "Quelle expression régulière décrit les mots sur $\\{a,b\\}$ contenant un nombre pair de $a$ ?",
+      answers: [
+        "$b^*(ab^*ab^*)^*$",
+        "$b^*ab^*$",
+        "$(aa|b)^*$",
+        "$a^*(ba^*ba^*)^*$",
+      ],
+      correct: 0,
+      explanation:
+        "Dans $b^*(ab^*ab^*)^*$, les $a$ sont ajoutés par paires, avec un nombre quelconque de $b$ avant, entre et après eux. L'expression $(aa|b)^*$ imposerait à tort que les $a$ d'une paire soient consécutifs.",
+    },
+    {
+      question:
+        "Quelles équivalences d'expressions régulières sont correctes ?",
+      answers: [
+        "$e\\emptyset\\equiv\\emptyset$",
+        "$e\\varepsilon\\equiv e$",
+        "$e|\\emptyset\\equiv e$",
+        "$\\emptyset^*\\equiv\\emptyset$",
+      ],
+      correct: [0, 1, 2],
+      explanation:
+        "$\\emptyset$ est absorbant pour la concaténation et neutre pour l'union, tandis que $\\varepsilon$ est neutre pour la concaténation. En revanche, $\\emptyset^*\\equiv\\varepsilon$.",
+    },
+    {
+      question:
+        "Quelle expression régulière décrit le miroir du langage de $a(a|b)^*b$ ?",
+      answers: ["$a(a|b)^*b$", "$b(a|b)^*a$", "$b(b|a)a$", "$(a|b)^*ba$"],
+      correct: 1,
+      explanation:
+        "Le miroir renverse l'ordre des concaténations : le $b$ final devient initial et le $a$ initial devient final. Le langage $(a|b)^*$ est inchangé par miroir.",
+    },
+    {
+      question:
+        "Pour démontrer par induction structurelle une propriété $P(e)$ de toutes les expressions régulières, quelles obligations faut-il vérifier ?",
+      answers: [
+        "$P(\\emptyset)$, $P(\\varepsilon)$ et $P(a)$ pour chaque lettre $a$",
+        "La conservation de $P$ par union et concaténation",
+        "La conservation de $P$ par étoile",
+        "La conservation de $P$ par complémentaire",
+      ],
+      correct: [0, 1, 2],
+      explanation:
+        "Les cas de base correspondent à $\\emptyset$, $\\varepsilon$ et aux lettres. Les constructeurs inductifs sont l'union, la concaténation et l'étoile ; le complémentaire ne fait pas partie de la définition syntaxique donnée dans le cours.",
     },
   ]}
 />
