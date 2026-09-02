@@ -18,6 +18,12 @@ const sidebars = {};
     },
   ];
 });
+// sidebars["langages"].push({
+//   type: "link",
+//   href: "https://fortierq.github.io/automates",
+//   label: "Exercices interactifs sur les automates",
+// });
+
 // sidebars["ds"].push({
 //   type: "link",
 //   href: "https://fortierq-notes-app-ctedub.streamlit.app",
