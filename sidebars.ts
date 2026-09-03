@@ -18,11 +18,11 @@ const sidebars = {};
     },
   ];
 });
-// sidebars["langages"].push({
-//   type: "link",
-//   href: "https://fortierq.github.io/automates",
-//   label: "Exercices interactifs sur les automates",
-// });
+sidebars["langages"].push({
+  type: "link",
+  href: "https://fortierq.github.io/automates",
+  label: "Exercices interactifs sur les automates",
+});
 
 // sidebars["ds"].push({
 //   type: "link",
