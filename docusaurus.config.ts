@@ -159,11 +159,11 @@ const config: Config = {
         //   docId: "logique/deduction/deduction",
         //   label: "Logique",
         // },
-        // {
-        //   type: "doc",
-        //   docId: "revisions/qcm_revisions/qcm_revisions",
-        //   label: "Révisions",
-        // },
+        {
+          type: "doc",
+          docId: "revisions/mp2i_revisions",
+          label: "Révisions",
+        },
         {
           href: "https://prepas.org/index.php?document=73",
           label: "Programme",

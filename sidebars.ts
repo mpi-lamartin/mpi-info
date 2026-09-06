@@ -9,7 +9,7 @@ const sidebars = {};
   // "ia",
   // "concurrence",
   // "logique",
-  // "revisions",
+  "revisions",
 ].forEach((e) => {
   sidebars[e] = [
     {
