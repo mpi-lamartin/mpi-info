@@ -169,7 +169,6 @@ const config: Config = {
           label: "Programme",
           position: "right",
         },
-
         {
           href: "https://mpi-lamartin.github.io",
           label: "Classe",
