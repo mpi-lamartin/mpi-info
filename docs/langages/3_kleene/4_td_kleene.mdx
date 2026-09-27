@@ -3,12 +3,9 @@ hide_table_of_contents: true
 hide_title: true
 title: "TD Kleene"
 pdf: "td_kleene"
-cor: true
+cor: false
 ---
 
-import Button from "@site/src/components/Button";
+import TD from "@site/src/components/TD";
 
-<Button
-  pdf={require(`./${frontMatter.pdf}.pdf`).default}
-  cor={require(`./${frontMatter.pdf}_cor.pdf`).default}
-/>
+<TD />
