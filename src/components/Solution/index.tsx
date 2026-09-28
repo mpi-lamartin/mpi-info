@@ -2,6 +2,7 @@ import React from "react";
 import CodeBlock from "@theme/CodeBlock";
 import clsx from "clsx";
 import { Details } from "@docusaurus/theme-common/Details";
+import { useLocation } from "@docusaurus/router";
 import MDXContent from "@theme/MDXContent";
 
 import styles from "./styles.module.css";
@@ -15,13 +16,19 @@ export default ({
   title = "Solution",
   children,
 }): JSX.Element => {
+  const { search } = useLocation();
+  const open = new URLSearchParams(search).get("cor") === "1";
+  const visible = show && open;
+
   return (
     <div>
       {" "}
-      {show && (
+      {visible && (
         <Details
+          key={open ? "correction" : "statement"}
           className={clsx(InfimaClasses, styles.details)}
           summary={title}
+          open={open}
         >
           {children && <MDXContent>{children}</MDXContent>}
           <CodeBlock language={lang}>{file}</CodeBlock>

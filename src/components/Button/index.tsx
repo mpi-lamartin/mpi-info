@@ -1,25 +1,14 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
+import React from "react";
+import { useLocation } from "@docusaurus/router";
 import Pdf from "@site/src/components/Pdf";
 
 export default ({ pdf, cor }): JSX.Element => {
-  const [bool, setBool] = useState(false);
+  const { search } = useLocation();
+  const showCorrection = Boolean(cor) && new URLSearchParams(search).get("cor") === "1";
+
   return (
     <div>
-      {cor && (
-        <center>
-          <Button
-            sx={{ mx: "auto", m: -2 }}
-            variant="contained"
-            onClick={() => {
-              setBool((b) => !b);
-            }}
-          >
-            {bool ? "Énoncé" : "Corrigé"}
-          </Button>
-        </center>
-      )}
-      <Pdf pdf={bool ? cor : pdf} td={true} />
+      <Pdf pdf={showCorrection ? cor : pdf} td={true} />
     </div>
   );
 };
