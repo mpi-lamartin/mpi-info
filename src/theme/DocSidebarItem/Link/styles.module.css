@@ -1,0 +1,71 @@
+.itemContent {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: var(--ifm-global-radius);
+  transition: background-color var(--ifm-transition-fast) ease;
+}
+
+.itemContent:hover,
+.itemContentActive {
+  background: var(--ifm-menu-color-background-active);
+}
+
+.itemContentCorrectionActive {
+  background: var(--ifm-menu-color-background-active);
+}
+
+.itemContent :global(.menu__link) {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+}
+
+.itemContent :global(.menu__link:hover),
+.itemContent :global(.menu__link--active) {
+  background: transparent;
+}
+
+.menuExternalLink {
+  align-items: center;
+}
+
+.linkLabel {
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.correctionToggle {
+  flex: 0 0 auto;
+  align-self: center;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: var(--ifm-global-radius);
+  background: transparent;
+  color: var(--ifm-menu-color);
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  padding: 0.15rem 0.3rem;
+}
+
+.itemContent:hover .correctionToggle,
+.correctionToggle:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.correctionToggleActive {
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+}
+
+.itemContent:hover .correctionToggleActive,
+.correctionToggleActive:hover {
+  color: var(--ifm-color-white);
+}
