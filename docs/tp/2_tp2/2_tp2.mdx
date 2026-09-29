@@ -18,8 +18,6 @@ Si vous avez une boucle infinie (le terminal qui ne répond pas) : Ctrl + C
 On pourra créer un fichier `tp2.ml`. Pour exécuter : sélectionner les lignes OCaml et appuyer sur Shift + Entrée. Ceci envoie le code sélectionné dans le terminal (utop). Vous pouvez aussi utiliser utop en mode interactif.  
 On utilisera `;;` à la fin de chaque fonction pour envoyer correctement le code sur utop.
 
-<Solution file={Tp2} lang="ocaml" show={frontMatter.cor} />
-
 ## Automate déterministe
 
 On utilisera le type suivant d'automate déterministe complet (AFDC), où les états sont entre $0$ et $n-1$ et les lettres sont des entiers ($a$ est représenté par $0$, $b$ par $1$...) :
@@ -47,12 +45,24 @@ import a2 from "./bmod3.png";
   <img src={a2} width={320} />
 </center>
 
+<Solution file={Tp2} part="q1" lang="ocaml" show={frontMatter.cor} />
+
 2. Définir une fonction `delta_etoile : afdc -> int -> int list -> int` telle que `delta_etoile a q u` renvoie l'état atteint en lisant le mot $u$ à partir de l'état $q$ (c'est-à-dire $\delta^*(q, u)$). Vérifier avec `a1`.
+
+<Solution file={Tp2} part="q2" lang="ocaml" show={frontMatter.cor} />
 
 3. Définir une fonction `accepte : afdc -> int list -> bool` telle que `accepte a u` détermine si $u$ est reconnu par `a`. Vérifier avec `a1`. Quelle est la complexité de `accepte` ?
 
+<Solution file={Tp2} part="q3" lang="ocaml" show={frontMatter.cor}>
+
+La lecture du mot coûte $O(|u|)$. La recherche de l'état obtenu dans la liste des états finaux coûte $O(|F|)$. La complexité totale est donc $O(|u|+|F|)$.
+
+</Solution>
+
 4. Définir une fonction `complementaire : afdc -> afdc` telle que `complementaire a` renvoie un automate reconnaissant le complémentaire du langage reconnu par `a`. Vérifier avec `a1`.  
    Rappel : on a besoin que l'automate soit déterministe complet, ce qui est supposé dans ce TP.
+
+<Solution file={Tp2} part="q4" lang="ocaml" show={frontMatter.cor} />
 
 5. Définir une fonction `accessibles : afdc -> int list` telle que `accessibles a` renvoie la liste des états accessibles depuis l'état initial de `a`. Pour cela, on pourra utiliser un parcours en profondeur. Vérifier sur des exemples.
 
@@ -70,7 +80,11 @@ let accessibles a =
 
 </details>
 
+<Solution file={Tp2} part="q5" lang="ocaml" show={frontMatter.cor} />
+
 6. En déduire une fonction `vide : afdc -> bool` déterminant si un automate reconnaît le langage vide.
+
+<Solution file={Tp2} part="q6" lang="ocaml" show={frontMatter.cor} />
 
 ## Automate produit
 
@@ -78,6 +92,12 @@ let accessibles a =
    Pour cela, on construira l'automate produit de `a` et `b`, qui possède $np$ états (où $n$ est le nombre d'états de `a` et $p$ le nombre d'états de `b`), et dont l'état $(i, j)$ sera numéroté $i \times p + j$.  
    Vérifier avec `a1` et `a2`.
 
+<Solution file={Tp2} part="q7" lang="ocaml" show={frontMatter.cor} />
+
 8. En déduire une fonction `inclus a b` déterminant si le langage reconnu par l'automate `a` est inclus dans celui reconnu par `b`. On pourra utiliser les fonctions précédentes.
 
+<Solution file={Tp2} part="q8" lang="ocaml" show={frontMatter.cor} />
+
 9. En déduire une fonction `equivalent a b` déterminant si les langages reconnus par les automates `a` et `b` sont égaux.
+
+<Solution file={Tp2} part="q9" lang="ocaml" show={frontMatter.cor} />
