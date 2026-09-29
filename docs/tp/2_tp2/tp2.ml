@@ -1,46 +1,5 @@
-(* type automate = { 
-    initiaux : int list;
-    finaux : int list;
-    transitions : (int * char * int) list
-}
-
-(* 2 *)
-let a1 = {
-    initiaux = [0];
-    finaux = [1];
-    transitions = [(0, 'b', 0); (0, 'a', 1); (1, 'a', 0); (1, 'b', 1)]
-}
-let a2 = {
-    initiaux = [0];
-    finaux = [2];
-    transitions = [(0, 'a', 0); (0, 'b', 1); (1, 'a', 0); (1, 'a', 2); (2, 'b', 2)]
-}
-
-(* 3 *)
-let miroir a =
-  let rec aux = function
-      | [] -> []
-      | (e, l, e2)::q -> (e2, l, e)::aux q
-  in {initiaux = a.finaux; finaux = a.initiaux; transitions = aux a.transitions};;
-
-miroir a1
-
-(* 4 *)
-let est_deterministe a =
-  let rec aux = function
-      | [] -> true
-      | (q1, a, q2)::t -> 
-          let rec aux2 = function
-              | [] -> aux q
-              | (q1', a', q2')::t' -> if q1 = q1' && a = a' then false else aux2 t'
-          in aux2 q
-  in List.length a.initiaux = 1 && aux a.transitions;;
-
-est_deterministe a1;;
-est_deterministe a2;; *)
-
-(* 1 *)
-type afdc = { 
+(* solution:q1:start *)
+type afdc = {
     initial : int;
     finaux : int list;
     delta : int array array
@@ -55,31 +14,35 @@ let a2 = {
     finaux = [2];
     delta = [|[|0; 1|]; [|1; 2|]; [|2; 0|]|]
 }
+(* solution:q1:end *)
 
-(* 2 *)
+(* solution:q2:start *)
 let rec delta_etoile a q u = match u with
     | [] -> q
     | t::q2 -> delta_etoile a (a.delta.(q).(t)) q2;;
 
 delta_etoile a1 a1.initial [0; 1];;
+(* solution:q2:end *)
 
-(* 3 *)
+(* solution:q3:start *)
 let accepte a u =
   List.mem (delta_etoile a a.initial u) a.finaux;;
 
 accepte a1 [0; 1];;
 accepte a1 [1; 0; 0];;
+(* solution:q3:end *)
 
-(* 4 *)
+(* solution:q4:start *)
 let complementaire a =
-  let rec aux n = 
+  let rec aux n =
     if n = -1 then []
     else if List.mem n a.finaux then aux (n - 1)
     else n::aux (n - 1) in
   {initial = a.initial; finaux = aux (Array.length a.delta - 1); delta = a.delta};;
 complementaire a1;;
+(* solution:q4:end *)
 
-(* 5 *)
+(* solution:q5:start *)
 let accessibles a =
   let vus = Array.make (Array.length a.delta) false in
   let rec aux q = 
@@ -88,7 +51,7 @@ let accessibles a =
       if not vus.(a.delta.(q).(i)) then aux a.delta.(q).(i)
     done in
   aux a.initial;
-  let rec aux2 n = 
+  let rec aux2 n =
     if n = -1 then []
     else if vus.(n) then n::aux2 (n - 1)
     else aux2 (n - 1) in
@@ -100,13 +63,15 @@ let a3 = {
     finaux = [2];
     delta = [|[|1; 0; 0|]; [|0; 1; 0|]; [|1; 0; 2|]|]
 };;
-accessibles a3;; (* 3 n'est pas accessible *)
+accessibles a3;; (* l'état 2 n'est pas accessible *)
+(* solution:q5:end *)
 
-(* 6 *)
+(* solution:q6:start *)
 let vide a =
-  List.exists (fun q -> List.mem q a.finaux) (accessibles a);;
+  not (List.exists (fun q -> List.mem q a.finaux) (accessibles a));;
+(* solution:q6:end *)
 
-(* 7 *)
+(* solution:q7:start *)
 let inter a b =
   let n = Array.length a.delta in
   let p = Array.length b.delta in
@@ -129,12 +94,15 @@ let a3 = inter a1 a2;;
 accepte a3 [0; 1; 0; 0; 1];;
 accepte a3 [0; 1; 1; 0; 0; 1];;
 accepte a3 [1; 0; 0; 1];;
+(* solution:q7:end *)
 
-(* 8 *)
+(* solution:q8:start *)
 (* A est inclus dans B ssi A inter (complémentaire de B) est vide *)
 let inclus a b =
   vide (inter a (complementaire b));;
+(* solution:q8:end *)
 
-(* 9 *)
+(* solution:q9:start *)
 let equivalent a b =
   inclus a b && inclus b a;;
+(* solution:q9:end *)
