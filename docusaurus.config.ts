@@ -8,7 +8,7 @@ const config: Config = {
   title: "Cours d'informatique en MPI",
   tagline:
     "Site du cours d'informatique pour la classe préparatoire MPI au lycée La Martinière Monplaisir.",
-  favicon: "img/logo.png",
+  favicon: "img/favicon.png",
   trailingSlash: false,
 
   // Set the production url of your site here
