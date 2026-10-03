@@ -175,8 +175,8 @@ const config: Config = {
           position: "right",
         },
         {
-          href: "https://mp2i-info.github.io",
-          label: "MP2I",
+          href: "https://informatique-cpge.github.io",
+          label: "Ressources",
           position: "right",
         },
         {
