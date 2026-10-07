@@ -102,6 +102,11 @@ const config: Config = {
         src: "img/logo.png",
       },
       items: [
+        {
+          href: "https://mpi-informatique.github.io/",
+          label: "MPI",
+          position: "right",
+        },
         // {to: '/', label: 'Cahier de texte'},
         // {to: 'https://prepas.org/index.php?document=73', label: 'Programme officiel'},
         {
