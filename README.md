@@ -1,3 +1,5 @@
+> Le cours est désormais publié sur [mpi-informatique.github.io/cours](https://mpi-informatique.github.io/cours/) et maintenu dans [mpi-informatique/cours](https://github.com/mpi-informatique/cours). Les anciennes adresses des pages sont redirigées.
+
 # Cours d'informatique en MPI au lycée la Martinière Monplaisir
 
 ## Développement avec Nix
